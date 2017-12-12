@@ -3,8 +3,8 @@ package Model;
 public class TrainStatinDTO {
 	
 
-	String stationName;
-	String stationTimeCode;
+	private String stationName;
+	private String stationTimeCode;
 
 	
 	

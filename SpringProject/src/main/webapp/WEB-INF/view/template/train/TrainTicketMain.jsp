@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
@@ -29,8 +31,8 @@
 					$('#inputDate').val(text);
 					$('.tbg').css("display", "none");
 					$('.tbgw').css("display", "none");
-				} else{
-					
+				} else {
+
 					alert("오늘보다 이전날을 고를 수 없습니다.");
 				}
 
@@ -45,7 +47,7 @@
 			if (date[1] !== null) {
 				text += date[1].format('YYYY-MM-DD');
 			}
-			
+
 		}
 
 		// Default Calendar
@@ -116,7 +118,7 @@
 			</div>
 		</div>
 		<div class="datebg">
-			<div style="text-align: center; margin-bottom: 70px;">
+			<div style="text-align: center; margin-bottom: 35px;">
 				<H2>날짜를 정해주세요</H2>
 			</div>
 			<div class="calendar"></div>
@@ -153,6 +155,7 @@
 					<div class="control__indicator"></div></label>
 			</div>
 			<hr class="style11">
+			<form:form modelAttribute="CustomerTicket">
 			<div class="oneWay">
 				<label class="inputtext control--text"> <span
 					class="inputtext__indicator" id="stStation">출발지</span> <img
@@ -168,7 +171,7 @@
 					class="inputtext__indicator">출발일</span> <img class="pinmark"
 					id="dateTrain"
 					src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
-					<input type="text" id="inputDate" name="text">
+					<input type="text" id="inputDate" name="dateTrain">
 				</label>
 			</div>
 			<div class="trainList" id="trainList1" style="display: none;">
@@ -185,13 +188,13 @@
 					type="checkbox" id="allCheck" />
 					<div class="control__indicator"></div>
 				</label> <label class="control control--checkbox">KTX <input
-					type="checkbox" checked="checked" id="KTXcheck" />
+					type="checkbox" checked="checked" id="KTXcheck" name="trainType" />
 					<div class="control__indicator"></div>
 				</label> <label class="control control--checkbox">새마을호 <input
-					type="checkbox" id="smcheck" />
+					type="checkbox" id="smcheck" name="trainType"/>
 					<div class="control__indicator"></div>
 				</label> <label class="control control--checkbox">무궁화호 <input
-					type="checkbox" id="mgcheck" />
+					type="checkbox" id="mgcheck" name="trainType"/>
 					<div class="control__indicator"></div>
 				</label>
 			</div>
@@ -205,7 +208,7 @@
 						<dd>
 							<button class="pm" id="adultsMin">-</button>
 							<label for="m"><input class="inputpm" id="adultsVal"
-								type="text" name="m" value="0"></label>
+								type="text" name="adults" value="0"></label>
 							<button class="pm" id="adultsAdd">+</button>
 						</dd>
 
@@ -219,7 +222,7 @@
 						<dd>
 							<button class="pm" id="childMin">-</button>
 							<label for="m"><input class="inputpm" id="childVal"
-								type="text" name="m" value="0"></label>
+								type="text" name="child" value="0"></label>
 							<button class="pm" id="childAdd">+</button>
 						</dd>
 
@@ -233,7 +236,7 @@
 						<dd>
 							<button class="pm" id="oldMin">-</button>
 							<label for="m"><input class="inputpm" id="oldVal"
-								type="text" name="m" value="0"></label>
+								type="text" name="old" value="0"></label>
 							<button class="pm" id="oldAdd">+</button>
 						</dd>
 
@@ -243,6 +246,7 @@
 			<div style="text-align: center; margin-top: 30px;">
 				<button class="trainSearch">조회</button>
 			</div>
+			</form:form>
 		</div>
 	</div>
 	<!-- /mid -->
