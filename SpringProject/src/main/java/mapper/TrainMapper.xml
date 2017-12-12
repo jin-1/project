@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- CommentMapper.xml -->
+<mapper namespace="mapper.TrainMapper">
+	<cache />
+		<resultMap type="Model.TrainStatinDTO" id="baseResultMap">
+		<id column="STATION_CODE" jdbcType="VARCHAR" property="stationTimeCode" />
+		<result column="STATION_NAME" jdbcType="VARCHAR" property="stationName" />
+	</resultMap>
+	<select id="selectSearchStation" resultMap="baseResultMap">
+		select
+		STATION_NAME
+		FROM
+		TRAIN_STATION
+	</select>
+
+</mapper>

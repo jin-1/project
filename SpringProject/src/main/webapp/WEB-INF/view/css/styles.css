@@ -1,0 +1,281 @@
+@font-face {
+	font-family: 'Nanum'; /* 폰트 패밀리 이름 주기*/
+	src: url('../fonts/NanumGothicExtraBold.ttf'); /*폰트 파일 주소*/
+}
+
+@font-face {
+	font-family: 'norwester'; /* 폰트 패밀리 이름 주기*/
+	src: url('../fonts/norwester.otf'); /*폰트 파일 주소*/
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	
+}
+body{
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+a {
+	text-decoration: none;
+	color: #B2B0B0;
+}
+
+a:visited {
+	text-decoration: none;
+	color: #B2B0B0;
+}
+
+a:active {
+	text-decoration: none;
+	color: #B2B0B0;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #F0EEE9;
+}
+
+/*메인 화면 뷰*/
+#bgc {
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	opacity: 0.5;
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+}
+
+#bg {
+	width: 100%;
+	height: 100%;
+	background-image: url("../img/1.jpg");
+	position: absolute;
+	z-index: 0;
+	left: 0;
+	top: 0;
+}
+
+#header {
+	position: absolute;
+	z-index: 3;
+	width: 100%;
+	height: 20%;
+}
+
+#headerSub {
+	position: fixed;
+	z-index: 4;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 10%;
+	background-color: black;
+	display: none;
+}
+
+#logo {
+	position: absolute;
+	left: 3%;
+	top: 15px;
+}
+
+#menu {
+	position: absolute;
+	left: 20%;
+	top: 35px;
+	color: #B2B0B0;
+	font-weight: bold;
+	top: 35px;
+}
+
+#menuSub {
+	position: absolute;
+	left: 20%;
+	z-index: 4;
+	top: 28px;
+	color: #B2B0B0;
+	font-weight: bold;
+}
+
+#menuHr {
+	opacity: 0;
+	width: 0%;
+	margin-top: 10px;
+	border: solid 0.4px #B2B0B0;
+	padding: 0;
+}
+
+#menuHrSub {
+	opacity: 0;
+	width: 0%;
+	margin-top: 10px;
+	border: solid 0.4px #B2B0B0;
+	padding: 0;
+}
+
+#menug {
+	position: relative;
+	opacity: 0;
+	top: -18px;
+	left: 50%;
+	width: 20px;
+	height: 20px;
+	border-radius: 100px;
+	background-color: #F0EEE9;
+}
+
+#menu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#menu li {
+	display: inline; /*  세로나열을 가로나열로 변경 */
+	font-size: 1.3vmax;
+	margin: 0 3vmax; /* 각 메뉴 간격 */
+	font-family: 'GoodFont' !important;
+}
+
+#menuSub ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#menuSub li {
+	display: inline; /*  세로나열을 가로나열로 변경 */
+	font-size: 1.3vmax;
+	margin: 0 3vmax; /* 각 메뉴 간격 */
+	font-family: 'GoodFont' !important;
+}
+
+#submenu {
+	position: relative;
+	top: -10px;
+	left: 67%;
+}
+#menuLogin{
+	color: #B2B0B0;
+	font-weight: bold;
+	position: absolute;
+	top:40px;
+	right:40px;
+}
+#menuLogin ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#menuLogin li{
+	display: inline; /*  세로나열을 가로나열로 변경 */
+	font-size: 1vmax;
+	margin: 0 5px; /* 각 메뉴 간격 */
+	font-family: 'GoodFont' !important;
+}
+#trainSub {
+	opacity: 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#trainSub li {
+	display: inline; /*  세로나열을 가로나열로 변경 */
+	font-size: 15px;
+	margin: 0 10px; /* 각 메뉴 간격 */
+	font-family: 'GoodFont' !important;
+}
+
+#contents {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 2;
+}
+
+#typography {
+	position: relative;
+	opacity: 0;
+	top: 28%;
+	z-index: 2;
+	text-align: center;
+	color: #F0EEE9;
+	font-size: 70px;
+	font-family: 'norwester' !important;
+}
+
+#typography p {
+	margin: 3px
+}
+/*TOP 화면 뷰*/
+#top {
+	position: relative;
+	z-index: 3;
+	width: 100%;
+	height: 42%;
+	box-shadow: 1px 3px 3px #888888;
+}
+
+#menubgc {
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	opacity: 0.5;
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+}
+
+#menuBg {
+	width: 100%;
+	height: 100%;
+	background-size: 100% 100%;
+	z-index: 0;
+	left: 0;
+	top: 0;
+	position: absolute;
+}
+
+#menuName {
+	position: relative;
+	top: 45%;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	font-family: 'Nanum' !important;
+	font-size: 50px;
+}
+
+#menuContent {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+}
+
+/*MID 화면 뷰*/
+#mid {
+	position: relative;
+    width: 80%;
+    height: auto;
+	margin-left: 10%;
+	
+}
+#bot {
+	position: relative;
+	width:100%;
+	height:15%;
+	background-color:#3C3C3D;
+	margin-top:10%;
+	
+}
