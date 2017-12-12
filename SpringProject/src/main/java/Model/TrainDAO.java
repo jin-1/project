@@ -28,7 +28,20 @@ public class TrainDAO extends AbstractRepository{
 				e.printStackTrace();
 				return null;
 			}
+	}
+	
+	public List<TrainDTO> customerTicket(Map<String, Object> listTrain){
 		
-		
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectCustomerTrain";
+		List<TrainDTO> station = new ArrayList<TrainDTO>();
+		try {
+			
+			station = sqlSession.selectList(statement, listTrain);
+			return station;
+			}catch(Exception e) {
+				e.printStackTrace();
+				return null;
+			}
 	}
 }

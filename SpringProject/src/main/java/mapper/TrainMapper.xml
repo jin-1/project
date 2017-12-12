@@ -4,7 +4,7 @@
 <!-- CommentMapper.xml -->
 <mapper namespace="mapper.TrainMapper">
 	<cache />
-		<resultMap type="Model.TrainStatinDTO" id="baseResultMap">
+	<resultMap type="Model.TrainStatinDTO" id="baseResultMap">
 		<id column="STATION_CODE" jdbcType="VARCHAR" property="stationTimeCode" />
 		<result column="STATION_NAME" jdbcType="VARCHAR" property="stationName" />
 	</resultMap>
@@ -14,5 +14,44 @@
 		FROM
 		TRAIN_STATION
 	</select>
+	<select id="selectCustomerTrain" resultType="Model.TrainDTO"
+		parameterType="java.util.HashMap">
 
+		select t.train_CODE,INSTR(t.SERVICE_DATE,#{dateTrain}) as
+		SERVICE_DATE,t.TRAIN_NAME,st.TIME,ts.STATION_NAME from TRAIN t
+		inner
+		join station_time st on t.TRAIN_CODE = st.TRAIN_CODE inner join
+		train_station ts on st.STATION_CODE = ts.STATION_CODE
+		where
+		<choose>
+			<when test="station.size != 0">
+				ts.STATION_NAME in
+				<foreach collection="station" item="item" index="index"
+					separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</when>
+		</choose>
+		 and t.train_name = 'KTX' and<![CDATA[ 
+		to_date('00:00','HH24:MI')< to_date(st.time,'HH24:MI')]]>
+		and
+		<choose>
+			<when test="station.size != 0">
+				t.train_code in (select st.train_CODE from station_time st inner
+				join
+				train_station ts on st.STATION_CODE = ts.STATION_CODE
+				where
+				ts.STATION_NAME in 
+				<foreach collection="station" item="item" index="index"
+					separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</when>
+		</choose>
+		and t.train_name = 'KTX' and<![CDATA[ 
+		to_date('00:00','HH24:MI')< to_date(st.time,'HH24:MI') ]]>group
+		by
+		st.train_CODE having count(*) >1 ) order by train_CODE,time ASC
+
+	</select>
 </mapper>

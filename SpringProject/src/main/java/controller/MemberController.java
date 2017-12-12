@@ -33,7 +33,7 @@ public class MemberController {
 	public String MemberFormLogin(HttpSession session, @ModelAttribute("login") MemberDTO memberDto) {
 		
 		int result=memberService.Login(memberDto, session);
-		System.out.println(result);
+		
 		if(result==2) {
 			return "index";
 		}else if(result==1){

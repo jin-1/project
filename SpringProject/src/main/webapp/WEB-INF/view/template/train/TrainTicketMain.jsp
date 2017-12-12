@@ -206,10 +206,10 @@
 							<span>성인</span>
 						</dt>
 						<dd>
-							<button class="pm" id="adultsMin">-</button>
+							<button type="button" class="pm" id="adultsMin">-</button>
 							<label for="m"><input class="inputpm" id="adultsVal"
 								type="text" name="adults" value="0"></label>
-							<button class="pm" id="adultsAdd">+</button>
+							<button type="button" class="pm" id="adultsAdd">+</button>
 						</dd>
 
 					</dl>
@@ -220,10 +220,10 @@
 							<span>어린이</span>
 						</dt>
 						<dd>
-							<button class="pm" id="childMin">-</button>
+							<button type="button" class="pm" id="childMin">-</button>
 							<label for="m"><input class="inputpm" id="childVal"
 								type="text" name="child" value="0"></label>
-							<button class="pm" id="childAdd">+</button>
+							<button type="button" class="pm" id="childAdd">+</button>
 						</dd>
 
 					</dl>
@@ -234,10 +234,10 @@
 							<span>노인</span>
 						</dt>
 						<dd>
-							<button class="pm" id="oldMin">-</button>
+							<button type="button" class="pm" id="oldMin">-</button>
 							<label for="m"><input class="inputpm" id="oldVal"
 								type="text" name="old" value="0"></label>
-							<button class="pm" id="oldAdd">+</button>
+							<button type="button" class="pm" id="oldAdd">+</button>
 						</dd>
 
 					</dl>
