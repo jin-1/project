@@ -34,13 +34,17 @@ public class TrainService {
 	public List<TrainDTO> getCustomerTicket(CustomerTicketDTO customerTicketDTO){
 		
 		Map<String, Object> listTrain = new HashMap<String, Object>();
-		System.out.println( customerTicketDTO.getDateTrain());
+		
+		List<String> trainType = new ArrayList<String>();
+		for(String s : customerTicketDTO.getTrainType()) {
+			trainType.add(s);
+		}
 		listTrain.put("dateTrain", customerTicketDTO.getDateTrain());
 		List<String> Station = new ArrayList<String>();
 		Station.add(customerTicketDTO.getStartTrain());
 		Station.add(customerTicketDTO.getEndTrain());
 		listTrain.put("station", Station);
+		listTrain.put("trainType", trainType);
 		return traindao.customerTicket(listTrain);
-		
 	}
 }

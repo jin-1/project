@@ -187,14 +187,14 @@
 				<label class="control control--checkbox">전체<input
 					type="checkbox" id="allCheck" />
 					<div class="control__indicator"></div>
-				</label> <label class="control control--checkbox">KTX <input
-					type="checkbox" checked="checked" id="KTXcheck" name="trainType" />
+				</label> <label class="control control--checkbox">KTX 
+					<input type="checkbox" checked="checked" id="KTXcheck" name="trainType" value="KTX"/>
 					<div class="control__indicator"></div>
-				</label> <label class="control control--checkbox">새마을호 <input
-					type="checkbox" id="smcheck" name="trainType"/>
+				</label> <label class="control control--checkbox">새마을호 
+					<input type="checkbox" id="smcheck" name="trainType" value="새마을호"/>
 					<div class="control__indicator"></div>
-				</label> <label class="control control--checkbox">무궁화호 <input
-					type="checkbox" id="mgcheck" name="trainType"/>
+				</label> <label class="control control--checkbox">무궁화호
+				 	<input	type="checkbox" id="mgcheck" name="trainType" value="무궁화호"/>
 					<div class="control__indicator"></div>
 				</label>
 			</div>

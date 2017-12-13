@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-   pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
    request.setCharacterEncoding("UTF-8");
@@ -81,7 +81,7 @@
    </div>
    <div id="mid">
       <div id="container">
-         <h2>ÀÏ¹ÝÈ¸¿ø°¡ÀÔ</h2>
+         <h2>ì¼ë°˜íšŒì›ê°€ìž…</h2>
          <hr />
          <div id="form">
             <table class="m_table">
@@ -92,27 +92,27 @@
                <tr>
                   <td>ID</td>
                   <td><input type="text" class="m_id" maxlength="15" size="20" />&nbsp;
-                     <button class="idConfirm">Áßº¹È®ÀÎ</button> <br />
-                     <p>ID Áßº¹°Ë»ç¸¦ ÇØÁÖ¼¼¿ä.</p></td>
+                     <button class="idConfirm">ì¤‘ë³µí™•ì¸</button> <br />
+                     <p>ID ì¤‘ë³µê²€ì‚¬ë¥¼ í•´ì£¼ì„¸ìš”.</p></td>
                </tr>
                <tr>
-                  <td>ºñ¹Ð¹øÈ£</td>
+                  <td>ë¹„ë°€ë²ˆí˜¸</td>
 
                   <td><br />
                   <input type="password" class="m_pw" size="15" /><br />
-                     <p>ºñ¹Ð¹øÈ£´Â 8ÀÚ¸® ÀÌ»óÀ¸·Î ¸¸µå¼Å¾ß ÇÕ´Ï´Ù.</p></td>
+                     <p>ë¹„ë°€ë²ˆí˜¸ëŠ” 8ìžë¦¬ ì´ìƒìœ¼ë¡œ ë§Œë“œì…”ì•¼ í•©ë‹ˆë‹¤.</p></td>
                </tr>
                <tr>
-                  <td>ºñ¹Ð¹øÈ£ È®ÀÎ</td>
+                  <td>ë¹„ë°€ë²ˆí˜¸ í™•ì¸</td>
                   <td><input type="password" class="m_pwC" size="15" /></td>
                </tr>
                <tr>
-                  <td>ÀÌ¸§</td>
+                  <td>ì´ë¦„</td>
                   <td><input type="text" class="m_name" maxlength="10"
                      size="10" /></td>
                </tr>
                <tr>
-                  <td>ÀüÈ­¹øÈ£</td>
+                  <td>ì „í™”ë²ˆí˜¸</td>
                   <td><select name="hpNo1" id="hpNoSelect" class="m_phone1">
                         <option value="010">010</option>
                         <option value="011">011</option>
@@ -125,49 +125,49 @@
                      maxlength="4" size="5" /></td>
                </tr>
                <tr>
-                  <td>»ý³â ¿ù ÀÏ</td>
+                  <td>ìƒë…„ ì›” ì¼</td>
                   <td><input type="date" maxlength="4" class="m_year" size="7" />
                   </td>
                </tr>
                <tr>
-                  <td>ÀÌ¸ÞÀÏ</td>
-                  <td><input type="email" class="¤Ñ_mail1" size="10" />&nbsp;@ <select
-                     name="c_mail2" id="c_NomSelect1" class="¤Ñ_phone1">
+                  <td>ì´ë©”ì¼</td>
+                  <td><input type="email" class="ã…¡_mail1" size="10" />&nbsp;@ <select
+                     name="c_mail2" id="c_NomSelect1" class="ã…¡_phone1">
                         <option value="naver.com">naver.com</option>
                         <option value="daum.net">daum.net</option>
                         <option value="gmail.com">gmail.com</option>
                         <option value="nate.net">nate.net</option>
-                        <option value="naver.com">Á÷Á¢ÀÔ·Â</option>
-                  </select>&nbsp; <input type="email" class="¤Ñ_mail3" size="10" /></td>
+                        <option value="naver.com">ì§ì ‘ìž…ë ¥</option>
+                  </select>&nbsp; <input type="email" class="ã…¡_mail3" size="10" /></td>
                </tr>
                <tr>
-                  <td>ÁÖ¼Ò</td>
+                  <td>ì£¼ì†Œ</td>
                   <td class="addrIn"><input type="text" maxlength="3" size="5" />&nbsp;-&nbsp;
                      <input type="text" maxlength="3" size="5" /> &nbsp;
-                     <button class="postConfirm">¿ìÆí¹øÈ£ °Ë»ö</button>
+                     <button class="postConfirm">ìš°íŽ¸ë²ˆí˜¸ ê²€ìƒ‰</button>
                      <br /> <input type="text" size="60" /><br /> <input type="text"
                      size="60" /></td>
                </tr>
                <tr>
-                  <td>¼ºº°</td>
+                  <td>ì„±ë³„</td>
                   <td><label><input type="radio" name="gender" checked />
-                        ³²¼º</label> <label><input type="radio" name="gender" /> ¿©¼º</label></td>
+                        ë‚¨ì„±</label> <label><input type="radio" name="gender" /> ì—¬ì„±</label></td>
                </tr>
                <tr>
-                  <td>°ü½É»ç</td>
-                  <td><input type="checkbox" />·¹Àú<input type="checkbox" />½ºÆ÷Ã÷<input
-                     type="checkbox" />¿ª»ç <input type="checkbox" />¼îÇÎ<input
-                     type="checkbox" />ÃàÁ¦<input type="checkbox" />Ä·ÇÎ<br /> <input
-                     type="checkbox" />ÇÑ½Ä<input type="checkbox" />ÀÏ½Ä<input
-                     type="checkbox" />Áß½Ä <input type="checkbox" />¾ç½Ä<input
-                     type="checkbox" />ÀÚµ¿Â÷<input type="checkbox" />Ææ <input
-                     type="checkbox" />°Ô½ºÆ®ÇÏ¿ì½º<br />
-                     <p>°ü½É»ç´Â ÃÖ´ë 4°³±îÁö °í¸¦¼ö ÀÖ½À´Ï´Ù.</p></td>
+                  <td>ê´€ì‹¬ì‚¬</td>
+                  <td><input type="checkbox" />ë ˆì €<input type="checkbox" />ìŠ¤í¬ì¸ <input
+                     type="checkbox" />ì—­ì‚¬ <input type="checkbox" />ì‡¼í•‘<input
+                     type="checkbox" />ì¶•ì œ<input type="checkbox" />ìº í•‘<br /> <input
+                     type="checkbox" />í•œì‹<input type="checkbox" />ì¼ì‹<input
+                     type="checkbox" />ì¤‘ì‹ <input type="checkbox" />ì–‘ì‹<input
+                     type="checkbox" />ìžë™ì°¨<input type="checkbox" />íŽœ <input
+                     type="checkbox" />ê²ŒìŠ¤íŠ¸í•˜ìš°ìŠ¤<br />
+                     <p>ê´€ì‹¬ì‚¬ëŠ” ìµœëŒ€ 4ê°œê¹Œì§€ ê³ ë¥¼ìˆ˜ ìžˆìŠµë‹ˆë‹¤.</p></td>
                </tr>
             </table>
             <div class="bottom">
-               <p class="m_confirm">°¡ ÀÔ</p>
-               <p class="m_cancel">Ãë ¼Ò</p>
+               <p class="m_confirm">ê°€ ìž…</p>
+               <p class="m_cancel">ì·¨ ì†Œ</p>
             </div>
          </div>
       </div>

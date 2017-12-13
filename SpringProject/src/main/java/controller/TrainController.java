@@ -56,12 +56,15 @@ public class TrainController {
 		return "template/train/TrainTicketMain";
 	}
 	@RequestMapping(value = "/TrainTicketMain", method = RequestMethod.POST)
-	public String TrainTicketMainPost(@ModelAttribute("CustomerTicket") CustomerTicketDTO customerTicketDTO) {
+	public String TrainTicketMainPost(Model model , @ModelAttribute("CustomerTicket") CustomerTicketDTO customerTicketDTO) {
 		
 			List<TrainDTO> listTrain = trainService.getCustomerTicket(customerTicketDTO);
 			
 			if(listTrain != null) {
-				return "index";
+				
+				model.addAttribute("listTrain",listTrain);
+				model.addAttribute("custom", customerTicketDTO);
+				return "template/train/TrainTicketList";
 			} else {
 				return "template/train/TrainTicketMain";
 			}

@@ -8,19 +8,26 @@
 		<id column="STATION_CODE" jdbcType="VARCHAR" property="stationTimeCode" />
 		<result column="STATION_NAME" jdbcType="VARCHAR" property="stationName" />
 	</resultMap>
+	<resultMap type="Model.TrainDTO" id="coustomListMap">
+		<result column="TRAIN_CODE" jdbcType="BIGINT" property="trainCode" />
+		<result column="SERVICE_DATE" jdbcType="VARCHAR" property="serviceDate" />
+		<result column="TRAIN_NAME" jdbcType="VARCHAR" property="trainName" />
+		<result column="TIME" jdbcType="VARCHAR" property="time" />
+		<result column="STATION_NAME" jdbcType="VARCHAR" property="stationName" />
+	</resultMap>
 	<select id="selectSearchStation" resultMap="baseResultMap">
 		select
 		STATION_NAME
 		FROM
 		TRAIN_STATION
 	</select>
-	<select id="selectCustomerTrain" resultType="Model.TrainDTO"
+	<select id="selectCustomerTrain" resultMap="coustomListMap"
 		parameterType="java.util.HashMap">
 
-		select t.train_CODE,INSTR(t.SERVICE_DATE,#{dateTrain}) as
-		SERVICE_DATE,t.TRAIN_NAME,st.TIME,ts.STATION_NAME from TRAIN t
-		inner
-		join station_time st on t.TRAIN_CODE = st.TRAIN_CODE inner join
+		select t.train_CODE,t.TRAIN_NAME,substr(xmlagg(xmlelement(a,',' ||
+		st.time)order by st.time ).extract('//text()'),2) time from TRAIN t
+		inner join
+		station_time st on t.TRAIN_CODE = st.TRAIN_CODE inner join
 		train_station ts on st.STATION_CODE = ts.STATION_CODE
 		where
 		<choose>
@@ -32,7 +39,19 @@
 				</foreach>
 			</when>
 		</choose>
-		 and t.train_name = 'KTX' and<![CDATA[ 
+		
+	<choose>
+			<when test="trainType.size != 0">
+				and t.train_name in
+				<foreach collection="trainType" item="item" index="index"
+					separator="," open="(" close=")">
+					#{item}
+				</foreach>
+				and
+			</when>
+		</choose>
+	
+		<![CDATA[ 
 		to_date('00:00','HH24:MI')< to_date(st.time,'HH24:MI')]]>
 		and
 		<choose>
@@ -41,7 +60,7 @@
 				join
 				train_station ts on st.STATION_CODE = ts.STATION_CODE
 				where
-				ts.STATION_NAME in 
+				ts.STATION_NAME in
 				<foreach collection="station" item="item" index="index"
 					separator="," open="(" close=")">
 					#{item}
@@ -50,8 +69,8 @@
 		</choose>
 		and t.train_name = 'KTX' and<![CDATA[ 
 		to_date('00:00','HH24:MI')< to_date(st.time,'HH24:MI') ]]>group
-		by
-		st.train_CODE having count(*) >1 ) order by train_CODE,time ASC
+		by st.train_CODE having count(*) >1 )
+		group by t.train_CODE, t.TRAIN_NAME order by train_code ASC
 
 	</select>
 </mapper>
