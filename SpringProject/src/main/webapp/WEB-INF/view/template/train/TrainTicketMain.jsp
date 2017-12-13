@@ -15,52 +15,7 @@
 <jsp:include page="../config.jsp" flush="false" />
 
 <script type="text/javascript">
-	function captureReturnKey(e) {
-		if (e.keyCode == 13 && e.srcElement.type != 'textarea')
-			return false;
-	}
-	$(function() {
 
-		function onClickHandler(date, obj) {
-			var calendar = obj.calendar;
-
-			var text = '';
-
-			if (date[0] !== null) {
-				var now = new Date();
-				var select = new Date(date[0]);
-				console.log(select);
-				if (now.getTime() < select.getTime()) {
-					text += date[0].format('YYYY-MM-DD');
-					$('#stDate').text(text);
-					$('#inputDate').val(text);
-					$('.tbg').css("display", "none");
-					$('.tbgw').css("display", "none");
-				} else {
-
-					alert("오늘보다 이전날을 고를 수 없습니다.");
-				}
-
-			}
-
-			if (date[0] !== null && date[1] !== null) {
-				text += ' ~ ';
-			} else if (date[0] === null && date[1] == null) {
-				text += 'nothing';
-			}
-
-			if (date[1] !== null) {
-				text += date[1].format('YYYY-MM-DD');
-			}
-
-		}
-
-		// Default Calendar
-		$('.calendar').pignoseCalendar({
-			select : onClickHandler
-		});
-
-	});
 </script>
 </head>
 <body>
@@ -164,31 +119,32 @@
 			<form:form modelAttribute="CustomerTicket" autocomplete="off"
 				onkeydown="return captureReturnKey(event)">
 				<div class="oneWay">
-					<label class="inputtext control--text"> <span
-						class="inputtext__indicator" id="stStation">출발지</span> <img
-						id="startTrain" class="pinmark"
-						src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
-						<input type="text" id="inputStrat" name="startTrain"></label> <label
-						class="inputtext control--text"> <span
-						class="inputtext__indicator" id="edStation">도착지</span> <input
-						type="text" id="inputEnd" name="endTrain"> <img
-						id="endTrain" class="pinmark"
-						src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
-					</label> <label class="inputtext control--text"> <span id="stDate"
-						class="inputtext__indicator">출발일</span> <img class="pinmark"
-						id="dateTrain"
-						src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
+					<label class="inputtext control--text"> 
+						<span class="inputtext__indicator" id="stStation">출발지</span> 
+						<img id="startTrain" class="pinmark" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
+						<input type="text" id="inputStrat" name="startTrain">
+						<span class="trainList" id="trainList1" style="display: none;">
+							<ul>
+							</ul>
+						</span>
+					</label> 
+					<label class="inputtext control--text"> 
+						<span class="inputtext__indicator" id="edStation">도착지</span> 
+						<input	type="text" id="inputEnd" name="endTrain"> 
+						<img id="endTrain" class="pinmark" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
+						<span class="trainList" id="trainList2" style="display: none;">
+							<ul>
+							</ul>
+						</span>
+					</label> 
+					<label class="inputtext control--text"> 
+					<span id="stDate" class="inputtext__indicator">출발일</span> 
+					<img class="pinmark" id="dateTrain" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
 						<input type="text" id="inputDate" name="dateTrain">
 					</label>
 				</div>
-				<div class="trainList" id="trainList1" style="display: none;">
-					<ul>
-					</ul>
-				</div>
-				<div class="trainList" id="trainList2" style="display: none;">
-					<ul>
-					</ul>
-				</div>
+				
+				
 				<hr class="style3">
 				<div>
 					<label class="control control--checkbox">전체<input
