@@ -15,7 +15,12 @@
 <jsp:include page="../config.jsp" flush="false" />
 
 <script type="text/javascript">
+	function captureReturnKey(e) {
+		if (e.keyCode == 13 && e.srcElement.type != 'textarea')
+			return false;
+	}
 	$(function() {
+
 		function onClickHandler(date, obj) {
 			var calendar = obj.calendar;
 
@@ -142,6 +147,7 @@
 				<div style="background-color: #1a2440b0;">발권</div>
 			</div>
 
+
 			<hr>
 		</div>
 		<div class="trainTicket">
@@ -155,97 +161,99 @@
 					<div class="control__indicator"></div></label>
 			</div>
 			<hr class="style11">
-			<form:form modelAttribute="CustomerTicket">
-			<div class="oneWay">
-				<label class="inputtext control--text"> <span
-					class="inputtext__indicator" id="stStation">출발지</span> <img
-					id="startTrain" class="pinmark"
-					src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
-					<input type="text" id="inputStrat" name="startTrain"></label> <label
-					class="inputtext control--text"> <span
-					class="inputtext__indicator" id="edStation">도착지</span> <input
-					type="text" id="inputEnd" name="endTrain"> <img
-					id="endTrain" class="pinmark"
-					src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
-				</label> <label class="inputtext control--text"> <span id="stDate"
-					class="inputtext__indicator">출발일</span> <img class="pinmark"
-					id="dateTrain"
-					src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
-					<input type="text" id="inputDate" name="dateTrain">
-				</label>
-			</div>
-			<div class="trainList" id="trainList1" style="display: none;">
-				<ul>
-				</ul>
-			</div>
-			<div class="trainList" id="trainList2" style="display: none;">
-				<ul>
-				</ul>
-			</div>
-			<hr class="style3">
-			<div>
-				<label class="control control--checkbox">전체<input
-					type="checkbox" id="allCheck" />
-					<div class="control__indicator"></div>
-				</label> <label class="control control--checkbox">KTX 
-					<input type="checkbox" checked="checked" id="KTXcheck" name="trainType" value="KTX"/>
-					<div class="control__indicator"></div>
-				</label> <label class="control control--checkbox">새마을호 
-					<input type="checkbox" id="smcheck" name="trainType" value="새마을호"/>
-					<div class="control__indicator"></div>
-				</label> <label class="control control--checkbox">무궁화호
-				 	<input	type="checkbox" id="mgcheck" name="trainType" value="무궁화호"/>
-					<div class="control__indicator"></div>
-				</label>
-			</div>
-			<hr class="style3">
-			<div class="num">
-				<div class="adults">
-					<dl>
-						<dt>
-							<span>성인</span>
-						</dt>
-						<dd>
-							<button type="button" class="pm" id="adultsMin">-</button>
-							<label for="m"><input class="inputpm" id="adultsVal"
-								type="text" name="adults" value="0"></label>
-							<button type="button" class="pm" id="adultsAdd">+</button>
-						</dd>
-
-					</dl>
+			<form:form modelAttribute="CustomerTicket" autocomplete="off"
+				onkeydown="return captureReturnKey(event)">
+				<div class="oneWay">
+					<label class="inputtext control--text"> <span
+						class="inputtext__indicator" id="stStation">출발지</span> <img
+						id="startTrain" class="pinmark"
+						src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
+						<input type="text" id="inputStrat" name="startTrain"></label> <label
+						class="inputtext control--text"> <span
+						class="inputtext__indicator" id="edStation">도착지</span> <input
+						type="text" id="inputEnd" name="endTrain"> <img
+						id="endTrain" class="pinmark"
+						src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
+					</label> <label class="inputtext control--text"> <span id="stDate"
+						class="inputtext__indicator">출발일</span> <img class="pinmark"
+						id="dateTrain"
+						src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
+						<input type="text" id="inputDate" name="dateTrain">
+					</label>
 				</div>
-				<div class="child">
-					<dl>
-						<dt>
-							<span>어린이</span>
-						</dt>
-						<dd>
-							<button type="button" class="pm" id="childMin">-</button>
-							<label for="m"><input class="inputpm" id="childVal"
-								type="text" name="child" value="0"></label>
-							<button type="button" class="pm" id="childAdd">+</button>
-						</dd>
-
-					</dl>
+				<div class="trainList" id="trainList1" style="display: none;">
+					<ul>
+					</ul>
 				</div>
-				<div class="old">
-					<dl>
-						<dt>
-							<span>노인</span>
-						</dt>
-						<dd>
-							<button type="button" class="pm" id="oldMin">-</button>
-							<label for="m"><input class="inputpm" id="oldVal"
-								type="text" name="old" value="0"></label>
-							<button type="button" class="pm" id="oldAdd">+</button>
-						</dd>
-
-					</dl>
+				<div class="trainList" id="trainList2" style="display: none;">
+					<ul>
+					</ul>
 				</div>
-			</div>
-			<div style="text-align: center; margin-top: 30px;">
-				<button class="trainSearch">조회</button>
-			</div>
+				<hr class="style3">
+				<div>
+					<label class="control control--checkbox">전체<input
+						type="checkbox" id="allCheck" />
+						<div class="control__indicator"></div>
+					</label> <label class="control control--checkbox">KTX <input
+						type="checkbox" checked="checked" id="KTXcheck" name="trainType"
+						value="KTX" />
+						<div class="control__indicator"></div>
+					</label> <label class="control control--checkbox">새마을호 <input
+						type="checkbox" id="smcheck" name="trainType" value="새마을호" />
+						<div class="control__indicator"></div>
+					</label> <label class="control control--checkbox">무궁화호 <input
+						type="checkbox" id="mgcheck" name="trainType" value="무궁화호" />
+						<div class="control__indicator"></div>
+					</label>
+				</div>
+				<hr class="style3">
+				<div class="num">
+					<div class="adults">
+						<dl>
+							<dt>
+								<span>성인</span>
+							</dt>
+							<dd>
+								<button type="button" class="pm" id="adultsMin">-</button>
+								<label for="m"><input class="inputpm" id="adultsVal"
+									type="text" name="adults" value="0"></label>
+								<button type="button" class="pm" id="adultsAdd">+</button>
+							</dd>
+
+						</dl>
+					</div>
+					<div class="child">
+						<dl>
+							<dt>
+								<span>어린이</span>
+							</dt>
+							<dd>
+								<button type="button" class="pm" id="childMin">-</button>
+								<label for="m"><input class="inputpm" id="childVal"
+									type="text" name="child" value="0"></label>
+								<button type="button" class="pm" id="childAdd">+</button>
+							</dd>
+
+						</dl>
+					</div>
+					<div class="old">
+						<dl>
+							<dt>
+								<span>노인</span>
+							</dt>
+							<dd>
+								<button type="button" class="pm" id="oldMin">-</button>
+								<label for="m"><input class="inputpm" id="oldVal"
+									type="text" name="old" value="0"></label>
+								<button type="button" class="pm" id="oldAdd">+</button>
+							</dd>
+
+						</dl>
+					</div>
+				</div>
+				<div style="text-align: center; margin-top: 30px;">
+					<button class="trainSearch">조회</button>
+				</div>
 			</form:form>
 		</div>
 	</div>

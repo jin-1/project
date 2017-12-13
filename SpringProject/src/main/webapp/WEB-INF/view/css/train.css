@@ -245,7 +245,7 @@
 	border: 1px solid #eee;
 	text-align: center;
 	text-decoration: none;
-	cursor:pointer;
+	cursor: pointer;
 }
 
 .location {
@@ -547,7 +547,6 @@ hr.style3 {
 	left: 20%;
 	display: none;
 	border-radius: 15px;
-	
 }
 
 #trainList1 {
@@ -586,7 +585,7 @@ hr.style3 {
 
 .trainList li {
 	height: 30px;
-	cursor:pointer;
+	cursor: pointer;
 }
 
 .stbg {
@@ -596,6 +595,7 @@ hr.style3 {
 	padding: 10px;
 	display: none;
 }
+
 .edbg {
 	width: 98%;
 	position: absolute;
@@ -603,7 +603,8 @@ hr.style3 {
 	padding: 10px;
 	display: none;
 }
-.datebg{
+
+.datebg {
 	width: 98%;
 	position: absolute;
 	height: 98%;
@@ -630,7 +631,7 @@ hr.style3 {
 	font-size: 15px;
 	margin: 0px 16px;
 	font-family: 'GoodFont' !important;
-	cursor:pointer;
+	cursor: pointer;
 }
 
 #trainList3 {
@@ -648,13 +649,14 @@ hr.style3 {
 
 #trainList3 li {
 	display: inline-block;
-    font-size: 15px;
-    min-width: 200px;
-    margin: 5px 15px;
-    font-family: 'GoodFont' !important;
-    height: 35px;
-    cursor:pointer;
+	font-size: 15px;
+	min-width: 200px;
+	margin: 5px 15px;
+	font-family: 'GoodFont' !important;
+	height: 35px;
+	cursor: pointer;
 }
+
 #trainList4 {
 	width: 100%;
 	height: 600px;
@@ -666,15 +668,60 @@ hr.style3 {
 	list-style: none;
 	margin: 0;
 	padding-top: 10px;
-	
 }
 
 #trainList4 li {
 	display: inline-block;
-    font-size: 15px;
-    min-width: 200px;
-    margin: 5px 15px;
-    font-family: 'GoodFont' !important;
-    height: 35px;
-    cursor:pointer;
+	font-size: 15px;
+	min-width: 200px;
+	margin: 5px 15px;
+	font-family: 'GoodFont' !important;
+	height: 35px;
+	cursor: pointer;
+}
+
+.ListTable {
+	width: 80%;
+    margin: auto;
+    text-align: center;
+    border-spacing: 0;
+}
+
+.ListTable thead {
+	background-color: #dcebf1;
+}
+
+.ListTable>thead>tr {
+	height: 50px;
+}
+
+.ListTable>tbody>tr {
+	height: 60px;
+}
+
+.ListTable>tbody>tr>td {
+	border-bottom: #00000040 1px solid;
+}
+
+.ticketing {
+	width: 50px;
+	height: 23px;
+	margin: auto;
+	padding-top: 0px;
+	background-color: #d86f6f;
+	border-radius: 3px;
+	color: white;
+}
+
+.inquire {
+	width: 50px;
+	height: 23px;
+	margin: auto;
+	padding-top: 0px;
+	background-color: #235fe4;
+	border-radius: 3px;
+	color: white;
+}
+.hover:hover{
+	
 }

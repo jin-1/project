@@ -399,7 +399,12 @@ $(document).ready(
 				$('.datebg').css('display', 'inline');
 
 			});
-
+			$('#trainList1 li').mouseenter(function() {
+				$(this).css("background-color", "#EEF1F6");
+			});
+			$('#trainList1 li').mouseleave(function() {
+				$(this).css("background-color", "#ffffff");
+			});
 			$.ajax({
 				url : "startTrain",
 				dataType : "json",
@@ -440,6 +445,7 @@ $(document).ready(
 
 			$("#trainList1 ul").on("click", "li", function() {
 				$("#stStation").html($(this).text());
+				$("#inputStrat").val($(this).text());
 				$("#trainList1").css("display", "none");
 			});
 			$('#trainList1').blur(function() {
@@ -447,7 +453,10 @@ $(document).ready(
 				$("#stStation").html($('#inputStrat').val());
 
 			});
-
+			$("#inputStrat").blur(function() {
+				$("#trainList1").css("display", "none");
+				$("#stStation").text($("inputStart").val());
+			});
 			$("#inputEnd:text").keyup(
 					function(e) {
 						var code = e.which;
@@ -466,6 +475,7 @@ $(document).ready(
 
 			$("#trainList2 ul").on("click", "li", function() {
 				$("#edStation").html($(this).text());
+				$("#inputEnd").val($(this).text());
 				$("#trainList2").css("display", "none");
 			});
 			$('#trainList2').blur(function() {
@@ -635,9 +645,13 @@ $(document).ready(
 					$('#mgcheck').prop('checked', false);
 				}
 			});
-			$('.pm').on("click",function() {
+			$('.pm').on(
+					"click",
+					function() {
 						var id = $(this).attr('id');
-						var total = Number($('#adultsVal').val())+ Number($('#childVal').val())	+ Number($('#oldVal').val());
+						var total = Number($('#adultsVal').val())
+								+ Number($('#childVal').val())
+								+ Number($('#oldVal').val());
 						if (total > 8) {
 							alert("9명 이상 신청할 수 없습니다.");
 						} else {

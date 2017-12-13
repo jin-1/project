@@ -2,11 +2,12 @@ package Model;
 
 public class TrainDTO {
 
-	int trainCode;
-	String serviceDate;
-	String trainName;
-	String time;
-	String stationName;
+	private int trainCode;
+	private String serviceDate;
+	private String trainName;
+	private int trainPrice;
+	private String time;
+	private String stationName;
 	public int getTrainCode() {
 		return trainCode;
 	}
@@ -36,6 +37,12 @@ public class TrainDTO {
 	}
 	public void setStationName(String stationName) {
 		this.stationName = stationName;
+	}
+	public int getTrainPrice() {
+		return trainPrice;
+	}
+	public void setTrainPrice(int trainPrice) {
+		this.trainPrice = trainPrice;
 	}
 	
 	

@@ -11,6 +11,7 @@
 	<resultMap type="Model.TrainDTO" id="coustomListMap">
 		<result column="TRAIN_CODE" jdbcType="BIGINT" property="trainCode" />
 		<result column="SERVICE_DATE" jdbcType="VARCHAR" property="serviceDate" />
+		<result column="TRAIN_PRICE" jdbcType="BIGINT" property="trainPrice" />
 		<result column="TRAIN_NAME" jdbcType="VARCHAR" property="trainName" />
 		<result column="TIME" jdbcType="VARCHAR" property="time" />
 		<result column="STATION_NAME" jdbcType="VARCHAR" property="stationName" />
@@ -24,7 +25,7 @@
 	<select id="selectCustomerTrain" resultMap="coustomListMap"
 		parameterType="java.util.HashMap">
 
-		select t.train_CODE,t.TRAIN_NAME,substr(xmlagg(xmlelement(a,',' ||
+		select t.train_CODE,t.TRAIN_NAME,t.TRAIN_PRICE,substr(xmlagg(xmlelement(a,',' ||
 		st.time)order by st.time ).extract('//text()'),2) time from TRAIN t
 		inner join
 		station_time st on t.TRAIN_CODE = st.TRAIN_CODE inner join
@@ -70,7 +71,7 @@
 		and t.train_name = 'KTX' and<![CDATA[ 
 		to_date('00:00','HH24:MI')< to_date(st.time,'HH24:MI') ]]>group
 		by st.train_CODE having count(*) >1 )
-		group by t.train_CODE, t.TRAIN_NAME order by train_code ASC
+		group by t.train_CODE, t.TRAIN_NAME, t.TRAIN_PRICE order by train_code ASC
 
 	</select>
 </mapper>

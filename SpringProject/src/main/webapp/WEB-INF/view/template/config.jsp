@@ -6,8 +6,7 @@
 
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/calendar-style.css" />
-<link rel="stylesheet" type="text/css"
-	href="./css/pignose.calendar.min.css" />
+<link rel="stylesheet" type="text/css" href="./css/pignose.calendar.min.css" />
 <script type="text/javascript"
 	src="./scripts/pignose.calendar.full.min.js"></script>
 <script type="text/javascript" src="./scripts/script.js"></script>
