@@ -19,7 +19,8 @@
 <jsp:include page="../config.jsp" flush="false" />
 </head>
 <body>
-
+	<div class="tbg"></div>
+	<div class="tbgw"></div>
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
 	</div>
@@ -53,6 +54,7 @@
 
 				<tbody>
 					<%
+						if(list.size() != 0){
 						for (int i = 0; i < list.size(); i++) {
 							String time[] = list.get(i).getTime().split(",");
 					%>
@@ -69,7 +71,11 @@
 					</tr>
 					<%
 						}
+						} else{
 					%>
+					<tr><td colspan="7">조회한 결과 값이 없습니다.</td></tr>
+					
+					<%} %>
 				</tbody>
 			</table>
 

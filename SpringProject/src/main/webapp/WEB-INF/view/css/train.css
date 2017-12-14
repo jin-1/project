@@ -1,11 +1,11 @@
 @font-face {
-	font-family: 'Nanum'; /* �룿�듃 �뙣諛�由� �씠由� 二쇨린*/
-	src: url('../fonts/NanumGothicExtraBold.ttf'); /*�룿�듃 �뙆�씪 二쇱냼*/
+	font-family: 'Nanum';
+	src: url('../fonts/NanumGothicExtraBold.ttf'); 
 }
 
 @font-face {
-	font-family: 'norwester'; /* �룿�듃 �뙣諛�由� �씠由� 二쇨린*/
-	src: url('../fonts/norwester.otf'); /*�룿�듃 �뙆�씪 二쇱냼*/
+	font-family: 'norwester'; 
+	src: url('../fonts/norwester.otf'); 
 }
 
 #sideMenu {
@@ -553,9 +553,9 @@ hr.style3 {
 	min-height: 50px;
 	max-height: 150px;
 	width: 252px;
-	top: 146px;
+	top: 40px;
 	position: absolute;
-	left: 30px;
+	
 	background-color: white;
 	z-index: 9;
 	box-shadow: 0px 3px 8px #888888;
@@ -567,9 +567,9 @@ hr.style3 {
 	min-height: 50px;
 	max-height: 150px;
 	width: 252px;
-	top: 146px;
+	top: 40px;
 	position: absolute;
-	left: 288px;
+	
 	background-color: white;
 	z-index: 9;
 	box-shadow: 0px 3px 8px #888888;
@@ -636,7 +636,7 @@ hr.style3 {
 
 #trainList3 {
 	width: 100%;
-	height: 600px;
+	height: 430px;
 	overflow-x: hidden;
 	overflow-y: auto;
 }
@@ -659,7 +659,7 @@ hr.style3 {
 
 #trainList4 {
 	width: 100%;
-	height: 600px;
+	height: 430px;
 	overflow-x: hidden;
 	overflow-y: auto;
 }
@@ -711,6 +711,7 @@ hr.style3 {
 	background-color: #d86f6f;
 	border-radius: 3px;
 	color: white;
+	cursor: pointer;
 }
 
 .inquire {
@@ -718,9 +719,10 @@ hr.style3 {
 	height: 23px;
 	margin: auto;
 	padding-top: 0px;
-	background-color: #235fe4;
+	background-color: #223661d1;
 	border-radius: 3px;
 	color: white;
+	cursor: pointer;
 }
 .hover:hover{
 	

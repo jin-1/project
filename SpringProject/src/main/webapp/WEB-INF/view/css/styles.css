@@ -269,7 +269,7 @@ a:hover {
     width: 80%;
     height: auto;
 	margin-left: 10%;
-	
+	min-height: 500px;
 }
 #bot {
 	position: relative;
