@@ -19,8 +19,26 @@
 <jsp:include page="../config.jsp" flush="false" />
 </head>
 <body>
-	<div class="tbg"></div>
-	<div class="tbgw"></div>
+
+	<div class="tbgt">
+
+		<h3><%=custom.getStartTrain()%>
+			→
+			<%=custom.getEndTrain()%>행 열차
+		</h3>
+		<table>
+			<tr>
+				<td>일반</td>
+				<td>어른</td>
+				<td>어린이</td>
+			</tr>
+			<tr>
+				<td id="adult_pay"></td>
+				<td id="old_pay"></td>
+				<td id="child_pay"></td>
+			</tr>
+		</table>
+	</div>
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
 	</div>
@@ -54,9 +72,9 @@
 
 				<tbody>
 					<%
-						if(list.size() != 0){
-						for (int i = 0; i < list.size(); i++) {
-							String time[] = list.get(i).getTime().split(",");
+						if (list.size() != 0) {
+							for (int i = 0; i < list.size(); i++) {
+								String time[] = list.get(i).getTime().split(",");
 					%>
 					<tr bgcolor="#FFFFFF"
 						onMouseOver="this.style.backgroundColor='#EEF1F6'"
@@ -68,14 +86,19 @@
 						<td><%=custom.getEndTrain()%><br><%=time[1]%></td>
 						<td><div class="ticketing">예매</div></td>
 						<td><div class="inquire">조회</div></td>
+
 					</tr>
 					<%
 						}
-						} else{
+						} else {
 					%>
-					<tr><td colspan="7">조회한 결과 값이 없습니다.</td></tr>
-					
-					<%} %>
+					<tr>
+						<td colspan="7">조회한 결과 값이 없습니다.</td>
+					</tr>
+
+					<%
+						}
+					%>
 				</tbody>
 			</table>
 

@@ -510,8 +510,17 @@ $(document).ready(
 						}
 					});
 			
-			$('.inquire').on('click',function(){
-				$('.tbg').css("display","inline");
-				$('.tbgw').css("display","inline");
+			$('.inquire').mouseenter(function(){
+				 var y = $(this).offset().top;
+				 
+				 
+				  $('.tbgt').css("top",y);
+				$('.tbgt').css("display","inline");
+				
+				
+			});
+			$('.inquire').mouseleave(function(){
+
+				$('.tbgt').css("display","none");
 			});
 		});
