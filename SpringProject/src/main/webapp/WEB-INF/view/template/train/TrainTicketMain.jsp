@@ -181,7 +181,7 @@
 						<input type="text" id="inputDate" name="dateTrain">
 					</label>
 				</div>
-				<div class="trainList" id="trainList1" style="display: none;">
+				<div class="trainList"  id="trainList1" style="display: none;">
 					<ul>
 					</ul>
 				</div>

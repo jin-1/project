@@ -399,12 +399,7 @@ $(document).ready(
 				$('.datebg').css('display', 'inline');
 
 			});
-			$('#trainList1 li').mouseenter(function() {
-				$(this).css("background-color", "#EEF1F6");
-			});
-			$('#trainList1 li').mouseleave(function() {
-				$(this).css("background-color", "#ffffff");
-			});
+
 			$.ajax({
 				url : "startTrain",
 				dataType : "json",
@@ -447,15 +442,17 @@ $(document).ready(
 				$("#stStation").html($(this).text());
 				$("#inputStrat").val($(this).text());
 				$("#trainList1").css("display", "none");
+				
+				$("#inputStrat").blur(function() {
+					$("#trainList1").css("display", "none");
+					
+				});
 			});
-			$('#trainList1').blur(function() {
-				$("#trainList1").css("display", "none");
-				$("#stStation").html($('#inputStrat').val());
 
-			});
+			
 			$("#inputStrat").blur(function() {
-				$("#trainList1").css("display", "none");
 				$("#stStation").text($("inputStart").val());
+				$("#trainList1").css("display", "none");
 			});
 			$("#inputEnd:text").keyup(
 					function(e) {
