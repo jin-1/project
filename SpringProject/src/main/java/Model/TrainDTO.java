@@ -7,6 +7,22 @@ public class TrainDTO {
 	private String trainName;
 	private int trainPrice;
 	private String time;
+	private String stime;
+	private String dtime;
+	
+	
+	public String getStime() {
+		return stime;
+	}
+	public void setStime(String stime) {
+		this.stime = stime;
+	}
+	public String getDtime() {
+		return dtime;
+	}
+	public void setDtime(String dtime) {
+		this.dtime = dtime;
+	}
 	private String stationName;
 	public int getTrainCode() {
 		return trainCode;

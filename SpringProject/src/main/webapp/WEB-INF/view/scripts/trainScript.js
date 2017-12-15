@@ -509,18 +509,23 @@ $(document).ready(
 							}
 						}
 					});
-			
-			$('.inquire').mouseenter(function(){
-				 var y = $(this).offset().top;
-				 
-				 
-				  $('.tbgt').css("top",y);
-				$('.tbgt').css("display","inline");
-				
-				
-			});
-			$('.inquire').mouseleave(function(){
 
-				$('.tbgt').css("display","none");
+			$('.inquire').mouseenter(function() {
+				var y = $(this).offset().top;
+				var price = $(this).attr("name");
+				$('#adult_pay').text(price);
+				$('#old_pay').text(price*0.7);
+				$('#child_pay').text(price*0.5);
+				$('.tbgt').css("top", y);
+				$('.tbgt').css("display", "inline");
+
 			});
+			$('.inquire').mouseleave(function() {
+
+				$('.tbgt').css("display", "none");
+			});
+			$('.ticketing').on("click", function() {	
+				$('#frm').submit();
+			});
+			
 		});

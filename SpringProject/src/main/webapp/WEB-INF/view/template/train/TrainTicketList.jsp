@@ -17,26 +17,33 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>TRENVIAJES</title>
 <jsp:include page="../config.jsp" flush="false" />
+
 </head>
 <body>
 
 	<div class="tbgt">
 
-		<h3><%=custom.getStartTrain()%>
+		<h4><%=custom.getStartTrain()%>
 			→
 			<%=custom.getEndTrain()%>행 열차
-		</h3>
+			<%=custom.getAdults() + " " + custom.getChild() + " " + custom.getOld()%>
+		</h4>
+		<hr class="style11">
 		<table>
-			<tr>
-				<td>일반</td>
-				<td>어른</td>
-				<td>어린이</td>
-			</tr>
-			<tr>
-				<td id="adult_pay"></td>
-				<td id="old_pay"></td>
-				<td id="child_pay"></td>
-			</tr>
+			<thead>
+				<tr>
+					<th>일반</th>
+					<th>어른</th>
+					<th>어린이</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="adult_pay"></td>
+					<td id="old_pay"></td>
+					<td id="child_pay"></td>
+				</tr>
+			</tbody>
 		</table>
 	</div>
 	<div id="top">
@@ -84,10 +91,21 @@
 						<td><%=list.get(i).getTrainName()%></td>
 						<td><%=custom.getStartTrain()%><br><%=time[0]%></td>
 						<td><%=custom.getEndTrain()%><br><%=time[1]%></td>
-						<td><div class="ticketing">예매</div></td>
-						<td><div class="inquire">조회</div></td>
+						<td><form:form action="Ticketing" method="POST" id="frm">
+								<input type="hidden" value="<%=custom.getAdults()%>)" name="data">
+								<input type="hidden" value="<%=custom.getOld()%>" name="data">
+								<input type="hidden" value="<%=custom.getChild()%>" name="data">
+								<input type="hidden" value="<%=list.get(i).getTrainCode()%>>" name="data">
+								<input type="hidden" value="<%=custom.getDateTrain()%>" name="data">
+								<input type="hidden" value="<%=time[0]%>" name="data">
+								<input type="hidden" value="<%=time[1]%>" name="data">
+								<div class="ticketing" name="<%=list.get(i).getTrainCode()%>">예매</div>
+							</form:form></td>
+						<td><div class="inquire"
+								name="<%=list.get(i).getTrainPrice()%>">조회</div></td>
 
 					</tr>
+
 					<%
 						}
 						} else {
@@ -95,7 +113,6 @@
 					<tr>
 						<td colspan="7">조회한 결과 값이 없습니다.</td>
 					</tr>
-
 					<%
 						}
 					%>

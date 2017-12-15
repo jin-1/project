@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import Model.CustomerTicketDTO;
 import Model.MemberDTO;
 import Model.TrainDTO;
+import Model.TrainRegistrationDTO;
 import Model.TrainStatinDTO;
 import service.TrainService;
 
@@ -70,6 +71,19 @@ public class TrainController {
 			}
 			
 
+	}
+	@RequestMapping(value = "/Ticketing", method = RequestMethod.POST)
+	public String Ticketing(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		String img = req.getParameter("img");
+		String[] data = req.getParameterValues("data");
+		
+		List<TrainRegistrationDTO> seat = trainService.getTrainInfo(data[3]);
+		
+		model.addAttribute("menu", menu);
+		model.addAttribute("img", img);
+		model.addAttribute("data", data);
+		return "template/train/TrainTicketMain";
 	}
 
 	@ResponseBody

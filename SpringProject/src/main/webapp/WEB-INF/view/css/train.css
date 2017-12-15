@@ -550,16 +550,32 @@ hr.style3 {
 }
 
 .tbgt {
-	width: 250px;
-	height: 300px;
+	width: 230px;
+	padding: 20px;
+	height: 200px;
 	position: absolute;
 	background: white;
 	z-index: 11;
-	
+	text-align: center;
 	right: 110px;
 	display: none;
 	border-radius: 15px;
 	box-shadow: #00000085 1px 6px 10px;
+}
+
+.tbgt table {
+	width: 100%;
+	border-spacing: 0;
+}
+
+.tbgt>table>thead {
+	background-color: #dcebf1;
+}
+.tbgt>table>thead>tr {
+	height:30px;
+}
+.tbgt>table>tbody>tr {
+	height:35px;
 }
 
 #trainList1 {
