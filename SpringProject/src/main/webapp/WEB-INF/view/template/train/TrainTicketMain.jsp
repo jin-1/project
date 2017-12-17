@@ -116,7 +116,7 @@
 					<div class="control__indicator"></div></label>
 			</div>
 			<hr class="style11">
-			<form:form modelAttribute="CustomerTicket" autocomplete="off"
+			<form:form modelAttribute="CustomerTicket" autocomplete="off" id="frmTicket"
 				onkeydown="return captureReturnKey(event)">
 				<div class="oneWay">
 					<label class="inputtext control--text"> 
@@ -208,7 +208,7 @@
 					</div>
 				</div>
 				<div style="text-align: center; margin-top: 30px;">
-					<button class="trainSearch">조회</button>
+					<button type="button" class="trainSearch">조회</button>
 				</div>
 			</form:form>
 		</div>

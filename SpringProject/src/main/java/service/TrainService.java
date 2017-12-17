@@ -91,9 +91,9 @@ public class TrainService {
 		return list;
 	}
 	
-	public List<TrainRegistrationDTO> getTrainInfo(String trainCode) {
-		List<TrainRegistrationDTO> trainDto = traindao.trainInfo(trainCode);
+	public List<TrainRegistrationDTO> getTrainInfo(Map<String,Object> info) {
+		List<TrainRegistrationDTO> trainDto = traindao.trainInfo(info);
 		
-		return null;
+		return trainDto;
 	}
 }

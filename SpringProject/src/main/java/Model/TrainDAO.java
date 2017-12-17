@@ -46,13 +46,13 @@ public class TrainDAO extends AbstractRepository {
 		}
 	}
 
-	public List<TrainRegistrationDTO> trainInfo(String trainCode) {
+	public List<TrainRegistrationDTO> trainInfo(Map<String,Object> info) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
-		String statement = namespace + ".selectCustomerTrain";
+		String statement = namespace + ".selectTrainInfo";
 		List<TrainRegistrationDTO> station;
 		try {
 
-			station = sqlSession.selectList(statement, trainCode);
+			station = sqlSession.selectList(statement, info);
 			return station;
 		} catch (Exception e) {
 			e.printStackTrace();

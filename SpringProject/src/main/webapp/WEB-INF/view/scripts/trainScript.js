@@ -216,7 +216,13 @@ $(document).ready(
 				}
 
 			});
-
+			$('.trainSearch').click(function(){
+				if(Number($('#adultsVal').val()) != 0 || Number($('#childVal').val()) != 0 || Number($('#oldVal').val()) != 0){
+				$('#frmTicket').submit();
+				} else{
+					alert("인원이 한명 이상이여야 합니다.");
+				}
+			});
 			$("#inputStrat:text").keyup(
 					function(e) {
 						var code = e.which;
@@ -525,7 +531,7 @@ $(document).ready(
 				$('.tbgt').css("display", "none");
 			});
 			$('.ticketing').on("click", function() {	
-				$('#frm').submit();
+				$(this).parent().submit();
 			});
 			
 		});

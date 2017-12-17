@@ -15,6 +15,17 @@
 		<result column="TIME" jdbcType="VARCHAR" property="time" />
 		<result column="STATION_NAME" jdbcType="VARCHAR" property="stationName" />
 	</resultMap>
+	<resultMap type="Model.TrainRegistrationDTO" id="infoListMap">
+	<result column="TRAIN_REG_CODE" jdbcType="VARCHAR" property="trainRegCode"/>
+	<result column="TRAIN_CODE" jdbcType="BIGINT" property="trainCode" />
+	<result column="SEAT_NUM" jdbcType="VARCHAR" property="seatNum" />
+	<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+	<result column="DEPARTING_STATION" jdbcType="VARCHAR" property="departingStation" />
+	<result column="ARRIVAL_STATION" jdbcType="VARCHAR" property="arrivalStation" />
+	<result column="TRAIN_DATE" jdbcType="VARCHAR" property="trainDate" />
+	
+	</resultMap>
+	
 	<select id="selectSearchStation" resultMap="baseResultMap">
 		select
 		STATION_NAME
@@ -72,5 +83,15 @@
 		by st.train_CODE having count(*) >1 )
 		group by t.train_CODE, t.TRAIN_NAME order by train_code ASC
 
+	</select>
+	
+	
+	<select id="selectTrainInfo" parameterType="java.util.HashMap" resultMap="infoListMap">
+		select tr.TRAIN_CODE,tr.SEAT_NUM from
+		 TRAIN_REGISTRATION tr join STATION_TIME st on tr.TRAIN_CODE = st.TRAIN_CODE join TRAIN_STATION ts 
+		 on st.STATION_CODE = ts.STATION_CODE 
+		where tr.TRAIN_CODE = #{trainCode} AND tr.TRAIN_DATE = TO_DATE(#{dateTrain}, 'yyyy-MM-dd') 
+		and <![CDATA[ TO_DATE(#{sTime},'hh24:mi')<=TO_DATE(st.TIME,'hh24:mi') AND TO_DATE(#{eTime},'hh24:mi')>=TO_DATE(st.TIME,'hh24:mi') ]]>
+		group by tr.TRAIN_CODE, tr.SEAT_NUM
 	</select>
 </mapper>

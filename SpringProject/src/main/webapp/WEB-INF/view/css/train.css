@@ -8,6 +8,11 @@
 	src: url('../fonts/norwester.otf');
 }
 
+@font-face {
+	font-family: 'NanumSquareR';
+	src: url('../fonts/NanumSquareR.otf');
+}
+
 #sideMenu {
 	width: 205px;
 	height: auto;
@@ -550,14 +555,14 @@ hr.style3 {
 }
 
 .tbgt {
-	width: 230px;
+	width: 200px;
 	padding: 20px;
 	height: 200px;
 	position: absolute;
 	background: white;
 	z-index: 11;
 	text-align: center;
-	right: 110px;
+	right: 5%;
 	display: none;
 	border-radius: 15px;
 	box-shadow: #00000085 1px 6px 10px;
@@ -571,11 +576,13 @@ hr.style3 {
 .tbgt>table>thead {
 	background-color: #dcebf1;
 }
+
 .tbgt>table>thead>tr {
-	height:30px;
+	height: 30px;
 }
+
 .tbgt>table>tbody>tr {
-	height:35px;
+	height: 35px;
 }
 
 #trainList1 {
@@ -712,6 +719,7 @@ hr.style3 {
 	margin: auto;
 	text-align: center;
 	border-spacing: 0;
+	font-family: 'NanumSquareR' !important;
 }
 
 .ListTable thead {
@@ -732,9 +740,10 @@ hr.style3 {
 
 .ticketing {
 	width: 50px;
+	font-size: 15px;
 	height: 23px;
 	margin: auto;
-	padding-top: 0px;
+	padding-top: 5px;
 	background-color: #d86f6f;
 	border-radius: 3px;
 	color: white;
@@ -743,15 +752,245 @@ hr.style3 {
 
 .inquire {
 	width: 50px;
+	font-size: 15px;
 	height: 23px;
 	margin: auto;
-	padding-top: 0px;
+	padding-top: 5px;
 	background-color: #223661d1;
 	border-radius: 3px;
 	color: white;
 	cursor: pointer;
 }
 
-.hover:hover {
+#calendar {
+	width: 57%;
+	margin: auto;
+	height: 100px;
+}
+
+.day {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+	text-align: center;
+	float: left;
+	margin-top: 10px;
+	color: #8b8b8b;
+}
+
+.selectday {
+	display: inline-block;
+	width: 100px;
+	height: 85px;
+	color: #4c4040;
+	padding-top: 10px;
+	float: left;
+	text-align: center;
+}
+
+#selectSpan1 {
+	position: relative;
+	font-size: 26px;
+	top: 3px;
+	left: 11px;
+}
+
+#selectSpan2 {
+	position: relative;
+	font-size: 26px;
+	top: 12px;
+}
+
+#selectSpan3 {
+	position: relative;
+	font-size: 25px;
+	top: 25px;
+	left: -12px;
+}
+
+.daySpan1 {
+	position: relative;
+	top: 14px;
+	left: 5px;
+}
+
+.daySpan2 {
+	position: relative;
+	top: 20px;
+}
+
+.daySpan3 {
+	position: relative;
+	top: 29px;
+	left: -6px;
+}
+
+.ReservationView {
+	width: 100%;
+	height: 700px;
+	font-family: 'NanumSquareR' !important;
+}
+
+.ReservationLeft {
+	width: 80%;
+	height: 100%;
+	float: left;
+	position: relative;
+}
+
+.ReservationRight {
+	width: 20%;
+	height: 100%;
+	background-color: #0180a3;
+	float: left;
+	border-radius: 10px;
+	text-align: center;
+	position: relative;
+}
+
+.seR {
+	width: 90%;
+	height: 22px;
+	text-align: center;
+	margin: auto;
+	color: #313131;
+	font-weight: bold;
+	padding-top: 5px;
+	background-color: white;
+	border-radius: 15px
+}
+
+.subResult {
+	width: 85%;
+	position: relative;
+	height: 200px;
+	border-radius: 15px;
+	margin: auto;
+	padding: 5px;
+	background-color: white;
+	margin-top: 30px;
+	text-align: start;
+	color: #313131;
+}
+
+.result {
+	width: 87%;
+	position: absolute;
+	height: 43px;
+	left: 10px;
+	bottom: 16px;
+	border-radius: 15px;
+	padding: 5px;
+	font-weight: bold;
+	color: #0180a3;
+	background-color: white;
+}
+
+.contextL {
+	font-family: 'NanumSquareR' !important;
+	border: #0180a361 1px solid;
+	position: relative;
+	width: 95%;
+	padding: 10px;
+	height: 680px;
+	background-color: #eeeded;
+	border-radius: 15px;
+}
+
+#trainNumber {
+	width: 98%;
+	background-color: white;
+	height: 80px;
+	margin: auto;
+	border-radius: 15px;
+	border: #928f8f8c 0.5px solid;
+}
+
+#trainSeat {
+	width: 98%;
+	height: 450px;
+	position: relative;
+	background-color: white;
+	margin: auto;
+	border-radius: 15px;
+	border: #928f8f8c 0.5px solid;
+	margin-top: 20px;
+}
+
+#reservationBt {
+	background-color: #0180a3;
+	width: 17%;
+	text-align: center;
+	right: 15px;
+	position: absolute;
+	height: 52px;
+	bottom: 13px;
+	border-radius: 15px;
+	padding-top: 5px;
+	color: white;
+	font-weight: bold;
+}
+
+#seatTable0 {
+	display: inline;
+}
+.seatTable{
+	display: none;
+}
+
+#trainSeat table {
+	width: 98%;
+	height: 100px;
+	margin: auto;
+	margin-top: 65px;
+	
+}
+
+#seatInfo {
+	position: absolute;
+	right: 10px;
+	width: 330px height: 35px;
+	top: 15px;
+}
+
+#seatInfo p {
+	display: inline-block;
+	float: left;
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	background-color: #406f5f;
+}
+
+#seatInfo span {
+	font-size: 15px;
+	margin-left: 5px;
+	float: left;
+	margin-top: 3px;
+	margin-right: 15px;
+}
+
+.SSeat {
+	display: block;
+	max-width: 30px;
+	height: 50px;
+	padding: 12px 0 0 34px;
+	margin-right: 1px;
+	color: #fff;
+	font-weight: bold;
+	background: url(../img/seat_p02.gif) no-repeat left top;
+	background-size: 127px;
+	cursor: pointer;
+}
+.NSeat{
+	display: block;
+	max-width: 75px;
+	height: 50px;
+	padding: 12px 0 0 34px;
+	margin-right: 1px;
+	color: #fff;
+	font-weight: bold;
+	background: url(../img/seat_no02.gif) no-repeat left top;
+	background-size: 63px;
 	
 }

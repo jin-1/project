@@ -72,18 +72,26 @@ public class TrainController {
 			
 
 	}
+	
 	@RequestMapping(value = "/Ticketing", method = RequestMethod.POST)
 	public String Ticketing(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
 		String img = req.getParameter("img");
 		String[] data = req.getParameterValues("data");
 		
-		List<TrainRegistrationDTO> seat = trainService.getTrainInfo(data[3]);
-		
+		Map<String,Object> info = new HashMap<String,Object>();
+		info.put("trainCode",Integer.parseInt(data[3]));
+		info.put("dateTrain",data[4]);
+		info.put("sTime",data[5]);
+		info.put("eTime",data[6]);
+
+		List<TrainRegistrationDTO> seat = trainService.getTrainInfo(info);
+
 		model.addAttribute("menu", menu);
 		model.addAttribute("img", img);
 		model.addAttribute("data", data);
-		return "template/train/TrainTicketMain";
+		model.addAttribute("seat", seat);
+		return "template/train/TrainTicketReservation";
 	}
 
 	@ResponseBody

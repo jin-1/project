@@ -4,13 +4,38 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page import="Model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.text.*"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
 	CustomerTicketDTO custom = (CustomerTicketDTO) request.getAttribute("custom");
 	List<TrainDTO> list = (List) request.getAttribute("listTrain");
-%>
 
+	SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd");
+
+	Date selectday = t.parse(custom.getDateTrain());
+	Calendar cal = new GregorianCalendar(Locale.KOREA);
+	cal.setTime(selectday);
+	cal.add(Calendar.DAY_OF_YEAR, -3);
+	String day1 = t.format(cal.getTime());
+	cal.setTime(selectday);
+	cal.add(Calendar.DAY_OF_YEAR, -2);
+	String day2 = t.format(cal.getTime());
+	cal.setTime(selectday);
+	cal.add(Calendar.DAY_OF_YEAR, -1);
+	String day3 = t.format(cal.getTime());
+	cal.setTime(selectday);
+	cal.add(Calendar.DAY_OF_YEAR, 1);
+	String day4 = t.format(cal.getTime());
+	cal.setTime(selectday);
+	cal.add(Calendar.DAY_OF_YEAR, 2);
+	String day5 = t.format(cal.getTime());
+	cal.setTime(selectday);
+	cal.add(Calendar.DAY_OF_YEAR, 3);
+	String day6 = t.format(cal.getTime());
+	
+	
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -63,6 +88,73 @@
 			</div>
 			<hr>
 		</div>
+		<%String[] s; %>
+		<div id="calendar">
+			<div id="" class="day">
+			<%s = day1.split("-");%> 
+			<span class="daySpan1">
+			<%=s[1]%></span>
+			<span class="daySpan2">
+			/</span>
+			<span class="daySpan3">
+			<%=s[2]%></span>
+			</div>
+			<div id="" class="day">
+			<%s = day2.split("-");%> 
+			<span class="daySpan1">
+			<%=s[1]%></span>
+			<span class="daySpan2">
+			/</span>
+			<span class="daySpan3">
+			<%=s[2]%></span>
+			</div>
+			<div id="" class="day">
+			<%s = day3.split("-");%> 
+			<span class="daySpan1">
+			<%=s[1]%></span>
+			<span class="daySpan2">
+			/</span>
+			<span class="daySpan3">
+			<%=s[2]%></span>
+			</div>
+			<div id="" class="selectday">
+				<span id="selectSpan1">
+				<%s = custom.getDateTrain().split("-"); 
+				out.print(s[1]);%>
+				</span>
+				<span id="selectSpan2">
+					/
+				</span>
+				<span id="selectSpan3"><%=s[2] %></span>
+			</div>
+			<div id="" class="day">
+				<%s = day4.split("-");%> 
+				<span class="daySpan1">
+				<%=s[1]%></span>
+				<span class="daySpan2">
+				/</span>
+				<span class="daySpan3">
+				<%=s[2]%></span>
+			</div>
+			<div id="" class="day">
+			<%s = day5.split("-");%> 
+			<span class="daySpan1">
+			<%=s[1]%></span>
+			<span class="daySpan2">
+			/</span>
+			<span class="daySpan3">
+			<%=s[2]%></span>
+			</div>
+			<div id="" class="day">
+			<%s = day6.split("-");%> 
+			<span class="daySpan1">
+			<%=s[1]%></span>
+			<span class="daySpan2">
+			/</span>
+			<span class="daySpan3">
+			<%=s[2]%></span>
+			</div>
+		</div>
 		<div id="trainList">
 			<table class="ListTable">
 				<thead>
@@ -91,15 +183,22 @@
 						<td><%=list.get(i).getTrainName()%></td>
 						<td><%=custom.getStartTrain()%><br><%=time[0]%></td>
 						<td><%=custom.getEndTrain()%><br><%=time[1]%></td>
-						<td><form:form action="Ticketing" method="POST" id="frm">
-								<input type="hidden" value="<%=custom.getAdults()%>)" name="data">
+						<td><form:form action="Ticketing?menu=TRAIN&img=trainbg"
+								method="POST" class="frm">
+								<input type="hidden" value="<%=custom.getAdults()%>"
+									name="data">
 								<input type="hidden" value="<%=custom.getOld()%>" name="data">
 								<input type="hidden" value="<%=custom.getChild()%>" name="data">
-								<input type="hidden" value="<%=list.get(i).getTrainCode()%>>" name="data">
-								<input type="hidden" value="<%=custom.getDateTrain()%>" name="data">
+								<input type="hidden" value="<%=list.get(i).getTrainCode()%>"
+									name="data">
+								<input type="hidden" value="<%=custom.getDateTrain()%>"
+									name="data">
 								<input type="hidden" value="<%=time[0]%>" name="data">
 								<input type="hidden" value="<%=time[1]%>" name="data">
-								<div class="ticketing" name="<%=list.get(i).getTrainCode()%>">예매</div>
+								<input type="hidden" value="<%=custom.getStartTrain()%>" name="data">
+								<input type="hidden" value="<%=custom.getEndTrain()%>" name="data">
+								<input type="hidden" value="<%=list.get(i).getTrainPrice()%>" name="data">
+								<div class="ticketing">예매</div>
 							</form:form></td>
 						<td><div class="inquire"
 								name="<%=list.get(i).getTrainPrice()%>">조회</div></td>

@@ -6,7 +6,7 @@ public class TrainRegistrationDTO {
 	private String seatNum;
 	private String memberId;
 	private String departingStation;
-	private String ArrivalStation;
+	private String arrivalStation;
 	private String trainDate;
 
 	public String getTrainRegCode() {
@@ -50,11 +50,11 @@ public class TrainRegistrationDTO {
 	}
 
 	public String getArrivalStation() {
-		return ArrivalStation;
+		return arrivalStation;
 	}
 
 	public void setArrivalStation(String arrivalStation) {
-		ArrivalStation = arrivalStation;
+		arrivalStation = arrivalStation;
 	}
 
 	public String getTrainDate() {
