@@ -10,5 +10,6 @@
 <script type="text/javascript"
 	src="./scripts/pignose.calendar.full.min.js"></script>
 <script type="text/javascript" src="./scripts/script.js"></script>
+<script type="text/javascript" src="./scripts/memberscript.js"></script>
 <script type="text/javascript" src="./scripts/trainScript.js"></script>
 

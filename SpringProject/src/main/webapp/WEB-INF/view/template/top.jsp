@@ -36,13 +36,15 @@
 			</div>
 		</div>
 		<%
-			
+			CorporDTO corporDTO;
 			MemberDTO memberDTO;
 
 			if (session.getAttribute("login") != null) {
 				memberDTO = (MemberDTO) session.getAttribute("login");
 				
 				if (memberDTO.getAuthority() == 0) {
+					
+					
 		%>
 		<div id="menuLogin">
 			<ul style="font-size: 8px;">
@@ -58,7 +60,7 @@
 			<ul style="font-size: 8px;">
 				<li><a href="LoginForm?menu=LOGIN">LOGIN</a></li>
 				<li>|</li>
-				<li>REGISTER</li>
+				<li><a href="Register?menu=Register">REGISTER</a></li>
 			</ul>
 		</div>
 
@@ -70,7 +72,7 @@
 			<ul style="font-size: 8px;">
 				<li><a href="LoginForm?menu=LOGIN">LOGIN</a></li>
 				<li>|</li>
-				<li>REGISTER</li>
+				<li><a href="Register?menu=Register">REGISTER</a></li>
 			</ul>
 		</div>
 		<%
