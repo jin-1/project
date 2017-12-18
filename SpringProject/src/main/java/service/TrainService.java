@@ -91,7 +91,12 @@ public class TrainService {
 		return list;
 	}
 	
-	public List<TrainRegistrationDTO> getTrainInfo(Map<String,Object> info) {
+	public List<TrainRegistrationDTO> getTrainInfo(String[] data) {
+		Map<String,Object> info = new HashMap<String,Object>();
+		info.put("trainCode",Integer.parseInt(data[3]));
+		info.put("dateTrain",data[4]);
+		info.put("sTime",data[5]);
+		info.put("eTime",data[6]);
 		List<TrainRegistrationDTO> trainDto = traindao.trainInfo(info);
 		
 		return trainDto;

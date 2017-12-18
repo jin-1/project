@@ -57,15 +57,16 @@ public class TrainController {
 		return "template/train/TrainTicketMain";
 	}
 	@RequestMapping(value = "/TrainTicketMain", method = RequestMethod.POST)
-	public String TrainTicketMainPost(Model model , @ModelAttribute("CustomerTicket") CustomerTicketDTO customerTicketDTO) {
+	public String TrainTicketMainPost( Model model , @ModelAttribute("CustomerTicket") CustomerTicketDTO customerTicketDTO) {
 		
 			List<TrainDTO> listTrain = trainService.getCustomerTicket(customerTicketDTO);
 			
-			if(listTrain != null) {
-				
-				model.addAttribute("listTrain",listTrain);
-				model.addAttribute("custom", customerTicketDTO);
-				return "template/train/TrainTicketList";
+				if(listTrain != null) {
+
+					model.addAttribute("listTrain",listTrain);
+					model.addAttribute("custom", customerTicketDTO);
+					return "template/train/TrainTicketList";
+					
 			} else {
 				return "template/train/TrainTicketMain";
 			}
@@ -74,24 +75,37 @@ public class TrainController {
 	}
 	
 	@RequestMapping(value = "/Ticketing", method = RequestMethod.POST)
-	public String Ticketing(HttpServletRequest req, Model model) {
+	public String Ticketing(HttpSession session, HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
 		String img = req.getParameter("img");
 		String[] data = req.getParameterValues("data");
 		
-		Map<String,Object> info = new HashMap<String,Object>();
-		info.put("trainCode",Integer.parseInt(data[3]));
-		info.put("dateTrain",data[4]);
-		info.put("sTime",data[5]);
-		info.put("eTime",data[6]);
+		
+		List<TrainRegistrationDTO> seat = trainService.getTrainInfo(data);
 
-		List<TrainRegistrationDTO> seat = trainService.getTrainInfo(info);
+		if(session.getAttribute("login")==null) {
+			return "redirect:LoginForm";
+		}
+		else {
+			session.setAttribute("trainTicket", data);
+			model.addAttribute("menu", menu);
+			model.addAttribute("img", img);
+			model.addAttribute("seat", seat);
+			return "template/train/TrainTicketReservation";
+		}
+	}
+	
+	@RequestMapping(value = "/trainPayment", method = RequestMethod.POST)
+	public String trainPayment(HttpSession session, HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		String img = req.getParameter("img");
+		String seat = req.getParameter("seat");
+		
 
 		model.addAttribute("menu", menu);
 		model.addAttribute("img", img);
-		model.addAttribute("data", data);
 		model.addAttribute("seat", seat);
-		return "template/train/TrainTicketReservation";
+		return "template/train/TrainTicketPayment";
 	}
 
 	@ResponseBody

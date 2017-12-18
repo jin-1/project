@@ -8,9 +8,12 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
-	String[] data = request.getParameterValues("data");
+	String[] data = (String[])session.getAttribute("trainTicket");
 	List<TrainRegistrationDTO> seat = (List<TrainRegistrationDTO>) request.getAttribute("seat");
 	Map<Integer, List<Integer>> seatmap = new HashMap<Integer, List<Integer>>();
+ 	int sadult = 0;
+ 	int sold = 0;
+ 	int schild = 0;
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -19,7 +22,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>TRENVIAJES</title>
 <jsp:include page="../config.jsp" flush="false" />
-
 
 </head>
 <body>
@@ -46,7 +48,21 @@
 			<div class="ReservationLeft">
 				<div class="contextL">
 					<p>예매/좌석</p>
-					<div id="trainNumber"></div>
+					<div id="trainNumber">
+						<div id="trainNumberView">
+							<div id="screen">
+								<ul>
+									<li class="screenOff" id="screenFirst">1호차</li>
+									<li class="screenOff">2호차</li>
+									<li class="screenOff">3호차</li>
+									<li class="screenOff">4호차</li>
+									<li class="screenOff">5호차</li>
+									<li class="screenOff">6호차</li>
+									<li class="screenOff">7호차</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 					<div id="trainSeat">
 						<div id="seatInfo">
 							<p style="background-color: #7d424c;"></p>
@@ -61,18 +77,25 @@
 
 								List<Integer> seatList = new ArrayList<Integer>();
 								String[] seatS = s.getSeatNum().split("_");
-								for (int c = 1; c < seatS.length; c++) {
-									seatList.add(Integer.parseInt(seatS[c]));
-								}
-								if (seatmap.containsKey(Integer.parseInt(seatS[0]))) {
-									for (int z : seatList) {
-										seatmap.get(Integer.parseInt(seatS[0])).add(z);
-										Collections.sort(seatmap.get(Integer.parseInt(seatS[0])));
-
+								int temp1=0;
+								int temp2=1;
+								
+								for(int i = 0; i<seatS.length/2; i++)
+								{	
+									
+									if (seatmap.containsKey(Integer.parseInt(seatS[temp1]))) {
+										
+											seatmap.get(Integer.parseInt(seatS[temp1])).add(Integer.parseInt(seatS[temp2]));
+										
+									} else {
+										seatList.add(Integer.parseInt(seatS[temp2]));
+										seatmap.put(Integer.parseInt(seatS[temp1]), seatList);
+										System.out.println(seatmap);
 									}
-								} else {
-									seatmap.put(Integer.parseInt(seatS[0]), seatList);
+									temp1+=2;
+									temp2+=2;
 								}
+
 							}
 
 							for (int x = 0; x < 7; x++) {
@@ -80,18 +103,27 @@
 						<div id="seatTable<%=x%>" class="seatTable">
 							<table>
 								<%
-									int num = 0;
-
+									int num = 1;
+										int num1 = 2;
 										for (int i = 0; i < 2; i++) {
 								%>
 								<tr>
 									<%
 										for (int z = 0; z < 12; z++) {
-													num++;
+
+													if (i == 0) {
 									%>
-									<td><sapn class="SSeat" id="SSeat<%=num%>"><%=num%></sapn></td>
+									<td><sapn class="SSeat" id="SSeat<%=x%>_<%=num%>"><%=num%></sapn></td>
 									<%
-										}
+										num += 2;
+													} else {
+									%>
+									<td><sapn class="SSeat" id="SSeat<%=x%>_<%=num1%>"><%=num1%></sapn></td>
+									<%
+										num1 += 2;
+													}
+
+												}
 									%>
 								
 								<tr>
@@ -107,11 +139,20 @@
 								<tr>
 									<%
 										for (int z = 0; z < 12; z++) {
-													num++;
+
+													if (i == 0) {
 									%>
-									<td><sapn class="SSeat" id="SSeat<%=num%>"><%=num%></sapn></td>
+									<td><sapn class="SSeat" id="SSeat<%=x%>_<%=num%>"><%=num%></sapn></td>
 									<%
-										}
+										num += 2;
+													} else {
+									%>
+									<td><sapn class="SSeat" id="SSeat<%=x%>_<%=num1%>"><%=num1%></sapn></td>
+									<%
+										num1 += 2;
+													}
+
+												}
 									%>
 								
 								<tr>
@@ -129,23 +170,41 @@
 					<script type="text/javascript">
 						
 							<%for (int x = 0; x < 7; x++) {
-						for (int i = 1; i < 48; i++) {
-							if (seatmap.containsKey(x)) {
-								for (int c = 0; c < seatmap.get(x).size(); c++) {
-									if (seatmap.get(x).get(c).equals(i)) {%>
-										$('#SSeat<%=i%>').attr('class','NSeat');
-
-
-									<%}
-								}
-							}
+				for (int i = 1; i < 48; i++) {
+					if (seatmap.containsKey(x)) {
+						for (int c = 0; c < seatmap.get(x).size(); c++) {
+							if (seatmap.get(x).get(c).equals(i)) {%>
+										$('#SSeat<%=x%>_<%=i%>').attr('class', 'NSeat');
+					<%}
 						}
-					}%>
-						
+					}
+				}
+			}%>
+			var click=0;
+			var list ="";
+			$(".SSeat").on("click",function(){
+				click++;
+				var num = <%=Integer.parseInt(data[0])+Integer.parseInt(data[1])+Integer.parseInt(data[2])%>
+				if(num<click){
+					alert("인원수보다 더 클릭하면 안됩니다.");
+					$('.YSeat').removeClass('YSeat').addClass('SSeat');
+					click = 0;
+					list ="";
+				}else{
+					$(this).removeClass('SSeat').addClass('YSeat');
+					$(this).attr("id");
+					list +=$(this).attr("id").substring(5)+"_";
+					console.log(list);
+				}
+			});
 					</script>
+					<form:form action="trainPayment?menu=TRAIN&img=trainbg" method="POST">
 					<div id="reservationBt">
+						<input type="hidden" name="seat" id="seatNum">
 						<p>선택좌석 예약하기</p>
 					</div>
+					</form:form>
+			
 				</div>
 			</div>
 			<div class="ReservationRight">
@@ -164,9 +223,7 @@
 					<span style="margin-bottom: 5px; display: inline-block;">인원</span><br>
 					<span style="font-size: 13px; margin-top: 3px;"> <%
  	DecimalFormat dc = new DecimalFormat("###,###,###,###");
- 	int sadult = 0;
- 	int sold = 0;
- 	int schild = 0;
+
  	if (Integer.parseInt(data[0]) != 0) {
  		sadult = Integer.parseInt(data[0]) * Integer.parseInt(data[9]);
  		out.print("&nbsp;- 성인 " + data[0] + " \\"

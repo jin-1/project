@@ -533,5 +533,75 @@ $(document).ready(
 			$('.ticketing').on("click", function() {	
 				$(this).parent().submit();
 			});
-			
+			$('#screenFirst').removeClass('screenOn').addClass('screenOn');
+			$('.screenOff').on("click",function(){
+				$('.screenOn').removeClass('screenOn').addClass('screenOff');
+				$(this).attr("class","screenOn");
+				if($(this).text()=="1호차"){
+					$('#seatTable0').css("display","inline");
+					$('#seatTable1').css("display","none");
+					$('#seatTable2').css("display","none");
+					$('#seatTable3').css("display","none");
+					$('#seatTable4').css("display","none");
+					$('#seatTable5').css("display","none");
+					$('#seatTable6').css("display","none");
+					
+				} else if($(this).text()=="2호차"){
+					$('#seatTable0').css("display","none");
+					$('#seatTable1').css("display","inline");
+					$('#seatTable2').css("display","none");
+					$('#seatTable3').css("display","none");
+					$('#seatTable4').css("display","none");
+					$('#seatTable5').css("display","none");
+					$('#seatTable6').css("display","none");
+				} else if($(this).text()=="3호차"){
+					$('#seatTable0').css("display","none");
+					$('#seatTable1').css("display","none");
+					$('#seatTable2').css("display","inline");
+					$('#seatTable3').css("display","none");
+					$('#seatTable4').css("display","none");
+					$('#seatTable5').css("display","none");
+					$('#seatTable6').css("display","none");
+				} else if($(this).text()=="4호차"){
+					$('#seatTable0').css("display","none");
+					$('#seatTable1').css("display","none");
+					$('#seatTable2').css("display","none");
+					$('#seatTable3').css("display","inline");
+					$('#seatTable4').css("display","none");
+					$('#seatTable5').css("display","none");
+					$('#seatTable6').css("display","none");
+				} else if($(this).text()=="5호차"){
+					$('#seatTable0').css("display","none");
+					$('#seatTable1').css("display","none");
+					$('#seatTable2').css("display","none");
+					$('#seatTable3').css("display","none");
+					$('#seatTable4').css("display","inline");
+					$('#seatTable5').css("display","none");
+					$('#seatTable6').css("display","none");
+				} else if($(this).text()=="6호차"){
+					$('#seatTable0').css("display","none");
+					$('#seatTable1').css("display","none");
+					$('#seatTable2').css("display","none");
+					$('#seatTable3').css("display","none");
+					$('#seatTable4').css("display","none");
+					$('#seatTable5').css("display","inline");
+					$('#seatTable6').css("display","none");
+				} else if($(this).text()=="7호차"){
+					$('#seatTable0').css("display","none");
+					$('#seatTable1').css("display","none");
+					$('#seatTable2').css("display","none");
+					$('#seatTable3').css("display","none");
+					$('#seatTable4').css("display","none");
+					$('#seatTable5').css("display","none");
+					$('#seatTable6').css("display","inline");
+				} 
+			});
+			$('#reservationBt').on("click",function(){
+				if(list==""){
+					alert("좌석을 선택해주세요.");
+				}else{
+					$('#seatNum').val(list);
+					$(this).parent().submit();
+				}
+			});
 		});
