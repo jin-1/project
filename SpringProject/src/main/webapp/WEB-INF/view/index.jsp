@@ -58,7 +58,7 @@
 		%>
 		<div id="menuLogin">
 			<ul style="font-size: 8px;">
-				<li><a href="LoginForm?menu=LOGIN">MYPAGE</a></li>
+				<li><a href="MyPage?menu=MyPage">MYPAGE</a></li>
 				<li>|</li>
 				<li><a href="Logout">LOGOUT</a></li>
 			</ul>
@@ -83,7 +83,7 @@
 		%>
 		<div id="menuLogin">
 			<ul style="font-size: 8px;">
-				<li><a href="LoginForm?menu=LOGIN">MYPAGE</a></li>
+				<li><a href="MyPage?menu=MyPage">MYPAGE</a></li>
 				<li>|</li>
 				<li><a href="Logout">LOGOUT</a></li>
 			</ul>

@@ -15,7 +15,7 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
-<script type="text/javascript" src="./scripts/script.js"></script>
+<script type="text/javascript" src="./scripts/memberscript.js" charset="utf-8"></script>
 <style type="text/css">
 .container {
 	left: 60%;

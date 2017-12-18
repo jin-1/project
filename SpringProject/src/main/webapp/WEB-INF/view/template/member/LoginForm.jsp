@@ -11,6 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Login</title>
+<script type="text/javascript" src="./scripts/memberscript.js" charset="utf-8"></script>
 <jsp:include page="../config.jsp" flush="false" />
 <style type="text/css">
 .form {

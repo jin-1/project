@@ -14,7 +14,7 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
 
-<script type="text/javascript" src="./scripts/script.js" charset="utf-8"></script>
+<script type="text/javascript" src="./scripts/memberscript.js" charset="utf-8"></script>
 <style type="text/css">
 .confirm {
 	width: 750px;

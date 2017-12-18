@@ -26,7 +26,8 @@ public class MemberController {
 	MemberService memberService;
 	@Autowired
 	MemberDAO memberDao;
-
+	
+	//일반회원 로그인
 	@RequestMapping(value = "/LoginForm", method = RequestMethod.GET)
 	public String MemberForm(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
@@ -34,7 +35,7 @@ public class MemberController {
 		
 		return "template/member/LoginForm";
 	}
-
+	
 	@RequestMapping(value = "/LoginForm", method = RequestMethod.POST)
 	public String MemberFormLogin(HttpSession session, @ModelAttribute("login") MemberDTO memberDto) {
 		
@@ -55,7 +56,7 @@ public class MemberController {
 		int result=memberService.CorLogin(corporDto, session);
 		System.out.println(result);
 		if(result==2) {
-			return "corIndex";
+			return "index";
 		}else if(result==1){
 			return "template/member/LoginForm";
 		}else {
@@ -72,6 +73,7 @@ public class MemberController {
 		
 	}
 	
+	//회원가입 약관동의 페이지 이동
 	@RequestMapping(value = "/Register", method = RequestMethod.GET)
 	public String Register(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
@@ -80,6 +82,7 @@ public class MemberController {
 		return "template/member/agreement";
 	}
 	
+	//일반회원가입 페이지 이동
 	@RequestMapping(value = "/MemberShip", method = RequestMethod.GET)
 	public String MemberShip(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
@@ -118,6 +121,7 @@ public class MemberController {
 		}
 	}
 	
+	//아이디 찾기
 	@RequestMapping(value = "/IdFind", method = RequestMethod.GET)
 	public String IdFind(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
@@ -126,12 +130,22 @@ public class MemberController {
 		return "template/member/idfind";
 	}
 	
+	//비밀번호 찾기
 	@RequestMapping(value = "/PwFind", method = RequestMethod.GET)
 	public String PwFind(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
 		model.addAttribute("menu", menu);
 		
 		return "template/member/pwfind";
+	}
+	
+	//마이페이지 인덱스 페이지이동
+	@RequestMapping(value = "/MyPage", method = RequestMethod.GET)
+	public String MypageIndex(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		model.addAttribute("menu", menu);
+		
+		return "template/member/mypageIndex";
 	}
 	
 	@ResponseBody

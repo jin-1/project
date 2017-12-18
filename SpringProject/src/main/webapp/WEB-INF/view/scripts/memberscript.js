@@ -26,8 +26,7 @@ $(document)
 											alert("개인정보 수집에 동의해주세요");
 											return;
 										} else {
-											$(location).attr('href',
-													'MemberShip?menu=Register');
+											$(location).attr('href','MemberShip?menu=Register');
 										}
 
 									});
@@ -713,5 +712,15 @@ $(document)
 							$('.corCheck').prop("checked", false);
 						}
 					});
+					
+					$( ".noticeTable tr" ).on( "mouseover", function() {
+						 $( this ).css( "background-color", "#f4f4f4" );
+						 $( this).children("td").css( "cursor", "pointer" );
+						  });
+					$( ".noticeTable tr" ).on( "mouseleave", function() {
+						 $( this ).css( "background-color", "white" );
+						  }); 
 
-				});
+						
+
+});
