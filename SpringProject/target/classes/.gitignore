@@ -1,4 +1,7 @@
-/Model/
-/mapper/
+
+/target/
 /controller/
+/Model/
+
 /service/
+/mapper/

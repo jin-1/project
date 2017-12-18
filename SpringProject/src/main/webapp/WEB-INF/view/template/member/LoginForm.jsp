@@ -218,11 +218,11 @@
 				<div class="form-header">
 					<h1>TRENVIAJES Login</h1>
 				</div>
-				<div class="form-content">
+				<div class="form-content" id="memFrm">
 					<!-- 로그인 폼 -->
 					<form:form modelAttribute="login">
 						<div class="form-group">
-							<label for="username">Identify</label> <input type="text"
+							<label for="username">MEMBER ID</label> <input type="text"
 								id="username" name="memberId" />
 						</div>
 						<div class="form-group">
@@ -230,9 +230,31 @@
 								id="password" name="memberPw" />
 						</div>
 						<div class="form-group">
-							<label class="form-remember"> <input type="checkbox" />Corporation?
-							</label> <a href="#" class="form-recovery">Forgot ID/PW?</a> <a
-								href="agreement.jsp" class="form-recovery">REGISTER ACCOUNT</a>
+							<label class="form-remember"> <input type="checkbox" class="corCheck" />Corporation?
+							</label> <a href="IdFind?menu=Register" class="form-recovery">Forgot ID/PW?</a> <a
+								href="Register?menu=Register" class="form-recovery">REGISTER ACCOUNT</a>
+						</div>
+						<div class="form-group">
+							<button type="submit">Log In</button>
+						</div>
+					</form:form>
+				</div>
+				<div class="form-content" style="display:none;" id="corFrm">
+				
+					<!-- 로그인 폼 -->
+					<form:form modelAttribute="corlogin" action="CorLoginForm">
+						<div class="form-group">
+							<label for="username">CORPORRATION ID</label> <input type="text"
+								id="username" name="corporId" />
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label> <input type="password"
+								id="password" name="corporPw" />
+						</div>
+						<div class="form-group">
+							<label class="form-remember"> <input type="checkbox" class="corCheck" />Corporation?
+							</label> <a href="IdFind?menu=Register" class="form-recovery">Forgot ID/PW?</a> <a
+								href="Register?menu=Register" class="form-recovery">REGISTER ACCOUNT</a>
 						</div>
 						<div class="form-group">
 							<button type="submit">Log In</button>

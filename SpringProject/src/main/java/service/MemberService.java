@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import Model.CorporDTO;
 import Model.MemberDAO;
 import Model.MemberDTO;
 
@@ -12,6 +13,7 @@ public class MemberService {
 	@Autowired
 	MemberDAO memberDao;
 	MemberDTO memberDto;
+	CorporDTO corporDto;
 	public int Login(MemberDTO memberDto, HttpSession session) {
 		
 		int result=0;
@@ -29,6 +31,40 @@ public class MemberService {
 		}
 		
 		return result;
+	} 
+	
+	public int CorLogin(CorporDTO corporDto, HttpSession session) {
+		
+		int result=0;
+		this.corporDto = memberDao.CorLogin(corporDto);
+		if(this.corporDto !=null) {
+		
+			if(this.corporDto.getCorporPw().equals(corporDto.getCorporPw())) {
+			session.setAttribute("corlogin", this.corporDto);
+			result = 2;
+			} else {
+				result= 1;
+			}
+		}else{
+			result= 0;
+		}
+		
+		return result;
+	} 
+	
+
+	
+	public int setRegister(MemberDTO dto) {
+		System.out.println(dto.getGender());
+		dto.setAuthority(0);
+		
+		return memberDao.Register(dto);
+		
+	}
+	
+	public int setCorRegister(CorporDTO dto) {
+		return memberDao.CorRegister(dto);
+		
 	}
 	
 	
