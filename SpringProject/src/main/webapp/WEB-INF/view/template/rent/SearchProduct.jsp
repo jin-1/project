@@ -200,7 +200,7 @@ select option {
 							<option value="물">물</option>
 							<option value="탄산음료">탄산음료</option>
 							<option value="커피">커피</option>
-							<option value="초콜릿">초콜릿</option>
+							<option value="초콜릿">초콜렛</option>
 							<option value="라면">라면</option>
 							<option value="과자">과자</option>
 							<option value="견과류">견과류</option>
