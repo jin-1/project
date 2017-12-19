@@ -100,8 +100,7 @@ public class TrainController {
 		String menu = req.getParameter("menu");
 		String img = req.getParameter("img");
 		String seat[] = req.getParameterValues("seat");
-		System.out.println(seat[1]);
-
+	
 		model.addAttribute("menu", menu);
 		model.addAttribute("img", img);
 		model.addAttribute("seat", seat);

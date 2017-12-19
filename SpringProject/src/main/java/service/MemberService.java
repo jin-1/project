@@ -3,11 +3,11 @@ package service;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 
 import Model.*;
 
-
+@Service
 public class MemberService {
 	
 	@Autowired
@@ -55,7 +55,7 @@ public class MemberService {
 
 	
 	public int setRegister(MemberDTO dto) {
-		System.out.println(dto.getGender());
+		
 		dto.setAuthority(0);
 		
 		return memberDao.Register(dto);

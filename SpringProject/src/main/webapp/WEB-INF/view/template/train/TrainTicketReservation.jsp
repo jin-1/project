@@ -15,22 +15,7 @@
  	int sadult = 0;
  	int sold = 0;
  	int schild = 0;
- 	if (Integer.parseInt(data[0]) != 0) {
- 		sadult = Integer.parseInt(data[0]) * Integer.parseInt(data[9]);
- 		out.print("&nbsp;- 성인 " + data[0] + " \\"
- 				+ dc.format(Integer.parseInt(data[0]) * Integer.parseInt(data[9])) + " <br>");
- 	}
- 	if (Integer.parseInt(data[1]) != 0) {
- 		sold = (int) (Integer.parseInt(data[1]) * Integer.parseInt(data[9]) * 0.7);
- 		out.print("&nbsp;- 노인 " + data[1] + " \\"
- 				+ dc.format(Integer.parseInt(data[1]) * Integer.parseInt(data[9]) * 0.7) + " <br>");
- 	}
-
- 	if (Integer.parseInt(data[2]) != 0) {
- 		schild = (int) (Integer.parseInt(data[2]) * Integer.parseInt(data[9]) * 0.5);
- 		out.print(" - 어린이 " + data[2] + " \\"
- 				+ dc.format(Integer.parseInt(data[2]) * Integer.parseInt(data[9]) * 0.5) + " <br>");
- 	}
+ 	
  	
 %>
 
@@ -241,16 +226,22 @@
 					<p style="font-weight: bold;">운임내역</p>
 					<span style="margin-bottom: 5px; display: inline-block;">인원</span><br>
 					<span style="font-size: 13px; margin-top: 3px;">
-					<% if(Integer.parseInt(data[0]) > 0){%>
-						<span>&nbsp- 성인 <%=Integer.parseInt(data[0]) %>명</span><br>
-					<% }
-					if(Integer.parseInt(data[1]) > 0){%>
-						<span>&nbsp- 노인 <%=Integer.parseInt(data[0]) %>명</span><br>
-					<% }
-					if(Integer.parseInt(data[2]) > 0){%>
-						<span>&nbsp- 어린이 <%=Integer.parseInt(data[0]) %>명</span><br>
-					
-					<%} %>
+					<% if (Integer.parseInt(data[0]) != 0) {
+				 		sadult = Integer.parseInt(data[0]) * Integer.parseInt(data[9]);
+				 		out.print("&nbsp;- 성인 " + data[0] + " \\"
+				 				+ dc.format(Integer.parseInt(data[0]) * Integer.parseInt(data[9])) + " <br>");
+				 	}
+				 	if (Integer.parseInt(data[1]) != 0) {
+				 		sold = (int) (Integer.parseInt(data[1]) * Integer.parseInt(data[9]) * 0.7);
+				 		out.print("&nbsp;- 노인 " + data[1] + " \\"
+				 				+ dc.format(Integer.parseInt(data[1]) * Integer.parseInt(data[9]) * 0.7) + " <br>");
+				 	}
+
+				 	if (Integer.parseInt(data[2]) != 0) {
+				 		schild = (int) (Integer.parseInt(data[2]) * Integer.parseInt(data[9]) * 0.5);
+				 		out.print(" - 어린이 " + data[2] + " \\"
+				 				+ dc.format(Integer.parseInt(data[2]) * Integer.parseInt(data[9]) * 0.5) + " <br>");
+				 	} %>
 					</span>
 					<div
 						style="position: absolute; bottom: 20px; color: #0180a3; font-weight: bold; font-size: 15px; left: 10px;">

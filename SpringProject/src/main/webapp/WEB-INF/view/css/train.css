@@ -355,27 +355,26 @@ hr.style11 {
 	width: 210px;
 	height: 25px;
 }
-@media screen and (-webkit-min-device-pixel-ratio:0) {  
-.inputtext__indicator {
-	position: absolute;
-	top: 10px;
-	font-size: 15px;
-	
-	font-weight: bold;
-	left: 5px;
-	color: #333537d6;
-}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.inputtext__indicator {
+		position: absolute;
+		top: 10px;
+		font-size: 15px;
+		font-weight: bold;
+		left: 5px;
+		color: #333537d6;
+	}
 }
 
 .inputtext__indicator {
 	position: absolute;
 	top: 10px;
 	font-size: 15px;
-	
-	
 	left: 5px;
 	color: #333537d6;
 }
+
 .inputtext input:focus {
 	z-index: 1;
 	opacity: 100;
@@ -555,7 +554,7 @@ hr.style3 {
 
 .tbgw {
 	width: 60%;
-	height: 80%;
+	height: 620px;
 	position: fixed;
 	background: white;
 	z-index: 11;
@@ -622,7 +621,7 @@ hr.style3 {
 	overflow-y: auto;
 }
 
-.trainList ul { `
+.trainList ul {
 	margin: 0;
 	padding: 10px;
 }
@@ -674,7 +673,7 @@ hr.style3 {
 	display: inline;
 	font-size: 15px;
 	margin: 0px 16px;
-	font-family: 'GoodFont' !important;
+	font-family: 'NanumSquareR' !important;
 	cursor: pointer;
 }
 
@@ -696,7 +695,7 @@ hr.style3 {
 	font-size: 15px;
 	min-width: 200px;
 	margin: 5px 15px;
-	font-family: 'GoodFont' !important;
+	font-family: 'NanumSquareR' !important;
 	height: 35px;
 	cursor: pointer;
 }
@@ -719,7 +718,7 @@ hr.style3 {
 	font-size: 15px;
 	min-width: 200px;
 	margin: 5px 15px;
-	font-family: 'GoodFont' !important;
+	font-family: 'NanumSquareR' !important;
 	height: 35px;
 	cursor: pointer;
 }
@@ -962,13 +961,12 @@ hr.style3 {
 }
 
 #seatInfo {
-    position: relative;
-    left: 73%;
-    width: 330px;
-    height: 35px;
-    top: 30px;
+	position: relative;
+	left: 73%;
+	width: 330px;
+	height: 35px;
+	top: 30px;
 }
-
 
 #seatInfo p {
 	display: inline-block;
@@ -1052,7 +1050,7 @@ hr.style3 {
 
 .screenOff {
 	float: left;
-	width: 100px;
+	width: 12.5%;
 	height: 41px;
 	font-size: 16px;
 	line-height: 12px;
@@ -1061,14 +1059,14 @@ hr.style3 {
 	background-repeat: no-repeat;
 	background-position: -1px 0;
 	background-image: url(../img/scar.png);
-	background-size: 90px 50px;
+	background-size: 70px 50px;
 	padding-top: 3%;
 	cursor: pointer;
 }
 
 .screenOn {
 	float: left;
-	width: 100px;
+	width: 12.5%;
 	height: 41px;
 	font-size: 16px;
 	line-height: 12px;
@@ -1078,7 +1076,7 @@ hr.style3 {
 	background-repeat: no-repeat;
 	background-position: -1px 0;
 	background-image: url(../img/scar_on.png);
-	background-size: 90px 50px;
+	background-size: 70px 50px;
 	cursor: pointer;
 }
 
@@ -1115,7 +1113,7 @@ hr.style3 {
 	font-weight: bold;
 }
 
-#trainPaymentTable {
+.trainPaymentTable {
 	width: 100%;
 	text-align: center;
 	border-spacing: 0;
@@ -1125,13 +1123,86 @@ hr.style3 {
 	font-family: 'NanumSquareR' !important;
 }
 
-#trainPaymentTable>thead>tr {
+.trainPaymentTable>thead>tr {
 	height: 50px;
 	background-color: #0180a3;
 	border: #0180a3 1px solid;
 	color: white;
 }
 
-#trainPaymentTable>tbody>tr {
+.trainPaymentTable>tbody>tr {
 	height: 50px;
+}
+
+.paymentTypeoff {
+	width: 150px;
+	height: 30px;
+	position: relative;
+	text-align: center;
+	padding-top: 10px;
+	border: #0180a3 1.5px solid;
+	display: inline-block;
+	margin-right: -5.5px;
+}
+
+.paymentTypeon {
+	width: 150px;
+	height: 30px;
+	position: relative;
+	text-align: center;
+	padding-top: 10px;
+	border: #0180a3 1.5px solid;
+	display: inline-block;
+	margin-right: -5.5px;
+	background-color: #0180a3;
+	color: white;
+}
+
+.contextPayment {
+	width: 98%;
+	border: #0180a3 1px solid;
+	min-height: 250px;
+	position: relative;
+	padding: 10px;
+	border-top-right-radius: 15px;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	top: -0.5px;
+}
+
+#contextPaymentTable {
+	width: 100%;
+}
+
+#contextPaymentTable tr {
+	height: 50px;
+}
+
+#contextPaymentTable td {
+	
+}
+
+#paymentBt {
+	width: 100px;
+	height: 35px;
+	border-radius: 10px;
+	color: white;
+	text-align: center;
+	padding-top: 13px;
+	margin: auto;
+	margin-top: 40px;
+	display: inline-block;
+	background-color: #0180a3;
+}
+
+#paymentCBt {
+	width: 100px;
+	height: 35px;
+	border-radius: 10px;
+	text-align: center;
+	border: #0180a3 1.5px solid;
+	padding-top: 11px;
+	margin: auto;
+	margin-top: 40px;
+	display: inline-block;
 }
