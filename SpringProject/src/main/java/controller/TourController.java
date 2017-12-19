@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,11 +17,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import Model.CommentDTO;
 import Model.TourDAO;
 import Model.TourDTO;
+import service.TourService;
 
 @Controller
 public class TourController {
 	@Autowired
-	private TourDAO tourService;
+	private TourDAO tourDAO;
+	@Autowired
+	private TourService tourService;
+	@Autowired
+	CommentDTO commentDTO;
 	
 	@RequestMapping(value="/TourMain", method = RequestMethod.GET)
 	public String tourMain(HttpServletRequest req, Model model) {
@@ -49,7 +55,7 @@ public class TourController {
 		dto.setLocalName("%"+dto.getLocalName()+"%");
 		dto.setLocalAddr("%"+one+" "+two+"%");
 
-		List<TourDTO> result = tourService.tourSearch(dto);
+		List<TourDTO> result = tourDAO.tourSearch(dto);
 		
 		dto.setLocalName(dto.getLocalName().replaceAll("%", ""));
 		
@@ -61,30 +67,41 @@ public class TourController {
 	}
 	
 	@RequestMapping(value="/TourInfo", method = RequestMethod.GET)
-	public String tourInfo(TourDTO tourDTO, CommentDTO commentDTO, Model model, HttpServletRequest req) {
-		TourDTO result = tourService.tourInfo(tourDTO);
+	public String tourInfo(TourDTO tourDTO, Model model, HttpServletRequest req) {
+		TourDTO result = tourDAO.tourInfo(tourDTO);
 		
 		String code = req.getParameter("localCode");
 		commentDTO.setLocalCode(code);
-		List<CommentDTO> comment = tourService.tourComment(commentDTO);
 		
-		/*String newComment = req.getParameter("commentAdd");
-		System.out.println(newComment);*/
+//		List<CommentDTO> comment = tourDAO.tourComment(commentDTO);
 		
 		model.addAttribute("result", result);
-		model.addAttribute("comment", comment);
+//		model.addAttribute("comment", comment);
 		return "template/tour/TourInfo";
 	}
-	
 	@ResponseBody
 	@RequestMapping(value = "/TourInfo", method = RequestMethod.POST)
-	public HashMap<String, String> searchStation(@RequestParam HashMap<String, Object> param) {
-		System.out.println(param);
-		//HashMap<String, String> station = new HashMap<String, String>();
-
-		/*Integer result = sessionRepository.insertComment(param);
-		model.addAttribute("result", result);*/
-		return null;
+	public HashMap<Integer, CommentDTO> slelctcomment(HttpSession session,@RequestParam HashMap<String, Object> param) {
+		String code = String.valueOf(param.get("localCode"));
+		commentDTO.setLocalCode(code);
+		System.out.println(code);
+		List<CommentDTO> comment = tourDAO.tourComment(commentDTO);
+		HashMap<Integer, CommentDTO> commentMap = new HashMap<Integer, CommentDTO>();
+		int num = 0;
+		for(CommentDTO cdto : comment) {
+			commentMap.put(num++, cdto);
+		}
+		
+		
+		return commentMap;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/TourComment", method = RequestMethod.POST)
+	public HashMap<String, CommentDTO> commentInsert(HttpSession session,@RequestParam HashMap<String, Object> param) {		
+		tourService.insertComment(param,session);
+		HashMap<String, CommentDTO> tour = tourService.selectAllComment(String.valueOf(param.get("localCode")));
+		
+		return tour;
 	}
 	
 	@RequestMapping(value="/TourAdd", method=RequestMethod.GET)

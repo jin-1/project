@@ -12,13 +12,16 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:annotation-config />
 	<bean id="memberDao" class="Model.MemberDAO" />
+	<bean id="memberDto" class="Model.MemberDTO" />
 	<bean id="TrainDAO" class="Model.TrainDAO" />
 	<bean id="TrainDTO" class="Model.TrainStatinDTO" />
 	<bean id="TourDTO" class="Model.TourDTO" />
 	<bean id="TourDAO" class="Model.TourDAO" />
+	<bean id="CommentDTO" class="Model.CommentDTO" />
+	
 	
 	<bean id="MemberService" class="service.MemberService" />
-
+	<bean id="TourService" class="service.TourService" />	
 	<bean id="TrainService" class="service.TrainService" />
 
 

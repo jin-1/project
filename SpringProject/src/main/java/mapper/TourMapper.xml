@@ -57,14 +57,22 @@
 		select comment_num, member_id, local_code, corp_id, content, comment_date
 		from local_comment
 		<where>
-			local_code = #{localCode}
+			local_code = #{localCode} ORDER by COMMENT_NUM ASC
 		</where>
 	</select>
 	
 	<insert id="tourCommentInsert" parameterType="CommentDTO">
 		insert into local_comment(comment_num, member_id, local_code, corp_id, content, comment_date) 
-		values((select count(comment_num) + 1 from local_comment where local_code='F1'), 'a', #{localCode}, 'sinwoo', #{content}, #{commentDate})
+		values(local_comment_c.NEXTVAL, #{memberId}, #{localCode}, (select corp_id from local where local_code = #{localCode}), #{content}, sysdate)
 	</insert>
+	
+	<select id="tourCommentSelect" parameterType="string" resultMap="tourCommentResultMap">
+		select comment_num, member_id, local_code, corp_id, content, comment_date
+		from local_comment
+		<where>
+			local_code = #{localCode} ORDER by COMMENT_NUM ASC
+		</where>
+	</select>
 </mapper>
 
 

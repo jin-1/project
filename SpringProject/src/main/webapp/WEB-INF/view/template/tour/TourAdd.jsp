@@ -13,30 +13,7 @@
 <title>TRENVIAJES</title>
 <jsp:include page="../config.jsp" flush="false" />
 </head>
-<body>
-	<div id="top">
-		<jsp:include page="<%=menu%>" flush="false" />
-		<div id="menuBg" style="background-image:<%=img%>;"></div>
-	</div>
-	
-	<div id="mid">
-		내 사업 등록
-		<hr>
-		사업 명 <input type="text"><br>
-		사업자등록번호 <input type="text">-<input type="text">-<input type="text"><br>
-		전화번호 <input type="text">-<input type="text">-<input type="text"><br>
-		주소 <input type="text" id="sample6_postcode" placeholder="우편번호">
-		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-		<input type="text" id="sample6_address" placeholder="주소" size=80>
-		<input type="text" id="sample6_address2" placeholder="상세주소">
-		카테고리<br>
-		내용 <textarea rows="8" cols="50"></textarea><br>
-		사진첨부 <input type="text"><input type="button"><br>
-		<input type="text"><input type="button"><br>
-		등록 <input type="submit"><br>
-	</div>
-	
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script type="text/javascript">
 		function sample6_execDaumPostcode(){
 			new daum.Postcode({
@@ -74,5 +51,27 @@
 			}).open();
 		}
 	</script>
+<body>
+	<div id="top">
+		<jsp:include page="<%=menu%>" flush="false" />
+		<div id="menuBg" style="background-image:<%=img%>;"></div>
+	</div>
+	
+	<div id="mid">
+		내 사업 등록
+		<hr>
+		사업 명 <input type="text"><br>
+		사업자등록번호 <input type="text">-<input type="text">-<input type="text"><br>
+		전화번호 <input type="text">-<input type="text">-<input type="text"><br>
+		주소 <input type="text" id="sample6_postcode" placeholder="우편번호">
+		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+		<input type="text" id="sample6_address" placeholder="주소" size=80>
+		<input type="text" id="sample6_address2" placeholder="상세주소">
+		카테고리<br>
+		내용 <textarea rows="8" cols="50"></textarea><br>
+		사진첨부 <input type="text"><input type="button"><br>
+		<input type="text"><input type="button"><br>
+		등록 <input type="submit"><br>
+	</div>
 </body>
 </html>
