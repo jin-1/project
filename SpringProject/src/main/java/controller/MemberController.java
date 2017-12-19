@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import Model.CorporDTO;
+import Model.EmailDTO;
 import Model.MemberDAO;
 import Model.MemberDTO;
 import service.MemberService;
@@ -26,7 +27,7 @@ public class MemberController {
 	MemberService memberService;
 	@Autowired
 	MemberDAO memberDao;
-	
+	EmailDTO emailDto;
 	//일반회원 로그인
 	@RequestMapping(value = "/LoginForm", method = RequestMethod.GET)
 	public String MemberForm(HttpServletRequest req, Model model) {
@@ -130,6 +131,31 @@ public class MemberController {
 		return "template/member/idfind";
 	}
 	
+	@RequestMapping(value = "/IdFind", method = RequestMethod.POST)
+	public String memIdfind(@ModelAttribute("idFind") MemberDTO dto, Model model) throws Exception {
+		
+		MemberDTO result = memberDao.memIdFind(dto); 
+		EmailDTO emailDTO = new EmailDTO(); 
+			String id = result.getMemberId();
+			String mail = result.getMemberEmail();
+			String name = result.getMemberName();
+			
+			System.out.println("3"+id);
+			System.out.println("2"+mail);
+			System.out.println("1"+name);
+			
+			if(id != null) {
+				System.out.println("333");
+				emailDTO.setContent("아이디는"+id+"입니다.");
+				emailDTO.setSubject(name+"님이 찾으신 아이디 입니다.");
+				emailDTO.setReceiver(mail);
+				System.out.println("444");
+				memberService.SendEmail(emailDTO);
+			}
+			return "template/member/idfind";
+		}
+
+	
 	//비밀번호 찾기
 	@RequestMapping(value = "/PwFind", method = RequestMethod.GET)
 	public String PwFind(HttpServletRequest req, Model model) {
@@ -148,6 +174,7 @@ public class MemberController {
 		return "template/member/mypageIndex";
 	}
 	
+	//일반회원 아이디 중복검사
 	@ResponseBody
 	@RequestMapping(value = "/idcheck", method = RequestMethod.POST)
 	public HashMap<String, String> checkId(@RequestParam HashMap<String, Object> param) {
@@ -165,6 +192,7 @@ public class MemberController {
 		return hashmap;
 	}
 	
+	//기업회원 아이디 중복검사
 	@ResponseBody
 	@RequestMapping(value = "/coridcheck", method = RequestMethod.POST)
 	public HashMap<String, String> corCheckId(@RequestParam HashMap<String, Object> param){
@@ -176,5 +204,16 @@ public class MemberController {
 			hashmap.put("result", "중복되지 않은 아이디 입니다.");
 		}
 		return hashmap;
-	}	
+	}
+	
+	//일반회원 내 정보 수정
+	@RequestMapping(value = "/myPageCon", method = RequestMethod.GET)
+	public String myPageCon(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		model.addAttribute("menu", menu);
+		
+		return "template/member/myPageCon";
+	}
+	
+	
 }

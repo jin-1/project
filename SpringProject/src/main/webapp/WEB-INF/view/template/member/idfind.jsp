@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
+
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,6 +19,18 @@
 	src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
 <script type="text/javascript" src="./scripts/memberscript.js" charset="utf-8"></script>
+<script type="text/javascript">
+	<%
+	if(request.getParameter("result")!=null){
+		String memberId = request.getParameter("result");
+		
+		%>
+		alert("찾으신 아이디는 :"+<%=memberId%>+" 입니다.");
+		
+	<%}
+	
+	%>
+</script>
 <style type="text/css">
 .container {
 	left: 60%;
@@ -91,100 +106,112 @@
 
 .m_id {
 	background-color: #EAEAEA;
-	text-align:center;
+	text-align: center;
 }
 
 .c_id {
 	background-color: #EAEAEA;
-	text-align:center;
+	text-align: center;
 }
-.mem_sea{
-  background:#626564;
-  color:#fff;
-  border:none;
-  position:relative;
-  height:45px;
-  font-size:18px;
-  padding:0 2em;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
+
+.mem_sea {
+	background: #626564;
+	color: #fff;
+	border: none;
+	position: relative;
+	height: 45px;
+	font-size: 18px;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
 }
-.mem_sea:hover{
-  background:#fff;
-  color:#626564;
+
+.mem_sea:hover {
+	background: #fff;
+	color: #626564;
 }
-.mem_sea:before,.mem_sea:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background: #626564;
-  transition:400ms ease all;
+
+.mem_sea:before, .mem_sea:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #626564;
+	transition: 400ms ease all;
 }
-.mem_sea:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
+
+.mem_sea:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
 }
-.mem_sea:hover:before,.mem_sea:hover:after{
-  width:60%;
-  transition:800ms ease all;
+
+.mem_sea:hover:before, .mem_sea:hover:after {
+	width: 60%;
+	transition: 800ms ease all;
 }
-.cor_sea{
-  background:#626564;
-  color:#fff;
-  border:none;
-  position:relative;
-  height:45px;
-  font-size:18px;
-  padding:0 2em;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
+
+.cor_sea {
+	background: #626564;
+	color: #fff;
+	border: none;
+	position: relative;
+	height: 45px;
+	font-size: 18px;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
 }
-.cor_sea:hover{
-  background:#fff;
-  color:#626564;
+
+.cor_sea:hover {
+	background: #fff;
+	color: #626564;
 }
-.cor_sea:before,.cor_sea:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background: #626564;
-  transition:400ms ease all;
+
+.cor_sea:before, .cor_sea:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #626564;
+	transition: 400ms ease all;
 }
-.cor_sea:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
+
+.cor_sea:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
 }
-.cor_sea:hover:before,.cor_sea:hover:after{
-  width:60%;
-  transition:800ms ease all;
+
+.cor_sea:hover:before, .cor_sea:hover:after {
+	width: 60%;
+	transition: 800ms ease all;
 }
-.main{
-  background:#626564;
-  color:#fff;
-  border:none;
-  position:relative;
-  height:45px;
-  font-size:18px;
-  padding:0 2em;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
+
+.main {
+	background: #626564;
+	color: #fff;
+	border: none;
+	position: relative;
+	height: 45px;
+	font-size: 18px;
+	padding: 0 2em;
+	cursor: pointer;
+	transition: 800ms ease all;
+	outline: none;
 }
-.bottom{
-	padding-top : 7%;
-	padding-left : 45%;
+
+.bottom {
+	padding-top: 7%;
+	padding-left: 45%;
 }
 </style>
 <title>Insert title here</title>
@@ -199,26 +226,31 @@
 			<hr />
 			<div class="id_pwFind">
 				<ul>
-					<li class="idfind"><a href="IdFind?menu=Login" class="a_idFind">아이디 찾기</a></li>
-					<li class="pwfind"><a href="PwFind?menu=Login" class="a_pwFind">비밀번호 찾기</a></li>
+					<li class="idfind"><a href="IdFind?menu=Find" class="a_idFind">아이디
+							찾기</a></li>
+					<li class="pwfind"><a href="PwFind?menu=Find" class="a_pwFind">비밀번호
+							찾기</a></li>
 				</ul>
 			</div>
 			<div class="t_ipFind">
 				<table class="t_ip">
-					<tr>
-						<td rowspan="2" class="m_id">일반회원 아이디 찾기</td>
-						<td>성&nbsp;&nbsp; 명&nbsp;&nbsp;&nbsp;<input type="text" maxlength="10"
-							size="28" name="memberName"/></td>
-						<td rowspan="2"><button class="mem_sea">검 색</button></td>
-					</tr>
-					<tr>
-						<td>전화번호 <input type="text" class="phone1" maxlength="4"
-							size="5" />- <input type="text" class="phone2" maxlength="4"
-							size="5" />- <input type="text" class="phone3" maxlength="4"
-							size="5" />
-						</td>
+					<form:form modelAttribute="idFind" id="frm1">
+						<tr>
+							<td rowspan="2" class="m_id">일반회원 아이디 찾기</td>
+							<td>성&nbsp;&nbsp; 명&nbsp;&nbsp;&nbsp;<input type="text"
+								maxlength="10" size="28" name="memberName" /></td>
+							<td rowspan="2"><button type="button" class="mem_sea">검
+									색</button></td>
+						</tr>
+						<tr>
+							<td>이 메 일 <input type="text" class="email1" 
+								size="15" /> @ <input type="text" class="email2" 
+								size="10" /><input type="hidden" class="email3"
+								name="memberEmail" />
+							</td>
 
-					</tr>
+						</tr>
+					</form:form>
 					<tr class="cor_idFind">
 						<td rowspan="2" class="c_id">기업회원 아이디 찾기</td>
 						<td>기업명 &nbsp;&nbsp; <input type="text" maxlength="10"
@@ -226,16 +258,18 @@
 						<td rowspan="2"><button class="cor_sea">검 색</button></td>
 					</tr>
 					<tr>
-						<td>사업자 등록번호 <input type="text" class="c_num" maxlength="3"
-							size="4" /> - <input type="text" class="c_num1" maxlength="2"
-							size="3" />- <input type="text" class="c_num2" maxlength="5"
-							size="9" />
+						<td>전화번호 <input type="text" class="c_num" maxlength="3"
+							size="5" /> - <input type="text" class="c_num1" maxlength="4"
+							size="5" />- <input type="text" class="c_num2" maxlength="4"
+							size="5" />
 						</td>
 					</tr>
 				</table>
 			</div>
-			<div class="bottom"><button class="main">메인으로</button></div>
-			
+			<div class="bottom">
+				<button class="main">메인으로</button>
+			</div>
+
 		</div>
 	</div>
 	<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>

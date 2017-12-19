@@ -1,5 +1,9 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -55,6 +59,35 @@ public class MemberDAO extends AbstractRepository {
 			return 0;
 		}
 	
+	}
+	
+	//일반회원 아이디 찾기
+	/*
+	public String memIdFind(MemberDTO memberDto ) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectIdFind";
+		
+		try {
+			String result = sqlSession.selectOne(statement, memberDto);
+			return result;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}	
+	}*/
+	
+	public MemberDTO memIdFind(MemberDTO listMember){
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectIdFind";
+		MemberDTO member;
+		try{
+			member = sqlSession.selectOne(statement, listMember);
+			return member;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 	
 	//기업회원 아이디 중복확인

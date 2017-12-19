@@ -50,12 +50,8 @@ $(document)
 									});
 
 					// 일반회원 아이디 중복검사
-					$(".m_id")
-							.blur(
-									function() {
-
-										$
-												.ajax({
+					$(".m_id").blur(function() {
+						$.ajax({
 													url : "idcheck",
 													dataType : "json",
 													type : "post",
@@ -696,7 +692,8 @@ $(document)
 													"disabled");
 										}
 									});
-
+					
+					
 					var tst = true;
 					$('.corCheck').on("change", function() {
 						console.log("dd");
@@ -713,6 +710,8 @@ $(document)
 						}
 					});
 					
+					
+					//1:1문의 테이블 마우스on
 					$( ".noticeTable tr" ).on( "mouseover", function() {
 						 $( this ).css( "background-color", "#f4f4f4" );
 						 $( this).children("td").css( "cursor", "pointer" );
@@ -721,6 +720,15 @@ $(document)
 						 $( this ).css( "background-color", "white" );
 						  }); 
 
-						
-
+					//id 찾기
+					$('.mem_sea').click(function(){
+						$('.email3').val($('.email1').val()+"@"+$('.email2').val());
+						$('#frm1').submit();
+							
+					});
+					
+					$('.mypage').on("click",function(){
+						$(location).attr('href','myPageCon?menu=MyPage');
+					});
+					
 });

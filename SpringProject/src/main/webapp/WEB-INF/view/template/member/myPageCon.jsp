@@ -1,21 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<!DOCTYPE html>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String menu = request.getParameter("menu");
-	String target = "./template/menu/" + request.getParameter("target") + ".jsp";
+	String menu = "../top.jsp?menu=" + request.getParameter("menu");
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>MYPAGE</title>
 <link href="./css/styles.css" rel="stylesheet" type="text/css">
 <link href="./css/train.css" rel="stylesheet" type="text/css">
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
-<script type="text/javascript" src="./scripts/script.js"></script>
+<script type="text/javascript" src="./scripts/memberscript.js"
+	charset="utf-8"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <style type="text/css">
 .contain{
 	width:60%;
@@ -54,28 +57,28 @@
 </head>
 <body>
 	<div id="top">
-		<jsp:include page="./template/top.jsp?menu=<%=menu%>" flush="false" />
+		<jsp:include page="<%=menu%>" flush="false" />
 	</div>
 	<div id="mid">
 		<div class="contain">
-			<h2>°³ÀÎÁ¤º¸º¯°æ</h2>
+			<h2>ê°œì¸ì •ë³´ë³€ê²½</h2>
 			<hr />
-			<p class="p_tag">°í°´´ÔÀÇ °³ÀÎÁ¤º¸ º¸È£¸¦ À§ÇØ º»ÀÎÈ®ÀÎÀ» ÁøÇàÇÕ´Ï´Ù. </p>
-			<p class="p_tag2">ºñ¹Ð¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä. </p>
+			<p class="p_tag">ê³ ê°ë‹˜ì˜ ê°œì¸ì •ë³´ ë³´í˜¸ë¥¼ ìœ„í•´ ë³¸ì¸í™•ì¸ì„ ì§„í–‰í•©ë‹ˆë‹¤. </p>
+			<p class="p_tag2">ë¹„ë°€ë²ˆí˜¸ë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš”. </p>
 			<div class="pwc_table">
 				<table class="pwc_t">
 					<tr>
 					<td>
-					ºñ¹Ð¹øÈ£ &nbsp;
+					ë¹„ë°€ë²ˆí˜¸ &nbsp;
 					<input type="password" class="in_pw" size="40"/>&nbsp; 
-					<p class="p_btn">È®ÀÎ</p>
+					<p class="p_btn">í™•ì¸</p>
 					</td>
 					</tr>
 				</table>
 			</div>
 		</div>
 	</div>
-	<div id="bot"></div>
+	<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>
 </body>
 
 </html>

@@ -80,6 +80,14 @@
 	CORPORATION
 	where corp_id=#{corporId}
 	</select>
+	
+	<!-- 일반회원 아이디찾기 -->
+	<select id="selectIdFind" resultMap="baseResultMap" parameterType="Model.MemberDTO" >
+	select MEMBER_ID,MEMBER_EMAIL,MEMBER_NAME
+	from member
+	where 
+	MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail}
+	</select>
 </mapper>
 
 
