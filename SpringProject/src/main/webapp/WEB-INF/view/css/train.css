@@ -355,16 +355,27 @@ hr.style11 {
 	width: 210px;
 	height: 25px;
 }
+@media screen and (-webkit-min-device-pixel-ratio:0) {  
+.inputtext__indicator {
+	position: absolute;
+	top: 10px;
+	font-size: 15px;
+	
+	font-weight: bold;
+	left: 5px;
+	color: #333537d6;
+}
+}
 
 .inputtext__indicator {
 	position: absolute;
 	top: 10px;
 	font-size: 15px;
-	font-weight: bold;
+	
+	
 	left: 5px;
 	color: #333537d6;
 }
-
 .inputtext input:focus {
 	z-index: 1;
 	opacity: 100;
@@ -868,7 +879,7 @@ hr.style3 {
 	padding: 5px;
 	background-color: white;
 	margin-top: 30px;
-	text-align: start;
+	text-align: left;
 	color: #313131;
 }
 
@@ -899,7 +910,7 @@ hr.style3 {
 #trainNumber {
 	width: 98%;
 	background-color: white;
-	height: 80px;
+	height: 102px;
 	margin: auto;
 	border-radius: 15px;
 	border: #928f8f8c 0.5px solid;
@@ -907,7 +918,7 @@ hr.style3 {
 
 #trainSeat {
 	width: 98%;
-	height: 450px;
+	height: 430px;
 	position: relative;
 	background-color: white;
 	margin: auto;
@@ -936,6 +947,7 @@ hr.style3 {
 
 .seatTable {
 	display: none;
+	position: relative;
 }
 
 #trainSeat table {
@@ -950,11 +962,13 @@ hr.style3 {
 }
 
 #seatInfo {
-	position: absolute;
-	right: 10px;
-	width: 330px height: 35px;
-	top: 15px;
+    position: relative;
+    left: 73%;
+    width: 330px;
+    height: 35px;
+    top: 30px;
 }
+
 
 #seatInfo p {
 	display: inline-block;
@@ -1013,17 +1027,18 @@ hr.style3 {
 
 #trainNumberView {
 	width: 97%;
-	height: 88px;
+	height: 100px;
 	margin: auto;
 	background: url(../img/bg_scar.png) no-repeat;
-	background-size: 100%;
+	background-size: 100% 100%;
 }
 
 #screen {
-	width: 67%;
+	width: 66%;
+	position: relative;
 	height: 50px;
-	padding-top: 21px;
-	margin: 0 0 0 161px;
+	top: 25px;
+	left: 17%;
 	overflow-x: hidden;
 	overflow-y: hidden;
 }
@@ -1032,12 +1047,12 @@ hr.style3 {
 	list-style: none;
 	width: 100%;
 	margin: 0;
-	padding-left: 10px;
+	padding-left: 30px;
 }
 
 .screenOff {
 	float: left;
-	width: 76px;
+	width: 100px;
 	height: 41px;
 	font-size: 16px;
 	line-height: 12px;
@@ -1046,24 +1061,24 @@ hr.style3 {
 	background-repeat: no-repeat;
 	background-position: -1px 0;
 	background-image: url(../img/scar.png);
-	background-size: 70px 40px;
-	padding-top: 15px;
+	background-size: 90px 50px;
+	padding-top: 3%;
 	cursor: pointer;
 }
 
 .screenOn {
 	float: left;
-	width: 76px;
+	width: 100px;
 	height: 41px;
 	font-size: 16px;
 	line-height: 12px;
 	color: white;
+	padding-top: 3%;
 	text-align: center;
 	background-repeat: no-repeat;
 	background-position: -1px 0;
 	background-image: url(../img/scar_on.png);
-	background-size: 70px 40px;
-	padding-top: 15px;
+	background-size: 90px 50px;
 	cursor: pointer;
 }
 
@@ -1093,4 +1108,30 @@ hr.style3 {
 	margin-bottom: 5px;
 	font-size: 12px;
 	background: url(../img/bg_li_01.png) no-repeat 0 6px;
+}
+
+#trainPayment p {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#trainPaymentTable {
+	width: 100%;
+	text-align: center;
+	border-spacing: 0;
+	border-radius: 15px;
+	border: #0180a3 1px solid;
+	margin-top: 20px;
+	font-family: 'NanumSquareR' !important;
+}
+
+#trainPaymentTable>thead>tr {
+	height: 50px;
+	background-color: #0180a3;
+	border: #0180a3 1px solid;
+	color: white;
+}
+
+#trainPaymentTable>tbody>tr {
+	height: 50px;
 }

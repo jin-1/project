@@ -11,9 +11,27 @@
 	String[] data = (String[])session.getAttribute("trainTicket");
 	List<TrainRegistrationDTO> seat = (List<TrainRegistrationDTO>) request.getAttribute("seat");
 	Map<Integer, List<Integer>> seatmap = new HashMap<Integer, List<Integer>>();
+ 	DecimalFormat dc = new DecimalFormat("###,###,###,###");
  	int sadult = 0;
  	int sold = 0;
  	int schild = 0;
+ 	if (Integer.parseInt(data[0]) != 0) {
+ 		sadult = Integer.parseInt(data[0]) * Integer.parseInt(data[9]);
+ 		out.print("&nbsp;- 성인 " + data[0] + " \\"
+ 				+ dc.format(Integer.parseInt(data[0]) * Integer.parseInt(data[9])) + " <br>");
+ 	}
+ 	if (Integer.parseInt(data[1]) != 0) {
+ 		sold = (int) (Integer.parseInt(data[1]) * Integer.parseInt(data[9]) * 0.7);
+ 		out.print("&nbsp;- 노인 " + data[1] + " \\"
+ 				+ dc.format(Integer.parseInt(data[1]) * Integer.parseInt(data[9]) * 0.7) + " <br>");
+ 	}
+
+ 	if (Integer.parseInt(data[2]) != 0) {
+ 		schild = (int) (Integer.parseInt(data[2]) * Integer.parseInt(data[9]) * 0.5);
+ 		out.print(" - 어린이 " + data[2] + " \\"
+ 				+ dc.format(Integer.parseInt(data[2]) * Integer.parseInt(data[9]) * 0.5) + " <br>");
+ 	}
+ 	
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -201,6 +219,7 @@
 					<form:form action="trainPayment?menu=TRAIN&img=trainbg" method="POST">
 					<div id="reservationBt">
 						<input type="hidden" name="seat" id="seatNum">
+						<input type="hidden" name="seat" value="<%=dc.format(sadult + sold + schild)%>">
 						<p>선택좌석 예약하기</p>
 					</div>
 					</form:form>
@@ -221,26 +240,17 @@
 				<div class="subResult">
 					<p style="font-weight: bold;">운임내역</p>
 					<span style="margin-bottom: 5px; display: inline-block;">인원</span><br>
-					<span style="font-size: 13px; margin-top: 3px;"> <%
- 	DecimalFormat dc = new DecimalFormat("###,###,###,###");
-
- 	if (Integer.parseInt(data[0]) != 0) {
- 		sadult = Integer.parseInt(data[0]) * Integer.parseInt(data[9]);
- 		out.print("&nbsp;- 성인 " + data[0] + " \\"
- 				+ dc.format(Integer.parseInt(data[0]) * Integer.parseInt(data[9])) + " <br>");
- 	}
- 	if (Integer.parseInt(data[1]) != 0) {
- 		sold = (int) (Integer.parseInt(data[1]) * Integer.parseInt(data[9]) * 0.7);
- 		out.print("&nbsp;- 노인 " + data[1] + " \\"
- 				+ dc.format(Integer.parseInt(data[1]) * Integer.parseInt(data[9]) * 0.7) + " <br>");
- 	}
-
- 	if (Integer.parseInt(data[2]) != 0) {
- 		schild = (int) (Integer.parseInt(data[2]) * Integer.parseInt(data[9]) * 0.5);
- 		out.print(" - 어린이 " + data[2] + " \\"
- 				+ dc.format(Integer.parseInt(data[2]) * Integer.parseInt(data[9]) * 0.5) + " <br>");
- 	}
- %>
+					<span style="font-size: 13px; margin-top: 3px;">
+					<% if(Integer.parseInt(data[0]) > 0){%>
+						<span>&nbsp- 성인 <%=Integer.parseInt(data[0]) %>명</span><br>
+					<% }
+					if(Integer.parseInt(data[1]) > 0){%>
+						<span>&nbsp- 노인 <%=Integer.parseInt(data[0]) %>명</span><br>
+					<% }
+					if(Integer.parseInt(data[2]) > 0){%>
+						<span>&nbsp- 어린이 <%=Integer.parseInt(data[0]) %>명</span><br>
+					
+					<%} %>
 					</span>
 					<div
 						style="position: absolute; bottom: 20px; color: #0180a3; font-weight: bold; font-size: 15px; left: 10px;">

@@ -99,8 +99,8 @@ public class TrainController {
 	public String trainPayment(HttpSession session, HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
 		String img = req.getParameter("img");
-		String seat = req.getParameter("seat");
-		
+		String seat[] = req.getParameterValues("seat");
+		System.out.println(seat[1]);
 
 		model.addAttribute("menu", menu);
 		model.addAttribute("img", img);

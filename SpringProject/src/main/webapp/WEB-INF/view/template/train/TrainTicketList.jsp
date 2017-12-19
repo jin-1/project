@@ -198,6 +198,7 @@
 								<input type="hidden" value="<%=custom.getStartTrain()%>" name="data">
 								<input type="hidden" value="<%=custom.getEndTrain()%>" name="data">
 								<input type="hidden" value="<%=list.get(i).getTrainPrice()%>" name="data">
+								<input type="hidden" value="<%=list.get(i).getTrainName()%>" name="data">
 								<div class="ticketing">예매</div>
 							</form:form></td>
 						<td><div class="inquire"
