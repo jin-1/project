@@ -5,6 +5,8 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="Model.MemberDTO" alias="MemberDTO" />
+		<typeAlias type="Model.TourDTO" alias="TourDTO"/>
+		<typeAlias type="Model.CommentDTO" alias="CommentDTO"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -20,5 +22,6 @@
 	<mappers>
 		<mapper resource="mapper/Mapper.xml" />
 		<mapper resource="mapper/TrainMapper.xml" />
+		<mapper resource="mapper/TourMapper.xml" />
 	</mappers>
 </configuration>
