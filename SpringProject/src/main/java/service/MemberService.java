@@ -4,9 +4,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import Model.CorporDTO;
-import Model.MemberDAO;
-import Model.MemberDTO;
+
+import Model.*;
+
 
 public class MemberService {
 	
