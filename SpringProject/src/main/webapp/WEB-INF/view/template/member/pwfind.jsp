@@ -216,24 +216,25 @@
 			</div>
 			<div class="t_ipFind">
 				<table class="t_ip">
+				<form:form id="pwfrm">
 					<tr>
 						<td rowspan="3" class="m_id">일반회원 아이디 찾기</td>
-						<td>아이디 &nbsp;&nbsp;<input type="text" size="28"></td>
-						<td rowspan="3"><button class="mem_sea">검 색</button></td>
+						<td>아이디 &nbsp;&nbsp;<input type="text" size="28" class="memId" name="memberId"></td>
+						<td rowspan="3"><button class="mem_sea1">검 색</button></td>
 
 					</tr>
 					<tr>
 						<td>성&nbsp;&nbsp; 명&nbsp;&nbsp;&nbsp;<input type="text"
-							maxlength="10" size="28" /></td>
+							maxlength="10" size="28" class="pwMemName" name="memberName" /></td>
 					</tr>
 					<tr>
-						<td>전화번호 <input type="text" class="phone1" maxlength="4"
-							size="5" />- <input type="text" class="phone2" maxlength="4"
-							size="5" />- <input type="text" class="phone3" maxlength="4"
-							size="5" />
-						</td>
-
+							<td>이 메 일 <input type="text" class="pwEmail1" 
+								size="15" /> @ <input type="text" class="pwEmail2" 
+								size="10" /><input type="hidden" class="pwEmail3"
+								name="memberEmail" />
+							</td>
 					</tr>
+					</form:form>
 					<tr class="cor_idFind">
 						<td rowspan="3" class="c_id">기업회원 아이디 찾기</td>
 						<td>아이디&nbsp;&nbsp;&nbsp; <input type="text" size="28"></td>

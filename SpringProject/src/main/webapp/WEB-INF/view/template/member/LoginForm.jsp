@@ -6,6 +6,7 @@
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
 %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,6 +14,7 @@
 <title>Login</title>
 <script type="text/javascript" src="./scripts/memberscript.js" charset="utf-8"></script>
 <jsp:include page="../config.jsp" flush="false" />
+
 <style type="text/css">
 .form {
 	z-index: 0;
