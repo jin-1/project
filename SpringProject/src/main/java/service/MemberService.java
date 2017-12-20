@@ -8,19 +8,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
 import Model.*;
-
+@Service
 public class MemberService {
 	
 	@Autowired
 	MemberDAO memberDao;
-	@Autowired
+	
 	MemberDTO memberDto;
-	@Autowired
 	CorporDTO corporDto;
-	@Autowired
 	EmailDTO emailDto;
+	
 	@Autowired
 	JavaMailSender mailSender;
     
