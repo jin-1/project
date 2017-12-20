@@ -97,7 +97,7 @@
 	
 	
 	<insert id="insertTrainTicket" parameterType="Model.TrainRegistrationDTO">
-		NSERT INTO TRAIN_REGISTRATION (TRAIN_REG_CODE,TRAIN_CODE,SEAT_NUM,MEMBER_ID,DEPARTING_STATION,ARRIVAL_STATION,TRAIN_DATE) 
+		INSERT INTO TRAIN_REGISTRATION (TRAIN_REG_CODE,TRAIN_CODE,SEAT_NUM,MEMBER_ID,DEPARTING_STATION,ARRIVAL_STATION,TRAIN_DATE) 
 		VALUES ('A'||train_nn.NEXTVAL,#{trainCode},#{seatNum},#{memberId},#{departingStation},#{arrivalStation},#{trainDate})
 
 	</insert>

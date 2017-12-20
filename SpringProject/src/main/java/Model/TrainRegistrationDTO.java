@@ -54,7 +54,7 @@ public class TrainRegistrationDTO {
 	}
 
 	public void setArrivalStation(String arrivalStation) {
-		arrivalStation = arrivalStation;
+		this.arrivalStation = arrivalStation;
 	}
 
 	public String getTrainDate() {

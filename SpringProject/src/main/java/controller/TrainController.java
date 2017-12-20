@@ -112,10 +112,10 @@ public class TrainController {
 	
 	
 	@RequestMapping(value = "/trainTicketing", method = RequestMethod.POST)
-	public String trainPaymentPost( Model model , @ModelAttribute("trainpayment") TrainRegistrationDTO trainRegistrationDTO) {
-		
+	public String trainPaymentPost(HttpSession session, Model model , @ModelAttribute("trainPayment") TrainRegistrationDTO trainRegistrationDTO) {
+
 			traindao.insertTicketing(trainRegistrationDTO);
-			
+			session.removeAttribute("trainTicket");
 			
 				return "template/train/TrainTicketing";
 	}

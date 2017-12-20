@@ -228,18 +228,20 @@
 			  			</tr>
 			  		</table>
 			  	</div>
-			  	<form:form modelAttribute="trainpayment" id="frmTicket">
-			  	<div style="width: 250px; position: relative; margin: auto;">
-			  	<input type="hidden" name="trainCode" value="<%=data[3]%>">
-			  	<input type="hidden" name="seatNum" value="<%=seat[0]%>">
-			  	<input type="hidden" name="memberId" value="<%=memberDTO.getMemberId()%>">
-			  	<input type="hidden" name="departingStation" value="<%=data[7]%>">
-			  	<input type="hidden" name="arrivalStation" value="<%=data[8]%>">
-			  	<input type="hidden" name="trainDate" value="<%=data[4]%>">
-			  	<div id="paymentBt">결제 하기</div>
+			 	 	<form:form method="post" action="trainTicketing?menu=TRAIN&img=trainbg" modelAttribute="trainPayment" id="frmTicket">
+					  	<input type="hidden" name="trainCode" value="<%=data[3]%>">
+					  	<input type="hidden" name="seatNum" value="<%=seat[0]%>">
+					  	<input type="hidden" name="memberId" value="<%=memberDTO.getMemberId()%>">
+					    <input type="hidden" name="arrivalStation" value="<%=data[8]%>">
+					  	<input type="hidden" name="departingStation" value="<%=data[7]%>">
+					  	<input type="hidden" name="trainDate" value="<%=data[4]%>">
+					</form:form>
+				  	<div style="width: 250px; position: relative; margin: auto;">
+					  	
+				  	<div id="paymentBt">결제 하기</div>
 			  	<div id="paymentCBt">취소</div>
 			  	</div>
-			  	</form:form>
+			  	
 			</div>
 				
 		</div>

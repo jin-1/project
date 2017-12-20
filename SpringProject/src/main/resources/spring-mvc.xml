@@ -10,6 +10,24 @@
 	<mvc:annotation-driven />
 
 	<mvc:default-servlet-handler />
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/Ticketing" />
+			<bean class="interceptor.TrainInterCeptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/trainPayment" />
+			<bean class="interceptor.TrainInterCeptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/trainTicketing" />
+			<bean class="interceptor.TrainInterCeptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/main" />
+			<bean class="interceptor.MainInterCeptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<mvc:view-resolvers>
 		<mvc:jsp prefix="/WEB-INF/view/" />
