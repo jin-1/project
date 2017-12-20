@@ -13,7 +13,7 @@ import Model.*;
 
 public class MemberService {
 	
-	
+	@Autowired
 	MemberDAO memberDao;
 	MemberDTO memberDto;
 	CorporDTO corporDto;
