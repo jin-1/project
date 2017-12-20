@@ -20,6 +20,16 @@
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
 <script type="text/javascript" src="./scripts/memberscript.js" charset="utf-8"></script>
 <script type="text/javascript">
+	<%
+	if(request.getParameter("result")!=null){
+		String memberId = request.getParameter("result");
+		
+		%>
+		alert("찾으신 아이디는 :"+<%=memberId%>+" 입니다.");
+		
+	<%}
+	
+	%>
 </script>
 <style type="text/css">
 .container {
@@ -224,36 +234,36 @@
 			</div>
 			<div class="t_ipFind">
 				<table class="t_ip">
-				
-					<form:form id="frm1">
+					<form:form modelAttribute="idFind" id="frm1">
 						<tr>
 							<td rowspan="2" class="m_id">일반회원 아이디 찾기</td>
 							<td>성&nbsp;&nbsp; 명&nbsp;&nbsp;&nbsp;<input type="text"
-								maxlength="10" size="28" class="memName" name="memberName" /></td>
-							<td rowspan="2"><button type="button" class="mem_sea">검색</button></td>
+								maxlength="10" size="28" name="memberName" /></td>
+							<td rowspan="2"><button type="button" class="mem_sea">검
+									색</button></td>
 						</tr>
 						<tr>
 							<td>이 메 일 <input type="text" class="email1" 
 								size="15" /> @ <input type="text" class="email2" 
 								size="10" /><input type="hidden" class="email3"
 								name="memberEmail" />
-							</td>	
+							</td>
+
 						</tr>
 					</form:form>
-					<form:form class="cor_Idfrm2">
 					<tr class="cor_idFind">
 						<td rowspan="2" class="c_id">기업회원 아이디 찾기</td>
-						<td>대표자명 &nbsp;<input type="text" maxlength="10"size="28" name="corporName" class="corName" /></td>
+						<td>기업명 &nbsp;&nbsp; <input type="text" maxlength="10"
+							size="28" /></td>
 						<td rowspan="2"><button class="cor_sea">검 색</button></td>
 					</tr>
 					<tr>
-						<td>이 메 일 <input type="text" class="c_email1" 
-								size="15" "/> @ <input type="text" class="c_email2" 
-								size="10" /><input type="hidden" class="c_email3"
-								name="corporEmail" />
+						<td>전화번호 <input type="text" class="c_num" maxlength="3"
+							size="5" /> - <input type="text" class="c_num1" maxlength="4"
+							size="5" />- <input type="text" class="c_num2" maxlength="4"
+							size="5" />
 						</td>
 					</tr>
-					</form:form>
 				</table>
 			</div>
 			<div class="bottom">
