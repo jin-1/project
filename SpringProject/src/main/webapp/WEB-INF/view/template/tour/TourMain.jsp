@@ -44,14 +44,14 @@
 				case '광주': sidoArray = this.gwangju; break;
 				case '대전': sidoArray = this.daejeon; break;
 				case '울산': sidoArray = this.ulsan; break;
-				case '경기도': sidoArray = this.gyeonggi; break;
-				case '강원도': sidoArray = this.gangwon; break;
-				case '충청남도': sidoArray = this.chungnam; break;
-				case '충청북도': sidoArray = this.chungbuk; break;
-				case '전라남도': sidoArray = this.jeonnam; break;
-				case '전라북도': sidoArray = this.jeonbuk; break;
-				case '경상남도': sidoArray = this.gyeongnam; break;
-				case '경상북도': sidoArray = this.gyeongbuk; break;
+				case '경기': sidoArray = this.gyeonggi; break;
+				case '강원': sidoArray = this.gangwon; break;
+				case '충남': sidoArray = this.chungnam; break;
+				case '충북': sidoArray = this.chungbuk; break;
+				case '전남': sidoArray = this.jeonnam; break;
+				case '전북': sidoArray = this.jeonbuk; break;
+				case '경남': sidoArray = this.gyeongnam; break;
+				case '경북': sidoArray = this.gyeongbuk; break;
 				case '세종': sidoArray = this.sejong; break;
 			}
 			return sidoArray;
@@ -102,14 +102,14 @@
 						<option value="대전">대전</option>
 						<option value="울산">울산</option>
 						<option value="세종">세종</option>
-						<option value="경기도">경기도</option>
-						<option value="강원도">강원도</option>
-						<option value="충청남도">충청남도</option>
-						<option value="충청북도">충청북도</option>
-						<option value="전라남도">전라남도</option>
-						<option value="전라북도">전라북도</option>
-						<option value="경상남도">경상남도</option>
-						<option value="경상북도">경상북도</option>
+						<option value="경기">경기</option>
+						<option value="강원">강원</option>
+						<option value="충남">충남</option>
+						<option value="충북">충북</option>
+						<option value="전남">전남</option>
+						<option value="전북">전북</option>
+						<option value="경남">경남</option>
+						<option value="경북">경북</option>
 					</select>
 					<select title="시/군/구 선택" name="SearchArea2">
 						<option value="">시/군/구</option>

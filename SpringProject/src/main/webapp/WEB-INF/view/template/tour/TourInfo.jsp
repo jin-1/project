@@ -57,7 +57,7 @@
 			</table>
 			<p></p>
 			<div id="map" style="width: 500px; height: 400px;"></div>
-			<script	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8c84fe2bb777a0b119382064d811c615"></script>
+			<script	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ea4fe07842ca6b52074a30963b1e1bd5"></script>
 			<script>
 				var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 				var options = { //지도를 생성할 때 필요한 기본 옵션
@@ -89,19 +89,33 @@
 				<p></p>
 		<script type="text/javascript">
 			$(document).ready(function(){
-				var localCode = <%=request.getParameter("localCode")%>;
-
-
+				$.ajax({
+		            url : "TourInfo",
+		            dataType : "json",
+		            type : "post",
+		            async: false,
+		            data : {localCode: "<%=request.getParameter("localCode")%>"},
+					success : function(data) {
+						$('.commentTable tr').remove();$.each(data,function(key,value) {
+							$('.commentTable').append('<tr><td>'+ value.memberId+ '</td><td>'+ value.commentDate+ '</td></tr><tr><td colspan=2>'+ value.content+ '</td></tr>');
+							});
+					},
+					error : function(request,status,error) {
+						console.log("code:"	+ request.status+ "\n"+ "error:"+ error);
+						}
+					});
 				
 				$('#submitButton').on("click",function(){
-					
+					console.log("d");
 					$.ajax({
 			            url : "TourComment",
 			            dataType : "json",
 			            type : "post",
+			            async: false,
 			            data : {commentAdd:$('#commentAdd').val(), localCode: "<%=request.getParameter("localCode")%>"},
 						success : function(data) {
-							$('.commentTable tr').remove();$.each(data,function(key,value) {
+							$('.commentTable tr').remove();
+							$.each(data,function(key,value) {
 								$('.commentTable').append('<tr><td>'+ value.memberId+ '</td><td>'+ value.commentDate+ '</td></tr><tr><td colspan=2>'+ value.content+ '</td></tr>');
 								});
 						},
@@ -110,7 +124,6 @@
 							}
 						});
 					});
-				});
 			});
 
 		</script>
