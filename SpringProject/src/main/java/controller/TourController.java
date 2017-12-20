@@ -38,9 +38,9 @@ public class TourController {
 	
 	@RequestMapping(value="/TourResult", method = RequestMethod.GET)
 	public String tourResult(HttpServletRequest req, Model model, TourDTO dto) {
-		String one = req.getParameter("SearchArea1"); //ï¿½Ãµï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
-		String two = req.getParameter("SearchArea2"); //ï¿½Ã±ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
-		String[] cateArr = req.getParameterValues("category"); //Ä«ï¿½×°ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
+		String one = req.getParameter("SearchArea1"); //½Ãµµ ¹Þ¾Æ¿À±â
+		String two = req.getParameter("SearchArea2"); //½Ã±º±¸ ¹Þ¾Æ¿À±â
+		String[] cateArr = req.getParameterValues("category"); //Ä«Å×°í¸® ¹Þ¾Æ¿À±â
 		
 		String cateName[] = {"ÇÑ½Ä", "Áß½Ä", "ÀÏ½Ä", "ºÐ½Ä", "È£ÅÚ", "¸ðÅÚ", "ÂòÁú¹æ", "°Ô½ºÆ®ÇÏ¿ì½º", "ÀÚ¿¬", "·¹Àú", "¿ª»ç", "¹Ú¹°°ü"};
 		String cate = "";
@@ -73,7 +73,10 @@ public class TourController {
 		String code = req.getParameter("localCode");
 		commentDTO.setLocalCode(code);
 		
+//		List<CommentDTO> comment = tourDAO.tourComment(commentDTO);
+		
 		model.addAttribute("result", result);
+//		model.addAttribute("comment", comment);
 		return "template/tour/TourInfo";
 	}
 	@ResponseBody
@@ -81,16 +84,17 @@ public class TourController {
 	public HashMap<Integer, CommentDTO> slelctcomment(HttpSession session,@RequestParam HashMap<String, Object> param) {
 		String code = String.valueOf(param.get("localCode"));
 		commentDTO.setLocalCode(code);
-		
+		System.out.println(code);
 		List<CommentDTO> comment = tourDAO.tourComment(commentDTO);
 		HashMap<Integer, CommentDTO> commentMap = new HashMap<Integer, CommentDTO>();
 		int num = 0;
 		for(CommentDTO cdto : comment) {
 			commentMap.put(num++, cdto);
 		}
+		
+		
 		return commentMap;
 	}
-	
 	@ResponseBody
 	@RequestMapping(value = "/TourComment", method = RequestMethod.POST)
 	public HashMap<String, CommentDTO> commentInsert(HttpSession session,@RequestParam HashMap<String, Object> param) {		
@@ -100,7 +104,7 @@ public class TourController {
 		return tour;
 	}
 	
-	@RequestMapping(value="/TourAdd", method={RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="/TourAdd", method=RequestMethod.GET)
 	public String tourAdd(Model model) {
 		return "template/tour/TourAdd";
 	}
