@@ -3,12 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	request.setCharacterEncoding("UTF-8");
+	String img = "url(img/rent.jpg)";
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
-	String img = "url(img/rentWallpaper.jpg)";
 %>
 <%
 	ArrayList<CartDTO> cartList = (ArrayList<CartDTO>)session.getAttribute("cartList");
-	System.out.println("aaaaa" + cartList.size());
 	int totalMoney = (Integer)request.getAttribute("totalMoney");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -17,8 +16,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link href="./css/styles.css" rel="stylesheet" type="text/css">
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="./scripts/script.js"></script>
 <script type="text/javascript">
 /*   function doNotReload(){
@@ -159,7 +157,7 @@ i {
 <body>
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
-		<div id="menuBg" style="background-image:<%=img%>;"></div>
+		<div id="menuBg" style="background-image:<%=img%>;"></div> 
 	</div>
 	<div id="mid">
 		<div class="container">
@@ -265,6 +263,9 @@ i {
 				</div>
 			</div>
 		</div>
+	</div>
+	<div id="bot">
+		<jsp:include page="../bot.jsp" flush="false" />
 	</div>
 </body>
 </html>

@@ -6,7 +6,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=RENT";
-	String img = "url(img/rentWallpaper.jpg)";
+	String img = "url(img/rent.jpg)";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,6 +16,7 @@
 <link href="./css/styles.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="./scripts/script.js"></script>
+<jsp:include page="../config.jsp" flush="false" />
 <style>
 #process{
 	height: 100px;
@@ -133,6 +134,45 @@ li {
 
 </head>
 <body>
+	<div class="tbg"></div>
+	<div class="tbgw">
+		<div class="stbg">
+			<div style="text-align: center;">
+				<H2>도시를 지정해주세요</H2>
+			</div>
+			<div class="stbg_1">
+				<ul>
+					<li>전체</li>
+					<li>가</li>
+					<li>나</li>
+					<li>다</li>
+					<li>라</li>
+					<li>마</li>
+					<li>바</li>
+					<li>사</li>
+					<li>아</li>
+					<li>자</li>
+					<li>차</li>
+					<li>카</li>
+					<li>타</li>
+					<li>파</li>
+					<li>하</li>
+				</ul>
+			</div>
+			<div class="trainList" id="trainList3">
+				<ul>
+				</ul>
+			</div>
+		</div>
+		<div class="datebg">
+			<div style="text-align: center; margin-bottom: 35px;">
+				<H2>날짜를 정해주세요</H2>
+			</div>
+			<div class="calendar"></div>
+
+		</div>
+	</div>
+	
 	<div id="top">
 			<jsp:include page="<%=menu%>" flush="false" />
 			<div id="menuBg" style="background-image:<%=img%>;"></div>
@@ -141,7 +181,7 @@ li {
 		<div class="container">
 			<div id="nav-critical">
 				<div id="process">
-					<span id="current_page">장 바 구 니</span>
+					<span id="current_page">주문/결제</span>
 					<ul id="step_list">
 						<li>
 							<div id="circle">

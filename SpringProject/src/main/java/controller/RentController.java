@@ -27,24 +27,27 @@ public class RentController {
 	@RequestMapping(value="/SearchProduct", method = RequestMethod.GET)
 	public String searchProduct(HttpServletRequest req, Model model, ProductDTO pDTO) {
 		String menu = req.getParameter("menu");
+		String img = req.getParameter("img");
 		model.addAttribute("menu", menu);
+		model.addAttribute("img", img);
 		model.addAttribute("pDTO", pDTO);
 		return "template/rent/SearchProduct";
 	}
 	@RequestMapping(value="/SearchResult", method = RequestMethod.POST)
 	public String searchResult( HttpServletRequest req, ProductDTO pDTO, Model model) {
 		pDTO.setPrdName("%"+pDTO.getPrdName()+"%");
-	/*	System.out.println(pDTO.getPrdType());
-		System.out.println(pDTO.getPrdName());*/
 		List<ProductDTO> result = pDAO.searchList(pDTO);
 		model.addAttribute("result", result);
 		return "template/rent/SearchResult";
 	}
 	
 	@RequestMapping(value="/ProductIndex", method = RequestMethod.GET)
-	public String productIndex(Model model, ProductDTO pDTO) {
-		/*System.out.println(pDTO.getPrdName());*/
+	public String productIndex(HttpServletRequest req, Model model, ProductDTO pDTO) {
 		List<ProductDTO> result = pDAO.productIndex(pDTO);	
+		String menu = req.getParameter("menu");
+		String img = req.getParameter("img");
+		model.addAttribute("menu", menu);
+		model.addAttribute("img", img);
 		model.addAttribute("result", result);
 		return "template/rent/ProductIndex";
 	}

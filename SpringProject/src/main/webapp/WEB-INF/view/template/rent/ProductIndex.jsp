@@ -4,8 +4,8 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%
 	request.setCharacterEncoding("UTF-8");
-String menu = "../top.jsp?menu=" + request.getParameter("menu");
-	String img = "url(img/rentWallpaper.jpg)";
+	String menu = "../top.jsp?menu=" + request.getParameter("menu");
+	String img = "url(img/rent.jpg)";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -13,8 +13,7 @@ String menu = "../top.jsp?menu=" + request.getParameter("menu");
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>TRENVIAJES</title>
 <link href="./css/styles.css" rel="stylesheet" type="text/css">
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="./scripts/script.js"></script>
 <style>
 #content{
@@ -33,23 +32,23 @@ String menu = "../top.jsp?menu=" + request.getParameter("menu");
 }
 #view_image{
 	position:relative;
-	width:420px;
-	height: 420px;
-	text-align:center;
+	display: table;
+	margin: 0 auto;
+	margin-top: 40px;
 }
 #view_image img{
+	text-align:center;
 	width: auto !important;
-	max-width: 450px;
+	max-width: 410px;
 	height: auto !important;
-	max-height: 450px;
+	max-height: 410px;
 	border:0;
 	vertical-align: top;
 }
 #disposable {
 	position:absolute;
-	top: 400px;
-	right: 10px;
-	width:100%;
+	top: 350px;
+	text-align:center;
 }
 #info{
 	float:right;
@@ -293,7 +292,7 @@ String menu = "../top.jsp?menu=" + request.getParameter("menu");
 <body>
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
-		<div id="menuBg" style="background-image:<%=img%>;"></div>
+		<div id="menuBg" style="background-image:<%=img%>;"></div> 
 	</div>
 	<div id="mid">
 		<div id="content">
@@ -313,53 +312,49 @@ String menu = "../top.jsp?menu=" + request.getParameter("menu");
 					</div>
 				</div>
 				<div id="info">
-				
-			
-						<fieldset id="right_area">
-							<div id="basic_info">
-								<p class="prd_code_label">상품번호 : <span class="prd_code">${pDTO.prdCode}</span> </p><hr/>
-								<p class="prd_name"><strong>${pDTO.prdName}</strong></p>
-								<ul class="prd_info">
-									<li>
-										<span class="prd_price_label">Price</span>
-										<span class="prd_price">
-											<span class="price">${pDTO.prdPrice}</span>
-											원
-										</span>
-									</li>
-									<li>
-										<span class="prd_delivery_label">배송비</span>
-										<span class="prd_delivery">무료</span>
-									</li>
-									<li>
-										<span class="prd_stack_label">수량 현황</span>
-										<span class="prd_stack">있음</span>
-									</li>
-								</ul>	
-							</div>
-							<div class="prd_cnt_field">
-								<div class="cnt_box">
-									<span class="cnt">대여수량</span>
-									<div class="cnt_area">
-										<span class="adjust_cnt">
-											<input type="button" class="btn_less"  value="-" field="quantity" />
-											<input type="text" id="total_cnt" name="quantity" value="1" readonly />
-											<input type="button" class="btn_add"  value="+" field="quantity"/>
-										</span>
-									</div>
+					<fieldset id="right_area">
+						<div id="basic_info">
+							<p class="prd_code_label">상품번호 : <span class="prd_code">${pDTO.prdCode}</span> </p><hr/>
+							<p class="prd_name"><strong>${pDTO.prdName}</strong></p>
+							<ul class="prd_info">
+								<li>
+									<span class="prd_price_label">Price</span>
+									<span class="prd_price">
+										<span class="price">${pDTO.prdPrice}</span>
+										원
+									</span>
+								</li>
+								<li>
+									<span class="prd_delivery_label">배송비</span>
+									<span class="prd_delivery">무료</span>
+								</li>
+								<li>
+									<span class="prd_stack_label">수량 현황</span>
+									<span class="prd_stack">있음</span>
+								</li>
+							</ul>	
+						</div>
+						<div class="prd_cnt_field">
+							<div class="cnt_box">
+								<span class="cnt">대여수량</span>
+								<div class="cnt_area">
+									<span class="adjust_cnt">
+										<input type="button" class="btn_less"  value="-" field="quantity" />
+										<input type="text" id="total_cnt" name="quantity" value="1" readonly />
+										<input type="button" class="btn_add"  value="+" field="quantity"/>
+									</span>
 								</div>
 							</div>
-							<hr/>
-							<div id="prd_total_field">
-								<span class="txt_total">상품금액 합계</span>
-								<span class="txt_sum">
-									 <span class="totalWon"><label id="total">${pDTO.prdPrice}</label></span> 
-									
-									원
-								</span>
-							</div>
-						</fieldset>
-					
+						</div>
+						<hr/>
+						<div id="prd_total_field">
+							<span class="txt_total">상품금액 합계</span>
+							<span class="txt_sum">
+								 <span class="totalWon"><label id="total">${pDTO.prdPrice}</label></span> 
+								원
+							</span>
+						</div>
+					</fieldset>	
 					<form action="Cart" name="frm" method="post" id="frm">
 						<input type="hidden" name="productName" value= "${pDTO.prdName}" />	
 						<input type="hidden" name="productCode" value= "${pDTO.prdCode}" />
@@ -378,9 +373,8 @@ String menu = "../top.jsp?menu=" + request.getParameter("menu");
 			</div>
  		</div>
 	</div>
-	
-	
-	
-	<!-- <div id="bot"></div> -->
+	<div id="bot">
+		<jsp:include page="../bot.jsp" flush="false" />
+	</div>
 </body>
 </html>

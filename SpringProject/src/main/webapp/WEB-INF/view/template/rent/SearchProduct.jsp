@@ -29,14 +29,14 @@
 			/* data:"prdName="+prdName, */
 			data: "prdName="+prdName+"&prdType="+prdType,  //변수명=값&변수명=값&변수명=값		일반형 / json으로 넘길때는 {변수명:값 , 변수명:값}
 			success:function(result){
-				$('.ItemList').html(result);
+				$('.productList').html(result);
 			}
 		});		 
  		return false;
 	});
 }); 
 </script>
-<jsp:include page="../config.jsp" flush="false"/>
+<%-- <jsp:include page="../config.jsp" flush="false"/> --%>
 <style>
 #mid {
 	width:60%;
@@ -87,7 +87,6 @@ select {
 	line-height: 1.5em;
 	padding: 0.5em 3.2em 0.5em 1em;
 }
-
 select optgroup {
 	font-size: 14px;
 	font-weight: bold;
@@ -96,7 +95,6 @@ select option {
 	font-weight: normal;
 	font-size: 12px;
 }
-
 #prdName {
 	width: 420px;
 	height: 35px;
@@ -107,9 +105,7 @@ select option {
 	border-radius: 5px 0px 0px 5px ;
 	text-align:center;
 	font-size: 15px;
-	position: relative;	
-	
-	  
+	position: relative;	  
 }
 #searchButton {
 	height: 39px;
@@ -119,46 +115,50 @@ select option {
 	border: 1px solid #444;
 	border-radius: 0px 5px 5px 0px ;
 	background: #0E3A53; 	
-	color:  white;
+	color: white;
 	position:relative;
 }
 #listArea {
 	margin-top: 80px;
 	padding: 0;
-	width:70%;
-	margin-left:15%;
-	margin-bottom: 300px;
-}
-
-#productList{
-	position: relative;
-	width:940px;
-	/* float:left; */
+	display: table;
 	margin: 0 auto;
+	margin-bottom: 80px;
 }
-#ItemList {
+.productList{
 	position: relative;
-	padding-bottom: 30px;
 }
-#productTable{
-	width:600px;
-	padding: 25px;
-	border-top:1px solid #A8B0AE;
-	vertical-align:top;
-	border:1px solid;
+ #productTable {
+	width: 900px;
+	border-collapse: collapse;
+} 
+#productTable tr:nth-child(even){ background-color:#f2f2f2; }
+#productTable td, #productTable th {
+	border-top: 1px solid #ddd;
+	padding: 8px;
+}
+#productTable a:hover {color:#0E3A53; }
+#productTable th{
+	padding-top:12px;
+	padding-bottom: 12px;
+	text-align: center;
+	background-color: #0E3A53;
+    color: white;
 }
 #photo{
-	float: left;
+	text-align: center;
  	width:250px;
- 	height: 85px;
-	margin-right: 20px;
-
+ 	height: 130px;
+ 	text-align: center;
 }
 #image{
-	height: 200px;
 	display:block;
-	text-align: center;
+	margin: 5px 35px 5px 35px;
+	padding: 15px 20px 5px 20px;
 	position: relative;
+	width: 180px;
+	height: 120px;
+	background-color: white;
 	overflow:hidden;
 }
 #photo .img {
@@ -169,20 +169,19 @@ select option {
 }
 #details {
 	border-left:1px solid #A8B0AE;
-	width:300px;
-	height: 85px; 
-	margin-top: 5px ;
-	margin-left: 5px;
 }
 #name {
-	font-size:18px;
+	font-size:19px;
+	font-weight: bold;
 	letter-spacing:1px;
+	font-height: 30px;
 }
 #price{
-	font-size:15px;
+	font-size: 17px;
 }
 #stack{
-	font-size:12px;
+	font-size:10px;
+	line-height: 20px;
 }
 </style>
 </head>
@@ -221,7 +220,6 @@ select option {
 							<option value="배터리">배터리</option>
 							<option value="음향기기">음향기기</option>
 						</optgroup>
-					
 					</select>
 					<input type="text" class="prdName" id="prdName"name="prdName"
 						onfocus="if (this.value =='검색어 입력' ) this.value='' "
@@ -232,14 +230,13 @@ select option {
 			</div>
 		</div>
 	 	<div id="listArea">
-	 		<div id="productList">
-				<div id="ItemList" class="ItemList">
-				</div>
+	 		<div class="productList">
+
 			</div>
 	 	</div>
 	</div>
-	<%-- <div id="bot">
+	<div id="bot">
 		<jsp:include page="../bot.jsp" flush="false" />
-	</div> --%>
+	</div>
 </body>
 </html>
