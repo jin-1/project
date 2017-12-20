@@ -6,16 +6,18 @@ public class ProductDTO {
 	private String prdCode;
 	private String prdImg;
 	private String prdType;
+	private String prdCategory;
 	
 	public ProductDTO() {
 		
 	}
-	public ProductDTO(String prdCode, String prdName, int prdPrice, String prdImg, String prdType) {
+	public ProductDTO(String prdCode, String prdName, int prdPrice, String prdImg, String prdType, String prdCategory) {
 		this.prdName = prdName;
 		this.prdCode = prdCode;
 		this.prdPrice = prdPrice;
 		this.prdImg = prdImg;
 		this.prdType = prdType;
+		this.prdCategory = prdCategory;
 	}
 	public String getPrdName() {
 		return prdName;
@@ -32,6 +34,9 @@ public class ProductDTO {
 	public String getPrdType() {
 		return prdType;
 	}
+	public String getPrdCategory() {
+		return prdCategory;
+	}
 
 	public void setPrdName(String prdName) {
 		this.prdName = prdName;
@@ -45,9 +50,11 @@ public class ProductDTO {
 	public void setPrdImg(String prdImg) {
 		this.prdImg = prdImg;
 	}
-	
 	public void setPrdType(String prdType) {
 		this.prdType = prdType;
+	}
+	public void setPrdCategory(String prdCategory) {
+		this.prdCategory = prdCategory;
 	}
 
 }

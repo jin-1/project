@@ -20,6 +20,6 @@
 					</c:forEach>
 				</c:if>
 				<c:if test="${empty result}">  
-					<tr><td colspan="3">등록된 상품이 없습니다.<br/>다시 검색하시기 바랍니다.</td></tr>
+					<tr><td colspan="3" align="center">등록된 상품이 없습니다.<br/>다시 검색하시기 바랍니다.</td></tr>
 				</c:if>
 			</table> 

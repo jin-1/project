@@ -30,21 +30,21 @@
   document.onkeydown = doNotReload; */
   $(document).ready(function() {
 	  $('.arrowRight').on('click',function(){
-		  var name = $('#name').text();
-		  console.log(name);
+		  var prdName = $('#prd_Name').text();
+		  var prdQty = $().text('#qty');
+		  console.log(name); 
 
 		  $.ajax({
 				url : "CartQtyUp",
 				dataType : "json",
 				type : "post",
-				data : {"prdName":name},
+				data : {"prdName":prdName},
 				success : function(data) {
-					$('#qty').text(data.cartList[0].qty);
+					$('#qty').text(prdQty);
 					
 				},
 				error : function(request, status, error) {
-					console.log("code:" + request.status + "\n" + "error:"
-							+ error);
+					console.log("code:" + request.status + "\n" + "error:" + error);
 				}
 
 			});
@@ -62,8 +62,7 @@
 						
 				},
 				error : function(request, status, error) {
-					console.log("code:" + request.status + "\n" + "error:"
-							+ error);
+					console.log("code:" + request.status + "\n" + "error:" + error);
 				}
 
 			});
@@ -243,7 +242,7 @@ i {
 					%>
 						<tr align=center>
 							<td><%= cartList.get(i).getPrdCode() %></td>	
-							<td id="name"><%= cartList.get(i).getPrdName() %></td>
+							<td id="prd_Name"><%= cartList.get(i).getPrdName() %></td>
 							<td><%= cartList.get(i).getPrice() %></td>
 							<td>
 								<a href="javascript:checkQty('<%=cartList.get(i).getPrdName() %>', <%= cartList.get(i).getQty() %>)">

@@ -18,6 +18,20 @@
 <script type="text/javascript" src="./scripts/script.js"></script>
 <jsp:include page="../config.jsp" flush="false" />
 <style>
+#mid {
+	width:60%;
+	height: auto;
+	postion:relative;
+	margin-left: 20%;
+}
+div {
+	display: block;
+} 
+#nav-critical {
+	padding-top: 90px;
+	display: table;
+	margin: 0 auto;
+}
 #process{
 	height: 100px;
 	width:900px;
@@ -34,7 +48,7 @@
 	float: right;
 	padding-right: 10px; 
 }
-li {
+#step_list li {
 	display:list-item;
 	list-style: none;
 	float:left;

@@ -16,27 +16,53 @@
 	src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="./scripts/script.js"></script>
 <script type="text/javascript">
+
  $(document).ready(function(){
-	$('#searchButton').bind('click',function(){
-		var prdName = document.searchField.prdName.value;
-		/* alert(prdName); */
-		var prdType = document.searchField.prdType.value;
+	 $('#searchButton').bind('click',function(){
+			var prdName = document.searchField.prdName.value;
+			/* alert(prdName);  */
+			var prdType = document.searchField.prdType.value;
+			var prdCategory = ""
+			
+	 		$.ajax({
+				type:"POST",
+				url:"SearchResult",
+				dataType:"html",
+				/* data:"prdName="+prdName, */
+				data: "prdName="+prdName+"&prdType="+prdType+"&prdCategory="+prdCategory,  //변수명=값&변수명=값&변수명=값		일반형 / json으로 넘길때는 {변수명:값 , 변수명:값}
+				success:function(result){
+					$('.productList').html(result);
+				}
+			});		 
+	 		return false;
+		});
+	 
+/* 	function checkCategory(category){
+		var prdCategory = category.value;
+		var prdName = "";
+		var prdType = "";
+
+		alert(prdCategory);
 		
- 		$.ajax({
+		$.ajax({
 			type:"POST",
 			url:"SearchResult",
 			dataType:"html",
-			/* data:"prdName="+prdName, */
-			data: "prdName="+prdName+"&prdType="+prdType,  //변수명=값&변수명=값&변수명=값		일반형 / json으로 넘길때는 {변수명:값 , 변수명:값}
+			//data:"prdName="+prdName, 
+			data: "prdName="+prdName+"&prdType="+prdType+"&prdCategory="+prdCategory,  //변수명=값&변수명=값&변수명=값		일반형 / json으로 넘길때는 {변수명:값 , 변수명:값}
 			success:function(result){
 				$('.productList').html(result);
 			}
-		});		 
- 		return false;
-	});
-}); 
+		});	
+		return false;
+		
+	};
+	 */
+ });
+
+ 
 </script>
-<%-- <jsp:include page="../config.jsp" flush="false"/> --%>
+<jsp:include page="../config.jsp" flush="false"/> 
 <style>
 #mid {
 	width:60%;
@@ -58,7 +84,7 @@
 	margin: 0 auto;
 	width: 640px;
 }
-select {
+#searchField select {
 	width: 110px;
 	height: 39px;
 	font-size: 13px;
@@ -87,7 +113,7 @@ select {
 	line-height: 1.5em;
 	padding: 0.5em 3.2em 0.5em 1em;
 }
-select optgroup {
+#searchField select optgroup {
 	font-size: 14px;
 	font-weight: bold;
 }
@@ -118,6 +144,43 @@ select option {
 	color: white;
 	position:relative;
 }
+.button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 27px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.button1 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #4CAF50;
+}
+
+.button2 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+}
+
+.button3 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #f44336;
+}
+
+.button4 {
+    background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+}
+
 #listArea {
 	margin-top: 80px;
 	padding: 0;
@@ -195,7 +258,7 @@ select option {
 				<form id="searchField" name="searchField" method="POST" > <!-- action="SearchResult" -->
 					<select name="prdType" id="prdType">
 						<option value="전체">전체</option>
-						<optgroup label="식품">
+						<optgroup label="FOOD">
 							<option value="물">물</option>
 							<option value="탄산음료">탄산음료</option>
 							<option value="커피">커피</option>
@@ -204,17 +267,17 @@ select option {
 							<option value="과자">과자</option>
 							<option value="견과류">견과류</option>
 						</optgroup>
-						<optgroup label="생활용품">
+						<optgroup label="BODY CARE">
 							<option value="헤어케어">헤어케어</option>
 							<option value="스킨케어">스킨케어</option>
 							<option value="면도기">면도기</option>
 						</optgroup>
-						<optgroup label="레저/스포츠">
+						<optgroup label="OUTDOOR & MORE">
 							<option value="수영복">수영복</option>
 							<option value="텐트">텐트</option>
 							<option value="슬리퍼">슬리퍼</option>
 						</optgroup>
-						<optgroup label="디지털">
+						<optgroup label="ELECTRONICS">
 							<option value="충전기기">충전기기</option>
 							<option value="카메라">카메라</option>
 							<option value="배터리">배터리</option>
@@ -224,11 +287,18 @@ select option {
 					<input type="text" class="prdName" id="prdName"name="prdName"
 						onfocus="if (this.value =='검색어 입력' ) this.value='' "
 						onblur="if (this.value=='') this.value='검색어 입력'" value="검색어 입력" maxlength="50"/>
-					 <button id="searchButton">검색</button> 
-
+					<button id="searchButton" class="searchButton">검색</button> 
+				
+					
 				</form>
 			</div>
 		</div>
+		<div id="categories">	
+			<button class="button button1" onclick="checkCategory(this);" value="food">FOOD</button>
+			<button class="button button2" onclick="checkCategory(this);" value="body">BODY CARE</button>
+			<button class="button button3" onclick="checkCategory(this);" value="outdoor">OUTDOOR & MORE</button>
+			<button class="button button4" onclick="checkCategory(this);" value="electronics">ELECTRONICS</button>
+		</div>		
 	 	<div id="listArea">
 	 		<div class="productList">
 
