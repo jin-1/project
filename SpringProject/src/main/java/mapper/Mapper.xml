@@ -11,22 +11,82 @@
 		<result column="MEMBER_PHONE" jdbcType="VARCHAR" property="memberPhone" />
 		<result column="MEMBER_ADDR" jdbcType="VARCHAR" property="memberAddr" />
 		<result column="MEMBER_EMAIL" jdbcType="VARCHAR" property="memberEmail" />
-		<result column="MEMBER_JOB" jdbcType="VARCHAR" property="memberJob" />
 		<result column="GENDER" jdbcType="VARCHAR" property="gender" />
 		<result column="BIRTH_DATE" jdbcType="TIMESTAMP" property="birthDate" />
 		<result column="INTEREST" jdbcType="VARCHAR" property="inteRest" />
 		<result column="AUTHORITY" jdbcType="BIGINT" property="authority" />
 	</resultMap>
+	
+		<resultMap type="Model.CorporDTO" id="baseResultMap2">
+		<id column="CORP_ID" jdbcType="VARCHAR" property="corporId" />
+		<result column="CORP_PW" jdbcType="VARCHAR" property="corporPw" />
+		<result column="CORP_NAME" jdbcType="VARCHAR" property="corporName" />
+		<result column="CORP_PHONE" jdbcType="VARCHAR" property="corporPhone" />
+		<result column="CORP_ADDR" jdbcType="VARCHAR" property="corporAddr" />
+		<result column="CORP_EMAIL" jdbcType="VARCHAR" property="corporEmail" />
+	</resultMap>
+	
+	
 
 	<select id="selectMemberLogin" resultMap="baseResultMap">
 		Select
 		MEMBER_ID,
 		MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_ADDR,
-		MEMBER_EMAIL,MEMBER_JOB,GENDER,BIRTH_DATE,INTEREST,
+		MEMBER_EMAIL,GENDER,BIRTH_DATE,INTEREST,
 		AUTHORITY
 		FROM
 		MEMBER where
 		MEMBER_ID = #{memberId}
+	</select>
+	
+		<select id="selectCorPorLogin" resultMap="baseResultMap2">
+		Select
+		CORP_ID,
+		CORP_PW, CORP_NAME, CORP_PHONE, CORP_ADDR,
+		CORP_EMAIL
+		FROM
+		CORPORATION where
+		CORP_ID = #{corporId}
+	</select>
+	
+	
+		<select id="selectMemberIdCheck" resultType="int" parameterType="String">
+		Select
+		count(MEMBER_ID)
+		FROM
+		MEMBER where
+		MEMBER_ID = #{memberId}
+	</select>
+	
+	
+	<insert id="insertMember" parameterType="Model.MemberDTO">
+		insert into member(MEMBER_ID,
+		MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_ADDR,
+		MEMBER_EMAIL,GENDER,BIRTH_DATE,INTEREST,
+		AUTHORITY) values(#{memberId},#{memberPw},#{memberName},#{memberPhone},#{memberAddr},
+		#{memberEmail},#{gender},#{birthDate},#{inteRest},#{authority})
+	</insert>
+	
+	<insert id="insertCorPor" parameterType="Model.CorporDTO">
+		insert into CORPORATION(CORP_ID,CORP_PW,CORP_NAME,CORP_EMAIL,CORP_PHONE,CORP_ADDR)
+		values(#{corporId},#{corporPw},#{corporName},#{corporEmail},#{corporPhone},#{corporAddr}) 
+	
+	</insert>
+	
+	<select id="selectCorporIdCheck" resultType="int" parameterType="String" >
+	Select
+	count(corp_id)
+	from
+	CORPORATION
+	where corp_id=#{corporId}
+	</select>
+	
+	<!-- 일반회원 아이디찾기 -->
+	<select id="selectIdFind" resultMap="baseResultMap" parameterType="Model.MemberDTO" >
+	select MEMBER_ID,MEMBER_EMAIL,MEMBER_NAME
+	from member
+	where 
+	MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail}
 	</select>
 </mapper>
 

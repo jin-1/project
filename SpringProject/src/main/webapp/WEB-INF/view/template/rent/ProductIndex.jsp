@@ -355,7 +355,7 @@
 							</span>
 						</div>
 					</fieldset>	
-					<form action="Cart" name="frm" method="post" id="frm">
+					<form action="Cart?menu=RENT&img=trainbg" name="frm" method="post" id="frm">
 						<input type="hidden" name="productName" value= "${pDTO.prdName}" />	
 						<input type="hidden" name="productCode" value= "${pDTO.prdCode}" />
 						<input type="hidden" name="productPrice" value= "${pDTO.prdPrice}" />	

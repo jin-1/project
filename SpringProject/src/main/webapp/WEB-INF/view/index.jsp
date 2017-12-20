@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import ="Model.*" %>
-<%@ page session="true" %>
+<%@ page import="Model.*"%>
+<%@ page session="true"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
@@ -47,18 +47,18 @@
 				</ul>
 			</div>
 		</div>
-	<%
-			
+		<%
+			CorporDTO corporDTO;
 			MemberDTO memberDTO;
 
 			if (session.getAttribute("login") != null) {
 				memberDTO = (MemberDTO) session.getAttribute("login");
-				
+
 				if (memberDTO.getAuthority() == 0) {
 		%>
 		<div id="menuLogin">
 			<ul style="font-size: 8px;">
-				<li><a href="LoginForm?menu=LOGIN">MYPAGE</a></li>
+				<li><a href="MyPage?menu=MyPage">MYPAGE</a></li>
 				<li>|</li>
 				<li><a href="Logout">LOGOUT</a></li>
 			</ul>
@@ -70,19 +70,34 @@
 			<ul style="font-size: 8px;">
 				<li><a href="LoginForm?menu=LOGIN">LOGIN</a></li>
 				<li>|</li>
-				<li>REGISTER</li>
+				<li><a href="Register?menu=REGISTER">REGISTER</a></li>
 			</ul>
 		</div>
 
+
+
 		<%
 			}
-			} else {
+			} else if (session.getAttribute("corlogin") != null) {
+				corporDTO = (CorporDTO) session.getAttribute("corlogin");
+		%>
+		<div id="menuLogin">
+			<ul style="font-size: 8px;">
+				<li><a href="MyPage?menu=MyPage">MYPAGE</a></li>
+				<li>|</li>
+				<li><a href="Logout">LOGOUT</a></li>
+			</ul>
+		</div>
+		<%
+			}
+
+			else {
 		%>
 		<div id="menuLogin">
 			<ul style="font-size: 8px;">
 				<li><a href="LoginForm?menu=LOGIN">LOGIN</a></li>
 				<li>|</li>
-				<li>REGISTER</li>
+				<li><a href="Register?menu=REGISTER">REGISTER</a></li>
 			</ul>
 		</div>
 		<%

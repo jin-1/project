@@ -18,9 +18,25 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 	<bean id="ProductDTO" class="Model.ProductDTO" />
 	<bean id="ProductDAO" class="Model.ProductDAO" />
 	<bean id="MemberService" class="service.MemberService" />
-
 	<bean id="TrainService" class="service.TrainService" />
-
-
-
+	<bean id="emailDto" class="Model.EmailDTO" />
+	<bean id="cartBiz" class="Biz.CartBiz"/>
+	<bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com" />
+      <property name="port" value="587" />
+      <property name="username" value="adomi1221@gmail.com" />
+      <property name="password" value="!q2w3e4r" />
+      <property name="javaMailProperties">
+         <props>
+               <prop key="mail.transport.protocol">smtp</prop>
+               <prop key="mail.smtp.auth">true</prop>
+               <prop key="mail.smtp.starttls.enable">true</prop>
+               <prop key="mail.debug">true</prop>
+         </props>
+      </property>
+ 
+   </bean>
+   
 </beans>
+
+

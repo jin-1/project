@@ -28,14 +28,52 @@
       } 
   }
   document.onkeydown = doNotReload; */
-  
+  $(document).ready(function() {
+	  $('.arrowRight').on('click',function(){
+		  var name = $('#name').text();
+		  console.log(name);
+
+		  $.ajax({
+				url : "CartQtyUp",
+				dataType : "json",
+				type : "post",
+				data : {"prdName":name},
+				success : function(data) {
+					$('#qty').text(data.cartList[0].qty);
+					
+				},
+				error : function(request, status, error) {
+					console.log("code:" + request.status + "\n" + "error:"
+							+ error);
+				}
+
+			});
+		  
+	  });
+	});
 	function checkQty(prdName, qty){
 	  if(qty != 1){
-		  location.href="CartQtyDown?prdName="+prdName;
+		  $.ajax({
+				url : "CartQtyDown",
+				dataType : "html",
+				type : "post",
+				data : "prdName="+prdName+"&qty="+qty,
+				success : function(data) {
+						
+				},
+				error : function(request, status, error) {
+					console.log("code:" + request.status + "\n" + "error:"
+							+ error);
+				}
+
+			});
+		  
 	  } else {
 		  return;
 	  }
 	  
+
+
 	function placeOrder(){
 		document.getElementById('frm').submit();
 	}
@@ -72,7 +110,7 @@ div {
 	float: right;
 	padding-right: 10px; 
 }
-li {
+#step_list li {
 	display:list-item;
 	list-style: none;
 	float:left;
@@ -205,16 +243,16 @@ i {
 					%>
 						<tr align=center>
 							<td><%= cartList.get(i).getPrdCode() %></td>	
-							<td><%= cartList.get(i).getPrdName() %></td>
+							<td id="name"><%= cartList.get(i).getPrdName() %></td>
 							<td><%= cartList.get(i).getPrice() %></td>
 							<td>
 								<a href="javascript:checkQty('<%=cartList.get(i).getPrdName() %>', <%= cartList.get(i).getQty() %>)">
 									<i class="arrowLeft"></i>
 								</a>
-								<%= cartList.get(i).getQty() %>
-								<a href="CartQtyUp?prdName=<%= cartList.get(i).getPrdName() %>">
+								<span id="qty"> <%= cartList.get(i).getQty() %></span>
+								<span id="arrowRight">
 									<i class="arrowRight"></i>
-								</a>
+								</span>
 							</td>
 							<td align="center">
 								<input type="checkbox" name="delete" value="<%= cartList.get(i).getPrdName() %>" />

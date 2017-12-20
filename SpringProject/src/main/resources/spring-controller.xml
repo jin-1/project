@@ -15,5 +15,9 @@
 	<bean class="controller.TrainController" />
 	<bean class="controller.TourController" />
 	<bean class="controller.MemberController" />
+
 	<bean class="controller.RentController" />
+
+	
+
 </beans>
