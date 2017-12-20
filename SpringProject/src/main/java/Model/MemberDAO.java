@@ -100,8 +100,8 @@ public class MemberDAO extends AbstractRepository {
 	public CorporDTO corIdFind(CorporDTO cor){
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace + ".selectCorporIdFind";
-		CorporDTO copor=null;
-		System.out.println("Aaa");
+		CorporDTO copor;
+	
 		try {
 			copor = sqlSession.selectOne(statement, cor);
 			
