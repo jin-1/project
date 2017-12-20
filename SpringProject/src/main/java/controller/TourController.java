@@ -38,11 +38,11 @@ public class TourController {
 	
 	@RequestMapping(value="/TourResult", method = RequestMethod.GET)
 	public String tourResult(HttpServletRequest req, Model model, TourDTO dto) {
-		String one = req.getParameter("SearchArea1"); //½Ãµµ ¹Þ¾Æ¿À±â
-		String two = req.getParameter("SearchArea2"); //½Ã±º±¸ ¹Þ¾Æ¿À±â
-		String[] cateArr = req.getParameterValues("category"); //Ä«Å×°í¸® ¹Þ¾Æ¿À±â
+		String one = req.getParameter("SearchArea1"); //ï¿½Ãµï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
+		String two = req.getParameter("SearchArea2"); //ï¿½Ã±ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
+		String[] cateArr = req.getParameterValues("category"); //Ä«ï¿½×°ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
 		
-		String cateName[] = {"ÇÑ½Ä", "Áß½Ä", "ÀÏ½Ä", "ºÐ½Ä", "È£ÅÚ", "¸ðÅÚ", "ÂòÁú¹æ", "°Ô½ºÆ®ÇÏ¿ì½º", "ÀÚ¿¬", "·¹Àú", "¿ª»ç", "¹Ú¹°°ü"};
+		String cateName[] = {"ï¿½Ñ½ï¿½", "ï¿½ß½ï¿½", "ï¿½Ï½ï¿½", "ï¿½Ð½ï¿½", "È£ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½Ô½ï¿½Æ®ï¿½Ï¿ì½º", "ï¿½Ú¿ï¿½", "ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", "ï¿½Ú¹ï¿½ï¿½ï¿½"};
 		String cate = "";
 		if(cateArr != null) {
 			for(String s : cateArr) {
@@ -84,7 +84,7 @@ public class TourController {
 	public HashMap<Integer, CommentDTO> slelctcomment(HttpSession session,@RequestParam HashMap<String, Object> param) {
 		String code = String.valueOf(param.get("localCode"));
 		commentDTO.setLocalCode(code);
-		System.out.println(code);
+		
 		List<CommentDTO> comment = tourDAO.tourComment(commentDTO);
 		HashMap<Integer, CommentDTO> commentMap = new HashMap<Integer, CommentDTO>();
 		int num = 0;
