@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import Model.CustomerTicketDTO;
 import Model.MemberDTO;
+import Model.TrainDAO;
 import Model.TrainDTO;
 import Model.TrainRegistrationDTO;
 import Model.TrainStatinDTO;
@@ -29,6 +30,8 @@ public class TrainController {
 
 	@Autowired
 	TrainService trainService;
+	@Autowired
+	TrainDAO traindao;
 
 	@RequestMapping(value = "/TrainInfoKTX", method = RequestMethod.GET)
 	public String traininfo(HttpServletRequest req, Model model) {
@@ -105,6 +108,16 @@ public class TrainController {
 		model.addAttribute("img", img);
 		model.addAttribute("seat", seat);
 		return "template/train/TrainTicketPayment";
+	}
+	
+	
+	@RequestMapping(value = "/trainTicketing", method = RequestMethod.POST)
+	public String trainPaymentPost( Model model , @ModelAttribute("trainpayment") TrainRegistrationDTO trainRegistrationDTO) {
+		
+			traindao.insertTicketing(trainRegistrationDTO);
+			
+			
+				return "template/train/TrainTicketing";
 	}
 
 	@ResponseBody

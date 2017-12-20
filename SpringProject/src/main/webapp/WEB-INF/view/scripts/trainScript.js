@@ -604,4 +604,8 @@ $(document).ready(
 					$(this).parent().submit();
 				}
 			});
+			
+			$('#paymentBt').on("click",function(){
+				$('#frmTicket').submit();
+			});
 		});
