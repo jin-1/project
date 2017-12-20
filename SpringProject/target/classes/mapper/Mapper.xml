@@ -88,6 +88,21 @@
 	where 
 	MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail}
 	</select>
+	
+	<select id="selectPwFind" resultMap="baseResultMap" parameterType="Model.MemberDTO" >
+	select MEMBER_ID,MEMBER_EMAIL,MEMBER_NAME,MEMBER_PW
+	from member
+	where 
+	MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail} and MEMBER_ID=#{memberId}
+	</select>
+	
+	<!-- 기업회원 아이디 찾기 -->
+	<select id="selectCorporIdFind" resultMap="baseResultMap2" parameterType="Model.CorporDTO" >
+	select CORP_ID,CORP_EMAIL,CORP_NAME
+	from CORPORATION
+	where 
+	CORP_NAME=#{corporName} and CORP_EMAIL=#{corporEmail}
+	</select>
 </mapper>
 
 

@@ -750,11 +750,9 @@ $(document).ready(function() {
 					
 					//일반회원 비밀번호 찾기
 					$('.mem_sea1').click(function(){
-						var memId = $('.memId').val();
-						var pwMemName = $('.pwMemName').val();
+
 						var pwEmail3 = $('.pwEmail3').val($('.pwEmail1').val()+"@"+$('.pwEmail2').val());
-						console.log(memEmail);
-						var data = {"memId" :memId, "pwMemName" :pwMemName , "pwEmail3" :pwEmail3};
+
 						alert('5초뒤 메일이 보내집니다');
 						$.ajax({
 							url : "PwFind",

@@ -220,7 +220,8 @@ public class MemberController {
 		if (result == null) {
 			con = 0;
 			hashmap.put("sc" + con, "아이디 또는 메일을 다시 확인해 주세요.");
-		} else if (result != null) {
+			return hashmap;
+		} else  {
 			String id = result.getCorporId();
 			String mail = result.getCorporEmail();
 			String name = result.getCorporName();
