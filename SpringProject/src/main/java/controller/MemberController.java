@@ -32,15 +32,14 @@ public class MemberController {
 	public String MemberForm(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
 		model.addAttribute("menu", menu);
-		
 		return "template/member/LoginForm";
 	}
 	
 	@RequestMapping(value = "/LoginForm", method = RequestMethod.POST)
-	public String MemberFormLogin(HttpSession session, @ModelAttribute("login") MemberDTO memberDto) {
+	public String MemberFormLogin(HttpServletRequest req, HttpSession session, @ModelAttribute("login") MemberDTO memberDto) {
 		
 		int result=memberService.Login(memberDto, session);
-		System.out.println(result);
+		
 		if(result==2) {
 			return "index";
 		}else if(result==1){

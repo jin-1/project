@@ -23,7 +23,7 @@
 	<result column="DEPARTING_STATION" jdbcType="VARCHAR" property="departingStation" />
 	<result column="ARRIVAL_STATION" jdbcType="VARCHAR" property="arrivalStation" />
 	<result column="TRAIN_DATE" jdbcType="VARCHAR" property="trainDate" />
-	
+	<result column="TRAIN_PASSENGERS" jdbcType="VARCHAR" property="trainPassengers" />
 	</resultMap>
 	
 	<select id="selectSearchStation" resultMap="baseResultMap">
@@ -97,8 +97,8 @@
 	
 	
 	<insert id="insertTrainTicket" parameterType="Model.TrainRegistrationDTO">
-		INSERT INTO TRAIN_REGISTRATION (TRAIN_REG_CODE,TRAIN_CODE,SEAT_NUM,MEMBER_ID,DEPARTING_STATION,ARRIVAL_STATION,TRAIN_DATE) 
-		VALUES ('A'||train_nn.NEXTVAL,#{trainCode},#{seatNum},#{memberId},#{departingStation},#{arrivalStation},#{trainDate})
+		INSERT INTO TRAIN_REGISTRATION (TRAIN_REG_CODE,TRAIN_CODE,SEAT_NUM,MEMBER_ID,DEPARTING_STATION,ARRIVAL_STATION,TRAIN_DATE,TRAIN_PASSENGERS) 
+		VALUES ('A'||train_nn.NEXTVAL,#{trainCode},#{seatNum},#{memberId},#{departingStation},#{arrivalStation},#{trainDate},#{trainPassengers})
 
 	</insert>
 </mapper>

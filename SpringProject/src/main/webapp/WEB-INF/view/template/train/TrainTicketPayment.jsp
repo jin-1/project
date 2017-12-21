@@ -95,6 +95,7 @@
 					<tbody>
 					<%
 					String s[] = seat[0].split("_");
+					String trainPassengers="성인 "+data[0]+" 노인 "+data[1]+" 어린이 "+data[2];
 					List<String> person = new ArrayList<String>();
 					for(int i=0 ; i<Integer.parseInt(data[0]);i++){
 						person.add("성인");
@@ -107,6 +108,7 @@
 					}
 					int num=0;
 					int num1=1;
+					
 					for(int i = 0 ; i < s.length/2 ; i++){%>
 					<tr>
 							<td><%=data[10]%></td>
@@ -114,8 +116,10 @@
 							<td><%=person.get(i)%></td>
 							<td><%if(person.get(i).equals("성인")){
 								out.print(dc.format(Integer.parseInt(data[9])));
+
 							} else if(person.get(i).equals("노인")){
 								out.print(dc.format((int)(Integer.parseInt(data[9])*0.7)));
+								
 							} else{
 								out.print(dc.format((int)(Integer.parseInt(data[9])*0.5)));
 							}
@@ -235,6 +239,7 @@
 					    <input type="hidden" name="arrivalStation" value="<%=data[8]%>">
 					  	<input type="hidden" name="departingStation" value="<%=data[7]%>">
 					  	<input type="hidden" name="trainDate" value="<%=data[4]%>">
+					  	<input type="hidden" name="trainPassengers" value="<%=trainPassengers%>">
 					</form:form>
 				  	<div style="width: 250px; position: relative; margin: auto;">
 					  	

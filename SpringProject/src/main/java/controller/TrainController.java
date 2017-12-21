@@ -115,7 +115,7 @@ public class TrainController {
 	public String trainPaymentPost(HttpSession session, Model model , @ModelAttribute("trainPayment") TrainRegistrationDTO trainRegistrationDTO) {
 
 			traindao.insertTicketing(trainRegistrationDTO);
-			session.removeAttribute("trainTicket");
+			
 			
 				return "template/train/TrainTicketing";
 	}

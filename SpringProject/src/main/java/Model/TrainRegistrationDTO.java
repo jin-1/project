@@ -8,6 +8,14 @@ public class TrainRegistrationDTO {
 	private String departingStation;
 	private String arrivalStation;
 	private String trainDate;
+	private String trainPassengers;
+	public String getTrainPassengers() {
+		return trainPassengers;
+	}
+
+	public void setTrainPassengers(String trainPassengers) {
+		this.trainPassengers = trainPassengers;
+	}
 
 	public String getTrainRegCode() {
 		return trainRegCode;

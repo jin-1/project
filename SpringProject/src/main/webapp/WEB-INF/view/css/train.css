@@ -938,6 +938,7 @@ hr.style3 {
 	padding-top: 5px;
 	color: white;
 	font-weight: bold;
+	cursor: pointer;
 }
 
 #seatTable0 {
@@ -1193,6 +1194,7 @@ hr.style3 {
 	margin-top: 40px;
 	display: inline-block;
 	background-color: #0180a3;
+	cursor: pointer;
 }
 
 #paymentCBt {
@@ -1205,4 +1207,22 @@ hr.style3 {
 	margin: auto;
 	margin-top: 40px;
 	display: inline-block;
+}
+
+#ticketingView {
+	width: 800px;
+	height: 350px;
+	border: black 1px solid;
+	padding: 5px;
+}
+
+#ticketingView table {
+	width: 800px;
+	border-spacing: 5px;
+	height: 300px;
+}
+
+#ticketingView td {
+	width: 50%;
+
 }
