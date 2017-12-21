@@ -1,6 +1,4 @@
-$(document)
-		.ready(
-				function() {
+$(document).ready(function() {
 
 					// 약관 모두 동의하기
 					$('#check').change(function() {
@@ -26,8 +24,7 @@ $(document)
 											alert("개인정보 수집에 동의해주세요");
 											return;
 										} else {
-											$(location).attr('href',
-													'MemberShip?menu=Register');
+											$(location).attr('href','MemberShip?menu=Register');
 										}
 
 									});
@@ -51,12 +48,8 @@ $(document)
 									});
 
 					// 일반회원 아이디 중복검사
-					$(".m_id")
-							.blur(
-									function() {
-
-										$
-												.ajax({
+					$(".m_id").blur(function() {
+						$.ajax({
 													url : "idcheck",
 													dataType : "json",
 													type : "post",
@@ -697,7 +690,8 @@ $(document)
 													"disabled");
 										}
 									});
-
+					
+					
 					var tst = true;
 					$('.corCheck').on("change", function() {
 						console.log("dd");
@@ -713,5 +707,111 @@ $(document)
 							$('.corCheck').prop("checked", false);
 						}
 					});
+					
+					
+					//1:1문의 테이블 마우스on
+					$( ".noticeTable tr" ).on( "mouseover", function() {
+						 $( this ).css( "background-color", "#f4f4f4" );
+						 $( this).children("td").css( "cursor", "pointer" );
+						  });
+					$( ".noticeTable tr" ).on( "mouseleave", function() {
+						 $( this ).css( "background-color", "white" );
+						  }); 
 
-				});
+					//일반회원 id 찾기
+					$('.mem_sea').click(function(){
+				
+						var memEmail = $('.email3').val($('.email1').val()+"@"+$('.email2').val());
+				
+	
+						alert('5초뒤 메일이 보내집니다');
+						$.ajax({
+							url : "IdFind",
+							dataType : "json",
+							type : "post",
+							data : $('#frm1').serialize(),
+							
+							success : function(data) {
+								console.log(data);
+								if(data.sc1 !=null){
+									alert(data.sc1);
+								} else if(data.sc2 !=null){
+									alert(data.sc2);
+								} else{
+									alert(data.sc0);
+								}
+							},
+							error : function(request,status, error) {
+								alert("code:"+ request.status+ "\n"+ "error:"+ error);
+							}
+
+						});
+						});
+					
+					//일반회원 비밀번호 찾기
+					$('.mem_sea1').click(function(){
+
+						var pwEmail3 = $('.pwEmail3').val($('.pwEmail1').val()+"@"+$('.pwEmail2').val());
+
+						alert('5초뒤 메일이 보내집니다');
+						$.ajax({
+							url : "PwFind",
+							dataType : "json",
+							type : "post",
+							data : $('#pwfrm').serialize(),
+							
+							success : function(data) {
+								console.log(data);
+								if(data.sc1 !=null){
+									alert(data.sc1);
+								} else if(data.sc2 !=null){
+									alert(data.sc2);
+								} else{
+									alert(data.sc0);
+								}
+							},
+							error : function(request,status, error) {
+								alert("code:"+ request.status+ "\n"+ "error:"+ error);
+							}
+
+						});
+						});
+
+					//기업회원 아이디 찾기
+					$('.cor_sea').click(function(){
+						
+						var corEmail = $('.c_email3').val($('.c_email1').val()+"@"+$('.c_email2').val());
+						alert('5초뒤 메일이 보내집니다');
+						$.ajax({
+							url : "corIdFind",
+							dataType : "json",
+							type : "post",
+							data : $('#frm2').serialize(),
+							
+							success : function(data) {
+								console.log(data);
+								if(data.sc1 !=null){
+									alert(data.sc1);
+								} else if(data.sc2 !=null){
+									alert(data.sc2);
+								} else{
+									alert(data.sc0);
+								}
+							},
+							error : function(request,status, error) {
+								alert("code:"+ request.status+ "\n"+ "error:"+ error);
+							}
+
+						});
+						});
+					
+					
+					
+					//마이페이지 이동
+					$('.mypage').on("click",function(){
+						$(location).attr('href','myPageCon?menu=MyPage');
+					});
+					
+					
+					
+});

@@ -15,7 +15,7 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
-<script type="text/javascript" src="./scripts/script.js"></script>
+<script type="text/javascript" src="./scripts/memberscript.js" charset="utf-8"></script>
 <style type="text/css">
 .container {
 	left: 60%;
@@ -210,8 +210,8 @@
 			<hr />
 			<div class="id_pwFind">
 				<ul>
-					<li class="idfind"><a href="IdFind?menu=Login" class="a_idFind">아이디 찾기</a></li>
-					<li class="pwfind"><a href="PwFind?menu=Login" class="a_pwFind">비밀번호 찾기</a></li>
+					<li class="idfind"><a href="IdFind?menu=Find" class="a_idFind">아이디 찾기</a></li>
+					<li class="pwfind"><a href="PwFind?menu=Find" class="a_pwFind">비밀번호 찾기</a></li>
 				</ul>
 			</div>
 			<div class="t_ipFind">
