@@ -752,8 +752,8 @@ $(document).ready(function() {
 					$('.mem_sea1').click(function(){
 
 						var pwEmail3 = $('.pwEmail3').val($('.pwEmail1').val()+"@"+$('.pwEmail2').val());
-
 						alert('5초뒤 메일이 보내집니다');
+						
 						$.ajax({
 							url : "PwFind",
 							dataType : "json",
@@ -779,7 +779,6 @@ $(document).ready(function() {
 
 					//기업회원 아이디 찾기
 					$('.cor_sea').click(function(){
-						
 						var corEmail = $('.c_email3').val($('.c_email1').val()+"@"+$('.c_email2').val());
 						alert('5초뒤 메일이 보내집니다');
 						$.ajax({
@@ -805,7 +804,35 @@ $(document).ready(function() {
 						});
 						});
 					
-					
+					//기업회원 비밀번호 찾기
+					$('.cor_sea1').click(function(){
+
+						var c_pwEmail = $('.c_pwEmail3').val($('.c_pwEmail1').val()+"@"+$('.c_pwEmail2').val());
+						alert('5초뒤 메일이 보내집니다');
+						
+						$.ajax({
+							url : "coporPwfind",
+							dataType : "json",
+							type : "post",
+							data : $('#pwfrm2').serialize(),
+							
+							success : function(data) {
+								console.log(data);
+								if(data.sc1 !=null){
+									alert(data.sc1);
+								} else if(data.sc2 !=null){
+									alert(data.sc2);
+								} else{
+									alert(data.sc0);
+								}
+							},
+							error : function(request,status, error) {
+								alert("code:"+ request.status+ "\n"+ "error:"+ error);
+							}
+
+						});
+						});
+
 					
 					//마이페이지 이동
 					$('.mypage').on("click",function(){

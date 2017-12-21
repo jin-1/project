@@ -240,15 +240,15 @@
 							</td>	
 						</tr>
 					</form:form>
-					<form:form class="cor_Idfrm2">
+					<form:form id="frm2">
 					<tr class="cor_idFind">
 						<td rowspan="2" class="c_id">기업회원 아이디 찾기</td>
 						<td>대표자명 &nbsp;<input type="text" maxlength="10"size="28" name="corporName" class="corName" /></td>
-						<td rowspan="2"><button class="cor_sea">검 색</button></td>
+						<td rowspan="2"><button type="button" class="cor_sea">검 색</button></td>
 					</tr>
 					<tr>
 						<td>이 메 일 <input type="text" class="c_email1" 
-								size="15" "/> @ <input type="text" class="c_email2" 
+								size="15" /> @ <input type="text" class="c_email2" 
 								size="10" /><input type="hidden" class="c_email3"
 								name="corporEmail" />
 						</td>

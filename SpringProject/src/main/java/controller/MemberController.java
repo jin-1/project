@@ -175,11 +175,15 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value = "/PwFind", method = RequestMethod.POST)
 	public HashMap<String, String> Pwfind(@RequestParam HashMap<String, String> param) throws Exception {
+		
+		System.out.println(param.get("memberId"));
 		int con = 0;
 		memberDto.setMemberId(param.get("memberId"));
 		memberDto.setMemberName(param.get("memberName"));
 		memberDto.setMemberEmail(param.get("memberEmail"));
 		MemberDTO result = memberDao.memPwFind(memberDto);
+		
+		
 		HashMap<String, String> hashmap = new HashMap<String, String>();
 		if (result == null) {
 			System.out.println("1234");
@@ -191,7 +195,7 @@ public class MemberController {
 			String mail = result.getMemberEmail();
 			String name = result.getMemberName();
 			if (pw != null) {
-				emailDto.setContent(name+"님의"+id+"는 "+pw+"입니다.");
+				emailDto.setContent("아이디 : "+id+"의 비밀번호는 : "+pw+" 입니다.");
 				emailDto.setSubject(name + "님이 찾으신 아이디 입니다.");
 				emailDto.setReceiver(mail);
 				con = memberService.SendEmail(emailDto);
@@ -205,6 +209,7 @@ public class MemberController {
 		}
 		return hashmap;
 	}
+	
 	//기업회원 아이디
 	@ResponseBody
 	@RequestMapping(value = "/corIdFind", method = RequestMethod.POST)
@@ -227,6 +232,45 @@ public class MemberController {
 			String name = result.getCorporName();
 			if (id != null) {
 				emailDto.setContent("아이디는" + id + "입니다.");
+				emailDto.setSubject(name + "님이 찾으신 아이디 입니다.");
+				emailDto.setReceiver(mail);
+				con = memberService.SendEmail(emailDto);
+
+				if (con == 2) {
+					hashmap.put("sc" + con, "메일이 성공적으로 보내졌습니다");
+				} else {
+					hashmap.put("sc" + con, "메일을 다시 확인해 주세요.");
+				}
+			} 
+		}
+		return hashmap;
+	}
+	
+	//기업회원 비밀번호
+	@ResponseBody
+	@RequestMapping(value = "/coporPwfind", method = RequestMethod.POST)
+	public HashMap<String, String> coporPwfind(@RequestParam HashMap<String, String> param) throws Exception {
+		
+		System.out.println(param.get("corporId"));
+		int con = 0;
+		corporDto.setCorporId(param.get("corporId"));
+		corporDto.setCorporName(param.get("corporName"));
+		corporDto.setCorporEmail(param.get("corporEmail"));
+		CorporDTO result = memberDao.corPwFind(corporDto);
+		
+		
+		HashMap<String, String> hashmap = new HashMap<String, String>();
+		if (result == null) {
+			System.out.println("1234");
+			con = 0;
+			hashmap.put("sc" + con, "아이디 또는 메일을 다시 확인해 주세요.");
+		} else if (result != null) {
+			String id = result.getCorporId();
+			String pw = result.getCorporPw();
+			String mail = result.getCorporEmail();
+			String name = result.getCorporName();
+			if (pw != null) {
+				emailDto.setContent("아이디 : "+id+"의 비밀번호는 : "+pw+" 입니다.");
 				emailDto.setSubject(name + "님이 찾으신 아이디 입니다.");
 				emailDto.setReceiver(mail);
 				con = memberService.SendEmail(emailDto);

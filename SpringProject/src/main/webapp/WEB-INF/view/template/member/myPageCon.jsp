@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page import = "Model.*" %>
 <!DOCTYPE html>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -19,6 +20,13 @@
 <script type="text/javascript" src="./scripts/memberscript.js"
 	charset="utf-8"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript">
+<%
+	MemberDTO memberdto = (MemberDTO) session.getAttribute("login");
+
+%>
+
+</script>
 <style type="text/css">
 .contain{
 	width:60%;

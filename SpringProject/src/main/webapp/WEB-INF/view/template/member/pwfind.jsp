@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
@@ -98,7 +100,7 @@
 	text-align: center;
 }
 
-.mem_sea {
+.mem_sea1 {
 	background: #626564;
 	color: #fff;
 	border: none;
@@ -111,12 +113,12 @@
 	outline: none;
 }
 
-.mem_sea:hover {
+.mem_sea1:hover {
 	background: #fff;
 	color: #626564;
 }
 
-.mem_sea:before, .mem_sea:after {
+.mem_sea1:before, .mem_sea1:after {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -127,19 +129,19 @@
 	transition: 400ms ease all;
 }
 
-.mem_sea:after {
+.mem_sea1:after {
 	right: inherit;
 	top: inherit;
 	left: 0;
 	bottom: 0;
 }
 
-.mem_sea:hover:before, .mem_sea:hover:after {
+.mem_sea1:hover:before, .mem_sea:hover:after {
 	width: 60%;
 	transition: 800ms ease all;
 }
 
-.cor_sea {
+.cor_sea1 {
 	background: #626564;
 	color: #fff;
 	border: none;
@@ -152,12 +154,12 @@
 	outline: none;
 }
 
-.cor_sea:hover {
+.cor_sea1:hover {
 	background: #fff;
 	color: #626564;
 }
 
-.cor_sea:before, .cor_sea:after {
+.cor_sea1:before, .cor_sea1:after {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -168,14 +170,14 @@
 	transition: 400ms ease all;
 }
 
-.cor_sea:after {
+.cor_sea1:after {
 	right: inherit;
 	top: inherit;
 	left: 0;
 	bottom: 0;
 }
 
-.cor_sea:hover:before, .cor_sea:hover:after {
+.cor_sea1:hover:before, .cor_sea1:hover:after {
 	width: 60%;
 	transition: 800ms ease all;
 }
@@ -216,41 +218,44 @@
 			</div>
 			<div class="t_ipFind">
 				<table class="t_ip">
+				<form:form id="pwfrm">
 					<tr>
 						<td rowspan="3" class="m_id">일반회원 아이디 찾기</td>
-						<td>아이디 &nbsp;&nbsp;<input type="text" size="28"></td>
-						<td rowspan="3"><button class="mem_sea">검 색</button></td>
+						<td>아이디 &nbsp;&nbsp;<input type="text" size="28" name="memberId"></td>
+						<td rowspan="3"><button type="button" class="mem_sea1">검 색</button></td>
 
 					</tr>
 					<tr>
 						<td>성&nbsp;&nbsp; 명&nbsp;&nbsp;&nbsp;<input type="text"
-							maxlength="10" size="28" /></td>
+							maxlength="10" size="28" name="memberName"/></td>
 					</tr>
 					<tr>
-						<td>전화번호 <input type="text" class="phone1" maxlength="4"
-							size="5" />- <input type="text" class="phone2" maxlength="4"
-							size="5" />- <input type="text" class="phone3" maxlength="4"
-							size="5" />
-						</td>
-
+						<td>이 메 일 <input type="text" class="pwEmail1" 
+								size="15" /> @ <input type="text" class="pwEmail2" 
+								size="10" /><input type="hidden" class="pwEmail3"
+								name="memberEmail" />
+						</td>	
 					</tr>
+					</form:form>
+					<form:form id="pwfrm2">
 					<tr class="cor_idFind">
 						<td rowspan="3" class="c_id">기업회원 아이디 찾기</td>
-						<td>아이디&nbsp;&nbsp;&nbsp; <input type="text" size="28"></td>
-						<td rowspan="3"><button class="cor_sea">검 색</button></td>
+						<td>아이디&nbsp;&nbsp;&nbsp; <input type="text" size="28" name="corporId"></td>
+						<td rowspan="3"><button type="button" class="cor_sea1">검 색</button></td>
 					</tr>
 					<tr>
-						<td>기업명 &nbsp;&nbsp; <input type="text" maxlength="10"
+						<td>대표자명 &nbsp; <input type="text" maxlength="10" name="corporName"
 							size="28" /></td>
 
 					</tr>
 					<tr>
-						<td>사업자 등록번호 <input type="text" class="c_num" maxlength="3"
-							size="4" /> - <input type="text" class="c_num1" maxlength="2"
-							size="3" />- <input type="text" class="c_num2" maxlength="5"
-							size="9" />
-						</td>
+						<td>이 메 일 <input type="text" class="c_pwEmail1" 
+								size="15" /> @ <input type="text" class="c_pwEmail2" 
+								size="10" /><input type="hidden" class="c_pwEmail3"
+								name="corporEmail" />
+						</td>	
 					</tr>
+					</form:form>
 				</table>
 			</div>
 			<div class="bottom">

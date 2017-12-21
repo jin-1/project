@@ -113,6 +113,22 @@ public class MemberDAO extends AbstractRepository {
 		
 	}
 	
+	//기업회원 비밀번호 찾기
+	public CorporDTO corPwFind(CorporDTO cor){
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectCorporPwFind";
+		CorporDTO corpor=null;
+		
+		try {
+			corpor = sqlSession.selectOne(statement, cor);
+			return corpor;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
 	
 	//기업회원 아이디 중복확인
 	public int CorIdCheck(String corporId) {
