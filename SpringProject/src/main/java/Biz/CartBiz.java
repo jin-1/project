@@ -67,7 +67,7 @@ public class CartBiz {
    public void removeCartItem(HttpServletRequest req, String[] prdName) {
       HttpSession session = req.getSession();
       ArrayList<CartDTO> cartList = (ArrayList<CartDTO>)session.getAttribute("cartList");
-      for(int i = 0; i < prdName.length; i++) {
+      for(int i = 0; i < (prdName.length +1); i++) {
          for(int j = 0; j < cartList.size(); j++) {
             if(prdName[i].equals(cartList.get(j).getPrdName())) {
                cartList.remove(cartList.get(j));

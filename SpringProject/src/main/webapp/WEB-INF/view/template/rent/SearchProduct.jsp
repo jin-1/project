@@ -18,71 +18,58 @@
 <script type="text/javascript">
 
  $(document).ready(function(){
-	 $('#searchButton').bind('click',function(){
-			var prdName = document.searchField.prdName.value;
-			/* alert(prdName);  */
-			var prdType = document.searchField.prdType.value;
-			var prdCategory = ""
-			
-	 		$.ajax({
-				type:"POST",
-				url:"SearchResult",
-				dataType:"html",
-				/* data:"prdName="+prdName, */
-				data: "prdName="+prdName+"&prdType="+prdType+"&prdCategory="+prdCategory,  //변수명=값&변수명=값&변수명=값		일반형 / json으로 넘길때는 {변수명:값 , 변수명:값}
-				success:function(result){
-					$('.productList').html(result);
-				}
-			});		 
-	 		return false;
-		});
-	 
-/* 	function checkCategory(category){
-		var prdCategory = category.value;
-		var prdName = "";
-		var prdType = "";
-
-		alert(prdCategory);
+	$('.searchButton').bind('click',function(){
+		var prdName = document.searchField.prdName.value;
+		var prdType = document.searchField.prdType.value;
+		var prdCategory = $(this).val();		 
+		 
+		if(prdCategory !='searched'){
+			prdName = '검색어 입력';
+		/* 	alert("aa"+prdName);  */
+		}
 		
 		$.ajax({
 			type:"POST",
 			url:"SearchResult",
 			dataType:"html",
-			//data:"prdName="+prdName, 
+			// data:"prdName="+prdName, 
 			data: "prdName="+prdName+"&prdType="+prdType+"&prdCategory="+prdCategory,  //변수명=값&변수명=값&변수명=값		일반형 / json으로 넘길때는 {변수명:값 , 변수명:값}
-			success:function(result){
+			success:function(result){		
 				$('.productList').html(result);
 			}
-		});	
-		return false;
-		
-	};
-	 */
+		});		 
+	 	return false;  		
+	});	 
  });
-
  
 </script>
 <jsp:include page="../config.jsp" flush="false"/> 
 <style>
 #mid {
 	width:60%;
+	margin-left: 20%; 
 	height: auto;
 	postion:relative;
-	margin-left: 20%;
 }
 #searchArea {
-	width:70%;
-	margin-left:15%;
-	height:140px;
+	display: table;
+	margin: 0 auto;
+	width: 700px;
+	height: 230px;
+	padding-top: 90px;
 }
 #searchForm {
-	padding-top: 90px;
-	padding-left: 5%;
-	padding-right: 5%;
+	/* padding-top: 90px; */
+/* 	width: 700px; */
+	/* padding-right: 5%; */
 }
 #searchField{
+/* 	display: table;
+	margin: 0 auto; */
+/* 	width: 640px; */
+}
+#categories {
 	margin: 0 auto;
-	width: 640px;
 }
 #searchField select {
 	width: 110px;
@@ -144,7 +131,7 @@ select option {
 	color: white;
 	position:relative;
 }
-.button{
+#button1, #button2, #button3, #button4{
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;
@@ -152,35 +139,30 @@ select option {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px;
     margin: 4px 2px;
     cursor: pointer;
 }
-
-.button1 {
+#button1 {
     background-color: white; 
     color: black; 
     border: 2px solid #4CAF50;
 }
-
-.button2 {
+#button2 {
     background-color: white; 
     color: black; 
     border: 2px solid #008CBA;
 }
-
-.button3 {
+#button3 {
     background-color: white; 
     color: black; 
     border: 2px solid #f44336;
 }
-
-.button4 {
+#button4 {
     background-color: white;
     color: black;
     border: 2px solid #e7e7e7;
 }
-
 #listArea {
 	margin-top: 80px;
 	padding: 0;
@@ -255,7 +237,7 @@ select option {
 	<div id="mid">
 		<div id="searchArea">
 			<div id="searchForm">
-				<form id="searchField" name="searchField" method="POST" > <!-- action="SearchResult" -->
+				<form id="searchField" name="searchField" method="POST" > 
 					<select name="prdType" id="prdType">
 						<option value="전체">전체</option>
 						<optgroup label="FOOD">
@@ -287,18 +269,20 @@ select option {
 					<input type="text" class="prdName" id="prdName"name="prdName"
 						onfocus="if (this.value =='검색어 입력' ) this.value='' "
 						onblur="if (this.value=='') this.value='검색어 입력'" value="검색어 입력" maxlength="50"/>
-					<button id="searchButton" class="searchButton">검색</button> 
+					<button id="searchButton" name="searchButton" class="searchButton" value="searched">검색</button> 
 				
+				
+					<div id="categories">	
+						<button id="button1" class="searchButton" name="prdBtn1" value="food">FOOD</button>
+						<button id="button2" class="searchButton" name="prdBtn1" value="body">BODY CARE</button>
+						<button id="button3" class="searchButton" name="prdBtn1" value="outdoor">OUTDOOR & MORE</button>
+						<button id="button4" class="searchButton" name="prdBtn1" value="electronics">ELECTRONICS</button>
+						
+					</div> 
 					
 				</form>
 			</div>
 		</div>
-		<div id="categories">	
-			<button class="button button1" onclick="checkCategory(this);" value="food">FOOD</button>
-			<button class="button button2" onclick="checkCategory(this);" value="body">BODY CARE</button>
-			<button class="button button3" onclick="checkCategory(this);" value="outdoor">OUTDOOR & MORE</button>
-			<button class="button button4" onclick="checkCategory(this);" value="electronics">ELECTRONICS</button>
-		</div>		
 	 	<div id="listArea">
 	 		<div class="productList">
 

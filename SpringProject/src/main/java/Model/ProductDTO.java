@@ -5,6 +5,7 @@ public class ProductDTO {
 	private int prdPrice;
 	private String prdCode;
 	private String prdImg;
+
 	private String prdType;
 	private String prdCategory;
 	
@@ -55,6 +56,7 @@ public class ProductDTO {
 	}
 	public void setPrdCategory(String prdCategory) {
 		this.prdCategory = prdCategory;
+
 	}
 
 }

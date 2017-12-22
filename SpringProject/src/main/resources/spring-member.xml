@@ -12,15 +12,28 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:annotation-config />
 	<bean id="memberDao" class="Model.MemberDAO" />
+	<bean id="memberDto" class="Model.MemberDTO" />
 	<bean id="TrainDAO" class="Model.TrainDAO" />
 	<bean id="TrainDTO" class="Model.TrainStatinDTO" />
+
 	<bean id="CartDTO" class="Model.CartDTO" />
 	<bean id="ProductDTO" class="Model.ProductDTO" />
 	<bean id="ProductDAO" class="Model.ProductDAO" />
+
+	<bean id="TourDTO" class="Model.TourDTO" />
+	<bean id="TourDAO" class="Model.TourDAO" />
+	<bean id="CommentDTO" class="Model.CommentDTO" />
+	
+	
+
 	<bean id="MemberService" class="service.MemberService" />
+
+	<bean id="TourService" class="service.TourService" />	
+
 	<bean id="TrainService" class="service.TrainService" />
 	<bean id="emailDto" class="Model.EmailDTO" />
 	<bean id="cartBiz" class="Biz.CartBiz"/>
+	
 	<bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
       <property name="host" value="smtp.gmail.com" />
       <property name="port" value="587" />

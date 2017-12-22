@@ -16,18 +16,19 @@
 		SELECT *
 		FROM products
 		<where>
-			<if test="prdName != null">
+			<if test="prdCategory != 'searched'">
+				prd_category = #{prdCategory}
+			</if>
+			<if test="prdName != '%검색어 입력%'">
 				UPPER(prd_name) LIKE UPPER(#{prdName})
-				<if test="prdType != '전체' ">
+				<if test="prdType != '전체'">
 					AND prd_type = #{prdType}
 				</if>	
 			</if>
-			<if test="prdCategory != ''">
-				prd_category = #{prdCategory}
-			</if>		
-
 		</where>
 	</select>
+
+
 
 	<select id="productIndex" parameterType="string" resultMap="productIndexMap">
 		SELECT *

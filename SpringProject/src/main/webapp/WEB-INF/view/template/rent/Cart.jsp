@@ -4,7 +4,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String img = "url(img/rent.jpg)";
-	String menu = "../top.jsp?menu=" + request.getParameter("menu");
+	String menu = "../top.jsp?menu=" + "Cart";
 %>
 <%
 	ArrayList<CartDTO> cartList = (ArrayList<CartDTO>)session.getAttribute("cartList");
@@ -28,55 +28,100 @@
       } 
   }
   document.onkeydown = doNotReload; */
-  $(document).ready(function() {
-	  $('.arrowRight').on('click',function(){
-		  var prdName = $('#prd_Name').text();
-		  var prdQty = $().text('#qty');
-		  console.log(name); 
+  
+  
+$(document).ready(function() {
+	  
+	$('.arrowRight').on('click',function(){
+		var currentRow = $(this).closest('tr');
+		var prdName = currentRow.find('td:eq(1)').text();
+		var prdPrice = Number(currentRow.find('td:eq(2)').text());
+		
+		var prdQty = Number(currentRow.find('td:eq(3)').text()) + 1;
+		var subtotal = Number($('#calcTotal').find('td.calcSubTotal').text())+ prdPrice;
+			
+		$.ajax({
+			url : "CartQtyUp",
+			dataType : "json",
+			type : "post",
+			data : {"prdName":prdName},
+			success : function(data) {			
+				currentRow.find('.getQty').text(prdQty);
+				$('#calcTotal').find('td.calcSubTotal').text(subtotal);
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n" + "error:" + error);
+			}
+		});
+	 });
 
-		  $.ajax({
-				url : "CartQtyUp",
+  
+	$('.arrowLeft').on('click',function(){
+		var currentRow = $(this).closest('tr');
+		var prdName = currentRow.find('td:eq(1)').text();
+		var prdPrice = Number(currentRow.find('td:eq(2)').text());
+		
+		var prdQty = Number(currentRow.find('td:eq(3)').text()) - 1;
+		var subtotal = Number($('#calcTotal').find('td.calcSubTotal').text())- prdPrice;
+
+		if(prdQty !=0){
+			$.ajax({
+				url : "CartQtyDown",
 				dataType : "json",
 				type : "post",
 				data : {"prdName":prdName},
-				success : function(data) {
-					$('#qty').text(prdQty);
-					
+				success : function(data) {			
+					currentRow.find('.getQty').text(prdQty);	
+					$('#calcTotal').find('td.calcSubTotal').text(subtotal);
 				},
 				error : function(request, status, error) {
 					console.log("code:" + request.status + "\n" + "error:" + error);
 				}
-
 			});
-		  
-	  });
+		} else {
+			return;	
+		}
 	});
-	function checkQty(prdName, qty){
-	  if(qty != 1){
-		  $.ajax({
-				url : "CartQtyDown",
-				dataType : "html",
+	
+	$('#deletePrd').on('click', function(){
+		
+		var selectedPrd = "";
+		$("input[name='checkDelete']:checked").each(function(){
+			selectedPrd += $(this).val()+",";
+		});
+		$('#deletehidden').val(selectedPrd);
+
+		alert($('#deletehidden').val());
+		
+		if(selectedPrd!=""){
+		 	$.ajax({
+				url : "CartRemove",
+				dataType : "json",
 				type : "post",
-				data : "prdName="+prdName+"&qty="+qty,
+				data :$('#deletehidden').serializeArray(),
 				success : function(data) {
-						
-				},
-				error : function(request, status, error) {
-					console.log("code:" + request.status + "\n" + "error:" + error);
+					$("input[name='checkDelete']:checked").each(function(){
+						$(this).parents('tr').fadeOut(function(){
+							$(this).remove();
+						})
+					});
 				}
-
+			
+			
 			});
-		  
-	  } else {
-		  return;
-	  }
-	  
-
+			 
+			
+			
+		} else {
+			alert("삭제할 상품을 선택하세요.");
+		}
+		
+	});
 
 	function placeOrder(){
 		document.getElementById('frm').submit();
 	}
-  }
+});
 </script>
 <style>
 #mid {
@@ -229,12 +274,12 @@ i {
 							<td>상 품 명</td>
 							<td>가 격</td>
 							<td>수 량</td>
-							<td align="center"><input type="submit" name="delete" value="삭제"></td>
+							<td align="center"><button type="button" id="deletePrd" value="삭제">삭제</button></td>
 						</tr>
 					<%
-					if(cartList.size()==0||cartList ==  null){
-					%>		<!-- 상품이 장바구니에 존재하지 않을 경우 -->
-						<tr><td colspan="4"><h1 align="center">상품이 존재하지 않습니다.</h1></td></tr>
+					if( cartList==null ){
+					%>		<!-- 상품이 장바구니에 존재하지 않을 경우  /if(cartList.size()<1 || cartList==null || cartList.isEmpty() ){ -->
+						<tr><td colspan="5"><h1 align="center">상품이 존재하지 않습니다.</h1></td></tr>
 					<%
 					} else {	//if end
 						int num=1;
@@ -244,29 +289,24 @@ i {
 							<td><%= cartList.get(i).getPrdCode() %></td>	
 							<td id="prd_Name"><%= cartList.get(i).getPrdName() %></td>
 							<td><%= cartList.get(i).getPrice() %></td>
-							<td>
+							<td class="totalQty">
 								<a href="javascript:checkQty('<%=cartList.get(i).getPrdName() %>', <%= cartList.get(i).getQty() %>)">
 									<i class="arrowLeft"></i>
 								</a>
-								<span id="qty"> <%= cartList.get(i).getQty() %></span>
+								<span class="getQty" ><%= cartList.get(i).getQty() %></span> 
 								<span id="arrowRight">
 									<i class="arrowRight"></i>
 								</span>
 							</td>
 							<td align="center">
-								<input type="checkbox" name="delete" value="<%= cartList.get(i).getPrdName() %>" />
+								<input type="hidden" id="deletehidden" name="deletehidden">
+								<input type="checkbox" name="checkDelete" value="<%= cartList.get(i).getPrdName() %>" />
 							</td>
 						</tr>
 					<%
 						}	//for end
 					%>
 					</table>
-					<%-- <table align=center width=600 border=0>
-						<tr align=center bgcolor=yellow>
-							<td align=right colspan=6><font color=gray size=5>총 결제금액 : </font>
-							<font color="red" size=8><%= totalMoney %></font></td>
-						</tr>
-					</table> --%>
 				<%
 					}	//else end
 				%>			
@@ -279,14 +319,14 @@ i {
 					<button>쿠폰</button>
 				</div>
 				<form name="calcTotal">
-					<table align="center" width="900" border="1">
+					<table align="center" width="900" border="1" id="calcTotal">
 						<tr align="center">
 							<td>총 주문 금액</td>
 							<td>총 할인 금액</td>
 							<td>최종 결제 금액</td>
 						</tr>
 						<tr align="center">
-							<td><%= totalMoney %></td>
+							<td class="calcSubTotal"><%= totalMoney %></td>
 							<td>0</td>
 							<td><%= totalMoney %></td>
 						</tr>
@@ -296,6 +336,7 @@ i {
 					<form action="Payment" name="frm" method="post">
 						<input type="hidden" name="totalAmount" value="<%= totalMoney %>" />
 						<button id="btnPayment" onclick="javascript:placeOrder()">주문 결제</button>
+						<button id="goBack" onclick="window.history.go(-2); return false;">a</button>
 					</form>
 				</div>
 			</div>

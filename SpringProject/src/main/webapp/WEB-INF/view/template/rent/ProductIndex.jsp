@@ -254,8 +254,6 @@
 				$('input[name='+fieldName+']').val(currentQ-1);
 				aa = document.getElementById("total_cnt").value;
 				document.getElementById('productQ').value=aa; 		//controller에 보낼 수량값 변경
-						
-				
 				document.getElementById('total').innerText= price*aa; 
 			} else {
 				$('input[name='+fieldName+']').val(1);
@@ -269,25 +267,17 @@
 				$('input[name='+fieldName+']').val(currentQ+1);
 				aa = document.getElementById("total_cnt").value;
 				document.getElementById('productQ').value=aa;
-				
 				document.getElementById('total').innerText= price*aa;
 			} else {
 				$('input[name='+fieldName+']').val(1);
 			}
-		});
-		
-	
+		});	
 	});
 </script>
 <script type="text/javascript">
-
 	function sendPrd(){
 		document.getElementById('frm').submit();
 	} 
-	function savePrd(){
-		alert("장바구니에 저장되었습니다");
-		return false;		
-	}
 </script>
 <body>
 	<div id="top">
@@ -361,8 +351,8 @@
 						<input type="hidden" name="productPrice" value= "${pDTO.prdPrice}" />	
 						<input type="hidden" name="productQ" id="productQ"  />
 						<div id="btn_field">
-							<button class="btnCart" onclick="javascript:savePrd()">장바구니</button> 
-							<button class="btnBuy" onclick="javascript:sendPrd()">대여하기</button>
+							<button class="btnCart" onclick="window.history.back(); return false;">목록</button> 
+							<button class="btnBuy" onclick="javascript:sendPrd()">장바구니</button>
 						</div>						
 					</form>
 				</div>

@@ -3,9 +3,9 @@ package controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,7 +40,10 @@ public class RentController {
 	}
 	@RequestMapping(value="/SearchResult", method = RequestMethod.POST)
 	public String searchResult( HttpServletRequest req, ProductDTO pDTO, Model model) {
+		
 		pDTO.setPrdName("%"+pDTO.getPrdName()+"%");
+
+/*		System.out.println("controller "+req.getParameter("prdCategory"));*/
 		List<ProductDTO> result = pDAO.searchList(pDTO);
 		model.addAttribute("result", result);
 		return "template/rent/SearchResult";
@@ -57,9 +60,28 @@ public class RentController {
 		return "template/rent/ProductIndex";
 	}
 	
+	@RequestMapping(value="/Cart", method = RequestMethod.GET)
+	public String cartShortcut (HttpServletRequest req, Model model) throws Exception {
+		int totalMoney = 0;
+		ArrayList<CartDTO> cartList; 
+		
+		if(cartBiz.getCart(req) == null || cartBiz.getCart(req).isEmpty() || cartBiz.getCart(req).size()==0) {
+			cartList= null;
+		}else {
+			cartList = cartBiz.getCart(req);
+			for( int i=0; i<cartList.size(); i++) {
+				int money = cartList.get(i).getPrice()*cartList.get(i).getQty();
+				totalMoney += money;
+			}
+		}
+		req.setAttribute("totalMoney", totalMoney);
+		req.setAttribute("cartList", cartList);
+		
+		return "template/rent/Cart";
+	}
 	
 	@RequestMapping(value="/Cart", method = RequestMethod.POST)
-	public String cart (HttpServletRequest req) {
+	public String cart (HttpServletRequest req, Model model) {
 		String prdName = req.getParameter("productName");
 		String prdCode = req.getParameter("productCode");
 		String prdPrice = req.getParameter("productPrice");
@@ -68,9 +90,7 @@ public class RentController {
 		String []items = {prdName, prdCode, prdPrice, prdQty};
 
 		cartBiz.addCart(req, items);		// session에 장바구니 저장
-		
-		
-	
+
 		ArrayList<CartDTO> cartList = cartBiz.getCart(req);
 		int totalMoney = 0;
 		for( int i=0; i<cartList.size(); i++) {
@@ -86,11 +106,11 @@ public class RentController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/CartQtyUp", method = RequestMethod.POST)
-	public HashMap<String, Object> checkId(HttpServletRequest req,@RequestParam HashMap<String, Object> param) {
+	public HashMap<String, Object> cartQtyUp(HttpServletRequest req,@RequestParam HashMap<String, Object> param) {
 
 		
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-		System.out.println(param.get("prdName"));
+		/*System.out.println(param.get("prdName"));*/
 		/*req.setCharacterEncoding("utf-8");*/
 		
 		cartBiz.upCartQty(req, String.valueOf(param.get("prdName")));
@@ -102,17 +122,16 @@ public class RentController {
 		}
 		hashmap.put("totalMoney", String.valueOf(totalMoney));
 		hashmap.put("cartList", cartList);
+		//return "template/rent/Cartresult";
 		return hashmap;
 	}
 	
 	
-
+	@ResponseBody
 	@RequestMapping(value="/CartQtyDown", method= RequestMethod.POST)
-	public String cartQtyDown (HttpServletRequest req) {
-		String prdName = req.getParameter("prdName");
-		/*req.setCharacterEncoding("utf-8");*/
-		
-		cartBiz.downCartQty(req, prdName);
+	public HashMap<String, Object> cartQtyDown (HttpServletRequest req,@RequestParam HashMap<String, Object> param) {
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		cartBiz.downCartQty(req, String.valueOf(param.get("prdName")));
 		
 		ArrayList<CartDTO> cartList = cartBiz.getCart(req);
 		int totalMoney = 0;
@@ -120,16 +139,23 @@ public class RentController {
 			int money = cartList.get(i).getPrice()*cartList.get(i).getQty();
 			totalMoney += money;
 		}
-		req.setAttribute("totalMoney", totalMoney);
-		req.setAttribute("cartList", cartList);
+		hashmap.put("totalMoney", String.valueOf(totalMoney));
+		hashmap.put("cartList", cartList);
 		
-		return "template/rent/Cart";
+		return hashmap;
 	}
+	
+	@ResponseBody
 	@RequestMapping(value="/CartRemove", method= RequestMethod.POST)
-	public String cartRemove (HttpServletRequest req) {
-		String [] prdName = req.getParameterValues("delete");
+	public HashMap<String, Object> cartRemove (HttpServletRequest req, @RequestParam HashMap<String, Object> param) {
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		
-		cartBiz.removeCartItem(req, prdName);
+		System.out.println(param.get("deletehidden"));
+		
+		String [] deletedPrd = String.valueOf(param.get("deletehidden")).split(Pattern.quote(","));
+		/*String [] prdName = String.valueOf(param.get("selectedPrd"));
+	*/
+		cartBiz.removeCartItem(req, deletedPrd);
 		
 		ArrayList<CartDTO> cartList = cartBiz.getCart(req);
 		int totalMoney = 0;
@@ -138,9 +164,9 @@ public class RentController {
 			totalMoney += money;
 		}
 
-		req.setAttribute("totalMoney", totalMoney);
-		req.setAttribute("cartList", cartList);
-		return "template/rent/Cart";
+		hashmap.put("totalMoney", String.valueOf(totalMoney));
+		hashmap.put("cartList", cartList);
+		return hashmap;
 	}
 	
 	@RequestMapping(value="/Payment", method= RequestMethod.POST)

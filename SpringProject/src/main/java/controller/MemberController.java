@@ -27,7 +27,8 @@ public class MemberController {
 	MemberService memberService;
 	@Autowired
 	MemberDAO memberDao;
-	EmailDTO emailDto;
+	@Autowired
+	EmailDTO emailDTO;
 	//일반회원 로그인
 	@RequestMapping(value = "/LoginForm", method = RequestMethod.GET)
 	public String MemberForm(HttpServletRequest req, Model model) {
@@ -135,7 +136,7 @@ public class MemberController {
 	public String memIdfind(@ModelAttribute("idFind") MemberDTO dto, Model model) throws Exception {
 		
 		MemberDTO result = memberDao.memIdFind(dto); 
-		EmailDTO emailDTO = new EmailDTO(); 
+		 
 			String id = result.getMemberId();
 			String mail = result.getMemberEmail();
 			String name = result.getMemberName();
