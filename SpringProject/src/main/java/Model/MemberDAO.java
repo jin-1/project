@@ -1,8 +1,6 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -180,5 +178,44 @@ public class MemberDAO extends AbstractRepository {
 		}
 	
 		return result;	
+	}
+	
+	//일반회원 내정보 수정
+	public int myPageRe(MemberDTO memberDto) {
+
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".updateMypageRe";
+		int result = 0;
+		try {
+			result = sqlSession.update(statement, memberDto);
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return result;
+	}
+	
+	//1:1문의 등록
+	public int inquiryAdd(InquiryDTO dto) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".insertInquiry";
+		int result = 0;
+		try {
+			result = sqlSession.insert(statement, dto);
+			if(result>0) {
+				sqlSession.commit();
+			}else {
+				sqlSession.rollback();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

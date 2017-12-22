@@ -7,7 +7,7 @@
 	<resultMap type="Model.MemberDTO" id="baseResultMap">
 		<id column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
 		<result column="MEMBER_PW" jdbcType="VARCHAR" property="memberPw" />
-		<result column="MEMBER_NAME" jdbcType="TIMESTAMP" property="memberName" />
+		<result column="MEMBER_NAME" jdbcType="VARCHAR" property="memberName" />
 		<result column="MEMBER_PHONE" jdbcType="VARCHAR" property="memberPhone" />
 		<result column="MEMBER_ADDR" jdbcType="VARCHAR" property="memberAddr" />
 		<result column="MEMBER_EMAIL" jdbcType="VARCHAR" property="memberEmail" />
@@ -17,13 +17,22 @@
 		<result column="AUTHORITY" jdbcType="BIGINT" property="authority" />
 	</resultMap>
 	
-		<resultMap type="Model.CorporDTO" id="baseResultMap2">
+	<resultMap type="Model.CorporDTO" id="baseResultMap2">
 		<id column="CORP_ID" jdbcType="VARCHAR" property="corporId" />
 		<result column="CORP_PW" jdbcType="VARCHAR" property="corporPw" />
 		<result column="CORP_NAME" jdbcType="VARCHAR" property="corporName" />
 		<result column="CORP_PHONE" jdbcType="VARCHAR" property="corporPhone" />
 		<result column="CORP_ADDR" jdbcType="VARCHAR" property="corporAddr" />
 		<result column="CORP_EMAIL" jdbcType="VARCHAR" property="corporEmail" />
+	</resultMap>
+	
+	<resultMap type="Model.InquiryDTO" id="baseResultMap3">
+		<id column="INQUIRY_NUM" jdbcType="BIGINT" property="inquiryNum" />
+		<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+		<result column="I_TITLE" jdbcType="VARCHAR" property="inquiryTitle" />
+		<result column="I_CONTENT" jdbcType="VARCHAR" property="inquiryContent" />
+		<result column="I_REPLY" jdbcType="VARCHAR" property="inquiryReply" />
+		<result column="I_DATE" jdbcType="TIMESTAMP" property="inquiryDate" />
 	</resultMap>
 	
 	
@@ -111,6 +120,20 @@
 	where 
 	CORP_NAME=#{corporName} and CORP_EMAIL=#{corporEmail} and CORP_ID=#{corporId}
 	</select>
+	
+	<!-- 일반회원 내 정보 수정 -->
+	<update id="updateMypageRe" parameterType="Model.MemberDTO" >
+	update MEMBER set MEMBER_PW = #{memberPw},  MEMBER_PHONE = #{memberPhone}, MEMBER_ADDR= #{memberAddr},
+	MEMBER_EMAIL = #{memberEmail},  INTEREST = #{inteRest}
+	where MEMBER_ID = #{memberId}
+	</update>
+	
+	<!-- 1:1문의 등로 -->
+	<insert id="insertInquiry" parameterType="Model.InquiryDTO">
+		insert into INQUIRY(INQUIRY_NUM, MEMBER_ID, I_TITLE, I_CONTENT, I_DATE) 
+		values(inquiry_code.NEXTVAL,#{memberId},#{inquiryTitle},#{inquiryContent},#{inquiryDate})
+	</insert>
+	
 </mapper>
 
 

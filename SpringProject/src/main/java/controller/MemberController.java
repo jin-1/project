@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import Model.CorporDTO;
-import Model.EmailDTO;
-import Model.MemberDAO;
-import Model.MemberDTO;
+import Model.*;
 import service.MemberService;
 
 @Controller
@@ -33,6 +30,8 @@ public class MemberController {
 	MemberDTO memberDto;
 	@Autowired
 	CorporDTO corporDto;
+
+	
 	
 	
 	// 일반회원 로그인
@@ -100,15 +99,17 @@ public class MemberController {
 
 	@RequestMapping(value = "/MemberShip", method = RequestMethod.POST)
 	public String member(@ModelAttribute("register") MemberDTO dto) {
+		
+		System.out.println(dto.getMemberId());
 		int result = memberService.setRegister(dto);
 
-		if (result > 0) {
-			return "index";
+	if (result > 0) {
+		return "index";
 		} else {
 			return "template/member/membership";
 		}
 	}
-
+	
 	@RequestMapping(value = "/CorpoRation", method = RequestMethod.GET)
 	public String CorpoRation(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
@@ -334,7 +335,7 @@ public class MemberController {
 		return hashmap;
 	}
 
-	// 일반회원 내 정보 수정
+	// 일반회원 내 정보 수정 비밀번호 페이지
 	@RequestMapping(value = "/myPageCon", method = RequestMethod.GET)
 	public String myPageCon(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
@@ -342,5 +343,57 @@ public class MemberController {
 
 		return "template/member/myPageCon";
 	}
+	
+	// 일반회원 내정보수정 페이지 
+	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
+	public String myPage(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		model.addAttribute("menu", menu);
 
+		return "template/member/myPage";
+	}
+	
+	// 일반회원 내정보수정
+	@RequestMapping(value = "/myPage", method = RequestMethod.POST)
+	public String myPageRe(@ModelAttribute("myPageRevise") MemberDTO dto) {
+		int result = memberDao.myPageRe(dto);
+		System.out.println(dto.getMemberId());
+		System.out.println(dto.getMemberAddr());
+		System.out.println(dto.getMemberPw());
+		System.out.println(dto.getInteRest());
+		System.out.println(dto.getMemberPhone());
+		System.out.println(dto.getMemberName());
+		if (result > 0) {
+			return "template/member/mypageIndex";
+		} else {
+			return "template/member/membership";
+		}
+	}
+	
+	//1:1문의등록 페이지이동
+	@RequestMapping(value = "/InquiryAdd", method = RequestMethod.GET)
+	public String InquiryAdd(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		model.addAttribute("menu", menu);
+
+		return "template/member/inquiryAdd";
+	}
+	
+	//1:1문의등록
+	@RequestMapping(value = "/InquiryAdd", method = RequestMethod.POST)
+	public String inquiryAdd(@ModelAttribute("inquiry") InquiryDTO dto) {
+		String inDate = new java.text.SimpleDateFormat("yyyy/MM/dd").format(new java.util.Date());
+		dto.setInquiryDate(inDate);
+		dto.setInquiryNum(1);
+		
+		System.out.println(dto.getInquiryNum());
+		
+		int result = memberDao.inquiryAdd(dto);
+		if (result > 0) {
+			return "template/member/mypageIndex";
+			} else {
+				return "template/member/inquiryAdd";
+			}
+	}
+	
 }

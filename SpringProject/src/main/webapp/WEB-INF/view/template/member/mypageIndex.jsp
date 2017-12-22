@@ -201,10 +201,7 @@
 			<div id="oneOnone">
 				<h3>1:1문의</h3>
 				<div class="row">
-					<input type="button"
-						style="left-padding: 100px; width: 80pt; height: 20pt;"
-						value="문의등록" /> <input type="button"
-						style="width: 80pt; height: 20pt;" value="문의삭제" />
+					<input type="button" class="inquiry_add" style="left-padding: 100px; width: 80pt; height: 20pt;" value="문의등록" /> 
 				</div>
 				<table class="noticeTable">
 				<colgroup>

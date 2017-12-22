@@ -339,9 +339,7 @@ $(document).ready(function() {
 					});
 
 					// 일반회원 유효성 검사
-					$('.m_confirm')
-							.click(
-									function() {
+					$('.m_confirm').click(function() {
 										var check = true;
 										var m_id = $('.m_id').val(), reg = /^[A-Za-z0-9+]{4,16}$/;
 
@@ -360,11 +358,13 @@ $(document).ready(function() {
 										// 아이디 유효성 체크
 										if (m_id == '' | m_id == null) {
 											alert("아이디를 입력해주세요");
+											$('.m_id').focus();
+											check = false;
 										} else if (!reg.test(m_id)) {
 											alert("아이디는 영문 및 숫자, 4자리 이상 16자리 이하여야 합니다.");
 											$('.m_id').val('');
 											$('.m_id').focus();
-											$('')
+											check = false;
 
 										} else if ($('#idcheck').text() == '중복된 아이디 입니다.') {
 											alert("중복된 아이디 입니다. 아이디를 확인 해주세요.");
@@ -425,36 +425,20 @@ $(document).ready(function() {
 											alert("상세주소를 입력해주세요");
 											$('#m_post3').focus();
 											check = false;
-										} else if (check = true) {
-
+										} else if (check == true) {
 											var test1 = "";
-											$('.m_phone4').val(
-													$('.m_phone1').val()
-															+ "-"
-															+ $('.m_phone2')
-																	.val()
-															+ "-"
-															+ $('.m_phone3')
-																	.val());
-											$('.m_mail4').val(
-													$('.m_mail1').val()
-															+ "@"
-															+ $('.m_mail2')
-																	.val());
-											$('.postM4').val(
-													$('.postM1').val()
-															+ " "
-															+ $('.postM2')
-																	.val()
-															+ " "
-															+ $('.postM3')
-																	.val());
-											$('.m_interest').val(
-													$('.m_inter').val());
-											$(".m_inter").each(function() {
+											$('.m_phone4').val($('.m_phone1').val()+ "-"+ $('.m_phone2').val()+ "-"+ $('.m_phone3').val());
+											$('.m_mail4').val($('.m_mail1').val()+ "@"+ $('.m_mail2').val());
+											$('.postM4').val($('.postM1').val()+"/"+ $('.postM2').val()+"/"+ $('.postM3').val());
+											
+											
+											$("input:checkbox[name=mem_ints]:checked").each(function() {
+												this.checked = true;
 												test1 += $(this).val() + ",";
-											});
+												});
+											console.log(test1);
 											$('.m_interest').val(test1);
+											
 											$('#frm').submit();
 										}
 									});
@@ -542,7 +526,8 @@ $(document).ready(function() {
 											alert("상세주소를 입력해주세요");
 											$('#c_post3').focus();
 											corche = false;
-										} else if (corche == true) {
+											
+										} if (corche == true) {
 
 											$('.c_num3').val(
 													$('.c_num').val()
@@ -658,24 +643,8 @@ $(document).ready(function() {
 										}
 									});
 
-					$('.p_btn').click(function() {
-						location.replace('myPage.jsp');
-					});
 
-					$('.mc_id').attr('readonly', 'true').attr('disabled',
-							'false');
-					$('.mc_name').attr('readonly', 'true').attr('disabled',
-							'false');
-					$('.mc_year').attr('readonly', 'true').attr('disabled',
-							'false');
-					$('.cc_id').attr('readonly', 'true').attr('disabled',
-							'false');
-					$('.cc_num').attr('readonly', 'true').attr('disabled',
-							'false');
-					$('.cc_num1').attr('readonly', 'true').attr('disabled',
-							'false');
-					$('.cc_num2').attr('readonly', 'true').attr('disabled',
-							'false');
+
 
 					// 관심사 최대수 제한하기
 					$(".m_inter:checkbox")
@@ -758,7 +727,7 @@ $(document).ready(function() {
 							url : "PwFind",
 							dataType : "json",
 							type : "post",
-							data : $('#pwfrm').serialize(),
+							data : $('#pw').serialize(),
 							
 							success : function(data) {
 								console.log(data);
@@ -839,6 +808,207 @@ $(document).ready(function() {
 						$(location).attr('href','myPageCon?menu=MyPage');
 					});
 					
+					$('.MyPage_id').attr('readonly', 'true');
+					$('.myPage_name').attr('readonly', 'true');
+					
+
+					//일반회원 내정보 수정
+					$('.myPage_confirm').on('click',function(){
+						var corche = true;
+						var test3 ="";
+						var myPage_pw = $('.myPage_pw').val(), reg2 = /^(?=.*[a-zA-Z])((?=.\d)|(?=.*\W)).{8,15}$/;
+						var myPage_pwC = $('.myPage_pwC').val();
+						var myPage_phone2 = $('.myPage_phone2').val();
+						var myPage_phone3 = $('.myPage_phone3').val();
+						var myPage_mail1 = $('.myPage_mail1').val();
+						var myPage_mail2 = $('.myPage_mail2').val();
+						var myPage_post1 = $('#myPage_post1').val();
+						var myPage_post3 = $('#myPage_post3').val();
+
+							// 비밀번호 유효성 검사
+						if (myPage_pw == '' | myPage_pw == null) {
+							alert("비밀번호 입력해주세요");
+							$('.myPage_pw').focus();
+							corche = false;
+						} else if (!reg2.test(myPage_pw)) {
+							alert("비밀번호는 8자리 이상 15자리 이하 문자, 숫자 혹은 특수문자를 반드시 포함해야 합니다.");
+							$('.myPage_pw').val('');
+							$('.myPage_pw').focus();
+							corche = false;
+							// 비밀번호 확인 유효성 검사
+						} else if (myPage_pw !== myPage_pwC) {
+							alert("비밀번호가 같지 않습니다.");
+							$('.myPage_pwC').val('');
+							$('.myPage_pwC').focus();
+							corche = false;
+							
+						} else if (myPage_phone2 == ''| myPage_phone2 == null| myPage_phone3 == ''| myPage_phone3 == null) {
+							alert("전화번호를 입력해주세요");
+							$('.myPage_phone2').focus();
+							corche = false;
+						} else if (myPage_mail1 == ''| myPage_mail1 == null| myPage_mail2 == ''| myPage_mail2 == null) {
+							alert("메일을 입력해주세요");
+							$('.myPage_mail1').focus();
+							corche = false;
+						} else if (myPage_post1 == ''
+								| myPage_post1 == null) {
+							alert("우편번호 및 주소를 입력해주세요");
+							$('#myPage_post1').focus();
+							corche = false;
+						} else if (myPage_post3 == ''
+								| myPage_post3 == null) {
+							alert("상세주소를 입력해주세요");
+							$('#myPage_post3').focus();
+							corche = false;
+						} else if (corche == true) {
+							$('.myPage_phone4').val($('.myPage_phone1').val()+"-"+ $('.myPage_phone2').val()+"-"+ $('.myPage_phone3').val());
+							$('.myPage_mail4').val($('.myPage_mail1').val()+ "@"+ $('.myPage_mail2').val());
+							$('#myPage_post4').val($('#myPage_post1').val()+ "/"+ $('#myPage_post2').val()+ "/"+ $('#myPage_post3').val());
+							$("input:checkbox[name=mypage_inter]:checked").each(function() {
+								this.checked = true;
+								test3 += $(this).val() + ",";
+								});
+							console.log(test3);
+							$('.mypage_in').val(test3);
+							$('#myPageFrm').submit();
+						}
+					});
+
+					// 관심사 최대수 제한하기
+					$(".mem_in:checkbox").change(function() {// 체크박스들이 변경됬을때
+										var cnt = 6;
+										if (cnt == $(".mem_in:checkbox:checked").length) {
+											$(":checkbox:not(:checked)").attr(
+													"disabled", "disabled");
+										} else if (cnt >$(".mem_in:checkbox:checked").length) {
+											$(".mem_in:checkbox").removeAttr(
+											"disabled");
+										
+										}else {
+											$(".mem_in:checkbox").removeAttr(
+													"disabled");
+										}
+									});
+					$(".mem_in:checkbox").ready(function() {// 체크박스들이 변경됬을때
+						var cnt = 6;
+						if (cnt == $(".mem_in:checkbox:checked").length) {
+							$(":checkbox:not(:checked)").attr(
+									"disabled", "disabled");
+						} else if (cnt >$(".mem_in:checkbox:checked").length) {
+							$(".mem_in:checkbox").removeAttr(
+							"disabled");
+						
+						}else {
+							$(".mem_in:checkbox").removeAttr(
+									"disabled");
+						}
+					});
+					
+					// 일반회원 정보수정 주소 추가
+					$(".mypage_post").on("click",function() {new daum.Postcode(
+												{
+													oncomplete : function(data) {
+														// 팝업에서 검색결과 항목을 클릭했을때
+														// 실행할 코드를 작성하는 부분.
+
+														// 각 주소의 노출 규칙에 따라 주소를
+														// 조합한다.
+														// 내려오는 변수가 값이 없는 경우엔
+														// 공백('')값을 가지므로, 이를
+														// 참고하여 분기 한다.
+														var fullAddr = ''; // 최종
+																			// 주소
+																			// 변수
+														var extraAddr = ''; // 조합형
+																			// 주소
+																			// 변수
+
+														// 사용자가 선택한 주소 타입에 따라 해당
+														// 주소 값을 가져온다.
+														if (data.userSelectedType === 'R') { // 사용자가
+																								// 도로명
+																								// 주소를
+															// 선택했을 경우
+															fullAddr = data.roadAddress;
+
+														} else { // 사용자가 지번
+																	// 주소를 선택했을
+																	// 경우(J)
+															fullAddr = data.jibunAddress;
+														}
+
+														// 사용자가 선택한 주소가 도로명 타입일때
+														// 조합한다.
+														if (data.userSelectedType === 'R') {
+															// 법정동명이 있을 경우 추가한다.
+															if (data.bname !== '') {
+																extraAddr += data.bname;
+															}
+															// 건물명이 있을 경우 추가한다.
+															if (data.buildingName !== '') {
+																extraAddr += (extraAddr !== '' ? ', '
+																		+ data.buildingName
+																		: data.buildingName);
+															}
+															// 조합형주소의 유무에 따라 양쪽에
+															// 괄호를 추가하여 최종 주소를
+															// 만든다.
+															fullAddr += (extraAddr !== '' ? ' ('
+																	+ extraAddr
+																	+ ')'
+																	: '');
+														}
+
+														// 우편번호와 주소 정보를 해당 필드에
+														// 넣는다.
+														document
+																.getElementById('myPage_post1').value = data.zonecode; // 5자리
+														// 새우편번호
+														// 사용
+														document
+																.getElementById('myPage_post2').value = fullAddr;
+														// 커서를 상세주소 필드로 이동한다.
+														document
+																.getElementById('myPage_post3')
+																.focus();
+													}
+												}).open();
+									});
 					
 					
+					
+					
+					
+					
+	$('.myPage_phone2').keypress(function(event) {if (event.which&& (event.which <= 47 || event.which >= 58)&& event.which != 8) {
+							event.preventDefault();
+							alert("숫자만 입력가능합니다.")
+						}
+					});
+	$('.myPage_phone2').keypress(function(event) {if (event.which&& (event.which <= 47 || event.which >= 58)&& event.which != 8) {
+							event.preventDefault();
+							alert("숫자만 입력가능합니다.")
+						}
+					});
+	$('#myPage_post1').keypress(function(event) {if (event.which&& (event.which <= 47 || event.which >= 58)&& event.which != 8) {event.preventDefault();
+							alert("숫자만 입력가능합니다.")
+						}
+					});
+	/*
+	$('.m_phone3').keypress(function(event) {if (event.which&& (event.which <= 47 || event.which >= 58)&& event.which != 8) {
+							event.preventDefault();
+							alert("숫자만 입력가능합니다.")
+						}
+					});
+	$('#m_post1').keypress(function(event) {if (event.which&& (event.which <= 47 || event.which >= 58)&& event.which != 8) {
+							event.preventDefault();
+							alert("숫자만 입력가능합니다.")
+						}
+					});
+	*/
+	
+	//문의등록 페이지 이동
+	$('.inquiry_add').on('click',function(){
+		$(location).attr('href','InquiryAdd?menu=Inquiry');
+	});
 });

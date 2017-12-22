@@ -1,10 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page import="Model.*"%>
 <!DOCTYPE html>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String menu = request.getParameter("menu");
-	String target = "./template/menu/" + request.getParameter("target") + ".jsp";
+	String menu = "../top.jsp?menu=" + request.getParameter("menu");
+	MemberDTO memberdto = (MemberDTO) session.getAttribute("login");
+	
+	String memberId = memberdto.getMemberId();
+	String memberPw = memberdto.getMemberPw();
+	String memberName = memberdto.getMemberName();
+	String memberPhone = memberdto.getMemberPhone();
+	String memberInte = memberdto.getInteRest();
+	String memberMail = memberdto.getMemberEmail();
+	String memberPost = memberdto.getMemberAddr();
+	String[] check = memberInte.split(",");
+	String[] check2 = memberPhone.split("-");
+	String[] check3 = memberMail.split("@");
+	String[] check4 = memberPost.split("/");
 %>
 <html>
 <head>
@@ -12,10 +27,24 @@
 <title>Insert title here</title>
 <link href="./css/styles.css" rel="stylesheet" type="text/css">
 <link href="./css/train.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
-<script type="text/javascript" src="./scripts/script.js" charset="utf-8"></script>
+<script type="text/javascript" src="./scripts/memberscript.js"
+	charset="utf-8"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+	//ê´€ì‹¬ì‚¬ ê°’ ì²´í¬
+	<%for (int i = 0; i < check.length; i++) {
+				for (int z = 1; z < 13; z++) {%>
+		if($('input:checkbox[id="inter<%=z%>"]').val() == "<%=check[i]%>"){
+			console.log('cdd');
+			$('input:checkbox[id="inter<%=z%>"]').prop('checked', true);
+		}
+	<%}}%>
+	});
+</script>
 <style>
 .mid {
 	margin: auto;
@@ -51,7 +80,7 @@
 	margin: 5px;
 }
 
-.m_confirm {
+.myPage_confirm {
 	width: 150px;
 	height: 35px;
 	background-color: #3163C9;
@@ -63,7 +92,7 @@
 	display: inline-block
 }
 
-.m_cancel {
+.myPage_cancel {
 	width: 150px;
 	height: 35px;
 	background-color: #686868;
@@ -78,135 +107,140 @@
 .bottom {
 	text-align: center;
 }
-.m_idcheck{
-	padding-top:20px;
+
+.m_idcheck {
+	padding-top: 20px;
 }
-.tour{
-	width:20%;
+
+.tour {
+	width: 20%;
 }
 </style>
 </head>
 <body>
 	<div id="top">
-		<jsp:include page="./template/top.jsp?menu=<%=menu%>" flush="false" />
+		<jsp:include page="<%=menu%>" flush="false" />
 	</div>
 	<div id="mid">
 		<div id="container">
-			<h2>³»Á¤º¸¼öÁ¤</h2>
+			<h2>ë‚´ì •ë³´ìˆ˜ì •</h2>
 			<hr />
-			<div id="form">
-				<table class="m_table">
-					<colgroup>
-						<col span="1" width="20%" style="background: #EAEAEA" />
-						<col width="70%" />
-					</colgroup>
-					<tr>
-						<td>ID</td>
-						<td class="m_idcheck"><input type="text" class="mc_id" maxlength="15" size="20" />&nbsp;
-							<br />
-							<p>ID Áßº¹°Ë»ç¸¦ ÇØÁÖ¼¼¿ä. ID´Â ¹®ÀÚ, ¼ıÀÚ, Æ¯¼ö¹®ÀÚ·Î ÃÖ¼Ò 4±ÛÀÚ ÀÌ»óÀÌ¿©¾ß µË´Ï´Ù.</p>
-							</td>
-					</tr>
-					<tr>
-						<td>ºñ¹Ğ¹øÈ£</td>
+			<form:form id="myPageFrm" modelAttribute="myPageRevise">
+				<div id="form">
+					<table class="m_table">
+						<colgroup>
+							<col span="1" width="20%" style="background: #EAEAEA" />
+							<col width="70%" />
+						</colgroup>
+						<tr>
+							<td>ID</td>
+							<td class="m_idcheck">
+							<input type="text" class="MyPage_id" maxlength="15" size="20" value="<%=memberId%>" name="memberId" />&nbsp;
+								<br />
+								<p>IDëŠ” ë³€ê²½ì´ ë¶ˆê°€í•©ë‹ˆë‹¤.</p></td>
+						</tr>
+						<tr>
+							<td>ë¹„ë°€ë²ˆí˜¸</td>
 
-						<td><br /> <input type="password" class="mc_pw" size="15" /><br />
-							<p>ºñ¹Ğ¹øÈ£´Â 8ÀÚ¸® ÀÌ»ó 15ÀÚ¸® ÀÌÇÏ ¹®ÀÚ, ¼ıÀÚ È¤Àº Æ¯¼ö¹®ÀÚ¸¦ ¹İµå½Ã Æ÷ÇÔÇØ¾ß ÇÕ´Ï´Ù.</p></td>
-					</tr>
-					<tr>
-						<td>ºñ¹Ğ¹øÈ£ È®ÀÎ</td>
-						<td><input type="password" class="mc_pwC" size="15" /></td>
-					</tr>
-					<tr>
-						<td>ÀÌ¸§</td>
-						<td><input type="text" class="mc_name" maxlength="10"
-							size="10" /></td>
-					</tr>
-					<tr>
-						<td>ÀüÈ­¹øÈ£</td>
-						<td><select name="hpNo1" id="hpNoSelect" class="mc_phone1">
-								<option value="010">010</option>
-								<option value="011">011</option>
-								<option value="016">016</option>
-								<option value="017">017</option>
-								<option value="018">018</option>
-								<option value="019">019</option>
-						</select>&nbsp;-&nbsp; <input type="text" class="mc_phone2" maxlength="4"
-							size="5" /> &nbsp;-&nbsp; <input type="text" class="mc_phone3"
-							maxlength="4" size="5" /></td>
-					</tr>
-					<tr>
-						<td>»ı³â ¿ù ÀÏ</td>
-						<td><input type="date" maxlength="4" class="mc_year" size="7" />
-						</td>
-					</tr>
-					<tr>
-						<td>ÀÌ¸ŞÀÏ</td>
-						<td><input type="email" class="m_mail1" size="10" />&nbsp;@
-							<input type="email" class="m_mail2" size="10" />&nbsp; <select
-							name="c_mail2" id="m_NomSelect1" class="mc_mail3">
-								<option value="1">Á÷Á¢ÀÔ·Â</option>
-								<option value="naver.com" selected>naver.com</option>
-								<option value="hanmail.net">hanmail.net</option>
-								<option value="hotmail.com">hotmail.com</option>
-								<option value="nate.com">nate.com</option>
-								<option value="yahoo.co.kr">yahoo.co.kr</option>
-								<option value="empas.com">empas.com</option>
-								<option value="dreamwiz.com">dreamwiz.com</option>
-								<option value="freechal.com">freechal.com</option>
-								<option value="lycos.co.kr">lycos.co.kr</option>
-								<option value="korea.com">korea.com</option>
-								<option value="gmail.com">gmail.com</option>
-								<option value="hanmir.com">hanmir.com</option>
-								<option value="paran.com">paran.com</option>
-						</select></td>
-					</tr>
-					<tr>
-						<td>ÁÖ¼Ò</td>
-						<td class="addrIn"><input type="text" maxlength="5" size="8" id="mc_post1"/>
-							<button class="postConfirm">¿ìÆí¹øÈ£ °Ë»ö</button> <br /> 
-							<input type="text" size="60" id="mc_post2"/><br /> 
-							<input type="text" size="60" id="mc_post3"/></td>
-					</tr>
-					<tr>
-						<td>¼ºº°</td>
-						<td><label><input type="radio" name="gender" checked />
-								³²¼º</label> <label><input type="radio" name="gender" /> ¿©¼º</label></td>
-					</tr>
-					<tr>
-						<td rowspan="3">°ü½É»ç</td>
-						<td class="tour">°ü±¤Áö  &nbsp;&nbsp;&nbsp;&nbsp;
-						<label><input type="checkbox" />·¹Àú</label>
-						<label><input type="checkbox" />½ºÆ÷Ã÷</label>
-						<label><input type="checkbox" />¿ª»ç </label>
-						<label><input type="checkbox" />ÃàÁ¦</label>
-					    </td>
-					</tr>
-					<tr>
-						<td>¸À&nbsp;&nbsp;&nbsp;Áı&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<label><input type="checkbox" />ÇÑ½Ä</label>
-						<label><input type="checkbox" />ÀÏ½Ä</label>
-						<label><input type="checkbox" />Áß½Ä </label>
-						<label><input type="checkbox" />¾ç½Ä</label>
-						</td>
-					</tr>
-					<tr>
-						<td>¼÷&nbsp;&nbsp;&nbsp;¹Ú&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<label><input type="checkbox" />È£ÅÚ</label>
-						<label><input type="checkbox" />¸ğÅÚ</label>
-						<label><input type="checkbox" />ÂòÁú¹æ</label>
-						<label><input type="checkbox" />°Ô½ºÆ®ÇÏ¿ì½º</label> <br/>
-						<p>°ü½É»ç´Â ÃÖ´ë 6°³±îÁö °í¸¦¼ö ÀÖ½À´Ï´Ù.</p>
-						</td>
-					</tr>
-				</table>
-				<div class="bottom">
-					<p class="m_confirm">°¡ ÀÔ</p>
-					<p class="m_cancel">Ãë ¼Ò</p>
+							<td><br /> <input type="password" class="myPage_pw"
+								size="15" value="<%=memberPw%>" name="memberPw" /><br />
+								<p>ë¹„ë°€ë²ˆí˜¸ëŠ” 8ìë¦¬ ì´ìƒ 15ìë¦¬ ì´í•˜ ë¬¸ì, ìˆ«ì í˜¹ì€ íŠ¹ìˆ˜ë¬¸ìë¥¼ ë°˜ë“œì‹œ í¬í•¨í•´ì•¼ í•©ë‹ˆë‹¤.</p></td>
+						</tr>
+						<tr>
+							<td>ë¹„ë°€ë²ˆí˜¸ í™•ì¸</td>
+							<td><input type="password" class="myPage_pwC" size="15"
+								value="<%=memberPw%>" /></td>
+						</tr>
+						<tr>
+							<td>ì´ë¦„</td>
+							<td><input type="text" class="myPage_name" maxlength="10"
+								value="<%=memberName%>" size="10" name="memberName" /></td>
+
+						</tr>
+						<tr>
+							<td>ì „í™”ë²ˆí˜¸</td>
+							<td><select name="hpNo1" id="hpNoSelect" class="myPage_phone1">
+									<option value="010">010</option>
+									<option value="011">011</option>
+									<option value="016">016</option>
+									<option value="017">017</option>
+									<option value="018">018</option>
+									<option value="019">019</option>
+							</select>&nbsp;-&nbsp; 
+							<input type="text" class="myPage_phone2"maxlength="4" size="5" value="<%=check2[1]%>" /> &nbsp;-&nbsp;
+							<input type="text" class="myPage_phone3" maxlength="4" size="5" value="<%=check2[2]%>" /> 
+							<input type="hidden" class="myPage_phone4" name="memberPhone" /></td>
+						</tr>
+						<tr>
+							<td>ì´ë©”ì¼</td>
+							<td><input type="email" class="myPage_mail1" size="10"
+								value="<%=check3[0]%>" />&nbsp;@ <input type="email"
+								class="myPage_mail2" size="10" value="<%=check3[1]%>" />&nbsp;
+								<select name="c_mail2" id="m_NomSelect1" class="myPage_mail3">
+									<option value="1" selected>ì§ì ‘ì…ë ¥</option>
+									<option value="naver.com">naver.com</option>
+									<option value="hanmail.net">hanmail.net</option>
+									<option value="hotmail.com">hotmail.com</option>
+									<option value="nate.com">nate.com</option>
+									<option value="yahoo.co.kr">yahoo.co.kr</option>
+									<option value="empas.com">empas.com</option>
+									<option value="dreamwiz.com">dreamwiz.com</option>
+									<option value="freechal.com">freechal.com</option>
+									<option value="lycos.co.kr">lycos.co.kr</option>
+									<option value="korea.com">korea.com</option>
+									<option value="gmail.com">gmail.com</option>
+									<option value="hanmir.com">hanmir.com</option>
+									<option value="paran.com">paran.com</option>
+							</select> <input type="hidden" class="myPage_mail4" name="memberEmail" />
+							</td>
+						</tr>
+						<tr>
+							<td>ì£¼ì†Œ</td>
+							<td class="addrIn"><input type="text" maxlength="5" size="8"
+								id="myPage_post1" value="<%=check4[0]%>"/>
+								<button class="mypage_post">ìš°í¸ë²ˆí˜¸ ê²€ìƒ‰</button> <br /> <input
+								type="text" size="60" id="myPage_post2" value="<%=check4[1]%>"/><br /> <input
+								type="text" size="60" id="myPage_post3" value="<%=check4[2]%>"/> <input type="hidden"
+								id="myPage_post4" name="memberAddr" /></td>
+
+						</tr>
+						<tr>
+							<td rowspan="3">ê´€ì‹¬ì‚¬</td>
+							<td class="tour">ê´€ê´‘ì§€ &nbsp;&nbsp;&nbsp;&nbsp; <label><input
+									type="checkbox" name="mypage_inter" id="inter1" class="mem_in" value="ë ˆì €" />ë ˆì €</label> <label><input
+									type="checkbox" name="mypage_inter" id="inter2" class="mem_in" value="ìŠ¤í¬ì¸ " />ìŠ¤í¬ì¸ </label> <label><input
+									type="checkbox" name="mypage_inter" id="inter3" class="mem_in" value="ì—­ì‚¬" />ì—­ì‚¬ </label> <label><input
+									type="checkbox" name="mypage_inter" id="inter4" class="mem_in" value="ì¶•ì œ" />ì¶•ì œ</label>
+							</td>
+						</tr>
+						<tr>
+							<td>ë§›&nbsp;&nbsp;&nbsp;ì§‘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label><input
+									type="checkbox" name="mypage_inter" id="inter5" class="mem_in" value="í•œì‹" />í•œì‹</label> <label><input
+									type="checkbox" name="mypage_inter" id="inter6" class="mem_in" value="ì¼ì‹" />ì¼ì‹</label> <label><input
+									type="checkbox" name="mypage_inter" id="inter7" class="mem_in" value="ì¤‘ì‹" />ì¤‘ì‹ </label> <label><input
+									type="checkbox" name="mypage_inter" id="inter8" class="mem_in" value="ì–‘ì‹" />ì–‘ì‹</label>
+							</td>
+						</tr>
+						<tr>
+							<td>ìˆ™&nbsp;&nbsp;&nbsp;ë°•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label><input
+									type="checkbox" name="mypage_inter" id="inter9" class="mem_in" value="í˜¸í…”" />í˜¸í…”</label> <label><input
+									type="checkbox" name="mypage_inter" id="inter10" class="mem_in" value="ëª¨í…”" />ëª¨í…”</label> <label><input
+									type="checkbox" name="mypage_inter" id="inter11" class="mem_in" value="ì°œì§ˆë°©" />ì°œì§ˆë°©</label> <label><input
+									type="checkbox" name="mypage_inter" id="inter12" class="mem_in" value="ê²ŒìŠ¤íŠ¸í•˜ìš°ìŠ¤" />ê²ŒìŠ¤íŠ¸í•˜ìš°ìŠ¤</label>
+								<br />
+								<p>ê´€ì‹¬ì‚¬ëŠ” ìµœëŒ€ 6ê°œê¹Œì§€ ê³ ë¥¼ìˆ˜ ìˆìŠµë‹ˆë‹¤.</p>
+								<input type="hidden" class="mypage_in" name="inteRest" />
+							</td>
+						</tr>
+					</table>
+					<div class="bottom">
+						<p class="myPage_confirm">ìˆ˜ ì •</p>
+						<p class="myPage_cancel">ì·¨ ì†Œ</p>
+					</div>	
 				</div>
-			</div>
-		</div>
+		</form:form>
 	</div>
-	<div id="bot"></div>
+	</div>
+	<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>
 </body>
 </html>

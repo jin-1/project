@@ -7,6 +7,8 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
+	MemberDTO memberdto = (MemberDTO) session.getAttribute("login");
+	String memberPw = memberdto.getMemberPw();
 %>
 <html>
 <head>
@@ -21,11 +23,21 @@
 	charset="utf-8"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
-<%
-	MemberDTO memberdto = (MemberDTO) session.getAttribute("login");
+$(document).ready(function() {
 
-%>
-
+	 $(".p_btn").click(function(){
+		
+		 
+		 if("<%=memberPw%>" ==$('.in_pw').val()){
+			 $(location).attr('href','myPage?menu=MyPage');
+		 }else if("<%=memberPw%>" !=$('.in_pw').val()){
+			 alert("입련된 비밀번호가 다릅니다.");
+		 }else if($('.in_pw').val()==null){
+			 alert("비밀번호를 입력해주세요");
+		 }
+		 
+	 });
+});
 </script>
 <style type="text/css">
 .contain{

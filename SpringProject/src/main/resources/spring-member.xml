@@ -20,6 +20,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 	<bean id="coporDto" class="Model.CorporDTO" />
 	<bean id="memberDto" class="Model.MemberDTO" />
 	
+	
 	<bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
       <property name="host" value="smtp.gmail.com" />
       <property name="port" value="587" />

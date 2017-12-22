@@ -10,12 +10,10 @@ public class MemberDTO {
 	private String memberPhone;
 	private String memberAddr;
 	private String memberEmail;
-	private String	gender;
-	private Date birthDate;
+	private String gender;
+	private String birthDate;
 	private String inteRest;
 	private int authority;
-
-
 	public String getMemberId() {
 		return memberId;
 	}
@@ -27,6 +25,12 @@ public class MemberDTO {
 	}
 	public void setMemberPw(String memberPw) {
 		this.memberPw = memberPw;
+	}
+	public String getMemberJob() {
+		return memberJob;
+	}
+	public void setMemberJob(String memberJob) {
+		this.memberJob = memberJob;
 	}
 	public String getMemberName() {
 		return memberName;
@@ -58,10 +62,10 @@ public class MemberDTO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public Date getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 	public String getInteRest() {
@@ -76,11 +80,7 @@ public class MemberDTO {
 	public void setAuthority(int authority) {
 		this.authority = authority;
 	}
-	public String getMemberJob() {
-		return memberJob;
-	}
-	public void setMemberJob(String memberJob) {
-		this.memberJob = memberJob;
-	}
 
+	
+	
 }

@@ -25,6 +25,7 @@ public class MemberService {
 		
 		int result=0;
 		this.memberDto = memberDao.Login(memberDto);
+		System.out.println(memberDto.getMemberId());
 		if(this.memberDto !=null) {
 		
 			if(this.memberDto.getMemberPw().equals(memberDto.getMemberPw())) {
@@ -60,7 +61,7 @@ public class MemberService {
 	} 
 	
 
-	
+	//일반회원 회원가입
 	public int setRegister(MemberDTO dto) {
 		System.out.println(dto.getGender());
 		dto.setAuthority(0);
@@ -69,6 +70,7 @@ public class MemberService {
 		
 	}
 	
+	//기업회원 회원가입
 	public int setCorRegister(CorporDTO dto) {
 		return memberDao.CorRegister(dto);
 		
