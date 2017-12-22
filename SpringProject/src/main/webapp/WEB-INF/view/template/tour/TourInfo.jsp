@@ -4,7 +4,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="java.lang.String.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="Model.*"%>
 <%
@@ -12,6 +11,7 @@
 	String menu = "../top.jsp?menu=TOUR info";
 	String img = "url(img/tour.jpg)";
 	TourDTO list = (TourDTO) request.getAttribute("result");
+	String login = (String)request.getAttribute("login");
 	String[] addr = list.getLocalAddr().split("/");
 %>
 
@@ -36,7 +36,7 @@
 			<table border=1>
 				<tr>
 					<td colspan=4 rowspan=3><img alt="사진1" width=400 height=400
-						src="img/tour/<%=list.getLocalCode()%>/<%=list.getLocalImage()%>">
+						<%-- src="/SpringProject/img/tour/<%=list.getLocalImage()%>" --%>>
 					</td>
 					<td><%=list.getLocalName()%></td>
 				</tr>
@@ -48,7 +48,7 @@
 				</tr>
 				<tr>
 					<td><img alt="사진2" width=100 height=100
-						src="img/tour/<%=list.getLocalCode()%>/<%=list.getLocalImage()%>"></td>
+						src="/SpringProject/img/tour/<%=list.getLocalImage()%>"></td>
 					<td><img alt="사진3" width=100 height=100 src="#"></td>
 					<td><img alt="사진4" width=100 height=100 src="#"></td>
 					<td><img alt="사진5" width=100 height=100 src="#"></td>
@@ -96,33 +96,41 @@
 		            async: false,
 		            data : {localCode: "<%=request.getParameter("localCode")%>"},
 					success : function(data) {
-						$('.commentTable tr').remove();$.each(data,function(key,value) {
-							$('.commentTable').append('<tr><td>'+ value.memberId+ '</td><td>'+ value.commentDate+ '</td></tr><tr><td colspan=2>'+ value.content+ '</td></tr>');
-							});
+						console.log('data '+data+'dd');
+						if(Object.keys(data) == ''){
+							$('.commentTable').append('<tr><td>등록된 리뷰가 없습니다.<br>소중한 경험을 남겨주세요.</td></tr>');
+						} else{
+							$('.commentTable tr').remove();
+							$.each(data,function(key,value) {
+								$('.commentTable').append('<tr><td>'+ value.memberId+ '</td><td>'+ value.commentDate+ '</td></tr><tr><td colspan=2>'+ value.content+ '</td></tr>');
+							});	
+						}
 					},
 					error : function(request,status,error) {
 						console.log("code:"	+ request.status+ "\n"+ "error:"+ error);
 						}
 					});
-				
-				$('#submitButton').on("click",function(){
-					console.log("d");
-					$.ajax({
-			            url : "TourComment",
-			            dataType : "json",
-			            type : "post",
-			            async: false,
-			            data : {commentAdd:$('#commentAdd').val(), localCode: "<%=request.getParameter("localCode")%>"},
-						success : function(data) {
-							$('.commentTable tr').remove();
-							$.each(data,function(key,value) {
-								$('.commentTable').append('<tr><td>'+ value.memberId+ '</td><td>'+ value.commentDate+ '</td></tr><tr><td colspan=2>'+ value.content+ '</td></tr>');
+					$('#submitButton').on("click",function(){
+						if(<%=login%> == null){
+							alert("로그인 후 리뷰를 남겨주세요.");
+						} else{
+							$.ajax({
+					            url : "TourComment",
+					            dataType : "json",
+					            type : "post",
+					            async: false,
+					            data : {commentAdd:$('#commentAdd').val(), localCode: "<%=request.getParameter("localCode")%>"},
+								success : function(data) {
+									$('.commentTable tr').remove();
+									$.each(data,function(key,value) {
+										$('.commentTable').append('<tr><td>'+ value.memberId+ '</td><td>'+ value.commentDate+ '</td></tr><tr><td colspan=2>'+ value.content+ '</td></tr>');
+										});
+								},
+								error : function(request,status,error) {
+									console.log("code:"	+ request.status+ "\n"+ "error:"+ error);
+									}
 								});
-						},
-						error : function(request,status,error) {
-							console.log("code:"	+ request.status+ "\n"+ "error:"+ error);
-							}
-						});
+						}
 					});
 			});
 

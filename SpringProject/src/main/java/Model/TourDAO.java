@@ -46,4 +46,17 @@ public class TourDAO extends AbstractRepository{
 		String statement = namespace + ".tourCommentSelect";
 		return sqlSession.selectList(statement, localCode);
 	}
+	
+	public int addTour(TourDTO dto) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".tourInsert";
+		int result = 0;
+		result = sqlSession.insert(statement, dto);
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+		return result;
+	}
 }

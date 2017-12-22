@@ -5,7 +5,7 @@ import java.util.Date;
 public class CommentDTO {
 	private int commentNum;
 	private String memberId;
-	private String localCode;
+	private int localCode;
 	private String corpId;
 	private String content;
 	private Date commentDate;
@@ -22,10 +22,10 @@ public class CommentDTO {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public String getLocalCode() {
+	public int getLocalCode() {
 		return localCode;
 	}
-	public void setLocalCode(String localCode) {
+	public void setLocalCode(int localCode) {
 		this.localCode = localCode;
 	}
 	public String getCorpId() {

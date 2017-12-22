@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,12 +10,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import Model.CommentDTO;
+import Model.CorporDTO;
+import Model.MemberDTO;
 import Model.TourDAO;
 import Model.TourDTO;
 import service.TourService;
@@ -27,6 +32,10 @@ public class TourController {
 	private TourService tourService;
 	@Autowired
 	CommentDTO commentDTO;
+	@Autowired
+	private CorporDTO corpDTO;
+	@Autowired
+	private MemberDTO memberDto;
 	
 	@RequestMapping(value="/TourMain", method = RequestMethod.GET)
 	public String tourMain(HttpServletRequest req, Model model) {
@@ -37,7 +46,7 @@ public class TourController {
 	}
 	
 	@RequestMapping(value="/TourResult", method = RequestMethod.GET)
-	public String tourResult(HttpServletRequest req, Model model, TourDTO dto) {
+	public String tourResult(HttpServletRequest req, Model model, TourDTO dto, HttpSession session) {
 		String one = req.getParameter("SearchArea1"); //�õ� �޾ƿ���
 		String two = req.getParameter("SearchArea2"); //�ñ��� �޾ƿ���
 		String[] cateArr = req.getParameterValues("category"); //ī�װ� �޾ƿ���
@@ -61,19 +70,30 @@ public class TourController {
 		
 		String menu = req.getParameter("menu");
 		
+		corpDTO = (CorporDTO) session.getAttribute("corlogin");
+		if(corpDTO == null) {
+			model.addAttribute("login", null);
+		} else {
+			model.addAttribute("login", "1");
+		}
 		model.addAttribute("menu", menu);
 		model.addAttribute("result", result);
 		return "template/tour/TourResult";
 	}
 	
 	@RequestMapping(value="/TourInfo", method = RequestMethod.GET)
-	public String tourInfo(TourDTO tourDTO, Model model, HttpServletRequest req) {
+	public String tourInfo(TourDTO tourDTO, Model model, HttpServletRequest req, HttpSession session) {
 		TourDTO result = tourDAO.tourInfo(tourDTO);
 		
-		String code = req.getParameter("localCode");
+		int code = Integer.parseInt(req.getParameter("localCode"));
 		commentDTO.setLocalCode(code);
 		
-//		List<CommentDTO> comment = tourDAO.tourComment(commentDTO);
+		memberDto = (MemberDTO) session.getAttribute("login");
+		if(memberDto == null) {
+			model.addAttribute("login", null);
+		} else {
+			model.addAttribute("login", "1");
+		}
 		
 		model.addAttribute("result", result);
 //		model.addAttribute("comment", comment);
@@ -82,7 +102,7 @@ public class TourController {
 	@ResponseBody
 	@RequestMapping(value = "/TourInfo", method = RequestMethod.POST)
 	public HashMap<Integer, CommentDTO> slelctcomment(HttpSession session,@RequestParam HashMap<String, Object> param) {
-		String code = String.valueOf(param.get("localCode"));
+		int code = Integer.parseInt(String.valueOf(param.get("localCode")));
 		commentDTO.setLocalCode(code);
 		
 		List<CommentDTO> comment = tourDAO.tourComment(commentDTO);
@@ -95,17 +115,33 @@ public class TourController {
 		
 		return commentMap;
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/TourComment", method = RequestMethod.POST)
-	public HashMap<String, CommentDTO> commentInsert(HttpSession session,@RequestParam HashMap<String, Object> param) {		
-		tourService.insertComment(param,session);
+	public HashMap<String, CommentDTO> commentInsert(HttpSession session,@RequestParam HashMap<String, Object> param, Model model) {		
+		tourService.insertComment(param,session,model);
 		HashMap<String, CommentDTO> tour = tourService.selectAllComment(String.valueOf(param.get("localCode")));
 		
 		return tour;
 	}
 	
 	@RequestMapping(value="/TourAdd", method=RequestMethod.GET)
-	public String tourAdd(Model model) {
+	public String tourAddForm(Model model) {
 		return "template/tour/TourAdd";
+	}
+	
+	@RequestMapping(value="/TourAdd", method=RequestMethod.POST)
+	public String addTour(@ModelAttribute("localAdd") TourDTO dto, HttpSession session, HttpServletRequest request) throws IOException {
+		int result = tourService.setTour(dto, session, request);
+		if(result > 0) {
+			return "template/tour/MyTour";
+		} else {
+			return "template/tour/TourAdd";
+		}
+	}
+	
+	@RequestMapping(value="/MyTour", method= {RequestMethod.POST, RequestMethod.GET})
+	public String myTour(HttpServletRequest req, Model model) {
+		return "template/tour/MyTour";
 	}
 }

@@ -1,7 +1,13 @@
 package Model;
 
-public class TourDTO {
-	private String localCode;
+import java.io.Serializable;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+@SuppressWarnings("serial")
+public class TourDTO implements Serializable{
+	private int localCode;
 	private String corpId;
 	private String localName;
 	private String localPhone;
@@ -11,13 +17,15 @@ public class TourDTO {
 	private String localContent;
 	private int requestStatus;
 	private String travelCoord;
-	private String localImage;
+	//private String localImage;
+	private MultipartFile localImage;
+	//private MultipartFile localImageSave;
 	private String registrationNum;
 	
-	public String getLocalCode() {
+	public int getLocalCode() {
 		return localCode;
 	}
-	public void setLocalCode(String localCode) {
+	public void setLocalCode(int localCode) {
 		this.localCode = localCode;
 	}
 	public String getCorpId() {
@@ -78,12 +86,24 @@ public class TourDTO {
 	public void setTravelCoord(String travelCoord) {
 		this.travelCoord = travelCoord;
 	}
-	public String getLocalImage() {
+	/*public String getLocalImage() {
 		return localImage;
 	}
 	public void setLocalImage(String localImage) {
 		this.localImage = localImage;
+	}*/
+	public MultipartFile getLocalImage() {
+		return localImage;
 	}
+	public void setLocalImage(MultipartFile localImage) {
+		this.localImage = localImage;
+	}
+	/*public MultipartFile getLocalImageSave() {
+		return localImageSave;
+	}
+	public void setLocalImageSave(MultipartFile localImageSave) {
+		this.localImageSave = localImageSave;
+	}*/
 	public String getRegistrationNum() {
 		return registrationNum;
 	}

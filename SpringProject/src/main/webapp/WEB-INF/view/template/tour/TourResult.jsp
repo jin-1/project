@@ -7,6 +7,7 @@
 	request.setCharacterEncoding("utf-8"); 
 	String menu = "../top.jsp?menu=TOUR result";
 	String img = "url(img/tour.jpg)";
+	String login = (String)request.getAttribute("login");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -137,7 +138,19 @@
 					<input type="submit" value="검색">
 				</p>
 				
-				<a href="TourAdd">내 사업 등록하기</a>
+				<label class="addMyBusi">내 사업 등록하기</label>
+				<script type="text/javascript">
+					$(document).ready(function(){
+						$('.addMyBusi').on("click", function(){
+							if(<%=login%> == null){
+								alert("기업 로그인 후 사업을 등록해주세요.\n기업의 사업등록은 '마이페이지>사업등록'에서도 가능합니다.");
+								location.replace("LoginForm");
+							} else{
+								location.replace("TourAdd");
+							}
+						});
+					});
+				</script>
 				
 				<c:if test="${ empty result }">
 					검색 결과가 없습니다.
@@ -148,7 +161,7 @@
 						<c:forEach var="tour" items="${result}" varStatus="status">
 							<tr>
 								<td rowspan=4>
-									<img alt="여행지 이미지" width=150 height=150 src="img/tour/${tour.localCode}/${tour.localImage}">
+									<img alt="여행지 이미지" width=150 height=150 src="/SpringProject/img/tour/${tour.localImage}">
 								</td>
 								<td>[${tour.localCategory}]</td>
 								<td>

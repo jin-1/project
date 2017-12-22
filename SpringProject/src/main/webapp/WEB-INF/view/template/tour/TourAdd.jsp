@@ -16,7 +16,7 @@
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#submit').click(function(){
+		$('#addToBusi').on('click',function(){
 			var loche = true;
 			
 			var localName = $('.localName').val();
@@ -37,7 +37,7 @@
 			var localContent = $('.localContent').val();
 			
 			var localImage1 = $('.localImage1').val();
-			var localImage2 = $('.localImage2').val();
+			/* var localImage2 = $('.localImage2').val(); */
 			
 			if(localName == '' | localName == null){
 				alert("사업 명을 입력해주세요.");
@@ -67,19 +67,20 @@
 				alert("사업 내용을 입력해주세요.");
 				$('.localContent').focus();
 				loche = false;
-			} else if(localImage1 == '' | localImage1 == null
+			} /* else if(localImage1 == '' | localImage1 == null
 					| localImage2 == '' | localImage2 == null){
 				alert("파일첨부를 해주세요.");
 				loche = false;
-			} else if(loche == true){
+			} */ else if(loche == true){
 				$('.localNumAll').val(
 						$('.localNum1').val() + "-" + $('.localNum2').val() + "-" + $('.localNum3').val());
 				$('#addressAll').val(
 						$('#postcode').val() + "/" + $('#address').val() + "/" + $('#address2').val());
 				$('.localPhoneAll').val(
-						$('.localPhone').val() + "-" + $('.localPhone1').val() + "-" + $('.localPhone2').val());
-				$('.localImageAll').val(
-						$('.localImage1').val() + "/" + $('.localImage2').val());
+						$('.localNum').val() + "-" + $('.localPhone1').val() + "-" + $('.localPhone2').val());
+				console.log($('.localImage1').val());
+				/* $('.localImageAll').val(
+						$('.localImage1').val() + "/" + $('.localImage2').val()); */
 				$('.form').submit();
 			}
 		});
@@ -146,10 +147,10 @@
 		$('select[name=bigCategory]').bind('change', function(){
 			$("#frmNavi input[name='bigCategory']").val($(this).val());
 			var catef = new categoryFunc;
-			catef.smallChange($(this).val(), $('select[name=smallCategory]'));
+			catef.smallChange($(this).val(), $('select[name=localCategory]'));
 		});
-		$('select[name=smallCategory]').bind('change', function(){
-			$("#frmNavi input[name='smallCategory']").val($(this).val());
+		$('select[name=localCategory]').bind('change', function(){
+			$("#frmNavi input[name='localCategory']").val($(this).val());
 		});
 	});
 </script>
@@ -162,8 +163,10 @@
 	<div id="mid">
 		내 사업 등록
 		<hr>
-		<form:form action="jsfef" enctype="multiple/form-data" class="form" modelAttribute="localAdd">
-			사업 명 <input type="text" class="localName" name="localName"><br>
+		
+		<form:form enctype="multiple/form-data" class="form" method="post" modelAttribute="localAdd" autocomplete="off">
+			<input type="hidden" name="realPath" value="<%= application.getRealPath("/") %>">
+			사업 명 gg<input type="text" class="localName" name="localName"><br>
 			
 			사업자등록번호 <input type="text" maxlength=3 class="localNum1">
 			-<input type="text" maxlength=2 class="localNum2">
@@ -221,11 +224,11 @@
 			
 			내용 <textarea rows="8" cols="50" class="localContent" name="localContent"></textarea><br>
 			
-			사진첨부 <input type="file" name="localImage1" class="localImage1"/><br>
-			<input type="file" name="localImage2" class="localImage2"><br>
-			<input type="hidden" name="localImage3" class="localImageAll" name="localImage"/>
+			사진첨부 <input type="file" class="localImage1" name="localImage"/>
+			<!-- <input type="file" class="localImage2"><br>
+			<input type="hidden" class="localImageAll" name="localImage"/> -->
 			
-			<input type="button" id="submit" value="등록"><br>
+			<input type="button" id="addToBusi" value="등록"><br>
 		</form:form>
 	</div>
 </body>

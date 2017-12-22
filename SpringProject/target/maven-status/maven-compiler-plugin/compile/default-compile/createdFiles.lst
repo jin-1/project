@@ -5,6 +5,7 @@ Model\MemberDAO.class
 Model\CorporDTO.class
 Model\CustomerTicketDTO.class
 Model\TrainRegistrationDTO.class
+Model\EmailDTO.class
 service\MemberService.class
 controller\TrainController.class
 Model\TrainDTO.class
