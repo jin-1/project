@@ -6,12 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Model.CustomerTicketDTO;
 import Model.TrainDAO;
 import Model.TrainDTO;
+import Model.TrainPurchaseDTO;
 import Model.TrainRegistrationDTO;
 import Model.TrainStatinDTO;
 
@@ -20,6 +23,8 @@ public class TrainService {
 
 	@Autowired
 	TrainDAO traindao;
+	@Autowired
+	TrainPurchaseDTO tpdto;
 	HashMap<String, String> stationName;
 
 	public HashMap<String, String> getSearchTrain(String stationName) {
@@ -104,5 +109,18 @@ public class TrainService {
 		return trainDto;
 	}
 	
+	public void setPurchase(HttpSession session, TrainRegistrationDTO trdto) {
+		String d[] = (String[])session.getAttribute("trainTicket");
+		System.out.println(trdto.getTrainRegCode());
+		System.out.println(d[9]);
+		tpdto.setTrainRegCode(trdto.getTrainRegCode());
+		tpdto.setInvoice(Integer.parseInt(d[9]));
+		tpdto.setMemberId(trdto.getMemberId());
+		tpdto.setTrainCode(trdto.getTrainCode());
+		tpdto.setTrainPubDate(trdto.getTrainDate());
+		traindao.insertPurchase(tpdto);
+		
+		
+	}
 
 }

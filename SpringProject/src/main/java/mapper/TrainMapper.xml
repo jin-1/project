@@ -16,14 +16,23 @@
 		<result column="STATION_NAME" jdbcType="VARCHAR" property="stationName" />
 	</resultMap>
 	<resultMap type="Model.TrainRegistrationDTO" id="infoListMap">
-	<result column="TRAIN_REG_CODE" jdbcType="VARCHAR" property="trainRegCode"/>
-	<result column="TRAIN_CODE" jdbcType="BIGINT" property="trainCode" />
-	<result column="SEAT_NUM" jdbcType="VARCHAR" property="seatNum" />
-	<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
-	<result column="DEPARTING_STATION" jdbcType="VARCHAR" property="departingStation" />
-	<result column="ARRIVAL_STATION" jdbcType="VARCHAR" property="arrivalStation" />
-	<result column="TRAIN_DATE" jdbcType="VARCHAR" property="trainDate" />
-	<result column="TRAIN_PASSENGERS" jdbcType="VARCHAR" property="trainPassengers" />
+		<result column="TRAIN_REG_CODE" jdbcType="VARCHAR" property="trainRegCode"/>
+		<result column="TRAIN_CODE" jdbcType="BIGINT" property="trainCode" />
+		<result column="SEAT_NUM" jdbcType="VARCHAR" property="seatNum" />
+		<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+		<result column="DEPARTING_STATION" jdbcType="VARCHAR" property="departingStation" />
+		<result column="ARRIVAL_STATION" jdbcType="VARCHAR" property="arrivalStation" />
+		<result column="TRAIN_DATE" jdbcType="VARCHAR" property="trainDate" />
+		<result column="TRAIN_PASSENGERS" jdbcType="VARCHAR" property="trainPassengers" />
+	</resultMap>
+	<resultMap type="Model.TrainPurchaseDTO" id="PurchaseMap">
+		<result column="TRAIN_PURCHASE_CODE" jdbcType="VARCHAR" property="trainPurchaseCode"/>
+		<result column="TRAIN_REG_CODE" jdbcType="VARCHAR" property="trainRegCode"/>
+		<result column="TRAIN_CODE" jdbcType="BIGINT" property="trainCode" />
+		<result column="INVOICE" jdbcType="VARCHAR" property="seatNum" />
+		<result column="TRAIN_REFUND" jdbcType="BIGINT" property="trainRefund" />
+		<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+		<result column="TRAIN_PUB_DATE" jdbcType="VARCHAR" property="trainPubDate" />		
 	</resultMap>
 	
 	<select id="selectSearchStation" resultMap="baseResultMap">
@@ -96,9 +105,15 @@
 	</select>
 	
 	
-	<insert id="insertTrainTicket" parameterType="Model.TrainRegistrationDTO">
+	<insert id="trainRegCode"  parameterType="Model.TrainRegistrationDTO">
 		INSERT INTO TRAIN_REGISTRATION (TRAIN_REG_CODE,TRAIN_CODE,SEAT_NUM,MEMBER_ID,DEPARTING_STATION,ARRIVAL_STATION,TRAIN_DATE,TRAIN_PASSENGERS) 
 		VALUES ('A'||train_nn.NEXTVAL,#{trainCode},#{seatNum},#{memberId},#{departingStation},#{arrivalStation},#{trainDate},#{trainPassengers})
-
+		<selectKey keyProperty="trainRegCode" resultType="java.lang.String" order="AFTER"> SELECT train_nn.currval FROM dual </selectKey>
+	</insert>
+	
+	<insert id="insertPurchase"  parameterType="Model.TrainPurchaseDTO">
+		INSERT INTO TRAIN_PURCHASE (TRAIN_PURCHASE_CODE,TRAIN_REG_CODE,TRAIN_CODE,INVOICE,MEMBER_ID,TRAIN_PUB_DATE) 
+		VALUES ('B'||train_pub.NEXTVAL,#{trainRegCode},#{trainCode},#{invoice},#{memberId},#{trainPubDate})
+		
 	</insert>
 </mapper>

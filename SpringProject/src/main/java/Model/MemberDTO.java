@@ -11,7 +11,7 @@ public class MemberDTO {
 	private String memberAddr;
 	private String memberEmail;
 	private String	gender;
-	private Date birthDate;
+	private String birthDate;
 	private String inteRest;
 	private int authority;
 
@@ -58,10 +58,10 @@ public class MemberDTO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public Date getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 	public String getInteRest() {

@@ -7,6 +7,7 @@
 	font-family: 'norwester'; /* 폰트 패밀리 이름 주기*/
 	src: url('../fonts/norwester.otf'); /*폰트 파일 주소*/
 }
+
 @font-face {
 	font-family: 'NanumSquareL'; /* 폰트 패밀리 이름 주기*/
 	src: url('../fonts/NanumSquareR.otf'); /*폰트 파일 주소*/
@@ -18,12 +19,13 @@ html, body {
 	margin: 0;
 	padding: 0;
 	font-family: 'NanumSquareL' !important;
-	
 }
-body{
+
+body {
 	overflow-x: hidden;
 	overflow-y: auto;
 }
+
 a {
 	text-decoration: none;
 	color: #B2B0B0;
@@ -164,26 +166,30 @@ a:hover {
 #submenu {
 	position: relative;
 	top: -10px;
-	left: 67%;
+	left: 63%;
 }
-#menuLogin{
+
+#menuLogin {
 	color: #B2B0B0;
 	font-weight: bold;
 	position: absolute;
-	top:40px;
-	right:40px;
+	top: 40px;
+	right: 40px;
 }
-#menuLogin ul{
+
+#menuLogin ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
-#menuLogin li{
+
+#menuLogin li {
 	display: inline; /*  세로나열을 가로나열로 변경 */
 	font-size: 1vmax;
 	margin: 0 5px; /* 각 메뉴 간격 */
 	font-family: 'Nanum' !important;
 }
+
 #trainSub {
 	opacity: 0;
 	list-style: none;
@@ -271,16 +277,16 @@ a:hover {
 /*MID 화면 뷰*/
 #mid {
 	position: relative;
-    width: 80%;
-    height: auto;
+	width: 80%;
+	height: auto;
 	margin-left: 10%;
 	min-height: 500px;
 }
+
 #bot {
 	position: relative;
-	width:100%;
-	height:15%;
-	background-color:#3C3C3D;
-	margin-top:10%;
-	
+	width: 100%;
+	height: 15%;
+	background-color: #3C3C3D;
+	margin-top: 10%;
 }

@@ -8,7 +8,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
-	String[] data = (String[])session.getAttribute("trainTicket");
+	String[] data = (String[]) session.getAttribute("trainTicket");
 	MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 	DecimalFormat dc = new DecimalFormat("###,###,###,###");
 	SimpleDateFormat o = new SimpleDateFormat("yyyy-MM-dd");
@@ -45,26 +45,38 @@
 			<hr>
 
 		</div>
-		<div> 발권되었습니다. </div>
-		<div id="ticketingView">
+		<div
+			style="text-align: center; width: 80%; height: 200px; margin: auto; display: table; text-align: center;">
+			<div
+				style="display: table-cell; vertical-align: middle; font-size: 20px;">
+				<input type="image" src="img/ticket.png"
+					style="width: 45px; height: 45px; position: relative; top: 18px;">
+				승차권발급이 완료되었습니다.
+			</div>
+		</div>
+		<div id="ticketingInfo">
 			<table>
 				<tr>
-					<td>
-					<h3>이용안내</h3>
-					<ul>
-						<li>홈티켓은 승차권에 표시된 승차자가 이용하여야 하며, 도착역을 벗어날 때까지 소지하셔야 합니다.</li>
-						<li>직원이 본인 확인을 요구할 경우 신분증을 제시하셔야 합니다.</li>
-					</ul>
+					<td
+						style="width: 10%;  background-color: #f3f3f3; height: 53px; padding-left: 12px;">
+						결제금액
 					</td>
-					<td><p>승차일 <%=new_date%></p>	
-						<p><%=data[7] %> ▶ <%=data[8] %></p>
-						<p><%=data[5]%><%=data[6]%></p>
-						<p><%=data[10]%> <%=data[3]%> </p>
-					
+					<td style="width: 90%;padding-left: 12px;"><%=data[9]%></td>
+				</tr>
+				<tr>
+					<td colspan="2" style="width: 30%;">
+						<ul>
+							<li>ddd</li>
+							<li>dd</li>
+						</ul>
+
 					</td>
+
 				</tr>
 			</table>
+
 		</div>
+
 	</div>
 	<!-- /mid -->
 	<div id="bot">

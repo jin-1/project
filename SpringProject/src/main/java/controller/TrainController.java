@@ -30,6 +30,7 @@ public class TrainController {
 
 	@Autowired
 	TrainService trainService;
+	TrainRegistrationDTO trdto;
 	@Autowired
 	TrainDAO traindao;
 
@@ -115,8 +116,10 @@ public class TrainController {
 	public String trainPaymentPost(HttpSession session, Model model , @ModelAttribute("trainPayment") TrainRegistrationDTO trainRegistrationDTO) {
 
 			traindao.insertTicketing(trainRegistrationDTO);
-			
-			
+			trainRegistrationDTO.setTrainRegCode("A"+trainRegistrationDTO.getTrainRegCode());
+			trdto = trainRegistrationDTO;
+			System.out.println(trdto.getTrainRegCode());
+			trainService.setPurchase(session,trdto);
 				return "template/train/TrainTicketing";
 	}
 

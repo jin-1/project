@@ -62,11 +62,31 @@ public class TrainDAO extends AbstractRepository {
 	}
 	public void insertTicketing(TrainRegistrationDTO trainRegistrationDTO) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
-		String statement = namespace + ".insertTrainTicket";
+		String statement = namespace + ".trainRegCode";
 		int result=0;
 		try {
 
 			result = sqlSession.insert(statement, trainRegistrationDTO);
+			
+			if(result>0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+	}
+	
+	public void insertPurchase(TrainPurchaseDTO tpdto) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".insertPurchase";
+		int result=0;
+		try {
+
+			result = sqlSession.insert(statement, tpdto);
 			
 			if(result>0) {
 				sqlSession.commit();

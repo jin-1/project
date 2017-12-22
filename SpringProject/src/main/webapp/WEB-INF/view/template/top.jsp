@@ -32,6 +32,8 @@
 					href="TrainInfoKTX?menu=TRAIN&img=trainbg">기차역 정보</a></li>
 				<li id="trainTicket"><a
 					href="TrainTicketMain?menu=TRAIN&img=trainbg">기차예매</a></li>
+				<li id="trainTicket"><a
+					href="TrainTicketMain?menu=TRAIN&img=trainbg">발권변경</a></li>
 			</ul>
 		</div>
 	</div>
