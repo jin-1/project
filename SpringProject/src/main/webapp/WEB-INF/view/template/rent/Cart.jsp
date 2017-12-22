@@ -106,12 +106,8 @@ $(document).ready(function() {
 						})
 					});
 				}
-			
-			
 			});
-			 
-			
-			
+		
 		} else {
 			alert("삭제할 상품을 선택하세요.");
 		}

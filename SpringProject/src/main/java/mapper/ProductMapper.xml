@@ -28,8 +28,6 @@
 		</where>
 	</select>
 
-
-
 	<select id="productIndex" parameterType="string" resultMap="productIndexMap">
 		SELECT *
 		FROM products
@@ -40,4 +38,21 @@
 		</where>
 	</select>
 
+
+	<resultMap type="rrDTO" id="rentReg">
+		<id column="rental_code" jdbcType="VARCHAR" property="rentalCode" />
+		<result column="prd_name" jdbcType="VARCHAR" property="prdName" />
+		<result column="pickup_qty" jdbcType="BIGINT" property="pickupQty" />
+		<result column="pickup_date" jdbcType="TIMESTAMP" property="pickupDate" />
+		<result column="pickup_station" jdbcType="VARCHAR" property="pickupStation" />
+		<result column="return_date" jdbcType="TIMESTAMP" property="returnDate" />
+		<result column="return_station" jdbcType="VARCHAR" property="returnStation" />
+		<result column="returned_qty" jdbcType="BIGINT" property="returnedQty" />
+		<result column="verify_return" jdbcType="VARCHAR" property="verifyReturn" />
+		<result column="member_id" jdbcType="VARCHAR" property="memberId" />
+	</resultMap>
+	<insert id="placeOrder" parameterType="rrDTO">
+		INSERT INTO rent_reg (rental_code, prd_name, pickup_qty, pickup_date, pickup_station, return_date, return_station, returned_qty, verify_return, member_id)
+		VALUES ( rental_code_s.NEXTVAL, #{prdName}, #{pickupQty}, #{pickupDate}, #{pickupStation}, null, null, null, null, #{memberId})
+	</insert>
 </mapper>

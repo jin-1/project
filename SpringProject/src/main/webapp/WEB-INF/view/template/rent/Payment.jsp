@@ -8,6 +8,10 @@
 	String menu = "../top.jsp?menu=RENT";
 	String img = "url(img/rent.jpg)";
 %>
+<%
+	ArrayList<CartDTO> cartList = (ArrayList<CartDTO>)session.getAttribute("cartList");
+	int totalMoney = (Integer)request.getAttribute("totalMoney");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -145,7 +149,15 @@ div {
 }
 </style>
 
+<script type="text/javascript">
+$(document).ready(function() {
 
+	function placeOrder(){
+	 	document.getElementById('frm').submit(); 
+	}
+
+});
+</script>
 </head>
 <body>
 	<div class="tbg"></div>
@@ -217,7 +229,27 @@ div {
 						</li>
 					</ul>
 				</div>
-				<form>
+				
+				
+				<form name="calcTotal">
+					<table align="center" width="900" border="1" id="calcTotal">
+						<tr align="center">
+							<td>총 주문 금액</td>
+							<td>총 할인 금액</td>
+							<td>최종 결제 금액</td>
+						</tr>
+						<tr align="center">
+							<td class="calcSubTotal"><%= totalMoney %></td>
+							<td>0</td>
+							<td><%= totalMoney %></td>
+						</tr>
+					</table>
+				</form>
+				
+				
+				
+				
+				<form action="PaymentComplete" name="frm" method="post">
 					<div id="pickup_field">
 						<label>픽업 역</label>
 						<label class="inputtext control--text"> 
@@ -238,9 +270,143 @@ div {
 						</label>
 						
 					</div>
-				
+					
+					
+
+
+					<div id="payment">
+						
+
+							<button id="btnPayment" onclick="javascript:placeOrder()">결제완료</button>
+							<button id="goBack" onclick="window.history.go(-2); return false;">뒤로</button>
+						
+					</div>
+
+
+
+
+					
+	<!-- 				<div id="return_field">
+						<label>반납 역</label>
+						<label class="inputtext control--text"> 
+							<span class="inputtext__indicator" id="stStation">출발지</span> 
+							<img id="startTrain" class="pinmark" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
+							<input type="text" id="inputStrat" name="startTrain">
+							<span class="trainList" id="trainList1" style="display: none;">
+								<ul>
+								</ul>
+							</span>
+						</label> 
+						<br/>
+						<label>반납 날짜</label>
+						<label class="inputtext control--text"> 
+							<span id="stDate" class="inputtext__indicator">출발일</span> 
+							<img class="pinmark" id="dateTrain" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
+							<input type="text" id="inputDate" name="dateTrain">
+						</label>
+						
+					</div>
+				 -->
 				</form>
 			</div>
+	<!-- 	
+			<div>
+              <p>결제 방법</p>
+              <div class="paymentTypeon" style="border-top-left-radius: 15px;">
+                 신용카드
+              </div>
+              <div class="paymentTypeoff">
+                 계좌이체
+              </div>
+              <div class="paymentTypeoff" style="border-top-right-radius: 15px;">
+                 무통장 입금
+              </div>
+              <div class="contextPayment">
+                 <table id="contextPaymentTable">
+                    <tr>
+                       <td>카드종류</td>
+                       <td><input type="radio" name="card">개인카드 
+                          <input type="radio" name="card">법인카드 
+                       </td>
+                    </tr>
+                    <tr>
+                       <td>카드번호</td>
+                       <td><input type="text" style="width: 90px;"> -
+                          <input type="text" style="width: 90px;"> -
+                          <input type="text" style="width: 90px;"> -
+                          <input type="text" style="width: 90px;">
+                       </td>
+                    </tr>
+                    <tr>
+                       <td>유효기간</td>
+                       <td>
+                        <select name="m" style="width: 65px; height: 25px;">
+                            <option value="월">월</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                        <select name="m" style="width: 65px; height: 25px;">
+                            <option value="년">년</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                        </select>
+                     </td>
+                    </tr>
+                    <tr>
+                       <td>할부개월</td>
+                       <td>
+                        <select name="m" style="width: 65px; height: 25px;">
+                            <option value="일시불">일시불</option>
+                            <option value="2개월">2개월</option>
+                            <option value="3개월">3개월</option>
+                            <option value="4개월">4개월</option>
+                            <option value="5개월">5개월</option>
+                            <option value="6개월">6개월</option>
+                            <option value="12개월">12개월</option>
+                            <option value="24개월">24개월</option>
+                        </select>
+                     </td>
+                    </tr>
+                    <tr>
+                       <td>비밀번호</td>
+                       <td><input type="text" style="width: 50px;"> **<span style="color:#d73a3a;"> 앞 2자리</span></td>
+                    </tr>
+                    <tr>
+                       <td>인증번호</td>
+                       <td><input type="text" style="width: 90px;"> (주민등록번호 앞 6자리)</td>
+                    </tr>
+                 </table>
+              </div>
+                          <div style="width: 250px; position: relative; margin: auto;">
+                    
+                 <div id="paymentBt">결제 하기</div>
+              <div id="paymentCBt">취소</div>
+              </div>
+              
+         </div>
+         -->
+         
 		</div>
 	</div>
 

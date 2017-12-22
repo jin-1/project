@@ -18,6 +18,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<bean id="CartDTO" class="Model.CartDTO" />
 	<bean id="ProductDTO" class="Model.ProductDTO" />
+	<bean id="RentRegDTO" class="Model.RentRegDTO" />
 	<bean id="ProductDAO" class="Model.ProductDAO" />
 
 	<bean id="TourDTO" class="Model.TourDTO" />

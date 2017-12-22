@@ -1,11 +1,16 @@
 package controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import Biz.CartBiz;
 import Model.CartDTO;
+import Model.MemberDTO;
 import Model.ProductDAO;
 import Model.ProductDTO;
+import Model.RentRegDTO;
 
 
 @Controller
@@ -107,12 +114,8 @@ public class RentController {
 	@ResponseBody
 	@RequestMapping(value = "/CartQtyUp", method = RequestMethod.POST)
 	public HashMap<String, Object> cartQtyUp(HttpServletRequest req,@RequestParam HashMap<String, Object> param) {
-
-		
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
-		/*System.out.println(param.get("prdName"));*/
-		/*req.setCharacterEncoding("utf-8");*/
-		
+
 		cartBiz.upCartQty(req, String.valueOf(param.get("prdName")));
 		ArrayList<CartDTO> cartList = cartBiz.getCart(req);
 		int totalMoney = 0;
@@ -122,7 +125,7 @@ public class RentController {
 		}
 		hashmap.put("totalMoney", String.valueOf(totalMoney));
 		hashmap.put("cartList", cartList);
-		//return "template/rent/Cartresult";
+
 		return hashmap;
 	}
 	
@@ -150,11 +153,7 @@ public class RentController {
 	public HashMap<String, Object> cartRemove (HttpServletRequest req, @RequestParam HashMap<String, Object> param) {
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		
-		System.out.println(param.get("deletehidden"));
-		
 		String [] deletedPrd = String.valueOf(param.get("deletehidden")).split(Pattern.quote(","));
-		/*String [] prdName = String.valueOf(param.get("selectedPrd"));
-	*/
 		cartBiz.removeCartItem(req, deletedPrd);
 		
 		ArrayList<CartDTO> cartList = cartBiz.getCart(req);
@@ -163,7 +162,6 @@ public class RentController {
 			int money = cartList.get(i).getPrice()*cartList.get(i).getQty();
 			totalMoney += money;
 		}
-
 		hashmap.put("totalMoney", String.valueOf(totalMoney));
 		hashmap.put("cartList", cartList);
 		return hashmap;
@@ -171,10 +169,46 @@ public class RentController {
 	
 	@RequestMapping(value="/Payment", method= RequestMethod.POST)
 	public String placeOrder (HttpServletRequest req) {
-		String totalAmount = req.getParameter("totalAmount");
-		/*String [] prdCode = req.getParameterValues("prdCode");
-		String [] prdQty = req.getParameterValues("qty");*/
-		System.out.println(totalAmount);
+		ArrayList<CartDTO> cartList = cartBiz.getCart(req);
+		int totalMoney = 0;
+		for( int i=0; i<cartList.size(); i++) {
+			int money = cartList.get(i).getPrice()*cartList.get(i).getQty();
+			totalMoney += money;
+		}
+		req.setAttribute("totalMoney", totalMoney);
+		req.setAttribute("cartList", cartList);
+		
 		return "template/rent/Payment";
+	}
+	
+	@RequestMapping(value="/PaymentComplete", method= RequestMethod.POST)
+	public String paymentComplete (HttpServletRequest req, RentRegDTO rrDTO, Model model) throws ParseException {
+		String pickupStation = req.getParameter("startTrain");
+		Date pickupDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("dateTrain"));
+		HttpSession session = req.getSession();
+		System.out.println(pickupDate);
+		MemberDTO memberdto= (MemberDTO) session.getAttribute("login");
+		ArrayList<CartDTO> cartList = cartBiz.getCart(req);
+		int totalMoney = 0;
+		for( int i=0; i<cartList.size(); i++) {
+			int money = cartList.get(i).getPrice()*cartList.get(i).getQty();
+			totalMoney += money;
+			
+			rrDTO.setPrdName(cartList.get(i).getPrdName());
+			rrDTO.setPickupQty(cartList.get(i).getQty());
+			rrDTO.setPickupStation(pickupStation);
+			rrDTO.setPickupDate(pickupDate);
+			rrDTO.setMemberId(memberdto.getMemberId());
+		}
+		req.setAttribute("totalMoney", totalMoney);
+		req.setAttribute("cartList", cartList);
+		
+/*
+		
+		
+		List<RentRegDTO> result = pDAO.placeOrder(rrDTO);
+		model.addAttribute("result", result);*/
+		
+		return "template/rent/PaymentComplete";
 	}
 }
