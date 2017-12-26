@@ -122,19 +122,36 @@ public class TrainDAO extends AbstractRepository {
 
 	}
 	
-	public List<TrainRegistrationDTO> getTrainTicket(String code) {
+	public List<TrainRegistrationDTO> getTrainTicket(HashMap<String, Object> temp) {
 	
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace + ".selectTicketD";
 		List<TrainRegistrationDTO> ticket;
 		try {
 
-			ticket = sqlSession.selectList(statement, code);
+			ticket = sqlSession.selectList(statement, temp);
 			return ticket;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 
+	}
+	public void deletePurchase(String code) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".deletePurchase";
+		try {
+			System.out.println("dao"+code);
+			int result = sqlSession.delete(statement, code);
+			if(result>0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
 	}
 }

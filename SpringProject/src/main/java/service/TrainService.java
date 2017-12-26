@@ -134,7 +134,7 @@ public class TrainService {
 		String d[] = (String[]) session.getAttribute("trainTicket");
 
 		tpdto.setTrainRegCode(trdto.getTrainRegCode());
-		tpdto.setInvoice(Integer.parseInt(d[9]));
+		tpdto.setInvoice(Integer.parseInt(d[11]));
 		tpdto.setMemberId(trdto.getMemberId());
 		tpdto.setTrainCode(trdto.getTrainCode());
 		tpdto.setTrainPubDate(trdto.getTrainDate());
@@ -142,10 +142,14 @@ public class TrainService {
 
 	}
 	
-	public HashMap<String, TrainRegistrationDTO> getTicketingD(String code) {
+	public HashMap<String, TrainRegistrationDTO> getTicketingD(HashMap<String, Object> temp) {
 
 		int i = 0;
-		List<TrainRegistrationDTO>  ticket = traindao.getTrainTicket(code);
+		List<String> station = new ArrayList<String>();
+		station.add(String.valueOf(temp.get("DepartingStation")));
+		station.add(String.valueOf(temp.get("ArrivalStation")));
+		temp.put("station", station);
+		List<TrainRegistrationDTO>  ticket = traindao.getTrainTicket(temp);
 		this.ticket = new HashMap<String, TrainRegistrationDTO>();
 		for (TrainRegistrationDTO st : ticket) {
 			this.ticket.put("train" + (++i), st);

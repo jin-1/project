@@ -19,6 +19,30 @@
 <link rel="stylesheet" type="text/css" href="./css/pignose.calendar.min.css" />
 <script type="text/javascript"
 	src="./scripts/pignose.calendar.full.min.js"></script>
+	<script type="text/javascript">
+	
+	$.ajax({
+		url : "startTrain",
+		dataType : "json",
+		type : "post",
+		data : $('#inputStrat').serializeArray(),
+		success : function(data) {
+
+			var trainLength = Object.keys(data).length;
+
+			$.each(data, function(key, value) {
+				$('.trainList ul').append('<li>' + value + '</li>');
+
+			});
+
+		},
+		error : function(request, status, error) {
+			console.log("code:" + request.status + "\n" + "error:"
+					+ error);
+		}
+
+	});
+	</script>
 </head>
 <body>
 	<div class="tbg"></div>

@@ -97,7 +97,7 @@
 					<tbody>
 					<%
 					String s[] = seat[0].split("_");
-					String trainPassengers="성인 "+data[0]+" 노인 "+data[1]+" 어린이 "+data[2];
+					String trainPassengers=data[0]+","+data[1]+","+data[2];
 					List<String> person = new ArrayList<String>();
 					for(int i=0 ; i<Integer.parseInt(data[0]);i++){
 						person.add("성인");
@@ -242,6 +242,7 @@
 					  	<input type="hidden" name="departingStation" value="<%=data[7]%>">
 					  	<input type="hidden" name="trainDate" value="<%=data[4]%>">
 					  	<input type="hidden" name="trainPassengers" value="<%=trainPassengers%>">
+					  	<input type="hidden" name="trainName" value="<%=data[10]%>">
 					</form:form>
 				  	<div style="width: 250px; position: relative; margin: auto;">
 					  	
