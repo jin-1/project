@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -30,7 +29,6 @@ public class TourService {
 	private MemberDTO memberDto;
 	@Autowired
 	private CorporDTO corpDTO;
-	private ServletContext application;
 	
 	public void insertComment(HashMap<String, Object> param, HttpSession session, Model model) {
 		memberDto = (MemberDTO) session.getAttribute("login");
@@ -54,8 +52,8 @@ public class TourService {
 	}
 	
 	public int setTour(TourDTO dto, HttpSession session, HttpServletRequest request) throws IOException {
-	
-		printInfo(dto.getLocalImage(), request);                            
+		printInfo(dto.getLocalImageSave(), request, session, dto);       
+		
 		corpDTO = (CorporDTO) session.getAttribute("corlogin");
 
 		String corpId = corpDTO.getCorporId();
@@ -64,22 +62,42 @@ public class TourService {
 		return tourDAO.addTour(dto);
 	}
 	
-	private void printInfo(MultipartFile localImage, HttpServletRequest request) throws IllegalStateException, IOException{
+	public int resetTour(TourDTO dto, HttpSession session, HttpServletRequest request) throws IOException {
+		printInfo(dto.getLocalImageSave(), request, session, dto); 
+
+		dto.setLocalCode(Integer.parseInt(request.getParameter("localCode")));
+		return tourDAO.modifyTour(dto);
+	}
+	
+	public int viewOne(TourDTO dto, HttpServletRequest request) {
+		int code = Integer.parseInt(request.getParameter("localCode"));
+		dto.setLocalCode(code);
+		
+		return tourDAO.viewOne(dto);
+	}
+	
+	private void printInfo(MultipartFile report, HttpServletRequest request, HttpSession session, TourDTO dto) throws IllegalStateException, IOException{
 		String filePath = request.getParameter("realPath") + "WEB-INF\\view\\img\\tour\\";
 		System.out.println(filePath);
+		corpDTO = (CorporDTO) session.getAttribute("corlogin");
+		String corpId = corpDTO.getCorporId();
 		
 		File file = new File(filePath);
 		String originalFile = null;
-		String originalFileName = null;
 		String originalFileExtension = null;
 		String storedFileName = null;
 		
-		originalFile = localImage.getOriginalFilename();
+		originalFile = report.getOriginalFilename();
 		originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
-		storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension;
+		storedFileName = corpId+"_"+UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension;
 		
-		System.out.println("업로드 한 파일 명 = " + originalFile);
-		System.out.println("바뀐 파일 명 = " + storedFileName);
+		System.out.println("원래 그대로의 파일 이름 = " + originalFile);
+		System.out.println("내가 변경한 파일 이름 = " + storedFileName);
+		
+		file = new File(filePath + storedFileName);
+		report.transferTo(file);
+		
+		dto.setLocalImage(storedFileName);
 	}
 
 }

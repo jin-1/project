@@ -36,7 +36,7 @@
 			<table border=1>
 				<tr>
 					<td colspan=4 rowspan=3><img alt="사진1" width=400 height=400
-						<%-- src="/SpringProject/img/tour/<%=list.getLocalImage()%>" --%>>
+						src="/SpringProject/img/tour/<%=list.getLocalImage()%>">
 					</td>
 					<td><%=list.getLocalName()%></td>
 				</tr>

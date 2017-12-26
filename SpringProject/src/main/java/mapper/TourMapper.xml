@@ -45,9 +45,47 @@
 	</select>
 	
 	<insert id="tourInsert" parameterType="TourDTO">
-		insert into local
+		insert into local(local_code, corp_id, local_name, local_phone, local_addr, local_category, local_content, request_status, travel_coord, registration_num, local_image) 
 		values(local_code.NEXTVAL, #{corpId}, #{localName}, #{localPhone}, #{localAddr}, #{localCategory}, #{localContent}, 0, null, #{registrationNum}, #{localImage})
 	</insert>
+	
+	<select id="myTour" parameterType="string" resultMap="tourResultMap">
+		select *
+		from local
+		<where>
+			corp_id = #{corp_id} ORDER BY request_status ASC
+		</where>
+	</select>
+	
+	<update id="tourModify" parameterType="TourDTO">
+		update local
+		<set>
+			<if test="localImage != '' | localImage != null">
+				local_image = #{localImage},  
+			</if>
+			<if test="localContent != '' | localContent != null">
+				local_content = #{localContent}, 
+			</if>
+			request_status = 0
+		</set> 
+		<where>
+			local_code = #{localCode}
+		</where>
+	</update>
+	
+	<select id="viewAll" resultMap="tourResultMap">
+		select * from local order by request_status ASC
+	</select>
+	
+	<update id="viewOne" parameterType="TourDTO">
+		update local
+		<set>
+			travel_coord = #{travelCoord}, request_status = #{requestStatus}
+		</set>
+		<where>
+			local_code = #{localCode}
+		</where>
+	</update>
 	
 	<resultMap id="tourCommentResultMap" type="CommentDTO">
 		<id column="comment_num" jdbcType="BIGINT" property="commentNum"/>
@@ -79,9 +117,3 @@
 		</where>
 	</select>
 </mapper>
-
-
-
-
-
-

@@ -77,7 +77,7 @@
 				$('#addressAll').val(
 						$('#postcode').val() + "/" + $('#address').val() + "/" + $('#address2').val());
 				$('.localPhoneAll').val(
-						$('.localNum').val() + "-" + $('.localPhone1').val() + "-" + $('.localPhone2').val());
+						$('.corpPhone').val() + "-" + $('.localPhone1').val() + "-" + $('.localPhone2').val());
 				console.log($('.localImage1').val());
 				/* $('.localImageAll').val(
 						$('.localImage1').val() + "/" + $('.localImage2').val()); */
@@ -164,9 +164,9 @@
 		내 사업 등록
 		<hr>
 		
-		<form:form enctype="multiple/form-data" class="form" method="post" modelAttribute="localAdd" autocomplete="off">
+		<form:form enctype="multipart/form-data" class="form" method="post" modelAttribute="localAdd" autocomplete="off">
 			<input type="hidden" name="realPath" value="<%= application.getRealPath("/") %>">
-			사업 명 gg<input type="text" class="localName" name="localName"><br>
+			사업 명 <input type="text" class="localName" name="localName"><br>
 			
 			사업자등록번호 <input type="text" maxlength=3 class="localNum1">
 			-<input type="text" maxlength=2 class="localNum2">
@@ -224,7 +224,7 @@
 			
 			내용 <textarea rows="8" cols="50" class="localContent" name="localContent"></textarea><br>
 			
-			사진첨부 <input type="file" class="localImage1" name="localImage"/>
+			사진첨부 <input type="file" class="localImage1" name="localImageSave"/>
 			<!-- <input type="file" class="localImage2"><br>
 			<input type="hidden" class="localImageAll" name="localImage"/> -->
 			

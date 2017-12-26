@@ -138,7 +138,9 @@
 					<input type="submit" value="검색">
 				</p>
 				
-				<label class="addMyBusi">내 사업 등록하기</label>
+				<label class="addMyBusi">내 사업 등록하기</label>&nbsp;&nbsp;&nbsp;
+				<label class="viewMyBusi">내 사업 보기</label>&nbsp;&nbsp;&nbsp;
+				<label class="viewAll">요청된 사업 보기</label>
 				<script type="text/javascript">
 					$(document).ready(function(){
 						$('.addMyBusi').on("click", function(){
@@ -148,6 +150,17 @@
 							} else{
 								location.replace("TourAdd");
 							}
+						});
+						$('.viewMyBusi').on("click", function(){
+							if(<%=login%> == null){
+								alert("사업 보기는 로그인 후 이용 가능합니다.");
+								location.replace("LoginForm");
+							} else{
+								location.replace("MyTour");
+							}
+						});
+						$('.viewAll').on("click", function(){
+							location.replace("ViewAll");
 						});
 					});
 				</script>

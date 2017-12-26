@@ -18,8 +18,8 @@ public class TourDTO implements Serializable{
 	private int requestStatus;
 	private String travelCoord;
 	//private String localImage;
-	private MultipartFile localImage;
-	//private MultipartFile localImageSave;
+	private String localImage;
+	private MultipartFile localImageSave;
 	private String registrationNum;
 	
 	public int getLocalCode() {
@@ -92,18 +92,18 @@ public class TourDTO implements Serializable{
 	public void setLocalImage(String localImage) {
 		this.localImage = localImage;
 	}*/
-	public MultipartFile getLocalImage() {
+	public String getLocalImage() {
 		return localImage;
 	}
-	public void setLocalImage(MultipartFile localImage) {
+	public void setLocalImage(String localImage) {
 		this.localImage = localImage;
 	}
-	/*public MultipartFile getLocalImageSave() {
+	public MultipartFile getLocalImageSave() {
 		return localImageSave;
 	}
 	public void setLocalImageSave(MultipartFile localImageSave) {
 		this.localImageSave = localImageSave;
-	}*/
+	}
 	public String getRegistrationNum() {
 		return registrationNum;
 	}
