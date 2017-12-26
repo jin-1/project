@@ -210,8 +210,8 @@
 			<hr />
 			<div class="id_pwFind">
 				<ul>
-					<li class="idfind"><a href="IdFind?menu=Login" class="a_idFind">아이디 찾기</a></li>
-					<li class="pwfind"><a href="PwFind?menu=Login" class="a_pwFind">비밀번호 찾기</a></li>
+					<li class="idfind"><a href="IdFind?menu=Find" class="a_idFind">아이디 찾기</a></li>
+					<li class="pwfind"><a href="PwFind?menu=Find" class="a_pwFind">비밀번호 찾기</a></li>
 				</ul>
 			</div>
 			<div class="t_ipFind">

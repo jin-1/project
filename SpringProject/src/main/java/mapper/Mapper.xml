@@ -3,30 +3,30 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- CommentMapper.xml -->
 <mapper namespace="mapper.Mapper">
-	<cache />
-	<resultMap type="Model.MemberDTO" id="baseResultMap">
-		<id column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
-		<result column="MEMBER_PW" jdbcType="VARCHAR" property="memberPw" />
-		<result column="MEMBER_NAME" jdbcType="TIMESTAMP" property="memberName" />
-		<result column="MEMBER_PHONE" jdbcType="VARCHAR" property="memberPhone" />
-		<result column="MEMBER_ADDR" jdbcType="VARCHAR" property="memberAddr" />
-		<result column="MEMBER_EMAIL" jdbcType="VARCHAR" property="memberEmail" />
-		<result column="GENDER" jdbcType="VARCHAR" property="gender" />
-		<result column="BIRTH_DATE" jdbcType="TIMESTAMP" property="birthDate" />
-		<result column="INTEREST" jdbcType="VARCHAR" property="inteRest" />
-		<result column="AUTHORITY" jdbcType="BIGINT" property="authority" />
-	</resultMap>
-	
-		<resultMap type="Model.CorporDTO" id="baseResultMap2">
-		<id column="CORP_ID" jdbcType="VARCHAR" property="corporId" />
-		<result column="CORP_PW" jdbcType="VARCHAR" property="corporPw" />
-		<result column="CORP_NAME" jdbcType="VARCHAR" property="corporName" />
-		<result column="CORP_PHONE" jdbcType="VARCHAR" property="corporPhone" />
-		<result column="CORP_ADDR" jdbcType="VARCHAR" property="corporAddr" />
-		<result column="CORP_EMAIL" jdbcType="VARCHAR" property="corporEmail" />
-	</resultMap>
-	
-	
+   <cache />
+   <resultMap type="Model.MemberDTO" id="baseResultMap">
+      <id column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+      <result column="MEMBER_PW" jdbcType="VARCHAR" property="memberPw" />
+      <result column="MEMBER_NAME" jdbcType="TIMESTAMP" property="memberName" />
+      <result column="MEMBER_PHONE" jdbcType="VARCHAR" property="memberPhone" />
+      <result column="MEMBER_ADDR" jdbcType="VARCHAR" property="memberAddr" />
+      <result column="MEMBER_EMAIL" jdbcType="VARCHAR" property="memberEmail" />
+      <result column="GENDER" jdbcType="VARCHAR" property="gender" />
+      <result column="BIRTH_DATE" jdbcType="TIMESTAMP" property="birthDate" />
+      <result column="INTEREST" jdbcType="VARCHAR" property="inteRest" />
+      <result column="AUTHORITY" jdbcType="BIGINT" property="authority" />
+   </resultMap>
+   
+      <resultMap type="Model.CorporDTO" id="baseResultMap2">
+      <id column="CORP_ID" jdbcType="VARCHAR" property="corporId" />
+      <result column="CORP_PW" jdbcType="VARCHAR" property="corporPw" />
+      <result column="CORP_NAME" jdbcType="VARCHAR" property="corporName" />
+      <result column="CORP_PHONE" jdbcType="VARCHAR" property="corporPhone" />
+      <result column="CORP_ADDR" jdbcType="VARCHAR" property="corporAddr" />
+      <result column="CORP_EMAIL" jdbcType="VARCHAR" property="corporEmail" />
+   </resultMap>
+   
+   
 
 	<select id="selectMemberLogin" resultMap="baseResultMap">
 		Select

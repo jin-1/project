@@ -232,7 +232,7 @@
 						</div>
 						<div class="form-group">
 							<label class="form-remember"> <input type="checkbox" class="corCheck" />Corporation?
-							</label> <a href="IdFind?menu=Register" class="form-recovery">Forgot ID/PW?</a> <a
+							</label> <a href="IdFind?menu=Find" class="form-recovery">Forgot ID/PW?</a> <a
 								href="Register?menu=Register" class="form-recovery">REGISTER ACCOUNT</a>
 						</div>
 						<div class="form-group">
@@ -254,7 +254,7 @@
 						</div>
 						<div class="form-group">
 							<label class="form-remember"> <input type="checkbox" class="corCheck" />Corporation?
-							</label> <a href="IdFind?menu=Register" class="form-recovery">Forgot ID/PW?</a> <a
+							</label> <a href="IdFind?menu=Find" class="form-recovery">Forgot ID/PW?</a> <a
 								href="Register?menu=Register" class="form-recovery">REGISTER ACCOUNT</a>
 						</div>
 						<div class="form-group">

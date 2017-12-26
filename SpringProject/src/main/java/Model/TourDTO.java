@@ -1,5 +1,7 @@
 package Model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class TourDTO {
 	private String localCode;
 	private String corpId;
@@ -11,7 +13,9 @@ public class TourDTO {
 	private String localContent;
 	private int requestStatus;
 	private String travelCoord;
-	private String localImage;
+	//private String localImage;
+	private MultipartFile localImage;
+	//private MultipartFile localImageSave;
 	private String registrationNum;
 	
 	public String getLocalCode() {
@@ -78,10 +82,10 @@ public class TourDTO {
 	public void setTravelCoord(String travelCoord) {
 		this.travelCoord = travelCoord;
 	}
-	public String getLocalImage() {
+	public MultipartFile getLocalImage() {
 		return localImage;
 	}
-	public void setLocalImage(String localImage) {
+	public void setLocalImage(MultipartFile localImage) {
 		this.localImage = localImage;
 	}
 	public String getRegistrationNum() {

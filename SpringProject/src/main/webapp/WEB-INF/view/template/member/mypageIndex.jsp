@@ -173,8 +173,7 @@
 
 			<div id="mypage">
 				<ul class="mypage">
-					<li><img src="./img/mypageicon.jpg"
-						style="width: 200px; height: 150px;" /></li>
+					<li><img src="./img/mypageicon.jpg" style="width: 200px; height: 150px;" /></a></li>
 					<li class="mypageText"><span>내 정보 수정</span></li>
 				</ul>
 			</div>

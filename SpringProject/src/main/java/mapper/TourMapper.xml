@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "mapper.TourMapper">
+	<cache />
+	
+	<resultMap id="tourResultMap" type="TourDTO">
+		<id column="local_code" jdbcType="BIGINT" property="localCode"/>
+		<result column="corp_id" jdbcType="VARCHAR" property="corpId"/>
+		<result column="local_name" jdbcType="VARCHAR" property="localName"/>
+		<result column="local_phone" jdbcType="VARCHAR" property="localPhone"/>
+		<result column="local_addr" jdbcType="VARCHAR" property="localAddr"/>
+		<result column="local_category" jdbcType="VARCHAR" property="localCategory"/>
+		<result column="local_content" jdbcType="VARCHAR" property="localContent"/>
+		<result column="request_status" jdbcType="BIGINT" property="requestStatus"/>
+		<result column="travel_coord" jdbcType="VARCHAR" property="travelCoord"/>
+		<result column="local_image" jdbcType="VARCHAR" property="localImage"/>
+		<result column="registration_num" jdbcType="VARCHAR" property="registrationNum"/>
+	</resultMap>
+	
+	<select id="tourSearch" parameterType="string" resultMap="tourResultMap">
+		select *
+		from local
+		<where>
+			local_name like #{localName} and request_status = 1
+			<if test="!(localAddr.equals('')) or localAddr != null">
+				and local_addr like #{localAddr}
+			</if>
+			<if test="localCategorySave != null">
+				and local_category in
+				<foreach collection="localCategorySave" item="localCategorySave" index="index" open="(" close=")" separator=",">
+					#{localCategorySave}
+				</foreach>
+			</if>
+		</where>
+	</select>
+	
+	<select id="tourInfo" parameterType="int" resultMap="tourResultMap">
+		select *
+		from local
+		<where>
+			<if test="localCode != null">
+				local_code = #{localCode}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="tourInsert" parameterType="TourDTO">
+		insert into local
+		values(local_code.NEXTVAL, #{corpId}, #{localName}, #{localPhone}, #{localAddr}, #{localCategory}, #{localContent}, 0, null, #{registrationNum}, #{localImage})
+	</insert>
+	
+	<resultMap id="tourCommentResultMap" type="CommentDTO">
+		<id column="comment_num" jdbcType="BIGINT" property="commentNum"/>
+		<result column="member_id" jdbcType="VARCHAR" property="memberId"/>
+		<result column="local_code" jdbcType="BIGINT" property="localCode"/>
+		<result column="corp_id" jdbcType="VARCHAR" property="corpId"/>
+		<result column="content" jdbcType="VARCHAR" property="content"/>
+		<result column="comment_date" jdbcType="TIMESTAMP" property="commentDate"/>
+	</resultMap>
+	
+	<select id="tourComment" parameterType="int" resultMap="tourCommentResultMap">
+		select comment_num, member_id, local_code, corp_id, content, comment_date
+		from local_comment
+		<where>
+			local_code = #{localCode} ORDER by COMMENT_NUM ASC
+		</where>
+	</select>
+	
+	<insert id="tourCommentInsert" parameterType="CommentDTO">
+		insert into local_comment(comment_num, member_id, local_code, corp_id, content, comment_date) 
+		values(local_comment_c.NEXTVAL, #{memberId}, #{localCode}, (select corp_id from local where local_code = #{localCode}), #{content}, sysdate)
+	</insert>
+	
+	<select id="tourCommentSelect" parameterType="int" resultMap="tourCommentResultMap">
+		select comment_num, member_id, local_code, corp_id, content, comment_date
+		from local_comment
+		<where>
+			local_code = #{localCode} ORDER by COMMENT_NUM ASC
+		</where>
+	</select>
+</mapper>
+
+
+
+
+
+
