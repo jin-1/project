@@ -23,7 +23,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>TRENVIAJES</title>
 <jsp:include page="../config.jsp" flush="false" />
-
+<script type="text/javascript" src="./scripts/trainScript.js"></script>
+<link href="./css/train.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -34,7 +35,7 @@
 		<p class="location">
 			<a href="#">Home</a>><a href="#">Train</a>><a href="#">TrainTicket</a>
 		</p>
-		<div id="trainName">
+		<div id="Name">
 			<span>기차 예매</span>
 			<div class="trainStep">
 				<div style="background-color: #1a2440b0;">조회</div>

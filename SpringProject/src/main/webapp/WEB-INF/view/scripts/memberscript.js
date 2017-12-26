@@ -808,9 +808,9 @@ $(document).ready(function() {
 					
 					
 					//마이페이지 이동
-					$('.mypage').on("click",function(){
-						$(location).attr('href','myPageCon?menu=MyPage');
-					});
+//					$('.mypage').on("click",function(){
+//						$(location).attr('href','myPageCon?menu=MyPage');
+//					});
 					
 					
 					

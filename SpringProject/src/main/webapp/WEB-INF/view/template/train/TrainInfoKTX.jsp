@@ -10,6 +10,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../config.jsp" flush="false" />
+<script type="text/javascript" src="./scripts/trainScript.js"></script>
+<link href="./css/train.css" rel="stylesheet" type="text/css">
 <title>TRENVIAJES</title>
 </head>
 <body>
@@ -45,7 +47,7 @@
 							<a href="#">Home</a>><a href="#">Train</a>><a href="#">TrainInfo</a>
 
 						</p>
-						<div id="trainName">
+						<div id="Name">
 							<span>KTX 역</span>
 							<hr>
 						</div>

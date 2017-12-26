@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -46,7 +48,7 @@ public class TrainDAO extends AbstractRepository {
 		}
 	}
 
-	public List<TrainRegistrationDTO> trainInfo(Map<String,Object> info) {
+	public List<TrainRegistrationDTO> trainInfo(Map<String, Object> info) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace + ".selectTrainInfo";
 		List<TrainRegistrationDTO> station;
@@ -60,43 +62,79 @@ public class TrainDAO extends AbstractRepository {
 		}
 
 	}
+
 	public void insertTicketing(TrainRegistrationDTO trainRegistrationDTO) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace + ".trainRegCode";
-		int result=0;
+		int result = 0;
 		try {
 
 			result = sqlSession.insert(statement, trainRegistrationDTO);
-			
-			if(result>0) {
+
+			if (result > 0) {
 				sqlSession.commit();
 			} else {
 				sqlSession.rollback();
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 		}
 	}
-	
+
 	public void insertPurchase(TrainPurchaseDTO tpdto) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace + ".insertPurchase";
-		int result=0;
+		int result = 0;
 		try {
 
 			result = sqlSession.insert(statement, tpdto);
-			
-			if(result>0) {
+
+			if (result > 0) {
 				sqlSession.commit();
 			} else {
 				sqlSession.rollback();
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 		}
+	}
+
+	public List<TrainRegistrationDTO> selectTrainPuchase(HttpSession session) {
+		MemberDTO memberdto = (MemberDTO) session.getAttribute("login");
+		Map<String,String> id = new HashMap<String,String>();
+		id.put("memberId", memberdto.getMemberId());
+		
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectTicketPurchase";
+		List<TrainRegistrationDTO> purchase;
+		try {
+
+			purchase = sqlSession.selectList(statement, id);
+			return purchase;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
+	public List<TrainRegistrationDTO> getTrainTicket(String code) {
+	
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectTicketD";
+		List<TrainRegistrationDTO> ticket;
+		try {
+
+			ticket = sqlSession.selectList(statement, code);
+			return ticket;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 }

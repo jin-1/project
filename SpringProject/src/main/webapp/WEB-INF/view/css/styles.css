@@ -68,6 +68,13 @@ a:hover {
 	top: 0;
 }
 
+.location {
+	font-family: 'Nanum' !important;
+	font-size: 13px;
+	font-weight: bold;
+	color: #525252;
+}
+
 #header {
 	position: absolute;
 	z-index: 3;
@@ -272,6 +279,17 @@ a:hover {
 	z-index: 1;
 	left: 0;
 	top: 0;
+}
+
+#Name {
+	width: 100%;
+}
+
+#Name span {
+	font-family: 'Nanum' !important;
+	font-size: 30px;
+	color: #2f2f2f;
+	font-weight: bold;
 }
 
 /*MID 화면 뷰*/

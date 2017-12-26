@@ -166,6 +166,8 @@ $(document).ready(
 				$('.stbg').css('display', 'none');
 				$('.edbg').css('display', 'none');
 				$('.datebg').css('display', 'none');
+				$('.tbgB').css('display', 'none');
+				$('.tbgC').css('display', 'none');
 			});
 			$('#startTrain').click(function() {
 				$('.tbg').css('display', 'inline');
@@ -195,27 +197,7 @@ $(document).ready(
 			$('#trainList1 li').mouseleave(function() {
 				$(this).css("background-color", "#ffffff");
 			});
-			$.ajax({
-				url : "startTrain",
-				dataType : "json",
-				type : "post",
-				data : $('#inputStrat').serializeArray(),
-				success : function(data) {
-
-					var trainLength = Object.keys(data).length;
-
-					$.each(data, function(key, value) {
-						$('.trainList ul').append('<li>' + value + '</li>');
-
-					});
-
-				},
-				error : function(request, status, error) {
-					console.log("code:" + request.status + "\n" + "error:"
-							+ error);
-				}
-
-			});
+			
 			$('.trainSearch').click(function(){
 				if(Number($('#adultsVal').val()) != 0 || Number($('#childVal').val()) != 0 || Number($('#oldVal').val()) != 0){
 				$('#frmTicket').submit();
@@ -608,4 +590,8 @@ $(document).ready(
 			$('#paymentBt').on("click",function(){
 				$('#frmTicket').submit();
 			});
+			
+			
+			
+			
 		});

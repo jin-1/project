@@ -8,6 +8,12 @@
 		<id column="STATION_CODE" jdbcType="VARCHAR" property="stationTimeCode" />
 		<result column="STATION_NAME" jdbcType="VARCHAR" property="stationName" />
 	</resultMap>
+	<resultMap type="Model.TrainStationTimeDTO" id="trainStationTimeDTO">
+		<result column="STATION_TIME_CODE" jdbcType="VARCHAR" property="stationTimeCode" />
+		<result column="STATION_CODE" jdbcType="VARCHAR" property="stationTimeCode" />
+		<result column="TRAIN_CODE" jdbcType="BIGINT" property="trainCode" />
+		<result column="TIME" jdbcType="VARCHAR" property="time" />
+	</resultMap>
 	<resultMap type="Model.TrainDTO" id="coustomListMap">
 		<result column="TRAIN_CODE" jdbcType="BIGINT" property="trainCode" />
 		<result column="SERVICE_DATE" jdbcType="VARCHAR" property="serviceDate" />
@@ -16,7 +22,7 @@
 		<result column="STATION_NAME" jdbcType="VARCHAR" property="stationName" />
 	</resultMap>
 	<resultMap type="Model.TrainRegistrationDTO" id="infoListMap">
-		<result column="TRAIN_REG_CODE" jdbcType="VARCHAR" property="trainRegCode"/>
+		<result column="TRAIN_REG_CODE" jdbcType="VARCHAR" property="trainRegCode" />
 		<result column="TRAIN_CODE" jdbcType="BIGINT" property="trainCode" />
 		<result column="SEAT_NUM" jdbcType="VARCHAR" property="seatNum" />
 		<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
@@ -24,17 +30,20 @@
 		<result column="ARRIVAL_STATION" jdbcType="VARCHAR" property="arrivalStation" />
 		<result column="TRAIN_DATE" jdbcType="VARCHAR" property="trainDate" />
 		<result column="TRAIN_PASSENGERS" jdbcType="VARCHAR" property="trainPassengers" />
+		<collection property="trainStationTimeDTO" resultMap="trainStationTimeDTO"></collection>
+		<collection property="trainPurchaseDTO" resultMap="PurchaseMap"></collection>
 	</resultMap>
 	<resultMap type="Model.TrainPurchaseDTO" id="PurchaseMap">
-		<result column="TRAIN_PURCHASE_CODE" jdbcType="VARCHAR" property="trainPurchaseCode"/>
-		<result column="TRAIN_REG_CODE" jdbcType="VARCHAR" property="trainRegCode"/>
+		<result column="TRAIN_PURCHASE_CODE" jdbcType="VARCHAR"
+			property="trainPurchaseCode" />
+		<result column="TRAIN_REG_CODE" jdbcType="VARCHAR" property="trainRegCode" />
 		<result column="TRAIN_CODE" jdbcType="BIGINT" property="trainCode" />
-		<result column="INVOICE" jdbcType="VARCHAR" property="seatNum" />
+		<result column="INVOICE" jdbcType="VARCHAR" property="invoice" />
 		<result column="TRAIN_REFUND" jdbcType="BIGINT" property="trainRefund" />
 		<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
-		<result column="TRAIN_PUB_DATE" jdbcType="VARCHAR" property="trainPubDate" />		
+		<result column="TRAIN_PUB_DATE" jdbcType="VARCHAR" property="trainPubDate" />
 	</resultMap>
-	
+
 	<select id="selectSearchStation" resultMap="baseResultMap">
 		select
 		STATION_NAME
@@ -44,8 +53,11 @@
 	<select id="selectCustomerTrain" resultMap="coustomListMap"
 		parameterType="java.util.HashMap">
 
-		select t.train_CODE,t.TRAIN_NAME,substr(xmlagg(xmlelement(a,',' ||
-		st.time)order by st.time ).extract('//text()'),2) time from TRAIN t
+		select t.train_CODE,INSTR(t.SERVICE_DATE,#{dateTrain})
+		SERVICE_DATE,t.TRAIN_NAME,substr(xmlagg(xmlelement(a,',' ||
+		st.time)order by st.time ).extract('//text()'),2) time,
+		substr(xmlagg(xmlelement(a,',' ||ts.STATION_NAME) order by st.time
+		).extract('//text()'),2) STATION_NAME from train t
 		inner join
 		station_time st on t.TRAIN_CODE = st.TRAIN_CODE inner join
 		train_station ts on st.STATION_CODE = ts.STATION_CODE
@@ -59,8 +71,8 @@
 				</foreach>
 			</when>
 		</choose>
-		
-	<choose>
+
+		<choose>
 			<when test="trainType.size != 0">
 				and t.train_name in
 				<foreach collection="trainType" item="item" index="index"
@@ -90,30 +102,55 @@
 		and t.train_name = 'KTX' and<![CDATA[ 
 		to_date('00:00','HH24:MI')< to_date(st.time,'HH24:MI') ]]>group
 		by st.train_CODE having count(*) >1 )
-		group by t.train_CODE, t.TRAIN_NAME order by train_code ASC
+		group by t.train_CODE,
+		t.TRAIN_NAME,t.SERVICE_DATE order by train_code ASC
 
 	</select>
-	
-	
-	<select id="selectTrainInfo" parameterType="java.util.HashMap" resultMap="infoListMap">
+
+
+	<select id="selectTrainInfo" parameterType="java.util.HashMap"
+		resultMap="infoListMap">
 		select tr.TRAIN_CODE,tr.SEAT_NUM from
-		 TRAIN_REGISTRATION tr join STATION_TIME st on tr.TRAIN_CODE = st.TRAIN_CODE join TRAIN_STATION ts 
-		 on st.STATION_CODE = ts.STATION_CODE 
-		where tr.TRAIN_CODE = #{trainCode} AND tr.TRAIN_DATE = TO_DATE(#{dateTrain}, 'yyyy-MM-dd') 
+		TRAIN_REGISTRATION tr join
+		STATION_TIME st on tr.TRAIN_CODE = st.TRAIN_CODE join
+		TRAIN_STATION ts
+		on st.STATION_CODE = ts.STATION_CODE
+		where tr.TRAIN_CODE = #{trainCode}
+		AND tr.TRAIN_DATE =
+		TO_DATE(#{dateTrain}, 'yyyy-MM-dd')
 		and <![CDATA[ TO_DATE(#{sTime},'hh24:mi')<=TO_DATE(st.TIME,'hh24:mi') AND TO_DATE(#{eTime},'hh24:mi')>=TO_DATE(st.TIME,'hh24:mi') ]]>
 		group by tr.TRAIN_CODE, tr.SEAT_NUM
 	</select>
-	
-	
-	<insert id="trainRegCode"  parameterType="Model.TrainRegistrationDTO">
-		INSERT INTO TRAIN_REGISTRATION (TRAIN_REG_CODE,TRAIN_CODE,SEAT_NUM,MEMBER_ID,DEPARTING_STATION,ARRIVAL_STATION,TRAIN_DATE,TRAIN_PASSENGERS) 
-		VALUES ('A'||train_nn.NEXTVAL,#{trainCode},#{seatNum},#{memberId},#{departingStation},#{arrivalStation},#{trainDate},#{trainPassengers})
-		<selectKey keyProperty="trainRegCode" resultType="java.lang.String" order="AFTER"> SELECT train_nn.currval FROM dual </selectKey>
+
+
+	<insert id="trainRegCode" parameterType="Model.TrainRegistrationDTO">
+		INSERT INTO TRAIN_REGISTRATION
+		(TRAIN_REG_CODE,TRAIN_CODE,SEAT_NUM,MEMBER_ID,DEPARTING_STATION,ARRIVAL_STATION,TRAIN_DATE,TRAIN_PASSENGERS)
+		VALUES
+		('A'||train_nn.NEXTVAL,#{trainCode},#{seatNum},#{memberId},#{departingStation},#{arrivalStation},#{trainDate},#{trainPassengers})
+		<selectKey keyProperty="trainRegCode" resultType="java.lang.String"
+			order="AFTER"> SELECT train_nn.currval FROM dual </selectKey>
 	</insert>
-	
-	<insert id="insertPurchase"  parameterType="Model.TrainPurchaseDTO">
-		INSERT INTO TRAIN_PURCHASE (TRAIN_PURCHASE_CODE,TRAIN_REG_CODE,TRAIN_CODE,INVOICE,MEMBER_ID,TRAIN_PUB_DATE) 
-		VALUES ('B'||train_pub.NEXTVAL,#{trainRegCode},#{trainCode},#{invoice},#{memberId},#{trainPubDate})
-		
+
+	<insert id="insertPurchase" parameterType="Model.TrainPurchaseDTO">
+		INSERT INTO
+		TRAIN_PURCHASE
+		(TRAIN_PURCHASE_CODE,TRAIN_REG_CODE,TRAIN_CODE,INVOICE,MEMBER_ID,TRAIN_PUB_DATE)
+		VALUES
+		('B'||train_pub.NEXTVAL,#{trainRegCode},#{trainCode},#{invoice},#{memberId},#{trainPubDate})
+
 	</insert>
+	<select id="selectTicketPurchase" parameterType="java.util.Map"
+		resultMap="infoListMap">
+		select * from train_purchase tp join
+		TRAIN_REGISTRATION tr on
+		tp.TRAIN_REG_CODE = tr.TRAIN_REG_CODE where
+		tr.MEMBER_ID= #{memberId}
+	</select>
+	<select id="selectTicketD" resultMap="infoListMap" parameterType="String">
+		select * from TRAIN_REGISTRATION tr
+		join STATION_TIME st on tr.TRAIN_CODE = st.TRAIN_CODE
+		where tr.TRAIN_REG_CODE= #{code};
+	</select>
+
 </mapper>

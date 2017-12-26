@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import Model.CustomerTicketDTO;
 import Model.MemberDTO;
 import Model.TrainDAO;
 import Model.TrainDTO;
+import Model.TrainPurchaseDTO;
 import Model.TrainRegistrationDTO;
 import Model.TrainStatinDTO;
 import service.TrainService;
@@ -61,7 +63,7 @@ public class TrainController {
 		return "template/train/TrainTicketMain";
 	}
 	@RequestMapping(value = "/TrainTicketMain", method = RequestMethod.POST)
-	public String TrainTicketMainPost( Model model , @ModelAttribute("CustomerTicket") CustomerTicketDTO customerTicketDTO) {
+	public String TrainTicketMainPost( Model model , @ModelAttribute("CustomerTicket") CustomerTicketDTO customerTicketDTO) throws ParseException {
 		
 			List<TrainDTO> listTrain = trainService.getCustomerTicket(customerTicketDTO);
 			
@@ -120,9 +122,33 @@ public class TrainController {
 			trdto = trainRegistrationDTO;
 			System.out.println(trdto.getTrainRegCode());
 			trainService.setPurchase(session,trdto);
+			model.addAttribute("trDTO", trainRegistrationDTO);
 				return "template/train/TrainTicketing";
 	}
 
+	@RequestMapping(value = "/trainTicketHistory", method = RequestMethod.GET)
+	public String trainHistoryGet(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		String img = req.getParameter("img");
+		HttpSession session = req.getSession();
+		List<TrainRegistrationDTO> pList = traindao.selectTrainPuchase(session);
+		model.addAttribute("list", pList);
+		model.addAttribute("menu", menu);
+		model.addAttribute("img", img);
+		return "template/train/TicketingHistory";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/selectTicketing", method = RequestMethod.POST)
+	public HashMap<String, TrainRegistrationDTO> selectTicketing(@RequestParam HashMap<String, Object> param) {
+
+	
+		System.out.println(param.get("TrainRegCode"));
+		HashMap<String, TrainRegistrationDTO> ticketingD = new HashMap<String, TrainRegistrationDTO>();
+		ticketingD = trainService.getTicketingD(String.valueOf(param.get("TrainRegCode")));
+
+		return ticketingD;
+	}
 	@ResponseBody
 	@RequestMapping(value = "/startTrain", method = RequestMethod.POST)
 	public HashMap<String, String> searchStation(@RequestParam HashMap<String, Object> param) {

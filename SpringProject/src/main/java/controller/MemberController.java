@@ -296,6 +296,21 @@ public class MemberController {
 
 		return "template/member/myPageCon";
 	}
+	
+	
+	@RequestMapping(value = "/MyBudget", method = RequestMethod.GET)
+	public String MyBudget(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		model.addAttribute("menu", menu);
 
+		return "template/member/MyBudget";
+	}
+	@RequestMapping(value = "/travelAdd", method = RequestMethod.GET)
+	public String travelAdd(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		model.addAttribute("menu", menu);
+
+		return "template/member/MyBudgetAdd";
+	}
 }
 

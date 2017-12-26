@@ -577,6 +577,29 @@ hr.style3 {
 	border-radius: 15px;
 	box-shadow: #00000085 1px 6px 10px;
 }
+.tbgC {
+	width: 60%;
+	height: 620px;
+	position: fixed;
+	background: white;
+	z-index: 11;
+	top: 10%;
+	left: 20%;
+	display: none;
+	border-radius: 15px;
+}
+.tbgB {
+    padding: 30px;
+    width: 55%;
+    height: 400px;
+    position: fixed;
+    background: white;
+    z-index: 11;
+    top: 20%;
+    left: 20%;
+    display: none;
+    border-radius: 15px;
+}
 
 .tbgt table {
 	width: 100%;
@@ -1214,6 +1237,7 @@ hr.style3 {
 	height: 350px;
 	border: black 1px solid;
 	padding: 5px;
+	margin: auto;
 }
 
 #ticketingView table {
@@ -1230,27 +1254,66 @@ hr.style3 {
 
 #ticketingInfo table {
 	width: 80%;
-	height: 250px;
+	height: 150px;
 	margin: auto;
 	border-top: #929292 3px solid;
 	border-spacing: 0;
 }
 
 #ticketingInfo td {
-	
 	border: #b9b9b952 1px solid;
 }
-#ticketingInfo ul{
+
+#ticketingInfo ul {
 	list-style: none;
 	margin: 0;
 }
 
-#ticketingInfo li{
+#ticketingInfo li {
 	padding-left: 10px;
-	margin-top: 5px;
+	margin-top: 15px;
 	margin-bottom: 5px;
 	font-size: 12px;
 	background: url(../img/bg_li_01.png) no-repeat 0 6px;
 }
 
+#trainHistory ul {
+	list-style: none;
+	width: 100%;
+	padding-left: 5%;
+	font-weight: bold;
+}
 
+#trainHistory li {
+	font-size: 20px;
+	width: 30%;
+	padding-top: 10px;
+	height: 30px;
+	text-align: center;
+	margin-right: -5px;
+	border: #a5a2a2 1px solid;
+	display: inline-block;
+}
+
+#trainHistroyCon {
+	width: 90%;
+	margin: auto;
+	min-height: 300px;
+	height: auto;
+}
+
+#trainHistroyCon table {
+	border-top: black 1.6px solid;
+	width: 100%;
+	text-align: center;
+	border-spacing: 0;
+}
+
+#trainHistroyCon tr {
+	height: 40px;
+}
+
+#trainHistroyCon td {
+	border-bottom: black 1px solid;
+	width:10%;
+}

@@ -9,6 +9,28 @@ public class TrainRegistrationDTO {
 	private String arrivalStation;
 	private String trainDate;
 	private String trainPassengers;
+	private String price;
+	private TrainPurchaseDTO trainPurchaseDTO;
+	private TrainStationTimeDTO trainStationTimeDTO;
+
+
+
+	public TrainStationTimeDTO getTrainStationTimeDTO() {
+		return trainStationTimeDTO;
+	}
+
+	public void setTrainStationTimeDTO(TrainStationTimeDTO trainStationTimeDTO) {
+		this.trainStationTimeDTO = trainStationTimeDTO;
+	}
+
+	public TrainPurchaseDTO getTrainPurchaseDTO() {
+		return trainPurchaseDTO;
+	}
+
+	public void setTrainPurchaseDTO(TrainPurchaseDTO trainPurchaseDTO) {
+		this.trainPurchaseDTO = trainPurchaseDTO;
+	}
+
 	public String getTrainPassengers() {
 		return trainPassengers;
 	}
@@ -19,6 +41,14 @@ public class TrainRegistrationDTO {
 
 	public String getTrainRegCode() {
 		return trainRegCode;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	public void setTrainRegCode(String trainRegCode) {
