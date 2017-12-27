@@ -17,11 +17,13 @@
 <script type="text/javascript" src="./scripts/script.js"></script>
 <jsp:include page="../config.jsp" flush="false"/> 
 <script type="text/javascript">
+
  	var sel="";
-	 function prdCategory(){ 
-		alert("b");
+ 	
+	function prdCategory1(){ 
+		/* alert("b"); */
 		var option= document.getElementById("prdCategory").value;
-		sel ="<select id='changeType'> <option>-- Select below --</option>";
+		sel ="<select id='changeType1'> <option>-- Select below --</option>";
 		
 		if(option=="food"){
 			sel+=' <option value="물">물</option>'
@@ -32,40 +34,45 @@
 			sel+=' <option value="과자">과자</option>'
 			sel+=' <option value="견과류">견과류</option>'
 			sel+=' </select>';
-			$('#prdType1').html(sel);	
+			$('#prdType').html(sel);	
 		} else if(option=="body"){
 			sel+=' <option value="헤어케어">헤어케어</option>'
 			sel+=' <option value="스킨케어">스킨케어</option>'
 			sel+=' <option value="면도기">면도기</option>';
 			sel+=' </select>';
-			$("#prdType1").html(sel);	
+			$("#prdType").html(sel);	
 		} else if(option=="outdoor"){
 			sel+=' <option value="수영복">수영복</option>'
 			sel+=' <option value="텐트">텐트</option>'
 			sel+=' <option value="슬리퍼">슬리퍼</option>';
 			sel+=' </select>';
-			$("#prdType1").html(sel);	
+			$("#prdType").html(sel);	
 		} else if(option=="electronics"){
 			sel+=' <option value="충전기기">충전기기</option>'
 			sel+=' <option value="카메라">카메라</option>'
 			sel+=' <option value="배터리">배터리</option>'
 			sel+=' <option value="음향기기">음향기기</option>';
 			sel+=' </select>';
-			$("#prdType1").html(sel);
+			$("#prdType").html(sel);
 		}	
 	 };
 
+	
 	function sendPrd(){
-		document.getElementById('frm').submit();
+		document.getElementById("getType").value= document.getElementById("changeType1").value;
+		document.getElementById('frm1').submit();
 	} 
 
 </script>
 </head>
 <body>
+	
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
 	</div>
+ 	<form action="AdminProductMain" id="frm1" name="frm1">
 	<div id="mid">
+
 		<table class="AddTable" width="800px">
 			<colgroup>
 				<col width="30%">
@@ -81,7 +88,7 @@
 				<tr>
 					<th style="background-color: #eeeeee; text-align: center;">카테고리</th>
 					<td>
-						<select name="prdCategory" id="prdCategory" onchange="javascript:prdCategory();">
+						<select name="prdCategory" id="prdCategory" onchange="javascript:prdCategory1()">
 							<option>-- Select below --</option>
 							<option value="food">FOOD</option>
 							<option value="body">BODY CARE</option>
@@ -90,11 +97,12 @@
 						</select>
 					</td>
 				</tr>
+		
 				<tr>
 					<th style="background-color: #eeeeee; text-align: center;">세부 카테고리</th>
 					<td>
-						<div  id="prdType1">
-						 	<select id="changeType">
+						<div  id="prdType">
+						 	<select id="changeType1" name="changeType1">
 								<option>-- Select below --</option>
 							</select> 
 						</div>
@@ -102,25 +110,29 @@
 				</tr>
 				<tr>
 					<th style="background-color: #eeeeee; text-align: center;">상품명</th>
-					<td><input type="text" id="prdName" placeholder="상품명"><br></td>
+					<td><input type="text" id="prdName1" name="prdName1" placeholder="상품명"><br></td>
 				</tr>
 				<tr>
 					<th style="background-color: #eeeeee; text-align: center;">가격</th>
-					<td><input type="text" id="prdPrice" placeholder="00,000"><br></td>
+					<td><input type="number" id="prdPrice1" name="prdPrice1" placeholder="00,000"><br></td>
 				</tr>
 				<tr>
 					<th style="background-color: #eeeeee; text-align: center;">사진 첨부</th>
-					<td><input type="file" name="PrdImg" class="getPrdImg"></td>
+					<td><input type="file" name="prdImg" class="getPrdImg"></td>
 				</tr>
 			</tbody>
 		</table>
-		<form action="SearchProduct" id="frm">
-		<button onclick="javascript:sendPrd()">등록</button>
-		<button class="btnCart" onclick="window.history.back(); return false;">취소</button> 
-		</form>
+		
+
+			<input type="hidden" id="getType" name="getType">
+			<input type="button" onclick="javascript:sendPrd()" value="등록">
+			<button class="btnCart" onclick="window.history.back(); return false;">취소</button> 
+		
 	</div>
+ 	</form>
 	<div id="bot">
 		<jsp:include page="../bot.jsp" flush="false" />
 	</div>
+	
 </body>
 </html>

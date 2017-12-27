@@ -71,13 +71,26 @@ public class RentController {
 	public String adminAddProduct(HttpServletRequest req, Model model, ProductDTO pDTO) {
 		System.out.println("order 컨트롤1");
 		String menu = req.getParameter("menu");
-		
-		pDAO.insertProduct(pDTO);
-		
+
 		return "template/rent/AdminAddProduct";
 	}
 	
-	
+	@RequestMapping(value="/AdminProductMain", method = RequestMethod.GET)
+	public String adminProductMain(HttpServletRequest req, Model model, ProductDTO pDTO) {
+		System.out.println("order 컨트롤2");
+		String menu = req.getParameter("menu");
+		
+		
+		pDTO.setPrdName(req.getParameter("prdName1"));
+		pDTO.setPrdCategory(req.getParameter("prdCategory"));
+		pDTO.setPrdType(req.getParameter("getType"));
+		pDTO.setPrdPrice(req.getParameter("prdPrice1"));
+		pDTO.setPrdImg(req.getParameter("prdImg"));
+		
+		pDAO.insertProduct(pDTO);
+		
+		return "template/rent/AdminProductMain";
+	}
 	
 	
 	
