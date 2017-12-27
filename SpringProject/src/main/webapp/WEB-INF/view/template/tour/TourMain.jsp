@@ -96,10 +96,11 @@
 	text-align:center;
 	font-size: 15px;
 	margin-top: 20px;
-	position: relative;	
+	/* position: relative;	 */
 }
 .location{
 	clear: both;
+	/* float: left; */
 }
 .sido{
 	width: 140px;
