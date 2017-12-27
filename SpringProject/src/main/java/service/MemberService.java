@@ -8,19 +8,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
 
 import Model.*;
-@Service
+
 public class MemberService {
 	
 	@Autowired
 	MemberDAO memberDao;
-	
 	MemberDTO memberDto;
 	CorporDTO corporDto;
 	EmailDTO emailDto;
-	
 	@Autowired
 	JavaMailSender mailSender;
     
@@ -77,28 +74,30 @@ public class MemberService {
 		
 	}
 	
-	//메일보내기
-    public void SendEmail(EmailDTO email) throws Exception {
-       
-    	
+	//일반회원 아이디 메일보내기
+    public int SendEmail(EmailDTO email) throws Exception {
         MimeMessage msg = mailSender.createMimeMessage();
-        System.out.println(email.getSubject());
+       	int result = 0;
         try {
             msg.setSubject(email.getSubject());
             msg.setText(email.getContent());
             msg.setRecipients(MimeMessage.RecipientType.TO , InternetAddress.parse(email.getReceiver()));
             System.out.println("메일이 성공적으로 보내졌습니다.");
-           
+            result=2;
         }catch(MessagingException e) {
             System.out.println("MessagingException");
             e.printStackTrace();
+            result=0;
         }
         try {
             mailSender.send(msg);
+            result=2;
         }catch(MailException e) {
             System.out.println("MailException발생");
             e.printStackTrace();
+            result=0;
         }
+		return result;
     }
 
 }

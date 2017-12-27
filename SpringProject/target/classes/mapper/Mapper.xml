@@ -3,6 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- CommentMapper.xml -->
 <mapper namespace="mapper.Mapper">
+<<<<<<< HEAD
 	<cache />
 	<resultMap type="Model.MemberDTO" id="baseResultMap">
 		<id column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
@@ -27,7 +28,34 @@
 	</resultMap>
 
 
+=======
+   <cache />
+   <resultMap type="Model.MemberDTO" id="baseResultMap">
+      <id column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+      <result column="MEMBER_PW" jdbcType="VARCHAR" property="memberPw" />
+      <result column="MEMBER_NAME" jdbcType="TIMESTAMP" property="memberName" />
+      <result column="MEMBER_PHONE" jdbcType="VARCHAR" property="memberPhone" />
+      <result column="MEMBER_ADDR" jdbcType="VARCHAR" property="memberAddr" />
+      <result column="MEMBER_EMAIL" jdbcType="VARCHAR" property="memberEmail" />
+      <result column="GENDER" jdbcType="VARCHAR" property="gender" />
+      <result column="BIRTH_DATE" jdbcType="TIMESTAMP" property="birthDate" />
+      <result column="INTEREST" jdbcType="VARCHAR" property="inteRest" />
+      <result column="AUTHORITY" jdbcType="BIGINT" property="authority" />
+   </resultMap>
+   
+      <resultMap type="Model.CorporDTO" id="baseResultMap2">
+      <id column="CORP_ID" jdbcType="VARCHAR" property="corporId" />
+      <result column="CORP_PW" jdbcType="VARCHAR" property="corporPw" />
+      <result column="CORP_NAME" jdbcType="VARCHAR" property="corporName" />
+      <result column="CORP_PHONE" jdbcType="VARCHAR" property="corporPhone" />
+      <result column="CORP_ADDR" jdbcType="VARCHAR" property="corporAddr" />
+      <result column="CORP_EMAIL" jdbcType="VARCHAR" property="corporEmail" />
+   </resultMap>
+   
+   
+>>>>>>> refs/remotes/origin/sh
 
+<<<<<<< HEAD
 	<select id="selectMemberLogin" resultMap="baseResultMap">
 		Select
 		MEMBER_ID,
@@ -115,8 +143,84 @@
 	
 
 
+=======
+   <select id="selectMemberLogin" resultMap="baseResultMap">
+      Select
+      MEMBER_ID,
+      MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_ADDR,
+      MEMBER_EMAIL,GENDER,BIRTH_DATE,INTEREST,
+      AUTHORITY
+      FROM
+      MEMBER where
+      MEMBER_ID = #{memberId}
+   </select>
+   
+      <select id="selectCorPorLogin" resultMap="baseResultMap2">
+      Select
+      CORP_ID,
+      CORP_PW, CORP_NAME, CORP_PHONE, CORP_ADDR,
+      CORP_EMAIL
+      FROM
+      CORPORATION where
+      CORP_ID = #{corporId}
+   </select>
+   
+   
+      <select id="selectMemberIdCheck" resultType="int" parameterType="String">
+      Select
+      count(MEMBER_ID)
+      FROM
+      MEMBER where
+      MEMBER_ID = #{memberId}
+   </select>
+   
+   
+   <insert id="insertMember" parameterType="Model.MemberDTO">
+      insert into member(MEMBER_ID,
+      MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_ADDR,
+      MEMBER_EMAIL,GENDER,BIRTH_DATE,INTEREST,
+      AUTHORITY) values(#{memberId},#{memberPw},#{memberName},#{memberPhone},#{memberAddr},
+      #{memberEmail},#{gender},#{birthDate},#{inteRest},#{authority})
+   </insert>
+   
+   <insert id="insertCorPor" parameterType="Model.CorporDTO">
+      insert into CORPORATION(CORP_ID,CORP_PW,CORP_NAME,CORP_EMAIL,CORP_PHONE,CORP_ADDR)
+      values(#{corporId},#{corporPw},#{corporName},#{corporEmail},#{corporPhone},#{corporAddr}) 
+   
+   </insert>
+   
+   <select id="selectCorporIdCheck" resultType="int" parameterType="String" >
+   Select
+   count(corp_id)
+   from
+   CORPORATION
+   where corp_id=#{corporId}
+   </select>
+   
+   <!-- 일반회원 아이디찾기 -->
+   <select id="selectIdFind" resultMap="baseResultMap" parameterType="Model.MemberDTO" >
+   select MEMBER_ID,MEMBER_EMAIL,MEMBER_NAME
+   from member
+   where 
+   MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail}
+   </select>
+   
+   <select id="selectPwFind" resultMap="baseResultMap" parameterType="Model.MemberDTO" >
+   select MEMBER_ID,MEMBER_EMAIL,MEMBER_NAME,MEMBER_PW
+   from member
+   where 
+   MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail} and MEMBER_ID=#{memberId}
+   </select>
+   
+   <!-- 기업회원 아이디 찾기 -->
+   <select id="selectCorporIdFind" resultMap="baseResultMap2" parameterType="Model.CorporDTO" >
+   select CORP_ID,CORP_EMAIL,CORP_NAME
+   from CORPORATION
+   where 
+   CORP_NAME=#{corporName} and CORP_EMAIL=#{corporEmail}
+   </select>
+>>>>>>> refs/remotes/origin/sh
 </mapper>
-
 
 
 
