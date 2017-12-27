@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "mapper.ProductMapper">
+	<cache />
+
+	<resultMap type="pDTO" id="productIndexMap">
+		<id column="prd_code" jdbcType="VARCHAR" property="prdCode" />
+		<result column="prd_name" jdbcType="VARCHAR" property="prdName" />
+		<result column="prd_price" jdbcType="BIGINT" property="prdPrice" />
+		<result column="prd_img" jdbcType="VARCHAR" property="prdImg" />
+		<result column="prd_type" jdbcType="VARCHAR" property="prdType" />
+		<result column="prd_category" jdbcType="VARCHAR" property="prdCategory" />
+	</resultMap>
+	<select id="searchList" parameterType="string" resultMap="productIndexMap">
+		SELECT *
+		FROM products
+		<where>
+			<if test="prdCategory != 'searched'">
+				prd_category = #{prdCategory}
+			</if>
+			<if test="prdName != '%검색어 입력%'">
+				UPPER(prd_name) LIKE UPPER(#{prdName})
+				<if test="prdType != '전체'">
+					AND prd_type = #{prdType}
+				</if>	
+			</if>
+		</where>
+	</select>
+	<select id="productIndex" parameterType="string" resultMap="productIndexMap">
+		SELECT *
+		FROM products
+		<where>
+			<if test="prdName != null">
+				prd_name = #{prdName}
+			</if>
+		</where>
+	</select>
+	<insert id="insertProduct" parameterType="pDTO">
+		INSERT INTO products (prd_code, prd_name, prd_price, prd_img, prd_type, prd_category)
+		<if test="prdCategory =='food' or prdCategory=='body">
+		VALUES (concat('A',to_char(product_code_s.NEXTVAL), #{prdName}, #{prdPrice}, #{prdImg}, #{prdType}, #{prdCategory})
+		</if>
+		<if test="prdCategory !='food' or prdCategory!='body">
+		VALUES (concat('B',to_char(product_code_s.NEXTVAL), #{prdName}, #{prdPrice}, #{prdImg}, #{prdType}, #{prdCategory})
+		</if>
+	</insert>
+	
+	
+
+
+	<resultMap type="rrDTO" id="rentReg">
+		<id column="rental_code" jdbcType="VARCHAR" property="rentalCode" />
+		<result column="prd_name" jdbcType="VARCHAR" property="prdName" />
+		<result column="pickup_qty" jdbcType="BIGINT" property="pickupQty" />
+		<result column="pickup_date" jdbcType="VARCHAR" property="pickupDate" />
+		<result column="pickup_station" jdbcType="VARCHAR" property="pickupStation" />
+		<result column="return_date" jdbcType="VARCHAR" property="returnDate" />
+		<result column="return_station" jdbcType="VARCHAR" property="returnStation" />
+		<result column="returned_qty" jdbcType="BIGINT" property="returnedQty" />
+		<result column="verify_return" jdbcType="VARCHAR" property="verifyReturn" />
+		<result column="member_id" jdbcType="VARCHAR" property="memberId" />
+	</resultMap>
+	<insert id="placeOrder" parameterType="rrDTO">
+		INSERT INTO rent_reg (rental_code, prd_name, pickup_qty, pickup_date, pickup_station, return_date, return_station, returned_qty, verify_return, member_id)
+		<if test="verifyReturn =='일회용'">
+		VALUES (rental_code_s.NEXTVAL, #{prdName}, #{pickupQty}, #{pickupDate}, #{pickupStation}, null, null, 0, #{verifyReturn}, #{memberId})
+		</if>
+		<if test="verifyReturn !='일회용'">
+		VALUES (rental_code_s.NEXTVAL, #{prdName}, #{pickupQty}, #{pickupDate}, #{pickupStation}, #{returnDate}, #{returnStation}, null, #{verifyReturn}, #{memberId})
+		</if>
+	</insert>
+	<select id="getOrder" parameterType="string" resultMap="rentReg">
+		SELECT *
+		FROM rent_reg
+		<where>
+			member_id = #{memberId}
+		</where>
+		ORDER BY pickup_date DESC, verify_return
+	</select>
+	
+	<resultMap type="eventDTO" id="eventApply">
+		<id column="elected_code" jdbcType="VARCHAR" property="electedCode" />
+		<result column="event_code" jdbcType="VARCHAR" property="eventCode"/>
+		<result column="expiry_date" jdbcType="TIMESTAMP" property="expiryDate"/>
+		<result column="event_name" jdbcType="VARCHAR" property="eventName"/>
+		<result column="event_quant" jdbcType="BIGINT" property="eventQuant"/>
+		<result column="member_id" jdbcType="VARCHAR" property="memberId"/>
+	</resultMap>
+	<select id="couponOpen" parameterType="string" resultMap="eventApply">
+		SELECT *
+		FROM event_elected
+		<where>
+			member_id = #{memberId} AND trunc(expiry_date) >= trunc(sysdate)
+		</where>
+	</select>
+</mapper>
