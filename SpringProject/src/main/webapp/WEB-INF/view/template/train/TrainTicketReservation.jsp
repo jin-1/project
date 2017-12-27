@@ -202,10 +202,12 @@
 				}
 			});
 					</script>
+					<%int num =  sadult + sold + schild;%>
 					<form:form action="trainPayment?menu=TRAIN&img=trainbg" method="POST">
 					<div id="reservationBt">
 						<input type="hidden" name="seat" id="seatNum">
-						<input type="hidden" name="seat" value="<%=dc.format(sadult + sold + schild)%>">
+						<input type="hidden" name="seat" id="seatprice">
+						
 						<p>선택좌석 예약하기</p>
 					</div>
 					</form:form>
@@ -254,6 +256,7 @@
 				<div class="result">
 					<div style="position: relative; top: 10px; left: -6px;">
 						총액 <span style="position: relative; left: 20px; font-size: 1.5vw;">\<%=dc.format(sadult + sold + schild)%></span>
+						<input type="hidden" value="<%=sadult + sold + schild%>"  id="allCount">
 					</div>
 				</div>
 			</div>

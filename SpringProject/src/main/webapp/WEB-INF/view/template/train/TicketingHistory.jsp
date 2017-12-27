@@ -11,6 +11,7 @@
 	DecimalFormat dc = new DecimalFormat("###,###,###,###");
 	SimpleDateFormat o = new SimpleDateFormat("yyyy-MM-dd");
 	SimpleDateFormat n = new SimpleDateFormat("yyyy년 MM월 dd일 (E)");
+	MemberDTO memberdto = (MemberDTO) session.getAttribute("login");
 	List<TrainRegistrationDTO> list = (List<TrainRegistrationDTO>) request.getAttribute("list");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -21,36 +22,7 @@
 <jsp:include page="../config.jsp" flush="false" />
 <link href="./css/train.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="./scripts/trainScript.js"></script>
-<script type="text/javascript">
-	$(document).ready(
-			function() {
-				$('.ticketingBt').on(
-						"click",
-						function() {
-							$('.tbg').css("display", "inline");
-							$('.tbgB').css("display", "inline");
 
-							$.ajax({
-								url : "selectTicketing",
-								dataType : "json",
-								type : "post",
-								data : {
-									"TrainRegCode" : $(this).attr("id")
-								},
-								success : function(data) {
-
-									console.log(data);
-
-								},
-								error : function(request, status, error) {
-									console.log("code:" + request.status + "\n"
-											+ "error:" + error);
-								}
-
-							});
-						});
-			});
-</script>
 </head>
 <body>
 	<div class="tbg"></div>
@@ -70,31 +42,39 @@
 						</div>
 					</td>
 					<td style="border: black 1px solid;">
-						<p>승차일</p>
+						<p id ="ticketDate"></p>
 						<p>
-							<span
-								style="font-size: 25px; font-weight: bold; margin-right: 15px;">
-								<%
-									
-								%>
-							</span> <span style="margin-right: 15px;">▶</span> <span
-								style="font-size: 25px; font-weight: bold;">목적지 2</span>
+							<span id ="ticketD" style="font-size: 25px; font-weight: bold; margin-right: 15px;">
+							
+							</span> <span style="margin-right: 15px;">▶</span> 
+							<span id ="ticketA" style="font-size: 25px; font-weight: bold;"></span>
 						</p>
 						<p style="margin-top: -10px;">
-							<span
-								style="background-color: black; margin-right: 63px; margin-left: 5px; color: white;">시간1</span>
-							<span style="background-color: black; color: white;">시간2</span>
+							<span id ="ticketT1" style="background-color: black; margin-right: 63px; margin-left: 5px; color: white;"></span>
+							<span id ="ticketT2" style="background-color: black; color: white;"></span>
 						</p>
 						<p style="font-weight: bold;">
-							<span>기차 종류</span> &nbsp&nbsp&nbsp <span>기차 코드 열차</span> <span></span>
+							<span id ="ticketTn"></span> &nbsp&nbsp&nbsp <span id ="ticketCode">기차 코드 열차</span> 
 						</p>
-
+						<ul style="list-style:none;" id="ticketSeat">
+						</ul>
+						<p style="margin: 0; background-color: #c8c5c5; width: 100%; height: 30px; padding-top: 10px; text-align: center;">
+							<span id="ticketInvoice"> </span> <span >승차자명 : <%=memberdto.getMemberName()%></span>
+						</p>
 					</td>
 				</tr>
 			</table>
 		</div>
 	</div>
-	<div class="tbgC"></div>
+	<div class="tbgC">
+		<form action="trainRefundC" method="post" id="trainHfrm">
+			<input type="hidden" name="TicketCodevalue" id="TicketCodevalue">
+		</form>
+		<div style="margin-top: 40px; font-size: 25px;">정말로 환불(취소) 하시겠습니까?
+		</div>
+		<div style="margin-top: 15px; margin-bottom: 30px;">환불 받을 계좌번호 : <input typy="text"></div>
+		<div id="trainRefund">환불</div><div id="trainRefundC">취소</div>
+	</div>
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
 	</div>
@@ -109,9 +89,9 @@
 		</div>
 		<div id="trainHistory">
 			<ul>
-				<li style="background-color: #0180a3; color: white;">발권/취소(반환)</li>
-				<li>예약변경</li>
-				<li>이용내역</li>
+				<li style="background-color: #0180a3; color: white; cursor: pointer;">발권/취소(반환)</li>
+				<li style="cursor: pointer;">예약변경</li>
+				<li style="cursor: pointer;">이용내역</li>
 			</ul>
 		</div>
 		<div id="trainHistroyCon">
@@ -143,17 +123,17 @@
 				<tr>
 					<td style="font-size: 12px;"><%=new_date%></td>
 					<td><%=list.get(i).getTrainCode()%></td>
-					<td><%=list.get(i).getDepartingStation()%></td>
-					<td><%=list.get(i).getArrivalStation()%></td>
+					<td id="d<%=i%>"><%=list.get(i).getDepartingStation()%></td>
+					<td id="a<%=i%>"><%=list.get(i).getArrivalStation()%></td>
 					<td><%=list.get(i).getTrainPurchaseDTO().getInvoice()%></td>
 					<td style="border-right: black 1px solid; font-size: 12px;"><%=list.get(i).getTrainPassengers()%>
 					</td>
 					<td>O</td>
 					<td><button class="ticketingBt"
-							id="<%=list.get(i).getTrainRegCode()%>"
-							style="border: white 1px solid; background-color: #0180a3; color: white;">발권</button></td>
-					<td><button
-							style="border: white 1px solid; background-color: #e95454; color: white;">취소</button></td>
+							name="<%=list.get(i).getTrainRegCode()%>"
+							style="border: white 1px solid; background-color: #0180a3; color: white; cursor: pointer;">발권</button></td>
+					<td><button class="ticketingCBt" name="<%=list.get(i).getTrainRegCode()%>"
+							style="border: white 1px solid; background-color: #e95454; color: white; cursor: pointer;">취소</button></td>
 				</tr>
 
 				<%

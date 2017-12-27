@@ -106,7 +106,10 @@ public class TrainController {
 		String menu = req.getParameter("menu");
 		String img = req.getParameter("img");
 		String seat[] = req.getParameterValues("seat");
-	
+		System.out.println(seat[1]);
+		String[] s = (String[])session.getAttribute("trainTicket");
+		s[11] = seat[1];
+		session.setAttribute("trainTicket", s);
 		model.addAttribute("menu", menu);
 		model.addAttribute("img", img);
 		model.addAttribute("seat", seat);
@@ -116,16 +119,26 @@ public class TrainController {
 	
 	@RequestMapping(value = "/trainTicketing", method = RequestMethod.POST)
 	public String trainPaymentPost(HttpSession session, Model model , @ModelAttribute("trainPayment") TrainRegistrationDTO trainRegistrationDTO) {
-
+			
 			traindao.insertTicketing(trainRegistrationDTO);
 			trainRegistrationDTO.setTrainRegCode("A"+trainRegistrationDTO.getTrainRegCode());
 			trdto = trainRegistrationDTO;
-			System.out.println(trdto.getTrainRegCode());
 			trainService.setPurchase(session,trdto);
 			model.addAttribute("trDTO", trainRegistrationDTO);
 				return "template/train/TrainTicketing";
 	}
 
+	@RequestMapping(value = "/TicketReservationChange", method = RequestMethod.GET)
+	public String TicketReservationChangeGet(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		String img = req.getParameter("img");
+		HttpSession session = req.getSession();
+		List<TrainRegistrationDTO> pList = traindao.selectTrainPuchase(session);
+		model.addAttribute("list", pList);
+		model.addAttribute("menu", menu);
+		model.addAttribute("img", img);
+		return "template/train/TicketingHistory";
+	}
 	@RequestMapping(value = "/trainTicketHistory", method = RequestMethod.GET)
 	public String trainHistoryGet(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
@@ -137,15 +150,24 @@ public class TrainController {
 		model.addAttribute("img", img);
 		return "template/train/TicketingHistory";
 	}
+	
+	@RequestMapping(value = "/trainRefundC", method = RequestMethod.POST)
+	public String trainRefundC(HttpServletRequest req, Model model) {
+			
+			String trCode = req.getParameter("TicketCodevalue");
+			System.out.println(trCode);
+			traindao.deletePurchase(trCode);
+			return "redirect:trainTicketHistory?menu=TRAIN&img=trainbg";
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/selectTicketing", method = RequestMethod.POST)
 	public HashMap<String, TrainRegistrationDTO> selectTicketing(@RequestParam HashMap<String, Object> param) {
 
 	
-		System.out.println(param.get("TrainRegCode"));
+		
 		HashMap<String, TrainRegistrationDTO> ticketingD = new HashMap<String, TrainRegistrationDTO>();
-		ticketingD = trainService.getTicketingD(String.valueOf(param.get("TrainRegCode")));
+		ticketingD = trainService.getTicketingD(param);
 
 		return ticketingD;
 	}

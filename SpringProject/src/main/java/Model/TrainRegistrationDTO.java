@@ -10,10 +10,19 @@ public class TrainRegistrationDTO {
 	private String trainDate;
 	private String trainPassengers;
 	private String price;
+	private String trainName;
 	private TrainPurchaseDTO trainPurchaseDTO;
 	private TrainStationTimeDTO trainStationTimeDTO;
 
 
+
+	public String getTrainName() {
+		return trainName;
+	}
+
+	public void setTrainName(String trainName) {
+		this.trainName = trainName;
+	}
 
 	public TrainStationTimeDTO getTrainStationTimeDTO() {
 		return trainStationTimeDTO;

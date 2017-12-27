@@ -583,6 +583,7 @@ $(document).ready(
 					alert("좌석을 선택해주세요.");
 				}else{
 					$('#seatNum').val(list);
+					$('#seatprice').val($('#allCount').val());
 					$(this).parent().submit();
 				}
 			});
@@ -591,7 +592,61 @@ $(document).ready(
 				$('#frmTicket').submit();
 			});
 			
-			
-			
+			$('.ticketingBt').on("click",function() {
+				$('.tbg').css("display", "inline");
+				$('.tbgB').css("display", "inline");
+				var index = $('.ticketingBt').index(this);
+				
+				$.ajax({
+					url : "selectTicketing",
+					dataType : "json",
+					type : "post",
+					data : {
+						"TrainRegCode" : $(this).attr("name"),
+						"DepartingStation" : $('#d'+index).text(),
+						"ArrivalStation" :  $('#a'+index).text()
+					},
+					success : function(data) {
+						$('#ticketSeat').empty();
+						var temp1=0;
+						var temp2=1;
+						var t = data.train1.trainStationTimeDTO.time.split(",");
+						var s = data.train1.seatNum.split("_");
+						console.log(s.length/2);
+						$('#ticketDate').text(data.train1.trainPurchaseDTO.trainPubDate);
+						$('#ticketD').text(data.train1.departingStation);
+						$('#ticketA').text(data.train1.arrivalStation);
+						$('#ticketT1').text(t[0]);
+						$('#ticketT2').text(t[1]);
+						$('#ticketTn').text(data.train1.trainName);
+						$('#ticketCode').text(data.train1.trainCode+" 열차");
+						for(var i = 0 ; i < parseInt(s.length/2);i++){
+							$('#ticketSeat').append('<li>'+Number(s[temp1]+1)+'호차'+s[temp2]+'석</li>');
+							temp1+=2;
+							temp2+=2;
+						}
+						$('#ticketInvoice').text("운임요금 : "+data.train1.trainPurchaseDTO.invoice);
+					},
+					error : function(request, status, error) {
+						console.log("code:" + request.status + "\n"
+								+ "error:" + error);
+					}
+
+				});
+			});
+			$('.ticketingCBt').on("click",function() {
+				$('.tbg').css("display", "inline");
+				$('.tbgC').css("display", "inline");
+				$('#TicketCodevalue').val($(this).attr("name"));
+			});
+			$('#trainRefundC').on("click",function(){
+
+				$('.tbg').css("display", "none");
+				$('.tbgC').css("display", "none");
+
+			});
+			$('#trainRefund').on("click",function(){				
+				$('#trainHfrm').submit();
+			});
 			
 		});
