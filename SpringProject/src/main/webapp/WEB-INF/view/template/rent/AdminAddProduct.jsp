@@ -114,7 +114,7 @@
 				</tr>
 				<tr>
 					<th style="background-color: #eeeeee; text-align: center;">가격</th>
-					<td><input type="number" id="prdPrice1" name="prdPrice1" placeholder="00,000"><br></td>
+					<td><input type="text" id="prdPrice1" name="prdPrice1" placeholder="00,000" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"><br></td>
 				</tr>
 				<tr>
 					<th style="background-color: #eeeeee; text-align: center;">사진 첨부</th>

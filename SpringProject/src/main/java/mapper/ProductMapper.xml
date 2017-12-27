@@ -39,11 +39,11 @@
 	<insert id="insertProduct" parameterType="pDTO">
 		INSERT INTO products (prd_code, prd_name, prd_price, prd_img, prd_type, prd_category)
 		<if test="prdCategory.equals('food') or prdCategory.equals('body')">
-		VALUES (concat('A',to_char(product_code_s.NEXTVAL), #{prdName}, #{prdPrice}, #{prdImg}, #{prdType}, #{prdCategory})
+		VALUES (concat('A',to_char(product_code_s.NEXTVAL)), #{prdName}, #{prdPrice}, #{prdImg}, #{prdType}, #{prdCategory})
 		</if>
-		<if test="prdCategory !='food' or prdCategory !='body">
-		VALUES (concat('B',to_char(product_code_s.NEXTVAL), #{prdName}, #{prdPrice}, #{prdImg}, #{prdType}, #{prdCategory})
-		</if>
+	 	<if test=" !(prdCategory.equals('food')) and !(prdCategory.equals('body')) ">
+		VALUES (concat('B',to_char(product_code_s.NEXTVAL)), #{prdName}, #{prdPrice}, #{prdImg}, #{prdType}, #{prdCategory})
+		</if> 
 	</insert>
 	
 	

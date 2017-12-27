@@ -84,7 +84,7 @@ public class RentController {
 		pDTO.setPrdName(req.getParameter("prdName1"));
 		pDTO.setPrdCategory(req.getParameter("prdCategory"));
 		pDTO.setPrdType(req.getParameter("getType"));
-		pDTO.setPrdPrice(req.getParameter("prdPrice1"));
+		pDTO.setPrdPrice(Integer.parseInt(req.getParameter("prdPrice1")));
 		pDTO.setPrdImg(req.getParameter("prdImg"));
 		
 		pDAO.insertProduct(pDTO);
