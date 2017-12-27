@@ -20,6 +20,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 	<bean id="ProductDTO" class="Model.ProductDTO" />
 	<bean id="RentRegDTO" class="Model.RentRegDTO" />
 	<bean id="ProductDAO" class="Model.ProductDAO" />
+	<bean id="EventDTO" class="Model.EventDTO"/>
 
 	<bean id="TourDTO" class="Model.TourDTO" />
 	<bean id="TourDAO" class="Model.TourDAO" />

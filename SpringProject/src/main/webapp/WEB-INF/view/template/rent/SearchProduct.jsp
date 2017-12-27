@@ -41,7 +41,12 @@
 	 	return false;  		
 	});	 
  });
- 
+ function goOrder(){
+	 document.getElementById('frm1').submit();
+ }
+ function goAddProduct(){
+	 document.getElementById('frm2').submit();
+ }
 </script>
 <jsp:include page="../config.jsp" flush="false"/> 
 <style>
@@ -58,16 +63,7 @@
 	height: 230px;
 	padding-top: 90px;
 }
-#searchForm {
-	/* padding-top: 90px; */
-/* 	width: 700px; */
-	/* padding-right: 5%; */
-}
-#searchField{
-/* 	display: table;
-	margin: 0 auto; */
-/* 	width: 640px; */
-}
+
 #categories {
 	margin: 0 auto;
 }
@@ -288,6 +284,12 @@ select option {
 
 			</div>
 	 	</div>
+	 	<form action="RentOrder" id="frm1">
+	 		<button onclick="javascript:goOrder();">내역서보기</button>
+	 	</form>
+	 	<form action="AdminAddProduct" id="frm2">
+	 		<button onclick="javascript:goAddProduct();">관리자 상품 추가</button>
+	 	</form>
 	</div>
 	<div id="bot">
 		<jsp:include page="../bot.jsp" flush="false" />

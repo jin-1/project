@@ -91,7 +91,7 @@ $(document).ready(function() {
 		});
 		$('#deletehidden').val(selectedPrd);
 
-		alert($('#deletehidden').val());
+		/* alert($('#deletehidden').val()); */
 		
 		if(selectedPrd!=""){
 		 	$.ajax({
@@ -210,11 +210,7 @@ i {
     -webkit-transform: rotate(135deg);
     -moz-transform: rotate(135deg);
 } 
-#dialog{
-	overflow: hidden;
-	margin: 10px;
 
-}
 #applyEvent {
 	float:right;
 	padding-right: 20px;
@@ -229,6 +225,34 @@ i {
 }
 #btnPayment{
 	heigth: 30px;
+}
+#cart-item {
+   width: 900px;
+   border-collapse: collapse; 
+   border-spacing: 0; 
+} 
+#cart-item td, #cart-item th { 
+   border: 0 none; 
+   height: 35px; 
+}
+#cart-item th{
+   background: linear-gradient(#333 0%,#444 100%);
+   color: #FFF; 
+   font-weight: bold;
+   height: 40px;
+}
+#cart-item td { background: #FAFAFA; text-align: center; }
+#cart-item tr:nth-child(even) td { background: #EEE; } 
+#cart-item tr:nth-child(odd) td { background: #FDFDFD; }
+#cart-item button{
+	margin-right: 3px;
+	width: 40px;
+	color: #B2B0B0;
+	font: bold 13px tahoma;
+	border: 1px solid #eee;
+	text-align: center;
+	text-decoration: none;
+	display: inline;
 }
 </style>
 </head>
@@ -264,13 +288,13 @@ i {
 					</ul>
 				</div>
 				<form id="cartField">
-					<table align="center" width=900 border=1 id="cart-item" >
+					<table id="cart-item" >
 						<tr align="center">
-							<td>상품 코드</td>
-							<td>상 품 명</td>
-							<td>가 격</td>
-							<td>수 량</td>
-							<td align="center"><button type="button" id="deletePrd" value="삭제">삭제</button></td>
+							<th>상품 코드</th>
+							<th>상 품 명</th>
+							<th>가 격</th>
+							<th>수 량</th>
+							<th align="center"><button type="button" id="deletePrd" value="삭제">삭제</button></th>
 						</tr>
 					<%
 					if( cartList==null ){
@@ -308,11 +332,9 @@ i {
 				%>			
 				</form>		
 					
-				<div id="dialog">
-					<span>대여 및 반납 왠만하면 대여하지마.그냥 알아서 사.</span> 
-				</div>
+
 				<div id="applyEvent">
-					<button>쿠폰</button>
+					<button id="couponBtn" onClick="window.open('CouponOpen','mywindow','width=500, height=350, toolbar=no, resizable=no, menubar=yes')">쿠폰</button>
 				</div>
 				<form name="calcTotal">
 					<table align="center" width="900" border="1" id="calcTotal">

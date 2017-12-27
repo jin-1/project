@@ -9,6 +9,7 @@
 		<typeAlias type="Model.ProductDTO" alias="pDTO" />
 		<typeAlias type="Model.CartDTO" alias="cDTO" />
 		<typeAlias type="Model.RentRegDTO" alias="rrDTO" />
+		<typeAlias type="Model.EventDTO" alias="eventDTO" />
 
 		<typeAlias type="Model.TourDTO" alias="TourDTO"/>
 		<typeAlias type="Model.CommentDTO" alias="CommentDTO"/>

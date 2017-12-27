@@ -13,6 +13,83 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
+<link href="./css/styles.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="./scripts/script.js"></script>
+<jsp:include page="../config.jsp" flush="false" />
+<style type="text/css">
+#mid {
+	width:60%;
+	height: auto;
+	postion:relative;
+	margin-left: 20%;
+}
+div {
+	display: block;
+} 
+#nav-critical {
+	padding-top: 90px;
+	display: table;
+	margin: 0 auto;
+}
+#process{
+	height: 100px;
+	width:900px;
+	border-radius:5px;
+	position: relative;
+	border-bottom: 4px solid #444;
+}
+#current_page {
+	float:left;
+	width:200px;
+	font-size: 35px;
+}
+#step_list{
+	float: right;
+	padding-right: 10px; 
+}
+#step_list li {
+	display:list-item;
+	list-style: none;
+	float:left;
+	width: 160px;
+	padding-left:10px;
+	text-align: center;
+	height: 100px;
+	font-size: 18px;
+}
+#circle {
+	position:relative;
+	float:left;
+	background-color: #C3DDD6;
+	margin:3px auto;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+}
+#current_circle {
+	float:left;
+	position:relative;
+	background-color: #5BA1B0;
+	margin:3px auto;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+}
+#circle_level {
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	color: #fff;	
+}
+#step_list span {
+	width:95px;
+	height: 32px;
+	display: inline-block;
+	vertical-align:top;
+}
+</style>
 </head>
 <body>
 	<div id="top">
@@ -23,7 +100,7 @@
 		<div class="container">
 			<div id="nav-critical">
 				<div id="process">
-					<span id="current_page">주문/결제</span>
+					<span id="current_page">결제완료</span>
 					<ul id="step_list">
 						<li>
 							<div id="circle">
@@ -32,23 +109,22 @@
 							<span>장바구니</span>
 						</li>
 						<li>
-							<div id="current_circle">
+							<div id="circle">
 								<div id="circle_level">2</div>
 							</div>
 							<span>주문/결제</span>
 						</li>
 						<li>
-							<div id="circle">
+							<div id="current_circle">
 								<div id="circle_level">3</div>
 							</div>
 							<span>결제완료</span>
 						</li>
 					</ul>
 				</div>
-				
-				
-				
-				결제완료다!굿 잡!
+				<div>
+				결제가 완료되었습니다. <br/>
+				</div>
 			</div>
 	</div>
 </body>

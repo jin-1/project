@@ -1,10 +1,6 @@
 package controller;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -22,10 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import Biz.CartBiz;
 import Model.CartDTO;
+import Model.EventDTO;
 import Model.MemberDTO;
 import Model.ProductDAO;
 import Model.ProductDTO;
 import Model.RentRegDTO;
+
 
 
 @Controller
@@ -35,6 +33,9 @@ public class RentController {
 	ProductDAO pDAO;
 	@Autowired
 	CartBiz cartBiz;
+	@Autowired
+	MemberDTO memberDto;
+
 	
 	@RequestMapping(value="/SearchProduct", method = RequestMethod.GET)
 	public String searchProduct(HttpServletRequest req, Model model, ProductDTO pDTO) {
@@ -45,6 +46,41 @@ public class RentController {
 		model.addAttribute("pDTO", pDTO);
 		return "template/rent/SearchProduct";
 	}
+	@RequestMapping(value="/RentOrder", method = RequestMethod.GET)
+	public String rentOrder(HttpServletRequest req, HttpSession session, Model model, RentRegDTO rrDTO) {
+		System.out.println("order 컨트롤");
+		String menu = "Order";
+		memberDto = (MemberDTO) session.getAttribute("login");
+		List<RentRegDTO> orderList = pDAO.getOrder(memberDto.getMemberId());
+		
+		for( int i=0; i<orderList.size(); i++) {
+			String returnStation = orderList.get(i).getReturnStation();
+			if(returnStation == null || returnStation.isEmpty()) {
+				orderList.get(i).setReturnDate("-");
+				orderList.get(i).setReturnStation("-");
+			}
+		}
+		req.setAttribute("orderList", orderList);
+		model.addAttribute("menu", menu);
+		
+		return "template/rent/RentOrder";
+	}
+	
+	
+	@RequestMapping(value="/AdminAddProduct", method = RequestMethod.GET)
+	public String adminAddProduct(HttpServletRequest req, Model model, ProductDTO pDTO) {
+		System.out.println("order 컨트롤1");
+		String menu = req.getParameter("menu");
+		
+		pDAO.insertProduct(pDTO);
+		
+		return "template/rent/AdminAddProduct";
+	}
+	
+	
+	
+	
+	
 	@RequestMapping(value="/SearchResult", method = RequestMethod.POST)
 	public String searchResult( HttpServletRequest req, ProductDTO pDTO, Model model) {
 		
@@ -182,33 +218,42 @@ public class RentController {
 	}
 	
 	@RequestMapping(value="/PaymentComplete", method= RequestMethod.POST)
-	public String paymentComplete (HttpServletRequest req, RentRegDTO rrDTO, Model model) throws ParseException {
+	public String paymentComplete (HttpServletRequest req, HttpSession session, RentRegDTO rrDTO, Model model) {
+		String pickupDate = req.getParameter("dateTrain");;
 		String pickupStation = req.getParameter("startTrain");
-		Date pickupDate = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("dateTrain"));
-		HttpSession session = req.getSession();
-		System.out.println(pickupDate);
-		MemberDTO memberdto= (MemberDTO) session.getAttribute("login");
+		String returnStation;
+		/*System.out.println("contoller1 "+returnStation+", "+pickupStation);*/
+		
+		memberDto = (MemberDTO) session.getAttribute("login");
+		
 		ArrayList<CartDTO> cartList = cartBiz.getCart(req);
-		int totalMoney = 0;
 		for( int i=0; i<cartList.size(); i++) {
-			int money = cartList.get(i).getPrice()*cartList.get(i).getQty();
-			totalMoney += money;
-			
 			rrDTO.setPrdName(cartList.get(i).getPrdName());
 			rrDTO.setPickupQty(cartList.get(i).getQty());
 			rrDTO.setPickupStation(pickupStation);
 			rrDTO.setPickupDate(pickupDate);
-			rrDTO.setMemberId(memberdto.getMemberId());
-		}
-		req.setAttribute("totalMoney", totalMoney);
-		req.setAttribute("cartList", cartList);
-		
-/*
-		
-		
-		List<RentRegDTO> result = pDAO.placeOrder(rrDTO);
-		model.addAttribute("result", result);*/
-		
+			rrDTO.setMemberId(memberDto.getMemberId());
+			
+			if(cartList.get(i).getPrdCode().startsWith("A")) {
+				rrDTO.setVerifyReturn("일회용");
+			} else {
+				returnStation = req.getParameter("endTrain");
+				rrDTO.setReturnDate(pickupDate);
+				rrDTO.setReturnStation(returnStation);
+				rrDTO.setVerifyReturn("미반납");
+			}
+			pDAO.placeOrder(rrDTO);
+		}	
 		return "template/rent/PaymentComplete";
+	}
+	
+	@RequestMapping(value="/CouponOpen", method= RequestMethod.GET)
+	public String couponOpen (HttpServletRequest req, HttpSession session, EventDTO eventDTO) {
+		System.out.println("controller111");
+	/*	memberDto = (MemberDTO) session.getAttribute("login");
+		List<EventDTO> eventApply = pDAO.couponOpen(memberDto.getMemberId());
+		req.setAttribute("eventApply", eventApply);*/
+		
+		return "template/rent/CouponOpen";
 	}
 }

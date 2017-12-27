@@ -21,15 +21,38 @@ public class ProductDAO extends AbstractRepository {
 		return sqlSession.selectList(statement, pDTO);
 	}
 	
-	/*public List<RentRegDTO> placeOrder(RentRegDTO rrDTO) {
+	public void insertProduct(ProductDTO pDTO) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace+".insertProduct";
+		int result = sqlSession.insert(statement, pDTO);
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+	}
+	
+	public void placeOrder(RentRegDTO rrDTO) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace+".placeOrder";
-		System.out.println("dao다");
+		/*System.out.println("dao다");*/
 		int result = sqlSession.insert(statement, rrDTO);
 		if(result > 0) {
 			sqlSession.commit();
 		} else {
 			sqlSession.rollback();
 		}
-	}*/
+	}
+	
+	public List<RentRegDTO> getOrder(String memberId){
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace+".getOrder";
+		return sqlSession.selectList(statement, memberId);
+	}
+	
+	public List<EventDTO> couponOpen(String memberId) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace+".couponOpen";
+		return sqlSession.selectList(statement, memberId);
+	}
 }

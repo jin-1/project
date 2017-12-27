@@ -7,8 +7,8 @@ public class RentRegDTO {
 	private String prdName;
 	private int pickupQty;
 	private String pickupStation;
-	private Date pickupDate;
-	private Date returnDate;
+	private String pickupDate;
+	private String returnDate;
 	private String returnStation;
 	private int returnedQty;
 	private String verifyReturn;
@@ -18,8 +18,8 @@ public class RentRegDTO {
 		
 	}
 	
-	public RentRegDTO(String rentalCode, String prdName, int pickupQty, String pickupStation, Date pickupDate,
-			Date returnDate, String returnStation, int returnedQty, String verifyReturn, String memberId) {
+	public RentRegDTO(String rentalCode, String prdName, int pickupQty, String pickupStation, String pickupDate,
+			String returnDate, String returnStation, int returnedQty, String verifyReturn, String memberId) {
 		super();
 		this.rentalCode = rentalCode;
 		this.prdName = prdName;
@@ -45,10 +45,10 @@ public class RentRegDTO {
 	public String getPickupStation() {
 		return pickupStation;
 	}
-	public Date getPickupDate() {
+	public String getPickupDate() {
 		return pickupDate;
 	}
-	public Date getReturnDate() {
+	public String getReturnDate() {
 		return returnDate;
 	}
 	public String getReturnStation() {
@@ -76,10 +76,10 @@ public class RentRegDTO {
 	public void setPickupStation(String pickupStation) {
 		this.pickupStation = pickupStation;
 	}
-	public void setPickupDate(Date pickupDate) {
+	public void setPickupDate(String pickupDate) {
 		this.pickupDate = pickupDate;
 	}
-	public void setReturnDate(Date returnDate) {
+	public void setReturnDate(String returnDate) {
 		this.returnDate = returnDate;
 	}
 	public void setReturnStation(String returnStation) {

@@ -150,13 +150,13 @@ div {
 </style>
 
 <script type="text/javascript">
-$(document).ready(function() {
+
 
 	function placeOrder(){
 	 	document.getElementById('frm').submit(); 
 	}
 
-});
+
 </script>
 </head>
 <body>
@@ -197,6 +197,35 @@ $(document).ready(function() {
 			<div class="calendar"></div>
 
 		</div>
+		<div class="edbg">
+			<div style="text-align: center;">
+				<H2>도시를 지정해주세요</H2>
+			</div>
+			<div class="stbg_1">
+				<ul>
+					<li>전체</li>
+					<li>가</li>
+					<li>나</li>
+					<li>다</li>
+					<li>라</li>
+					<li>마</li>
+					<li>바</li>
+					<li>사</li>
+					<li>아</li>
+					<li>자</li>
+					<li>차</li>
+					<li>카</li>
+					<li>타</li>
+					<li>파</li>
+					<li>하</li>
+				</ul>
+			</div>
+			<div class="trainList" id="trainList4">
+				<ul>
+				</ul>
+			</div>
+		</div>
+		
 	</div>
 	
 	<div id="top">
@@ -231,7 +260,7 @@ $(document).ready(function() {
 				</div>
 				
 				
-				<form name="calcTotal">
+
 					<table align="center" width="900" border="1" id="calcTotal">
 						<tr align="center">
 							<td>총 주문 금액</td>
@@ -244,12 +273,8 @@ $(document).ready(function() {
 							<td><%= totalMoney %></td>
 						</tr>
 					</table>
-				</form>
-				
-				
-				
-				
-				<form action="PaymentComplete" name="frm" method="post">
+
+				<form action="PaymentComplete" name="frm" method="post" id="frm">
 					<div id="pickup_field">
 						<label>픽업 역</label>
 						<label class="inputtext control--text"> 
@@ -270,44 +295,52 @@ $(document).ready(function() {
 						</label>
 						
 					</div>
-					
-					
 
-
-					<div id="payment">
-						
-
-							<button id="btnPayment" onclick="javascript:placeOrder()">결제완료</button>
-							<button id="goBack" onclick="window.history.go(-2); return false;">뒤로</button>
-						
-					</div>
-
-
-
-
-					
-	<!-- 				<div id="return_field">
+				<%
+					int num=1;
+					String prdCode = "";
+					for(int i=0; i<cartList.size(); i++){
+						prdCode += cartList.get(i).getPrdCode();
+					}
+					if(prdCode.indexOf("B") != -1){
+				%>					
+					<div id="return_field">
 						<label>반납 역</label>
 						<label class="inputtext control--text"> 
-							<span class="inputtext__indicator" id="stStation">출발지</span> 
-							<img id="startTrain" class="pinmark" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
-							<input type="text" id="inputStrat" name="startTrain">
-							<span class="trainList" id="trainList1" style="display: none;">
-								<ul>
-								</ul>
-							</span>
-						</label> 
+						<span class="inputtext__indicator" id="edStation">도착지</span> 
+						<input	type="text" id="inputEnd" name="endTrain"> 
+						<img id="endTrain" class="pinmark" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
+						<span class="trainList" id="trainList2" style="display: none;">
+							<ul>
+							</ul>
+						</span>
+					</label> 
 						<br/>
 						<label>반납 날짜</label>
 						<label class="inputtext control--text"> 
-							<span id="stDate" class="inputtext__indicator">출발일</span> 
-							<img class="pinmark" id="dateTrain" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
-							<input type="text" id="inputDate" name="dateTrain">
+							<span id="enDate" class="inputtext__indicator">출발일</span> 
+							<img class="pinmark" id="dateTrain2" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
+							<input type="text" id="inputDate2" name="dateTrain">
 						</label>
 						
 					</div>
-				 -->
-				</form>
+					
+				<%
+					}
+				%>
+					
+						<div id="payment">
+								<button id="btnPayment" onclick="javascript:placeOrder()">결제완료</button>
+								<button id="goBack" onclick="window.history.go(-1); return false;">뒤로</button>
+							
+						</div>
+					</form>
+
+
+
+					
+
+				
 			</div>
 	<!-- 	
 			<div>
