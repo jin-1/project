@@ -28,7 +28,7 @@
 				<li id="ABOUT"><a href="#">ABOUT</a></li>
 				<li id="NOTICE"><a href="indexMenu.jsp?menu=NOTICE">NOTICE</a></li>
 				<li id="TOUR"><a href="TourMain?menu=TOUR&img=tour">TOUR</a></li>
-				<li id="RENT"><a href="indexMenu.jsp?menu=RENT">RENT</a></li>
+				<li id="RENT"><a href="SearchProduct?menu=RENT&img=rent">RENT</a></li>
 				<li id="TRAIN"><a href="TrainInfoKTX?menu=TRAIN&img=trainbg">TRAIN</a></li>
 				<li id="EVENT"><a href="indexMenu.jsp?menu=EVENT">EVENT</a></li>
 
@@ -58,6 +58,8 @@
 		%>
 		<div id="menuLogin">
 			<ul style="font-size: 8px;">
+				<li><a href="Cart?menu=Rent&img=rent">Cart</a></li>
+      			<li>|</li>
 				<li><a href="MyPage?menu=MyPage">MYPAGE</a></li>
 				<li>|</li>
 				<li><a href="Logout">LOGOUT</a></li>

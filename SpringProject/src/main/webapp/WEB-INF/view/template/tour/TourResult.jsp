@@ -80,6 +80,20 @@
 		});
 	});
 </script>
+<style>
+.searchName{
+	width: 420px;
+	height: 35px;
+	background: #fff;
+	float: left; 
+	border: 1px solid #0E3A53;
+	letter-spacing: -1px;
+	border-radius: 5px 0px 0px 5px ;
+	text-align:center;
+	font-size: 15px;
+	position: relative;	
+}
+</style>
 <body>
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
@@ -91,7 +105,7 @@
 
 			<center>
 				<p>
-					이름검색 <form:input path="localName"/>
+					이름검색 <form:input path="localName" class="searchName" placeholder="이름 검색"/>
 				</p>
 				
 				<p>

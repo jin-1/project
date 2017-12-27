@@ -78,6 +78,55 @@
 		});
 	});
 </script>
+<style>
+#mid {
+	width:60%;
+	margin-left: 20%; 
+	height: auto;
+	postion:relative;
+}
+.searchName{
+	width: 300px;
+	height: 35px;
+	background: #fff;
+	float: left; 
+	border: 1px solid #0E3A53;
+	letter-spacing: -1px;
+	border-radius: 5px 5px 5px 5px ;
+	text-align:center;
+	font-size: 15px;
+	margin-top: 20px;
+	position: relative;	
+}
+.location{
+	clear: both;
+}
+.sido{
+	width: 140px;
+	height: 35px;
+	float: left;
+	border: 1px solid #0E3A53;
+	border-radius: 5px 5px 5px 5px ;
+	position: relative;
+	margin-top: 20px;
+	margin-right: 20px;
+}
+.sigungu{
+	width: 140px;
+	height: 35px;
+	float: left;
+	border: 1px solid #0E3A53;
+	border-radius: 5px 5px 5px 5px ;
+	margin-top: 20px;
+	position: relative;
+}
+.categories{
+	width: 150px;
+	text-align: left;
+	float: left;
+}
+
+</style>
 <body>
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
@@ -85,14 +134,13 @@
 	<div id="mid">
 
 		<form:form modelAttribute="tourDTO" action="TourResult" method="get">
-
 			<center>
 				<p>
-					이름검색 <form:input path="localName" name="searchName"/><br>
+					<form:input path="localName" class="searchName" placeholder="이름 검색"/>
 				</p>
-				<p>
-					지역검색 
-					<select class="ml14" id="locationSelect" title="시/도 선택" name="SearchArea1">
+				
+				<div class="location">
+					<select class="sido" id="locationSelect" title="시/도 선택" name="SearchArea1">
 						<option value="">시/도</option>
 						<option value="서울">서울</option>
 						<option value="부산">부산</option>
@@ -111,28 +159,45 @@
 						<option value="경상남도">경상남도</option>
 						<option value="경상북도">경상북도</option>
 					</select>
-					<select title="시/군/구 선택" name="SearchArea2">
+					<select title="시/군/구 선택" class="sigungu" name="SearchArea2">
 						<option value="">시/군/구</option>
 					</select>
-				</p>
-				<p>
-					분류검색<br>
-					<input type="checkbox" name="category" value="0">한식
-					<input type="checkbox" name="category" value="1">중식
-					<input type="checkbox" name="category" value="2">일식
-					<input type="checkbox" name="category" value="3">분식
-					<br>
-					<input type="checkbox" name="category" value="4">호텔
-					<input type="checkbox" name="category" value="5">모텔
-					<input type="checkbox" name="category" value="6">찜질방
-					<input type="checkbox" name="category" value="7">게스트하우스
-					<br>
-					<input type="checkbox" name="category" value="8">자연
-					<input type="checkbox" name="category" value="9">레저
-					<input type="checkbox" name="category" value="10">역사
-					<input type="checkbox" name="category" value="11">박물관
-					<input type="submit" value="검색">
-				</p>
+				</div>
+				
+				<div class="categories">
+					<div class="food">
+						<fieldset>
+							<legend>맛집</legend>
+							<input type="checkbox" name="category" value="0">한식<br>
+							<input type="checkbox" name="category" value="1">중식<br>
+							<input type="checkbox" name="category" value="2">일식<br>
+							<input type="checkbox" name="category" value="3">분식
+						</fieldset>
+						
+					</div>
+					
+					<div class="house">
+						<fieldset>
+							<legend>숙박</legend>
+							<input type="checkbox" name="category" value="4">호텔<br>
+							<input type="checkbox" name="category" value="5">모텔<br>
+							<input type="checkbox" name="category" value="6">찜질방<br>
+							<input type="checkbox" name="category" value="7">게스트하우스
+						</fieldset>
+					</div>
+					
+					<div class="spot">
+						<fieldset>
+							<legend>관광지</legend>
+							<input type="checkbox" name="category" value="8">자연<br>
+							<input type="checkbox" name="category" value="9">레저<br>
+							<input type="checkbox" name="category" value="10">역사<br>
+							<input type="checkbox" name="category" value="11">박물관
+						</fieldset>
+					</div>
+				</div>
+				
+				<input type="submit" value="검색">
 			</center>
 		</form:form>
 	</div>
