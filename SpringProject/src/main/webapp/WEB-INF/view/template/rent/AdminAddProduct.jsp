@@ -102,15 +102,15 @@
 				</tr>
 				<tr>
 					<th style="background-color: #eeeeee; text-align: center;">상품명</th>
-					<td><input type="text" id="prdName2" placeholder="상품명"><br></td>
+					<td><input type="text" id="prdName" placeholder="상품명"><br></td>
 				</tr>
 				<tr>
 					<th style="background-color: #eeeeee; text-align: center;">가격</th>
-					<td><input type="text" id="price2" placeholder="00,000"><br></td>
+					<td><input type="text" id="prdPrice" placeholder="00,000"><br></td>
 				</tr>
 				<tr>
 					<th style="background-color: #eeeeee; text-align: center;">사진 첨부</th>
-					<td><input type="file" name="getPrdImg" class="getPrdImg"></td>
+					<td><input type="file" name="PrdImg" class="getPrdImg"></td>
 				</tr>
 			</tbody>
 		</table>

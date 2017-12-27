@@ -245,14 +245,41 @@ i {
 #cart-item tr:nth-child(even) td { background: #EEE; } 
 #cart-item tr:nth-child(odd) td { background: #FDFDFD; }
 #cart-item button{
-	margin-right: 3px;
-	width: 40px;
-	color: #B2B0B0;
-	font: bold 13px tahoma;
-	border: 1px solid #eee;
-	text-align: center;
-	text-decoration: none;
-	display: inline;
+	height: 39px;
+	width: 63px;
+	/* float:left;  */
+	cursor: pointer;
+	border: 1px solid #444;
+	border-radius: 5px 5px 5px 5px ;
+	background: #f57184; 	
+	color: white;
+	/* position:relative; */
+}
+#couponBtn:active {
+    background: #f06a7c;
+}
+#couponBtn:hover {
+    background: #f57184;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#f57184), to(#f78297));
+    background: -moz-linear-gradient(#f57184, #f78297);
+    background: linear-gradient(#f57184, #f78297);
+    border: solid 1px #e26272;
+    border-bottom: solid 3px #cb5462;
+    box-shadow: inset 0 0 0 1px #f9aab5; 
+}
+
+#couponBtn{
+	background: #f997b0;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#f997b0), to(#f56778));
+    background: -moz-linear-gradient(#f997b0, #f56778);
+    background: linear-gradient(#f997b0, #f56778);
+    border: solid 1px #ee8090;
+    border-bottom: solid 3px #cb5462;
+    box-shadow: inset 0 0 0 1px #fbc1d0;
+    color: #913944;
+    text-shadow: 0 1px 0 #f9a0ad; 
+    width:80px;
+    height: 30px;
 }
 </style>
 </head>
@@ -334,7 +361,7 @@ i {
 					
 
 				<div id="applyEvent">
-					<button id="couponBtn" onClick="window.open('CouponOpen','mywindow','width=500, height=350, toolbar=no, resizable=no, menubar=yes')">쿠폰</button>
+					<button id="couponBtn" onClick="window.open('CouponOpen','mywindow','width=500, height=350, toolbar=no, resizable=no, menubar=yes')">쿠폰 적용</button>
 				</div>
 				<form name="calcTotal">
 					<table align="center" width="900" border="1" id="calcTotal">
