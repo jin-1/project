@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package controller;
 
 import java.util.HashMap;
@@ -543,4 +542,4 @@ public class MemberController {
 	}
 
 }
->>>>>>> refs/remotes/origin/sh
+
