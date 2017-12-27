@@ -130,7 +130,40 @@ public class MemberDAO extends AbstractRepository {
 		int result = 0;
 		try {
 			result = sqlSession.insert(statement, corpordto);
-			if(result>0) {
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public List<MemberDTO> MemberAll() {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectMemberAll";
+
+		try {
+			List<MemberDTO> memberDTO = sqlSession.selectList(statement);
+
+			return memberDTO;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	public int deleteMember(String userId) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".deleteMember";
+		int result = 0;
+		try {
+			result = sqlSession.delete(statement, userId);
+			if (result > 0) {
 				sqlSession.commit();
 			}else {
 				sqlSession.rollback();

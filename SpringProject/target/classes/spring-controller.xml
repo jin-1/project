@@ -20,4 +20,6 @@
 
 	
 
+	<bean class="controller.BudgetController" />
+	<bean class="controller.EventController" />
 </beans>

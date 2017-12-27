@@ -34,5 +34,6 @@
 
 		<mapper resource="mapper/TourMapper.xml" />
 
+		<mapper resource="mapper/EventMapper.xml" />
 	</mappers>
 </configuration>
