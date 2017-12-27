@@ -20,5 +20,6 @@
 	<mappers>
 		<mapper resource="mapper/Mapper.xml" />
 		<mapper resource="mapper/TrainMapper.xml" />
+		<mapper resource="mapper/EventMapper.xml" />
 	</mappers>
 </configuration>

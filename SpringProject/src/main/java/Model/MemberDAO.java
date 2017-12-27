@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -23,24 +25,23 @@ public class MemberDAO extends AbstractRepository {
 			return null;
 		}
 	}
-	
+
 	public CorporDTO CorLogin(CorporDTO corporDto) {
 
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace + ".selectCorPorLogin";
-		
+
 		try {
 			CorporDTO corporDTO = sqlSession.selectOne(statement, corporDto);
-			
+
 			return corporDTO;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
 
-	//일반회원 아이디 중복확인
+	// 일반회원 아이디 중복확인
 	public int IdCheck(String memberId) {
 
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
@@ -49,27 +50,28 @@ public class MemberDAO extends AbstractRepository {
 		try {
 			int result = sqlSession.selectOne(statement, memberId);
 			return result;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
 		}
-	
+
 	}
-	
-	//기업회원 아이디 중복확인
+
+	// 기업회원 아이디 중복확인
 	public int CorIdCheck(String corporId) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace + ".selectCorporIdCheck";
 		try {
 			int result = sqlSession.selectOne(statement, corporId);
 			return result;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
 		}
 	}
-	//일반회원 회원가입
+
+	// 일반회원 회원가입
 	public int Register(MemberDTO memberDto) {
 
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
@@ -89,23 +91,61 @@ public class MemberDAO extends AbstractRepository {
 		}
 		return result;
 	}
-	
-	//기업회원 회원가입
+
+	// 기업회원 회원가입
 	public int CorRegister(CorporDTO corpordto) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace + ".insertCorPor";
 		int result = 0;
 		try {
 			result = sqlSession.insert(statement, corpordto);
-			if(result>0) {
+			if (result > 0) {
 				sqlSession.commit();
-			}else {
+			} else {
 				sqlSession.rollback();
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
-		return result;	
+
+		return result;
 	}
+
+	public List<MemberDTO> MemberAll() {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectMemberAll";
+
+		try {
+			List<MemberDTO> memberDTO = sqlSession.selectList(statement);
+
+			return memberDTO;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	public int deleteMember(String userId) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".deleteMember";
+		int result = 0;
+		try {
+			result = sqlSession.delete(statement, userId);
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+
+		} catch (Exception e) {
+			sqlSession.rollback();
+			e.printStackTrace();
+
+		}
+		return result;
+	}
+
+
+	
 }

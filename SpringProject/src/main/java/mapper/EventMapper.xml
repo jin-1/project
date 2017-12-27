@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- CommentMapper.xml -->
+<mapper namespace="mapper.EventMapper">
+<resultMap type="Model.EventDTO" id="baseResultMap2">
+		<id column="ELECTED_CODE" jdbcType="VARCHAR" property="electedCode" />
+		<result column="EVENT_CODE" jdbcType="VARCHAR" property="evnetCode" />
+		<result column="EXPIRY_DATE" jdbcType="DATE" property="expriyDate" />
+		<result column="EVENT_NAME" jdbcType="VARCHAR" property="eventName" />
+		<result column="EVENT_QUANT" jdbcType="BIGINT" property="eventQuant" />
+		<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+	</resultMap>
+	<select id="selectCoupon" parameterType="String" resultMap="baseResultMap2">
+		Select
+		ELECTED_CODE,
+		EVENT_CODE, EXPIRY_DATE, EVENT_NAME, EVENT_QUANT,
+		MEMBER_ID
+		FROM EVENT_ELECTED where MEMBER_ID = #{memberId}
+
+	</select>
+</mapper>
