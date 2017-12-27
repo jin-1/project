@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import Model.AccountDTO;
+import Model.AccountDetailDTO;
 import Model.CorporDTO;
 import Model.EmailDTO;
 import Model.MemberDAO;
@@ -50,7 +51,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/LoginForm", method = RequestMethod.POST)
 	public String MemberFormLogin(HttpSession session, @ModelAttribute("login") MemberDTO memberDto) {
-
+		
 		int result = memberService.Login(memberDto, session);
 		System.out.println(result);
 		if (result == 2) {
@@ -305,9 +306,10 @@ public class MemberController {
 	public String MyBudget(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
 		HttpSession session = req.getSession();
-		
-		model.addAttribute("menu", menu);
 		List<AccountDTO> list = memberDao.selectAccount(session);
+		model.addAttribute("list",list);
+		model.addAttribute("menu", menu);
+		
 		return "template/member/MyBudget";
 	}
 	@RequestMapping(value = "/travelAdd", method = RequestMethod.GET)
@@ -324,6 +326,29 @@ public class MemberController {
 		model.addAttribute("menu", menu);
 		memberDao.insertAccount(session,actdto);
 		return "template/member/MyBudgetAdd";
+	}
+	@RequestMapping(value = "/budgetDD", method = RequestMethod.POST)
+	public String budgetDD(HttpServletRequest req, Model model, @ModelAttribute("budgetDD") AccountDetailDTO actdto) {
+		String menu = req.getParameter("menu");
+		HttpSession session = req.getSession();
+		MemberDTO memberDto = (MemberDTO)session.getAttribute("login");
+		model.addAttribute("menu", menu);
+		System.out.println(actdto.getBudgetCode());
+		actdto.setMemberId(memberDto.getMemberId());
+		memberDao.insertAccountDetail(actdto);
+		return "redirect:budgetD";
+	}
+	
+	@RequestMapping(value = "/budgetD", method = RequestMethod.POST)
+	public String budgetD(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		String budgeCode = req.getParameter("budgeCode");
+		HttpSession session = req.getSession();
+		AccountDTO acDto= memberDao.selectAccountOne(budgeCode);
+		System.out.println(acDto.getBudgetCode());
+		model.addAttribute("menu", menu);
+		model.addAttribute("acDto", acDto);
+		return "template/member/MyBudgetView";
 	}
 }
 

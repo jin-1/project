@@ -34,7 +34,7 @@ public class TourController {
 	CommentDTO commentDTO;
 	@Autowired
 	private CorporDTO corpDTO;
-	@Autowired
+	
 	private MemberDTO memberDto;
 	
 	@RequestMapping(value="/TourMain", method = RequestMethod.GET)

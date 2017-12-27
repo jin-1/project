@@ -1,4 +1,6 @@
-$(document).ready(function() {
+$(document)
+		.ready(
+				function() {
 
 					// 약관 모두 동의하기
 					$('#check').change(function() {
@@ -24,7 +26,8 @@ $(document).ready(function() {
 											alert("개인정보 수집에 동의해주세요");
 											return;
 										} else {
-											$(location).attr('href','MemberShip?menu=Register');
+											$(location).attr('href',
+													'MemberShip?menu=Register');
 										}
 
 									});
@@ -48,8 +51,11 @@ $(document).ready(function() {
 									});
 
 					// 일반회원 아이디 중복검사
-					$(".m_id").blur(function() {
-						$.ajax({
+					$(".m_id")
+							.blur(
+									function() {
+										$
+												.ajax({
 													url : "idcheck",
 													dataType : "json",
 													type : "post",
@@ -167,23 +173,23 @@ $(document).ready(function() {
 														// 공백('')값을 가지므로, 이를
 														// 참고하여 분기 한다.
 														var fullAddr = ''; // 최종
-																			// 주소
-																			// 변수
+														// 주소
+														// 변수
 														var extraAddr = ''; // 조합형
-																			// 주소
-																			// 변수
+														// 주소
+														// 변수
 
 														// 사용자가 선택한 주소 타입에 따라 해당
 														// 주소 값을 가져온다.
 														if (data.userSelectedType === 'R') { // 사용자가
-																								// 도로명
-																								// 주소를
+															// 도로명
+															// 주소를
 															// 선택했을 경우
 															fullAddr = data.roadAddress;
 
 														} else { // 사용자가 지번
-																	// 주소를 선택했을
-																	// 경우(J)
+															// 주소를 선택했을
+															// 경우(J)
 															fullAddr = data.jibunAddress;
 														}
 
@@ -243,23 +249,23 @@ $(document).ready(function() {
 														// 공백('')값을 가지므로, 이를
 														// 참고하여 분기 한다.
 														var fullAddr = ''; // 최종
-																			// 주소
-																			// 변수
+														// 주소
+														// 변수
 														var extraAddr = ''; // 조합형
-																			// 주소
-																			// 변수
+														// 주소
+														// 변수
 
 														// 사용자가 선택한 주소 타입에 따라 해당
 														// 주소 값을 가져온다.
 														if (data.userSelectedType === 'R') { // 사용자가
-																								// 도로명
-																								// 주소를
+															// 도로명
+															// 주소를
 															// 선택했을 경우
 															fullAddr = data.roadAddress;
 
 														} else { // 사용자가 지번
-																	// 주소를 선택했을
-																	// 경우(J)
+															// 주소를 선택했을
+															// 경우(J)
 															fullAddr = data.jibunAddress;
 														}
 
@@ -317,7 +323,7 @@ $(document).ready(function() {
 						} else if ($('.m_mail3').val() == "") {
 							$(".m_mail2").val(""); // 값 초기화
 							$(".m_mail2").attr("readonly", true); // textBox
-																	// 비활성화
+							// 비활성화
 						} else {
 							$(".m_mail2").val($('.m_mail3').val()); // 선택값 입력
 							$(".m_mail2").attr("readonly", true); // 비활성화
@@ -331,7 +337,7 @@ $(document).ready(function() {
 						} else if ($(".c_mail3").val() == "") {
 							$(".c_mail2").val(""); // 값 초기화
 							$(".c_mail2").attr("readonly", true); // textBox
-																	// 비활성화
+							// 비활성화
 						} else {
 							$(".c_mail2").val($(".c_mail3").val()); // 선택값 입력
 							$(".c_mail2").attr("readonly", true); // 비활성화
@@ -690,8 +696,7 @@ $(document).ready(function() {
 													"disabled");
 										}
 									});
-					
-					
+
 					var tst = true;
 					$('.corCheck').on("change", function() {
 						console.log("dd");
@@ -707,111 +712,134 @@ $(document).ready(function() {
 							$('.corCheck').prop("checked", false);
 						}
 					});
-					
-					
-					//1:1문의 테이블 마우스on
-					$( ".noticeTable tr" ).on( "mouseover", function() {
-						 $( this ).css( "background-color", "#f4f4f4" );
-						 $( this).children("td").css( "cursor", "pointer" );
-						  });
-					$( ".noticeTable tr" ).on( "mouseleave", function() {
-						 $( this ).css( "background-color", "white" );
-						  }); 
 
-					//일반회원 id 찾기
-					$('.mem_sea').click(function(){
-				
-						var memEmail = $('.email3').val($('.email1').val()+"@"+$('.email2').val());
-				
-	
-						alert('5초뒤 메일이 보내집니다');
-						$.ajax({
-							url : "IdFind",
-							dataType : "json",
-							type : "post",
-							data : $('#frm1').serialize(),
-							
-							success : function(data) {
-								console.log(data);
-								if(data.sc1 !=null){
-									alert(data.sc1);
-								} else if(data.sc2 !=null){
-									alert(data.sc2);
-								} else{
-									alert(data.sc0);
-								}
-							},
-							error : function(request,status, error) {
-								alert("code:"+ request.status+ "\n"+ "error:"+ error);
-							}
+					// 1:1문의 테이블 마우스on
+					$(".noticeTable tr").on("mouseover", function() {
+						$(this).css("background-color", "#f4f4f4");
+						$(this).children("td").css("cursor", "pointer");
+					});
+					$(".noticeTable tr").on("mouseleave", function() {
+						$(this).css("background-color", "white");
+					});
 
-						});
-						});
-					
-					//일반회원 비밀번호 찾기
-					$('.mem_sea1').click(function(){
+					// 일반회원 id 찾기
+					$('.mem_sea').click(
+							function() {
 
-						var pwEmail3 = $('.pwEmail3').val($('.pwEmail1').val()+"@"+$('.pwEmail2').val());
+								var memEmail = $('.email3').val(
+										$('.email1').val() + "@"
+												+ $('.email2').val());
 
-						alert('5초뒤 메일이 보내집니다');
-						$.ajax({
-							url : "PwFind",
-							dataType : "json",
-							type : "post",
-							data : $('#pwfrm').serialize(),
-							
-							success : function(data) {
-								console.log(data);
-								if(data.sc1 !=null){
-									alert(data.sc1);
-								} else if(data.sc2 !=null){
-									alert(data.sc2);
-								} else{
-									alert(data.sc0);
-								}
-							},
-							error : function(request,status, error) {
-								alert("code:"+ request.status+ "\n"+ "error:"+ error);
-							}
+								alert('5초뒤 메일이 보내집니다');
+								$.ajax({
+									url : "IdFind",
+									dataType : "json",
+									type : "post",
+									data : $('#frm1').serialize(),
 
-						});
-						});
+									success : function(data) {
+										console.log(data);
+										if (data.sc1 != null) {
+											alert(data.sc1);
+										} else if (data.sc2 != null) {
+											alert(data.sc2);
+										} else {
+											alert(data.sc0);
+										}
+									},
+									error : function(request, status, error) {
+										alert("code:" + request.status + "\n"
+												+ "error:" + error);
+									}
 
-					//기업회원 아이디 찾기
-					$('.cor_sea').click(function(){
-						
-						var corEmail = $('.c_email3').val($('.c_email1').val()+"@"+$('.c_email2').val());
-						alert('5초뒤 메일이 보내집니다');
-						$.ajax({
-							url : "corIdFind",
-							dataType : "json",
-							type : "post",
-							data : $('#frm2').serialize(),
-							
-							success : function(data) {
-								console.log(data);
-								if(data.sc1 !=null){
-									alert(data.sc1);
-								} else if(data.sc2 !=null){
-									alert(data.sc2);
-								} else{
-									alert(data.sc0);
-								}
-							},
-							error : function(request,status, error) {
-								alert("code:"+ request.status+ "\n"+ "error:"+ error);
-							}
+								});
+							});
 
-						});
-						});
+					// 일반회원 비밀번호 찾기
+					$('.mem_sea1').click(
+							function() {
+
+								var pwEmail3 = $('.pwEmail3').val(
+										$('.pwEmail1').val() + "@"
+												+ $('.pwEmail2').val());
+
+								alert('5초뒤 메일이 보내집니다');
+								$.ajax({
+									url : "PwFind",
+									dataType : "json",
+									type : "post",
+									data : $('#pwfrm').serialize(),
+
+									success : function(data) {
+										console.log(data);
+										if (data.sc1 != null) {
+											alert(data.sc1);
+										} else if (data.sc2 != null) {
+											alert(data.sc2);
+										} else {
+											alert(data.sc0);
+										}
+									},
+									error : function(request, status, error) {
+										alert("code:" + request.status + "\n"
+												+ "error:" + error);
+									}
+
+								});
+							});
+
+					// 기업회원 아이디 찾기
+					$('.cor_sea').click(
+							function() {
+
+								var corEmail = $('.c_email3').val(
+										$('.c_email1').val() + "@"
+												+ $('.c_email2').val());
+								alert('5초뒤 메일이 보내집니다');
+								$.ajax({
+									url : "corIdFind",
+									dataType : "json",
+									type : "post",
+									data : $('#frm2').serialize(),
+
+									success : function(data) {
+										console.log(data);
+										if (data.sc1 != null) {
+											alert(data.sc1);
+										} else if (data.sc2 != null) {
+											alert(data.sc2);
+										} else {
+											alert(data.sc0);
+										}
+									},
+									error : function(request, status, error) {
+										alert("code:" + request.status + "\n"
+												+ "error:" + error);
+									}
+
+								});
+							});
+
+					// 마이페이지 이동
+					// $('.mypage').on("click",function(){
+					// $(location).attr('href','myPageCon?menu=MyPage');
+					// });
+					$('.budgetV').on("click", function() {
+						$('#budgeInput').val($(this).attr("id"));
+						$('#budgeFrm').submit();
+
+					});
+					$('.tbg').on("click", function() {
+						$('.tbg').css("display", "none");
+						$('.tbgB').css("display", "none");
+					});
+					$('#babt').on("click", function() {
+						$('.tbg').css("display", "inline");
+						$('.tbgB').css("display", "inline");
+					});
 					
-					
-					
-					//마이페이지 이동
-//					$('.mypage').on("click",function(){
-//						$(location).attr('href','myPageCon?menu=MyPage');
-//					});
-					
-					
-					
-});
+					$('#budgetaddBt').on("click",function(){
+						$('#budgetDDFrm').submit();
+					});
+
+				});
