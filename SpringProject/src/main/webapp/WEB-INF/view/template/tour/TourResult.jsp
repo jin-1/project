@@ -79,19 +79,115 @@
 			$("#frmNavi input[name='SearchArea2']").val($(this).val());
 		});
 	});
+	$(document).ready(function(){
+		var addr = $('.hiddenAddr').val();
+		console.log(addr);
+		var nanu = addr.split('/');
+		console.log(nanu[1]);
+		document.getElementById('va').val = nanu[1];
+		nanu[1]= document.getElementById('va').val;
+	});
+	
 </script>
 <style>
+#mid {
+	width:60%;
+	margin-left: 20%; 
+	height: auto;
+	postion:relative;
+}
 .searchName{
-	width: 420px;
+	width: 250px;
 	height: 35px;
 	background: #fff;
-	float: left; 
 	border: 1px solid #0E3A53;
 	letter-spacing: -1px;
-	border-radius: 5px 0px 0px 5px ;
+	border-radius: 5px 5px 5px 5px ;
 	text-align:center;
-	font-size: 15px;
-	position: relative;	
+	margin-top: 20px;
+	position: relative;
+	margin-right: 20px;
+}
+.sido{
+	width: 140px;
+	height: 35px;
+	border: 1px solid #0E3A53;
+	border-radius: 5px 5px 5px 5px ;
+	position: relative;
+	margin-top: 20px;
+	margin-right: 1px;
+}
+.sigungu{
+	width: 140px;
+	height: 35px;
+	border: 1px solid #0E3A53;
+	border-radius: 5px 5px 5px 5px ;
+	margin-top: 20px;
+	position: relative;
+}
+.food{
+	width: 160px;
+	text-align: left;
+	margin-left: 20px;
+	display: inline-block;
+	margin-right: 20px;
+}
+.house{
+	width: 160px;
+	text-align: left;
+	display: inline-block;
+	margin-right: 20px;
+}
+.spot{
+	width: 160px;
+	text-align: left;
+	display: inline-block;
+	margin-right: 20px;
+} 
+.searchButton{
+	height: 39px;
+	width: 63px;
+	cursor: pointer;
+	border: 1px solid #444;
+	border-radius: 5px 5px 5px 5px ;
+	background: #0E3A53; 	
+	color: white;
+	position:relative;
+}
+.allResult{
+	width: 600px;
+	height: 313px;
+	border: 1px solid #EAEAEA;
+	padding: 5px;
+	margin: 15px;
+	display: block;
+	clear: both;
+}
+.nameNimg{
+	background-color: #F0EEE9;
+	width: 270px;
+	padding: 20px;
+	float: left;
+}
+.ect{
+	padding-right: 20px;
+	padding-left: 20px;
+	diplay: inline-block;
+	height: 275px;
+	width: 250px;
+	float: right;
+}
+a[class]{
+	color: #003789;
+	text-decoration: underline;
+	text-weight: bold;
+}
+a:hover{
+	color: #B2B0B0;
+}
+.cate{
+	text-align: right;
+	font-weight: bold;
 }
 </style>
 <body>
@@ -104,54 +200,64 @@
 		<form:form modelAttribute="tourDTO" action="TourResult" method="get">
 
 			<center>
-				<p>
-					이름검색 <form:input path="localName" class="searchName" placeholder="이름 검색"/>
-				</p>
+
+				<form:input path="localName" class="searchName" placeholder="이름 검색"/>
 				
-				<p>
-					지역검색 
-					<select class="ml14" id="locationSelect" title="시/도 선택" name="SearchArea1">
-						<option value="">시/도</option>
-						<option value="서울">서울</option>
-						<option value="부산">부산</option>
-						<option value="대구">대구</option>
-						<option value="인천">인천</option>
-						<option value="광주">광주</option>
-						<option value="대전">대전</option>
-						<option value="울산">울산</option>
-						<option value="세종">세종</option>
-						<option value="경기도">경기도</option>
-						<option value="강원도">강원도</option>
-						<option value="충청남도">충청남도</option>
-						<option value="충청북도">충청북도</option>
-						<option value="전라남도">전라남도</option>
-						<option value="전라북도">전라북도</option>
-						<option value="경상남도">경상남도</option>
-						<option value="경상북도">경상북도</option>
-					</select>
-					<select title="시/군/구 선택" name="SearchArea2">
-						<option value="">시/군/구</option>
-					</select>
-				</p>
-				<p>
-					분류검색<br>
-					<input type="checkbox" name="category" value="0">한식
-					<input type="checkbox" name="category" value="1">중식
-					<input type="checkbox" name="category" value="2">일식
-					<input type="checkbox" name="category" value="3">분식
-					<br>
-					<input type="checkbox" name="category" value="4">호텔
-					<input type="checkbox" name="category" value="5">모텔
-					<input type="checkbox" name="category" value="6">찜질방
-					<input type="checkbox" name="category" value="7">게스트하우스
-					<br>
-					<input type="checkbox" name="category" value="8">자연
-					<input type="checkbox" name="category" value="9">레저
-					<input type="checkbox" name="category" value="10">역사
-					<input type="checkbox" name="category" value="11">박물관
-					<input type="submit" value="검색">
-				</p>
+				<select class="sido" id="locationSelect" title="시/도 선택" name="SearchArea1">
+					<option value="">시/도</option>
+					<option value="서울">서울</option>
+					<option value="부산">부산</option>
+					<option value="대구">대구</option>
+					<option value="인천">인천</option>
+					<option value="광주">광주</option>
+					<option value="대전">대전</option>
+					<option value="울산">울산</option>
+					<option value="세종">세종</option>
+					<option value="경기도">경기도</option>
+					<option value="강원도">강원도</option>
+					<option value="충청남도">충청남도</option>
+					<option value="충청북도">충청북도</option>
+					<option value="전라남도">전라남도</option>
+					<option value="전라북도">전라북도</option>
+					<option value="경상남도">경상남도</option>
+					<option value="경상북도">경상북도</option>
+				</select>
+				<select title="시/군/구 선택" class="sigungu" name="SearchArea2">
+					<option value="">시/군/구</option>
+				</select>
+				<p></p>
+				<div class="food">
+					<fieldset>
+						<legend>맛집</legend>
+						<input type="checkbox" name="category" value="0">한식<br>
+						<input type="checkbox" name="category" value="1">중식<br>
+						<input type="checkbox" name="category" value="2">일식<br>
+						<input type="checkbox" name="category" value="3">분식
+					</fieldset>
+				</div>
 				
+				<div class="house">
+					<fieldset>
+						<legend>숙박</legend>
+						<input type="checkbox" name="category" value="4">호텔<br>
+						<input type="checkbox" name="category" value="5">모텔<br>
+						<input type="checkbox" name="category" value="6">찜질방<br>
+						<input type="checkbox" name="category" value="7">게스트하우스
+					</fieldset>
+				</div>
+				
+				<div class="spot">
+					<fieldset>
+						<legend>관광지</legend>
+						<input type="checkbox" name="category" value="8">자연<br>
+						<input type="checkbox" name="category" value="9">레저<br>
+						<input type="checkbox" name="category" value="10">역사<br>
+						<input type="checkbox" name="category" value="11">박물관
+					</fieldset>
+				</div>
+				<input type="submit" value="검색" class="searchButton">
+				
+				<p></p>
 				<label class="addMyBusi">내 사업 등록하기</label>&nbsp;&nbsp;&nbsp;
 				<label class="viewMyBusi">내 사업 보기</label>&nbsp;&nbsp;&nbsp;
 				<label class="viewAll">요청된 사업 보기</label>
@@ -183,7 +289,31 @@
 					검색 결과가 없습니다.
 				</c:if>
 				
-				<table cellpadding=0 cellspacing=0 border=1>						
+				<c:if test="${ not empty result }">					
+					<c:forEach var="tour" items="${result}" varStatus="status">
+						<div class="allResult">
+							<div class="nameNimg">
+								<h2>
+									<a href="TourInfo?localCode=${tour.localCode}" name="localCode" class="aTag">
+										<label class="label">${tour.localName}</label>
+									</a>
+								</h2>
+								
+								<img alt="여행지 이미지" width=200 height=200 src="/SpringProject/img/tour/${tour.localImage}"><br>
+							</div>
+							<div class="ect">
+								<p class="cate">[${tour.localCategory}]</p><br>
+								☎ ${tour.localPhone}<br>
+								<input type="hidden" class="hiddenAddr" value="${tour.localAddr}">
+								<label id="va"></label><br>
+								<hr>
+								${tour.localContent}
+							</div>
+						</div>
+					</c:forEach>
+				</c:if>
+				
+				<%-- <table cellpadding=0 cellspacing=0 border=1>						
 					<c:if test="${ not empty result }">					
 						<c:forEach var="tour" items="${result}" varStatus="status">
 							<tr>
@@ -211,7 +341,7 @@
 							</tr>
 						</c:forEach>
 					</c:if>
-				</table>
+				</table> --%>
 			</center>
 
 		</form:form>

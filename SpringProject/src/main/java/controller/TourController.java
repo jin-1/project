@@ -180,13 +180,17 @@ public class TourController {
 		return "template/tour/ViewAll";
 	}
 	
-	@RequestMapping(value="/DeleteView", method= RequestMethod.GET)
-	////////////////////////delete할 것 
-	public String deleteView(TourDTO dto, Model model) {
-		List<TourDTO> result = tourDAO.viewAll(dto);
-		
-		model.addAttribute("result", result);
-		return "template/tour/ViewAll";
+
+	@ResponseBody
+	@RequestMapping(value = "/DeleteView", method = RequestMethod.POST)
+	public HashMap<String, String> searchStation(@RequestParam HashMap<String, Object> param) {
+		System.out.println(param);
+		int localCode = Integer.parseInt(String.valueOf(param.get("localCode")));
+		int result = tourDAO.deleteTour(localCode);
+		HashMap<String, String> delCode = new HashMap<String, String>();
+		delCode.put("1", "삭제되었습니다");
+
+		return delCode;
 	}
 	
 	@RequestMapping(value="/ViewOne", method= RequestMethod.GET)

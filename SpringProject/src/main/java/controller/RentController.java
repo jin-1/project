@@ -48,7 +48,7 @@ public class RentController {
 	}
 	@RequestMapping(value="/RentOrder", method = RequestMethod.GET)
 	public String rentOrder(HttpServletRequest req, HttpSession session, Model model, RentRegDTO rrDTO) {
-		System.out.println("order 컨트롤");
+		System.out.println("order 而⑦듃濡�");
 		String menu = "Order";
 		memberDto = (MemberDTO) session.getAttribute("login");
 		List<RentRegDTO> orderList = pDAO.getOrder(memberDto.getMemberId());
@@ -69,7 +69,7 @@ public class RentController {
 	
 	@RequestMapping(value="/AdminAddProduct", method = RequestMethod.GET)
 	public String adminAddProduct(HttpServletRequest req, Model model, ProductDTO pDTO) {
-		System.out.println("order 컨트롤1");
+		System.out.println("order 而⑦듃濡�1");
 		String menu = req.getParameter("menu");
 		
 		pDAO.insertProduct(pDTO);
@@ -132,7 +132,7 @@ public class RentController {
 		
 		String []items = {prdName, prdCode, prdPrice, prdQty};
 
-		cartBiz.addCart(req, items);		// session에 장바구니 저장
+		cartBiz.addCart(req, items);		// session�뿉 �옣諛붽뎄�땲 ���옣
 
 		ArrayList<CartDTO> cartList = cartBiz.getCart(req);
 		int totalMoney = 0;
@@ -235,12 +235,12 @@ public class RentController {
 			rrDTO.setMemberId(memberDto.getMemberId());
 			
 			if(cartList.get(i).getPrdCode().startsWith("A")) {
-				rrDTO.setVerifyReturn("일회용");
+				rrDTO.setVerifyReturn("�씪�쉶�슜");
 			} else {
 				returnStation = req.getParameter("endTrain");
 				rrDTO.setReturnDate(pickupDate);
 				rrDTO.setReturnStation(returnStation);
-				rrDTO.setVerifyReturn("미반납");
+				rrDTO.setVerifyReturn("誘몃컲�궔");
 			}
 			pDAO.placeOrder(rrDTO);
 		}	

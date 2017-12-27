@@ -87,6 +87,11 @@
 		</where>
 	</update>
 	
+	<delete id="deleteTour" parameterType="Integer">
+		delete from local where local_code = #{localCode}
+
+	</delete>
+	
 	<resultMap id="tourCommentResultMap" type="CommentDTO">
 		<id column="comment_num" jdbcType="BIGINT" property="commentNum"/>
 		<result column="member_id" jdbcType="VARCHAR" property="memberId"/>

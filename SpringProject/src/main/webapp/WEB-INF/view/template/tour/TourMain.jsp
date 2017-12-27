@@ -86,45 +86,62 @@
 	postion:relative;
 }
 .searchName{
-	width: 300px;
+	width: 250px;
 	height: 35px;
 	background: #fff;
-	float: left; 
 	border: 1px solid #0E3A53;
 	letter-spacing: -1px;
 	border-radius: 5px 5px 5px 5px ;
 	text-align:center;
-	font-size: 15px;
 	margin-top: 20px;
-	/* position: relative;	 */
-}
-.location{
-	clear: both;
-	/* float: left; */
+	position: relative;
+	margin-right: 20px;
 }
 .sido{
 	width: 140px;
 	height: 35px;
-	float: left;
 	border: 1px solid #0E3A53;
 	border-radius: 5px 5px 5px 5px ;
 	position: relative;
 	margin-top: 20px;
-	margin-right: 20px;
+	margin-right: 1px;
 }
 .sigungu{
 	width: 140px;
 	height: 35px;
-	float: left;
 	border: 1px solid #0E3A53;
 	border-radius: 5px 5px 5px 5px ;
 	margin-top: 20px;
 	position: relative;
 }
-.categories{
-	width: 150px;
+.food{
+	width: 160px;
 	text-align: left;
-	float: left;
+	margin-left: 20px;
+	display: inline-block;
+	margin-right: 20px;
+}
+.house{
+	width: 160px;
+	text-align: left;
+	display: inline-block;
+	margin-right: 20px;
+}
+.spot{
+	width: 160px;
+	text-align: left;
+	display: inline-block;
+	margin-right: 20px;
+} 
+.searchButton{
+	height: 39px;
+	width: 63px;
+	cursor: pointer;
+	border: 1px solid #444;
+	border-radius: 5px 5px 5px 5px ;
+	background: #0E3A53; 	
+	color: white;
+	position:relative;
 }
 
 </style>
@@ -132,73 +149,67 @@
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
 	</div>
+	
 	<div id="mid">
-
 		<form:form modelAttribute="tourDTO" action="TourResult" method="get">
 			<center>
-				<p>
-					<form:input path="localName" class="searchName" placeholder="이름 검색"/>
-				</p>
+
+				<form:input path="localName" class="searchName" placeholder="이름 검색"/>
 				
-				<div class="location">
-					<select class="sido" id="locationSelect" title="시/도 선택" name="SearchArea1">
-						<option value="">시/도</option>
-						<option value="서울">서울</option>
-						<option value="부산">부산</option>
-						<option value="대구">대구</option>
-						<option value="인천">인천</option>
-						<option value="광주">광주</option>
-						<option value="대전">대전</option>
-						<option value="울산">울산</option>
-						<option value="세종">세종</option>
-						<option value="경기도">경기도</option>
-						<option value="강원도">강원도</option>
-						<option value="충청남도">충청남도</option>
-						<option value="충청북도">충청북도</option>
-						<option value="전라남도">전라남도</option>
-						<option value="전라북도">전라북도</option>
-						<option value="경상남도">경상남도</option>
-						<option value="경상북도">경상북도</option>
-					</select>
-					<select title="시/군/구 선택" class="sigungu" name="SearchArea2">
-						<option value="">시/군/구</option>
-					</select>
+				<select class="sido" id="locationSelect" title="시/도 선택" name="SearchArea1">
+					<option value="">시/도</option>
+					<option value="서울">서울</option>
+					<option value="부산">부산</option>
+					<option value="대구">대구</option>
+					<option value="인천">인천</option>
+					<option value="광주">광주</option>
+					<option value="대전">대전</option>
+					<option value="울산">울산</option>
+					<option value="세종">세종</option>
+					<option value="경기도">경기도</option>
+					<option value="강원도">강원도</option>
+					<option value="충청남도">충청남도</option>
+					<option value="충청북도">충청북도</option>
+					<option value="전라남도">전라남도</option>
+					<option value="전라북도">전라북도</option>
+					<option value="경상남도">경상남도</option>
+					<option value="경상북도">경상북도</option>
+				</select>
+				<select title="시/군/구 선택" class="sigungu" name="SearchArea2">
+					<option value="">시/군/구</option>
+				</select>
+				<p></p>
+				<div class="food">
+					<fieldset>
+						<legend>맛집</legend>
+						<input type="checkbox" name="category" value="0">한식<br>
+						<input type="checkbox" name="category" value="1">중식<br>
+						<input type="checkbox" name="category" value="2">일식<br>
+						<input type="checkbox" name="category" value="3">분식
+					</fieldset>
 				</div>
 				
-				<div class="categories">
-					<div class="food">
-						<fieldset>
-							<legend>맛집</legend>
-							<input type="checkbox" name="category" value="0">한식<br>
-							<input type="checkbox" name="category" value="1">중식<br>
-							<input type="checkbox" name="category" value="2">일식<br>
-							<input type="checkbox" name="category" value="3">분식
-						</fieldset>
-						
-					</div>
-					
-					<div class="house">
-						<fieldset>
-							<legend>숙박</legend>
-							<input type="checkbox" name="category" value="4">호텔<br>
-							<input type="checkbox" name="category" value="5">모텔<br>
-							<input type="checkbox" name="category" value="6">찜질방<br>
-							<input type="checkbox" name="category" value="7">게스트하우스
-						</fieldset>
-					</div>
-					
-					<div class="spot">
-						<fieldset>
-							<legend>관광지</legend>
-							<input type="checkbox" name="category" value="8">자연<br>
-							<input type="checkbox" name="category" value="9">레저<br>
-							<input type="checkbox" name="category" value="10">역사<br>
-							<input type="checkbox" name="category" value="11">박물관
-						</fieldset>
-					</div>
+				<div class="house">
+					<fieldset>
+						<legend>숙박</legend>
+						<input type="checkbox" name="category" value="4">호텔<br>
+						<input type="checkbox" name="category" value="5">모텔<br>
+						<input type="checkbox" name="category" value="6">찜질방<br>
+						<input type="checkbox" name="category" value="7">게스트하우스
+					</fieldset>
 				</div>
 				
-				<input type="submit" value="검색">
+				<div class="spot">
+					<fieldset>
+						<legend>관광지</legend>
+						<input type="checkbox" name="category" value="8">자연<br>
+						<input type="checkbox" name="category" value="9">레저<br>
+						<input type="checkbox" name="category" value="10">역사<br>
+						<input type="checkbox" name="category" value="11">박물관
+					</fieldset>
+				</div>
+				
+				<input type="submit" value="검색" class="searchButton">
 			</center>
 		</form:form>
 	</div>

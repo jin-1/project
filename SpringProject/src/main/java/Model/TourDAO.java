@@ -101,9 +101,16 @@ public class TourDAO extends AbstractRepository{
 		return result;
 	}
 	
-	/*public TourDTO modifyMyTour(String corpId) {
+	public int deleteTour(int localCode) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
-		String statement = namespace + ".tourInfo";
-		return sqlSession.selectOne(statement, corpId);
-	}*/
+		String statement = namespace + ".deleteTour";
+		int result = 0;
+		result = sqlSession.delete(statement, localCode);
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+		return result;
+	}
 }

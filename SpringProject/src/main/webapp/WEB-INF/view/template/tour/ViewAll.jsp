@@ -6,6 +6,7 @@
 	request.setCharacterEncoding("utf-8"); 
 	String menu = "../top.jsp?menu=my TOUR";
 	String img = "url(img/tour.jpg)";
+	int num = 0;
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -18,21 +19,23 @@
 <script>
 	$(document).ready(function(){
 		$('.busiDelete').on('click', function(){
+			var index = $('.busiDelete').index(this);
+			console.log(index);
 			var a = confirm("정말 삭제하시겠습니까?");
 			if(a == true){
+				var code = $(this).attr("id");
 				$.ajax({
 					url:"DeleteView",
 					dataType:"json",
 					type:"post",
-					async:false,
-					data:localCode:"<%=request.getParameter("localCode")%>", //보내야할 값
+					data:{"localCode":code}, //보내야할 값
 					success:function(data){
-						$('.content tr').remove();
-						$.each(data, function(key, value){
-							$('.content').append('<tr><td rowspan=4><img alt="여행지 이미지" width=150 height=150 src="/SpringProject/img/tour/' + 
-									value.localImage + '"></td><td>' + value.corpId + '</td><td>[' + value.localCategory + '] ' + value.localName + '</td><td>'
-									+ value.registrationNum + '</td><td rowspan=4><c:if test></c:if>');//????????????????
-						});//아직 덜함.. 이게 최선일까 생각 중...
+						console.log(data);
+						$('.d'+index).remove();
+					},
+					error : function(request, status, error) {
+						console.log("code:" + request.status + "\n" + "error:"
+								+ error);
 					}
 				});
 				alert("삭제 되었습니다.");
@@ -57,7 +60,7 @@
 			<table cellpadding=0 cellspacing=0 border=1 class="content">						
 				<c:if test="${ not empty result }">					
 					<c:forEach var="view" items="${result}" varStatus="status">
-						<tr>
+						<tr class="d<%=num%>">
 							<td rowspan=4>
 								<img alt="여행지 이미지" width=150 height=150 src="/SpringProject/img/tour/${view.localImage}">
 							</td>
@@ -71,21 +74,23 @@
 							</td>
 							<td rowspan=4>
 								<a href="ViewOne?localCode=${view.localCode}">수정</a><br>
-								<a class="busiDelete">삭제</a>
+								<input type="hidden" class="hiddenCode" value="${view.localCode}">
+								<a id="${view.localCode}" class="busiDelete">삭제</a>
 							</td>
 						</tr>
 						
-						<tr>
+						<tr class="d<%=num%>">
 							<td colspan=3>${view.localPhone}</td>	
 						</tr>
 						
-						<tr>
+						<tr class="d<%=num%>">
 							<td colspan=3>${view.localAddr}</td>
 						</tr>
 						
-						<tr>
+						<tr class="d<%=num%>">
 							<td colspan=3>${view.localContent}</td>
 						</tr>
+						<%num++; %>
 					</c:forEach>
 				</c:if>
 			</table>
