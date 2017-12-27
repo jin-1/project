@@ -15,8 +15,6 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 	<bean id="memberDto" class="Model.MemberDTO" />
 	<bean id="TrainDAO" class="Model.TrainDAO" />
 	<bean id="TrainDTO" class="Model.TrainStatinDTO" />
-<<<<<<< HEAD
-=======
 
 	<bean id="CartDTO" class="Model.CartDTO" />
 	<bean id="ProductDTO" class="Model.ProductDTO" />
@@ -24,7 +22,6 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 	<bean id="ProductDAO" class="Model.ProductDAO" />
 	<bean id="EventDTO" class="Model.EventDTO"/>
 
->>>>>>> branch 'hj' of https://github.com/jin-1/project
 	<bean id="TourDTO" class="Model.TourDTO" />
 	<bean id="TourDAO" class="Model.TourDAO" />
 	<bean id="CommentDTO" class="Model.CommentDTO" />

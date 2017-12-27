@@ -5,15 +5,12 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="Model.MemberDTO" alias="MemberDTO" />
-<<<<<<< HEAD
-=======
 
 		<typeAlias type="Model.ProductDTO" alias="pDTO" />
 		<typeAlias type="Model.CartDTO" alias="cDTO" />
 		<typeAlias type="Model.RentRegDTO" alias="rrDTO" />
 		<typeAlias type="Model.EventDTO" alias="eventDTO" />
 
->>>>>>> branch 'hj' of https://github.com/jin-1/project
 		<typeAlias type="Model.TourDTO" alias="TourDTO"/>
 		<typeAlias type="Model.CommentDTO" alias="CommentDTO"/>
 	</typeAliases>
