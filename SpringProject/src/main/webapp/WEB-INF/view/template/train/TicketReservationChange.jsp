@@ -13,8 +13,8 @@
 	SimpleDateFormat n = new SimpleDateFormat("yyyy년 MM월 dd일 (E)");
 	MemberDTO memberdto = (MemberDTO) session.getAttribute("login");
 	Map<Integer, List<Integer>> seatmap = new HashMap<Integer, List<Integer>>();
-	List<TrainRegistrationDTO> seat = (List<TrainRegistrationDTO>) request.getAttribute("seat");
-	
+	List<TrainRegistrationDTO> list = (List<TrainRegistrationDTO>) request.getAttribute("list");
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -27,13 +27,13 @@
 
 </head>
 <body>
+	
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
 	</div>
 	<div id="mid">
 		<p class="location">
-			<a href="#">Home</a>><a href="#">Mypage</a>><a href="#">TrainTicketing
-				History</a>
+			<a href="#">Home</a>><a href="#">Mypage</a>><a href="#">TicketReservationChange</a>
 		</p>
 		<div id="trainName">
 			<span>발권/취소/내역</span>
@@ -41,134 +41,68 @@
 		</div>
 		<div id="trainHistory">
 			<ul>
-				<li>발권/취소(반환)</li>
-				<li
-					style="background-color: #0180a3; color: white; cursor: pointer;">예약변경</li>
-				<li style="cursor: pointer;">이용내역</li>
+				<a href="trainTicketHistory?menu=TRAIN&img=trainbg"><li style="cursor: pointer;">발권/취소(반환)</li></a>
+				<a href="TicketReservationChange?menu=TRAIN&img=trainbg"><li style="background-color: #0180a3; color: white; cursor: pointer;">예약변경</li></a>
+				<a href="TrainUsagehistory?menu=TRAIN&img=trainbg"><li style="cursor: pointer;">이용내역</li></a>
 			</ul>
 		</div>
 		<div id="trainHistroyCon">
-			<div id="trainNumber">
-				<div id="trainNumberView">
-					<div id="screen">
-						<ul>
-							<li class="screenOff" id="screenFirst">1호차</li>
-							<li class="screenOff">2호차</li>
-							<li class="screenOff">3호차</li>
-							<li class="screenOff">4호차</li>
-							<li class="screenOff">5호차</li>
-							<li class="screenOff">6호차</li>
-							<li class="screenOff">7호차</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+			<table>
+				<tr>
+					<td colspan="6" style="border-right: black 1px solid;">승차권
+						예약현황</td>
+					<td colspan="3">승차권 구매현황</td>
+				</tr>
+				<tr>
+					<td>승차일</td>
+					<td>열차번호</td>
+					<td>출발역</td>
+					<td>도착역</td>
+					<td>금액</td>
+					<td style="border-right: black 1px solid;">인원</td>
+					<td>좌석변경</td>
 
-			<div id="trainSeat">
-				<div id="seatInfo">
-					<p style="background-color: #7d424c;"></p>
-					<span>선택</span>
-					<p style="background-color: #406f5f;"></p>
-					<span>선택가능</span>
-					<p style="background-color: #8795a7;"></p>
-					<span>선택불가능</span>
-				</div>
+				</tr>
+
 				<%
-					for (TrainRegistrationDTO s : seat) {
+					if (list.size() != 0) {
+						for (int i = 0; i < list.size(); i++) {
 
-						List<Integer> seatList = new ArrayList<Integer>();
-						String[] seatS = s.getSeatNum().split("_");
-						int temp1 = 0;
-						int temp2 = 1;
-
-						for (int i = 0; i < seatS.length / 2; i++) {
-
-							if (seatmap.containsKey(Integer.parseInt(seatS[temp1]))) {
-
-								seatmap.get(Integer.parseInt(seatS[temp1])).add(Integer.parseInt(seatS[temp2]));
-
-							} else {
-								seatList.add(Integer.parseInt(seatS[temp2]));
-								seatmap.put(Integer.parseInt(seatS[temp1]), seatList);
-								System.out.println(seatmap);
-							}
-							temp1 += 2;
-							temp2 += 2;
-						}
-
-					}
-
-					for (int x = 0; x < 7; x++) {
+							Date od = o.parse(list.get(i).getTrainDate());
+							String new_date = n.format(od);
 				%>
-				<div id="seatTable<%=x%>" class="seatTable">
-					<table>
-						<%
-							int num = 1;
-								int num1 = 2;
-								for (int i = 0; i < 2; i++) {
-						%>
-						<tr>
-							<%
-								for (int z = 0; z < 12; z++) {
+				<tr>
+					<td style="font-size: 12px;"><%=new_date%></td>
+					<td><%=list.get(i).getTrainCode()%></td>
+					<td id="d<%=i%>"><%=list.get(i).getDepartingStation()%></td>
+					<td id="a<%=i%>"><%=list.get(i).getArrivalStation()%></td>
+					<td><%=list.get(i).getTrainPurchaseDTO().getInvoice()%></td>
+					<td style="border-right: black 1px solid; font-size: 12px;"><%=list.get(i).getTrainPassengers()%>
+					</td>
+					
+					<td>
+					<form>
+					<button  type="button" class="ticketingChangeBt"
+							name="<%=list.get(i).getTrainRegCode()%>"
+							style="border: white 1px solid; background-color: #0180a3; color: white; cursor: pointer;">변경</button>
+				
+					</form>
+					</td>
+				
+				</tr>
 
-											if (i == 0) {
-							%>
-							<td><sapn class="SSeat" id="SSeat<%=x%>_<%=num%>"><%=num%></sapn></td>
-							<%
-								num += 2;
-											} else {
-							%>
-							<td><sapn class="SSeat" id="SSeat<%=x%>_<%=num1%>"><%=num1%></sapn></td>
-							<%
-								num1 += 2;
-											}
+				<%
+					}
+					} else {
+				%>
+				<tr>
+					<td colspan="9">조회된 값이 없습니다.</td>
+				</tr>
 
-										}
-							%>
-						
-						<tr>
-							<%
-								}
-							%>
-						
-					</table>
-					<table>
-						<%
-							for (int i = 0; i < 2; i++) {
-						%>
-						<tr>
-							<%
-								for (int z = 0; z < 12; z++) {
-
-											if (i == 0) {
-							%>
-							<td><sapn class="SSeat" id="SSeat<%=x%>_<%=num%>"><%=num%></sapn></td>
-							<%
-								num += 2;
-											} else {
-							%>
-							<td><sapn class="SSeat" id="SSeat<%=x%>_<%=num1%>"><%=num1%></sapn></td>
-							<%
-								num1 += 2;
-											}
-
-										}
-							%>
-						
-						<tr>
-							<%
-								}
-							%>
-						
-					</table>
-				</div>
 				<%
 					}
 				%>
-
-			</div>
-			
-
+			</table>
 		</div>
 	</div>
 	<!-- /mid -->

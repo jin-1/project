@@ -106,7 +106,7 @@ public class TrainController {
 		String menu = req.getParameter("menu");
 		String img = req.getParameter("img");
 		String seat[] = req.getParameterValues("seat");
-		System.out.println(seat[1]);
+		System.out.println(seat[1]+" 가격");
 		String[] s = (String[])session.getAttribute("trainTicket");
 		s[11] = seat[1];
 		session.setAttribute("trainTicket", s);
@@ -134,10 +134,11 @@ public class TrainController {
 		String img = req.getParameter("img");
 		HttpSession session = req.getSession();
 		List<TrainRegistrationDTO> pList = traindao.selectTrainPuchase(session);
+		
 		model.addAttribute("list", pList);
 		model.addAttribute("menu", menu);
 		model.addAttribute("img", img);
-		return "template/train/TicketingHistory";
+		return "template/train/TicketReservationChange";
 	}
 	@RequestMapping(value = "/trainTicketHistory", method = RequestMethod.GET)
 	public String trainHistoryGet(HttpServletRequest req, Model model) {
@@ -151,23 +152,81 @@ public class TrainController {
 		return "template/train/TicketingHistory";
 	}
 	
+	@RequestMapping(value = "/TrainUsagehistory", method = RequestMethod.GET)
+	public String TrainUsagehistoryGet(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		String img = req.getParameter("img");
+		HttpSession session = req.getSession();
+		model.addAttribute("menu", menu);
+		model.addAttribute("img", img);
+		return "template/train/TrainUsagehistory";
+	}
+	
+	@RequestMapping(value = "/TicketReservationChangeView", method = RequestMethod.GET)
+	public String TicketReservationChangeViewyGet(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		String img = req.getParameter("img");
+		HttpSession session = req.getSession();
+		HashMap<String, Object> h = (HashMap<String, Object>) session.getAttribute("ticket");
+		TrainRegistrationDTO d = (TrainRegistrationDTO) h.get("train1");
+		List<TrainRegistrationDTO> list = trainService.getTrainInfo1(d);
+		model.addAttribute("dto", d);
+		model.addAttribute("seat", list);
+		model.addAttribute("menu", menu);
+		model.addAttribute("img", img);
+		session.removeAttribute("ticket");
+		
+		return "template/train/TicketReservationChangeView";
+	}
+	
 	@RequestMapping(value = "/trainRefundC", method = RequestMethod.POST)
 	public String trainRefundC(HttpServletRequest req, Model model) {
 			
 			String trCode = req.getParameter("TicketCodevalue");
 			System.out.println(trCode);
-			traindao.deletePurchase(trCode);
+			traindao.updetePurchase(trCode);
 			return "redirect:trainTicketHistory?menu=TRAIN&img=trainbg";
-	}
+	}	
+	@RequestMapping(value = "/trainSeatChange", method = RequestMethod.POST)
+	public String trainSeatChange(HttpServletRequest req, Model model) {
+		
+		String val[] = req.getParameterValues("val");
+		
+		traindao.updateSeat(val);
+		return "redirect:TicketReservationChange?menu=TRAIN&img=trainbg";
+}
 
 	@ResponseBody
 	@RequestMapping(value = "/selectTicketing", method = RequestMethod.POST)
-	public HashMap<String, TrainRegistrationDTO> selectTicketing(@RequestParam HashMap<String, Object> param) {
+	public HashMap<String, TrainRegistrationDTO> selectTicketing(HttpSession session, @RequestParam HashMap<String, Object> param) {
 
 	
 		
 		HashMap<String, TrainRegistrationDTO> ticketingD = new HashMap<String, TrainRegistrationDTO>();
 		ticketingD = trainService.getTicketingD(param);
+
+		return ticketingD;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/selectTicketing1", method = RequestMethod.POST)
+	public HashMap<String, TrainRegistrationDTO> selectTicketing1(HttpSession session, @RequestParam HashMap<String, Object> param) {
+
+	
+		
+		HashMap<String, TrainRegistrationDTO> ticketingD = new HashMap<String, TrainRegistrationDTO>();
+		ticketingD = trainService.getTicketingD(param);
+		session.setAttribute("ticket", ticketingD);
+		return ticketingD;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/useSearch", method = RequestMethod.POST)
+	public HashMap<String, TrainRegistrationDTO> useSearch(HttpSession session, @RequestParam HashMap<String, Object> param) {
+
+	
+		
+		HashMap<String, TrainRegistrationDTO> ticketingD = new HashMap<String, TrainRegistrationDTO>();
+		ticketingD = trainService.getTicketingDD(session, param);
 
 		return ticketingD;
 	}

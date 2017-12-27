@@ -27,8 +27,29 @@
 				<span>예산</span>
 				<hr>
 			</div>
-			<div id="travelName">
-				
+			<div>
+				<div id="travelName">
+					<form:form modelAttribute="account">
+					<table>
+						<tr>
+							<td>여행 이름</td><td><input type="text" name="travelName"></td>
+						</tr>
+						<tr>
+							<td>여행 지역</td><td><input type="text" name="travelAre"></td>
+						</tr>
+						<tr>
+							<td>금액</td><td><input type="number" name="expense"></td>
+						</tr>
+						<tr>
+							<td>시작 날짜</td><td><input type="date" name="travelStartDate"></td>
+						</tr>
+						<tr>
+							<td>종료 날짜</td><td><input type="date" name="travelEndDate"></td>
+						</tr>
+					</table>
+					<button style="background: #375ea1;">등록</button><button style="background: #f35c5c;">취소</button>
+					</form:form>
+				</div>
 			</div>
 		</div>
 	</div>

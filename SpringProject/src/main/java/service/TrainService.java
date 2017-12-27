@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Model.CustomerTicketDTO;
+import Model.MemberDTO;
 import Model.TrainDAO;
 import Model.TrainDTO;
 import Model.TrainPurchaseDTO;
@@ -130,6 +131,17 @@ public class TrainService {
 		return trainDto;
 	}
 
+	public List<TrainRegistrationDTO> getTrainInfo1(TrainRegistrationDTO dto) {
+		Map<String, Object> info = new HashMap<String, Object>();
+		String time[] =dto.getTrainStationTimeDTO().getTime().split(","); 
+		info.put("trainCode", dto.getTrainCode());
+		info.put("dateTrain", dto.getTrainPurchaseDTO().getTrainPubDate());
+		info.put("sTime",time[0]);
+		info.put("eTime",time[1]);
+		List<TrainRegistrationDTO> trainDto = traindao.trainInfo(info);
+
+		return trainDto;
+	}
 	public void setPurchase(HttpSession session, TrainRegistrationDTO trdto) {
 		String d[] = (String[]) session.getAttribute("trainTicket");
 
@@ -150,6 +162,20 @@ public class TrainService {
 		station.add(String.valueOf(temp.get("ArrivalStation")));
 		temp.put("station", station);
 		List<TrainRegistrationDTO>  ticket = traindao.getTrainTicket(temp);
+		this.ticket = new HashMap<String, TrainRegistrationDTO>();
+		for (TrainRegistrationDTO st : ticket) {
+			this.ticket.put("train" + (++i), st);
+		}
+
+		return this.ticket;
+	}
+	
+	public HashMap<String, TrainRegistrationDTO> getTicketingDD(HttpSession session, HashMap<String, Object> temp) {
+
+		int i = 0;
+		MemberDTO memberdto = (MemberDTO)session.getAttribute("login");
+		temp.put("memberId", memberdto.getMemberId());
+		List<TrainRegistrationDTO>  ticket = traindao.getUseTicket(temp);
 		this.ticket = new HashMap<String, TrainRegistrationDTO>();
 		for (TrainRegistrationDTO st : ticket) {
 			this.ticket.put("train" + (++i), st);

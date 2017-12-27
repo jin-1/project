@@ -137,12 +137,48 @@ public class TrainDAO extends AbstractRepository {
 		}
 
 	}
-	public void deletePurchase(String code) {
+	
+	public List<TrainRegistrationDTO> getUseTicket(HashMap<String, Object> temp) {
+		
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
-		String statement = namespace + ".deletePurchase";
+		String statement = namespace + ".selectUseHistory";
+		List<TrainRegistrationDTO> ticket;
 		try {
-			System.out.println("dao"+code);
-			int result = sqlSession.delete(statement, code);
+
+			ticket = sqlSession.selectList(statement, temp);
+			return ticket;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	public void updetePurchase(String code) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".updetePurchase";
+		try {
+			
+			int result = sqlSession.update(statement, code);
+			if(result>0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+	}
+	public void updateSeat(String[] seat) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".updateSeat";
+		
+		Map<String,String> seatMap = new HashMap<String,String>();
+		try {
+			seatMap.put("seat", seat[0]);
+			seatMap.put("code", seat[1]);
+			int result = sqlSession.update(statement, seatMap);
 			if(result>0) {
 				sqlSession.commit();
 			} else {

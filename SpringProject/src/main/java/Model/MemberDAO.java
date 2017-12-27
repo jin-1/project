@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -164,5 +166,40 @@ public class MemberDAO extends AbstractRepository {
 		}
 	
 		return result;	
+	}
+	public List<AccountDTO> selectAccount(HttpSession session){
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectAccount";
+		MemberDTO member= (MemberDTO) session.getAttribute("login");
+		List<AccountDTO> d = new ArrayList<AccountDTO>();
+		String memberId = member.getMemberId();
+		try {
+			d = sqlSession.selectList(statement, memberId);
+			return d;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public void insertAccount(HttpSession session,AccountDTO actdto) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".insertAccount";
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
+		actdto.setMemberId(memberDTO.getMemberId());	
+		actdto.setGrossProfit(actdto.getExpense());
+		int result = 0;
+		try {
+			result = sqlSession.insert(statement, actdto);
+			if(result>0) {
+				sqlSession.commit();
+			}else {
+				sqlSession.rollback();
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
 	}
 }

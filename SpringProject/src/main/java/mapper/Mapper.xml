@@ -80,6 +80,11 @@
 	CORPORATION
 	where corp_id=#{corporId}
 	</select>
+	
+	<insert id="insertAccount" parameterType="Model.AccountDTO">
+		insert into ACCOUNT_BOOK(BUDGET_CODE,MEMBER_ID,TRAVEL_NAME,TRAVEL_START_DATE,TRAVEL_END_DATE,TRAVEL_ARE,EXPENSE,GROSS_PROFIT)
+		values('B'||account_s.NEXTVAL,#{memberId},#{travelName},#{travelStartDate},#{travelEndDate},#{travelAre},#{expense},#{grossProfit}) 
+	</insert>
 </mapper>
 
 

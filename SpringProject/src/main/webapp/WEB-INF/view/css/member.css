@@ -1,17 +1,71 @@
-.budgetAdd{
+.budgetAdd {
 	width: 300px;
-    height: 250px;
-    background-color: #cacaca;
-    text-align: center;
-    display: table-cell;
-    vertical-align: middle;
-    font-size: 110px;
-    border-radius: 13px;
-    color: #504b4b;
-    cursor: pointer;
+	height: 250px;
+	background-color: #cacaca;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 110px;
+	border-radius: 13px;
+	color: #504b4b;
+	cursor: pointer;
 }
 
-.budgetView{
+.budgetView {
 	width: 100%;
+}
+
+#travelName {
+	width: 1000px;
+	height: 400px;
+	border: #b3afaf 1px solid;
+	background-color: whitesmoke;
+	border-radius: 15px;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	position: relative;
+	top: 50px;
+	left: 10%;
+}
+
+#travelName table {
+	width: 50%;
+	margin: auto;
+	font-size: 18px;
+	text-align: center;
+}
+
+#travelName td {
+	
+}
+
+#travelName tr {
+	height: 50px;
+}
+
+#travelName button {
+    width: 100px;
+    height: 35px;
+    padding-top: 3px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 30px;
+    border: none;
+    margin-right: 15px;
+    color: white;
+    display: inline-block;
+}
+
+#travelName input {
+	height: 25px;
+	border-radius: 6px;
+	padding-left: 5px;
+	border: #cccccc 1px solid;
+	box-shadow: #c1c1c1 1px 2px;
+}
+#travelName input[type=date] {
+    width: 170px;
+    height: 25px;
 	
 }

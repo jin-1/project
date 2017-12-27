@@ -171,7 +171,11 @@
 #trainInfoMenuTable th {
 	background: #f8f8f8;
 }
-
+#useTr td{
+		text-align: center;
+    height: 40px;
+    border-bottom: black 1px solid;
+}
 #trainInfoMenuTableR {
 	width: 100%;
 	width: 100%;
@@ -578,17 +582,32 @@ hr.style3 {
 	box-shadow: #00000085 1px 6px 10px;
 }
 
+.tbgChange {
+	width: 80%;
+	padding: 20px;
+	height: 700px;
+	position: absolute;
+	background: white;
+	z-index: 11;
+	text-align: center;
+	right: 10%;
+	top: 10%;
+	display: none;
+	border-radius: 15px;
+	box-shadow: #00000085 1px 6px 10px;
+}
+
 .tbgC {
-    width: 40%;
-    height: 200px;
-    position: fixed;
-    background: white;
-    z-index: 11;
-    top: 30%;
-    left: 30%;
-    display: none;
-    border-radius: 15px;
-    text-align: center;
+	width: 40%;
+	height: 200px;
+	position: fixed;
+	background: white;
+	z-index: 11;
+	top: 30%;
+	left: 30%;
+	display: none;
+	border-radius: 15px;
+	text-align: center;
 }
 
 .tbgB {
@@ -967,6 +986,21 @@ hr.style3 {
 	cursor: pointer;
 }
 
+#seatChangeBt {
+	background-color: #0180a3;
+	width: 17%;
+	text-align: center;
+	right: 15px;
+	position: absolute;
+	height: 52px;
+	bottom: 13px;
+	border-radius: 15px;
+	padding-top: 5px;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+}
+
 #seatTable0 {
 	display: inline;
 }
@@ -1329,31 +1363,87 @@ hr.style3 {
 }
 
 #ticketSeat li {
-	    border: #a19e9e 1px solid;
-    width: 100px;
+	border: #a19e9e 1px solid;
+	width: 100px;
+	text-align: center;
+	height: 20px;
+	padding-top: 5px;
+}
+
+#trainRefund {
+	display: inline-block;
+	width: 50px;
+	height: 25px;
+	padding-top: 5px;
+	border-radius: 5px;
+	color: white;
+	margin-right: 15px;
+	background-color: #0180a3;
+	cursor: pointer;
+}
+
+#trainRefundC {
+	display: inline-block;
+	width: 50px;
+	height: 25px;
+	padding-top: 5px;
+	border-radius: 5px;
+	color: white;
+	margin-right: 15px;
+	background-color: #e95454;
+	cursor: pointer;
+}
+
+#trainChangeCon {
+	width: 80%;
+	margin: auto;
+}
+
+#trainHistory a {
+	color: black
+}
+
+#trainHistory a:active {
+	color: black
+}
+
+#trainHistory a:visited {
+	color: black
+}
+
+#trainHistory a:hover {
+	color: black
+}
+
+#TrainUsagehistoryCon {
+	width: 90%;
+	margin: auto;
+}
+#TrainUsagehistoryCon table{
+	width: 100%;
+    border-top: black 2px solid;
+    border-spacing: 0;
+}
+#TrainUsagehistoryCon table{
+	width: 100%;
+    border-top: black 2px solid;
+    border-spacing: 0;
+    
+}
+#TrainUsagehistoryCon th{
     text-align: center;
-    height: 20px;
-    padding-top: 5px;
+    height: 50px;
+    border-bottom: #8c8989 1px solid;
 }
-#trainRefund{
-	display: inline-block;
-    width: 50px;
-    height: 25px;
-    padding-top: 5px;
-    border-radius: 5px;
-    color: white;
-    margin-right: 15px;
+#usSerch{
+	    width: 80px;
+    height: 29px;
     background-color: #0180a3;
-    cursor: pointer;
-}
-#trainRefundC{
-	display: inline-block;
-    width: 50px;
-    height: 25px;
-    padding-top: 5px;
-    border-radius: 5px;
+    border-radius: 9px;
+    margin: auto;
+    margin-top: 24px;
     color: white;
-    margin-right: 15px;
-    background-color: #e95454;
+    text-align: center;
+    padding-top: 10px;
     cursor: pointer;
 }
