@@ -24,6 +24,10 @@
 			<bean class="interceptor.TrainInterCeptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
+			<mvc:mapping path="/trainTicketHistory" />
+			<bean class="interceptor.TrainInterCeptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
 			<mvc:mapping path="/main" />
 			<bean class="interceptor.MainInterCeptor" />
 		</mvc:interceptor>

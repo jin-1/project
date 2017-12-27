@@ -89,9 +89,9 @@
 		</div>
 		<div id="trainHistory">
 			<ul>
-				<li style="background-color: #0180a3; color: white; cursor: pointer;">발권/취소(반환)</li>
-				<li style="cursor: pointer;">예약변경</li>
-				<li style="cursor: pointer;">이용내역</li>
+				<a href="trainTicketHistory?menu=TRAIN&img=trainbg"><li style="background-color: #0180a3; color: white; cursor: pointer;">발권/취소(반환)</li></a>
+				<a href="TicketReservationChange?menu=TRAIN&img=trainbg"><li style="cursor: pointer;">예약변경</li></a>
+				<a href="TrainUsagehistory?menu=TRAIN&img=trainbg"><li style="cursor: pointer;">이용내역</li></a>
 			</ul>
 		</div>
 		<div id="trainHistroyCon">

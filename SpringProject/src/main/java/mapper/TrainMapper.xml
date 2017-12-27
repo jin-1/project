@@ -118,7 +118,7 @@
 		on st.STATION_CODE = ts.STATION_CODE 
 		where tr.TRAIN_CODE = #{trainCode}
 		AND tr.TRAIN_DATE =
-		TO_DATE(#{dateTrain}, 'yyyy-MM-dd')
+		TO_DATE(#{dateTrain}, 'yyyy-MM-dd') and TRAIN_REFUND = 0
 		and <![CDATA[ TO_DATE(#{sTime},'hh24:mi')<=TO_DATE(st.TIME,'hh24:mi') AND TO_DATE(#{eTime},'hh24:mi')>=TO_DATE(st.TIME,'hh24:mi') ]]>
 		group by tr.TRAIN_CODE, tr.SEAT_NUM
 	</select>
@@ -145,12 +145,11 @@
 		resultMap="infoListMap">
 		select * from train_purchase tp join
 		TRAIN_REGISTRATION tr on
-		tp.TRAIN_REG_CODE = tr.TRAIN_REG_CODE where
-		tr.MEMBER_ID= #{memberId}
+		tp.TRAIN_REG_CODE = tr.TRAIN_REG_CODE where tr.MEMBER_ID= #{memberId} and tp.TRAIN_REFUND = 0
 	</select>
 	<select id="selectTicketD" resultMap="infoListMap"
 		parameterType="java.util.Map">
-		select tp.TRAIN_PUB_DATE, tr.DEPARTING_STATION,
+		select tp.TRAIN_REG_CODE,tp.TRAIN_PUB_DATE, tr.DEPARTING_STATION,
 		tr.ARRIVAL_STATION,substr(xmlagg(xmlelement(a,',' ||st.time)order by st.time ).extract('//text()'),2) time,
 		tr.TRAIN_NAME,tr.TRAIN_CODE,tr.SEAT_NUM,tr.TRAIN_PASSENGERS,tp.INVOICE from
 		TRAIN_REGISTRATION tr join TRAIN_PURCHASE tp on tr.TRAIN_CODE =
@@ -162,11 +161,21 @@
 					#{item}
 		</foreach>
 		 group by
-		tp.TRAIN_PUB_DATE, tr.DEPARTING_STATION, tr.ARRIVAL_STATION,
+		tp.TRAIN_REG_CODE,tp.TRAIN_PUB_DATE, tr.DEPARTING_STATION, tr.ARRIVAL_STATION,
 		tr.TRAIN_NAME, tr.TRAIN_CODE,
 		tr.SEAT_NUM, tr.TRAIN_PASSENGERS, tp.INVOICE
 	</select>
-	<delete id="deletePurchase" parameterType="String">
-		DELETE  from TRAIN_PURCHASE where TRAIN_REG_CODE = #{code}
-	</delete>
+	
+	<select id="selectUseHistory" resultMap="infoListMap" parameterType="java.util.Map">
+		select TO_DATE(tp.TRAIN_PUB_DATE,'yyyy-MM-dd') as TRAIN_PUB_DATE,tp.TRAIN_CODE,tr.DEPARTING_STATION,tr.ARRIVAL_STATION,tp.INVOICE,tp.TRAIN_REFUND from TRAIN_REGISTRATION tr  join TRAIN_PURCHASE tp on tr.TRAIN_REG_CODE = tp.TRAIN_REG_CODE 
+        where<![CDATA[ TO_DATE(tp.TRAIN_PUB_DATE,'yyyy-MM-dd') >= TO_DATE(#{date1},'yyyy-MM-dd') 
+        and TO_DATE(tp.TRAIN_PUB_DATE,'yyyy-MM-dd') <= TO_DATE(#{date2},'yyyy-MM-dd') ]]> and tp.member_id = #{memberId}
+	</select>
+	<update id="updetePurchase" parameterType="String">
+		update TRAIN_PURCHASE set TRAIN_REFUND = 1 where TRAIN_REG_CODE = #{code}
+	</update>
+	
+	<update id="updateSeat" parameterType="java.util.Map">
+		update TRAIN_REGISTRATION set SEAT_NUM = #{seat} where TRAIN_REG_CODE = #{code}
+	</update>
 </mapper>

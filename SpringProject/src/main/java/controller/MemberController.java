@@ -1,7 +1,9 @@
 
 package controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import Model.AccountDTO;
 import Model.CorporDTO;
 import Model.EmailDTO;
 import Model.MemberDAO;
@@ -301,8 +304,10 @@ public class MemberController {
 	@RequestMapping(value = "/MyBudget", method = RequestMethod.GET)
 	public String MyBudget(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
+		HttpSession session = req.getSession();
+		
 		model.addAttribute("menu", menu);
-
+		List<AccountDTO> list = memberDao.selectAccount(session);
 		return "template/member/MyBudget";
 	}
 	@RequestMapping(value = "/travelAdd", method = RequestMethod.GET)
@@ -310,6 +315,14 @@ public class MemberController {
 		String menu = req.getParameter("menu");
 		model.addAttribute("menu", menu);
 
+		return "template/member/MyBudgetAdd";
+	}
+	@RequestMapping(value = "/travelAdd", method = RequestMethod.POST)
+	public String travelAddPost(HttpServletRequest req, Model model, @ModelAttribute("account") AccountDTO actdto) {
+		String menu = req.getParameter("menu");
+		HttpSession session = req.getSession();
+		model.addAttribute("menu", menu);
+		memberDao.insertAccount(session,actdto);
 		return "template/member/MyBudgetAdd";
 	}
 }
