@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-=======
 /Model/
-/mapper/
 /controller/
->>>>>>> refs/heads/master
+/mapper/
 /service/
-/controller/
-/Model/
-/mapper/
