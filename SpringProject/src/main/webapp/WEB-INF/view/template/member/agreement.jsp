@@ -10,111 +10,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
 <link href="./css/styles.css" rel="stylesheet" type="text/css">
-<link href="./css/train.css" rel="stylesheet" type="text/css">
+
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
 
 <script type="text/javascript" src="./scripts/memberscript.js" charset="utf-8"></script>
-<style type="text/css">
-.confirm {
-	width: 750px;
-	position: relative;
-	left: 25%;
-}
+<link href="./css/member.css" rel="stylesheet" type="text/css">
 
-.ig_chk {
-	margin-top: 50px;
-}
-
-.checklabel1 {
-	margin-top: 10px;
-}
-
-.checklabel2 {
-	margin-top: 10px;
-}
-
-.texta1 {
-	margin-top: 20px;
-}
-
-.texta1 textarea {
-	border: 1px solid #dddddd;
-	opacity: 0.8;
-}
-
-.texta2 {
-	margin-top: 50px;
-}
-
-.texta2 textarea {
-	border: 1px solid #dddddd;
-	opacity: 0.8;
-}
-
-.bot {
-	margin-top: 50px;
-}
-
-.confirm {
-	margin-top: 20px;
-}
-
-.c-btn {
-	width: 150px;
-	height: 40px;
-	background-color: #D5D5D5;
-	border-radius: 10px;
-	color: #fff;
-	padding: 5px 0;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	margin: 4px;
-	cursor: pointer;
-	font-size: 18px;
-	font-weight: semi-bold;
-	"
-}
-
-.c-btn1 {
-	width: 150px;
-	height: 40px;
-	background-color: #5CD1E5;
-	border-radius: 10px;
-	color: #fff;
-	padding: 5px 0;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	margin: 4px;
-	cursor: pointer;
-	font-size: 18px;
-	font-weight: semi-bold;
-	"
-}
-
-.c-btn2 {
-	width: 150px;
-	background-color: #f8585b;
-	border-radius: 10px;
-	color: #fff;
-	padding: 5px 0;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	margin: 4px;
-	cursor: pointer;
-	font-size: 20px;
-	font-weight: semi-bold;
-	"
-}
-
-.bot1 {
-	margin-left: 17%;
-}
-</style>
-<script type="text/javascript"></script>
 </head>
 <body>
 	<div id="top">

@@ -13,20 +13,31 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/Ticketing" />
-			<bean class="interceptor.TrainInterCeptor" />
+			<bean class="interceptor.LoginInterCeptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/trainPayment" />
-			<bean class="interceptor.TrainInterCeptor" />
+			<bean class="interceptor.LoginInterCeptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/trainTicketing" />
-			<bean class="interceptor.TrainInterCeptor" />
+			<bean class="interceptor.LoginInterCeptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/trainTicketHistory" />
-			<bean class="interceptor.TrainInterCeptor" />
+			<bean class="interceptor.LoginInterCeptor" />
 		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/MyPage" />
+			<bean class="interceptor.LoginInterCeptor" />
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/MyPage" />
+			<bean class="interceptor.LoginInterCeptor" />
+		</mvc:interceptor>
+		
 		<mvc:interceptor>
 			<mvc:mapping path="/main" />
 			<bean class="interceptor.MainInterCeptor" />

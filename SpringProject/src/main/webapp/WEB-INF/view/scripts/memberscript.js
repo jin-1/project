@@ -819,11 +819,317 @@ $(document)
 
 								});
 							});
+					// 기업회원 비밀번호 찾기
+					$('.cor_sea1').click(
+							function() {
+
+								var c_pwEmail = $('.c_pwEmail3').val(
+										$('.c_pwEmail1').val() + "@"
+												+ $('.c_pwEmail2').val());
+								alert('5초뒤 메일이 보내집니다');
+
+								$.ajax({
+									url : "coporPwfind",
+									dataType : "json",
+									type : "post",
+									data : $('#pwfrm2').serialize(),
+
+									success : function(data) {
+										console.log(data);
+										if (data.sc1 != null) {
+											alert(data.sc1);
+										} else if (data.sc2 != null) {
+											alert(data.sc2);
+										} else {
+											alert(data.sc0);
+										}
+									},
+									error : function(request, status, error) {
+										alert("code:" + request.status + "\n"
+												+ "error:" + error);
+									}
+
+								});
+							});
 
 					// 마이페이지 이동
-					// $('.mypage').on("click",function(){
-					// $(location).attr('href','myPageCon?menu=MyPage');
-					// });
+					$('.mypage').on("click", function() {
+						$(location).attr('href', 'myPageCon?menu=MyPage');
+					});
+
+					// 기업 사업지등록
+					$('.corpor').on("click", function() {
+						$(location).attr('href', 'coporationAdd?menu=MyPage');
+					});
+
+					// 기업 내정보 수정
+					$('.cor_mypage').on("click", function() {
+						$(location).attr('href', 'corMyPage?menu=MyPage');
+					});
+
+					$('.MyPage_id').attr('readonly', 'true');
+					$('.myPage_name').attr('readonly', 'true');
+
+					// 일반회원 내정보 수정
+					$('.myPage_confirm')
+							.on(
+									'click',
+									function() {
+										var corche = true;
+										var test3 = "";
+										var myPage_pw = $('.myPage_pw').val(), reg2 = /^(?=.*[a-zA-Z])((?=.\d)|(?=.*\W)).{8,15}$/;
+										var myPage_pwC = $('.myPage_pwC').val();
+										var myPage_phone2 = $('.myPage_phone2')
+												.val();
+										var myPage_phone3 = $('.myPage_phone3')
+												.val();
+										var myPage_mail1 = $('.myPage_mail1')
+												.val();
+										var myPage_mail2 = $('.myPage_mail2')
+												.val();
+										var myPage_post1 = $('#myPage_post1')
+												.val();
+										var myPage_post3 = $('#myPage_post3')
+												.val();
+
+										// 비밀번호 유효성 검사
+										if (myPage_pw == '' | myPage_pw == null) {
+											alert("비밀번호 입력해주세요");
+											$('.myPage_pw').focus();
+											corche = false;
+										} else if (!reg2.test(myPage_pw)) {
+											alert("비밀번호는 8자리 이상 15자리 이하 문자, 숫자 혹은 특수문자를 반드시 포함해야 합니다.");
+											$('.myPage_pw').val('');
+											$('.myPage_pw').focus();
+											corche = false;
+											// 비밀번호 확인 유효성 검사
+										} else if (myPage_pw !== myPage_pwC) {
+											alert("비밀번호가 같지 않습니다.");
+											$('.myPage_pwC').val('');
+											$('.myPage_pwC').focus();
+											corche = false;
+
+										} else if (myPage_phone2 == ''
+												| myPage_phone2 == null
+												| myPage_phone3 == ''
+												| myPage_phone3 == null) {
+											alert("전화번호를 입력해주세요");
+											$('.myPage_phone2').focus();
+											corche = false;
+										} else if (myPage_mail1 == ''
+												| myPage_mail1 == null
+												| myPage_mail2 == ''
+												| myPage_mail2 == null) {
+											alert("메일을 입력해주세요");
+											$('.myPage_mail1').focus();
+											corche = false;
+										} else if (myPage_post1 == ''
+												| myPage_post1 == null) {
+											alert("우편번호 및 주소를 입력해주세요");
+											$('#myPage_post1').focus();
+											corche = false;
+										} else if (myPage_post3 == ''
+												| myPage_post3 == null) {
+											alert("상세주소를 입력해주세요");
+											$('#myPage_post3').focus();
+											corche = false;
+										} else if (corche == true) {
+											$('.myPage_phone4')
+													.val(
+															$('.myPage_phone1')
+																	.val()
+																	+ "-"
+																	+ $(
+																			'.myPage_phone2')
+																			.val()
+																	+ "-"
+																	+ $(
+																			'.myPage_phone3')
+																			.val());
+											$('.myPage_mail4')
+													.val(
+															$('.myPage_mail1')
+																	.val()
+																	+ "@"
+																	+ $(
+																			'.myPage_mail2')
+																			.val());
+											$('#myPage_post4')
+													.val(
+															$('#myPage_post1')
+																	.val()
+																	+ "/"
+																	+ $(
+																			'#myPage_post2')
+																			.val()
+																	+ "/"
+																	+ $(
+																			'#myPage_post3')
+																			.val());
+											$(
+													"input:checkbox[name=mypage_inter]:checked")
+													.each(
+															function() {
+																this.checked = true;
+																test3 += $(this)
+																		.val()
+																		+ ",";
+															});
+											console.log(test3);
+											$('.mypage_in').val(test3);
+											$('#myPageFrm').submit();
+										}
+									});
+
+					// 관심사 최대수 제한하기
+					$(".mem_in:checkbox")
+							.change(
+									function() {// 체크박스들이 변경됬을때
+										var cnt = 6;
+										if (cnt == $(".mem_in:checkbox:checked").length) {
+											$(":checkbox:not(:checked)").attr(
+													"disabled", "disabled");
+										} else if (cnt > $(".mem_in:checkbox:checked").length) {
+											$(".mem_in:checkbox").removeAttr(
+													"disabled");
+
+										} else {
+											$(".mem_in:checkbox").removeAttr(
+													"disabled");
+										}
+									});
+					$(".mem_in:checkbox")
+							.ready(
+									function() {// 체크박스들이 변경됬을때
+										var cnt = 6;
+										if (cnt == $(".mem_in:checkbox:checked").length) {
+											$(":checkbox:not(:checked)").attr(
+													"disabled", "disabled");
+										} else if (cnt > $(".mem_in:checkbox:checked").length) {
+											$(".mem_in:checkbox").removeAttr(
+													"disabled");
+
+										} else {
+											$(".mem_in:checkbox").removeAttr(
+													"disabled");
+										}
+									});
+
+					// 일반회원 정보수정 주소 추가
+					$(".mypage_post")
+							.on(
+									"click",
+									function() {
+										new daum.Postcode(
+												{
+													oncomplete : function(data) {
+														// 팝업에서 검색결과 항목을 클릭했을때
+														// 실행할 코드를 작성하는 부분.
+
+														// 각 주소의 노출 규칙에 따라 주소를
+														// 조합한다.
+														// 내려오는 변수가 값이 없는 경우엔
+														// 공백('')값을 가지므로, 이를
+														// 참고하여 분기 한다.
+														var fullAddr = ''; // 최종
+														// 주소
+														// 변수
+														var extraAddr = ''; // 조합형
+														// 주소
+														// 변수
+
+														// 사용자가 선택한 주소 타입에 따라 해당
+														// 주소 값을 가져온다.
+														if (data.userSelectedType === 'R') { // 사용자가
+															// 도로명
+															// 주소를
+															// 선택했을 경우
+															fullAddr = data.roadAddress;
+
+														} else { // 사용자가 지번
+															// 주소를 선택했을
+															// 경우(J)
+															fullAddr = data.jibunAddress;
+														}
+
+														// 사용자가 선택한 주소가 도로명 타입일때
+														// 조합한다.
+														if (data.userSelectedType === 'R') {
+															// 법정동명이 있을 경우 추가한다.
+															if (data.bname !== '') {
+																extraAddr += data.bname;
+															}
+															// 건물명이 있을 경우 추가한다.
+															if (data.buildingName !== '') {
+																extraAddr += (extraAddr !== '' ? ', '
+																		+ data.buildingName
+																		: data.buildingName);
+															}
+															// 조합형주소의 유무에 따라 양쪽에
+															// 괄호를 추가하여 최종 주소를
+															// 만든다.
+															fullAddr += (extraAddr !== '' ? ' ('
+																	+ extraAddr
+																	+ ')'
+																	: '');
+														}
+
+														// 우편번호와 주소 정보를 해당 필드에
+														// 넣는다.
+														document
+																.getElementById('myPage_post1').value = data.zonecode; // 5자리
+														// 새우편번호
+														// 사용
+														document
+																.getElementById('myPage_post2').value = fullAddr;
+														// 커서를 상세주소 필드로 이동한다.
+														document
+																.getElementById(
+																		'myPage_post3')
+																.focus();
+													}
+												}).open();
+									});
+
+					$('.myPage_phone2')
+							.keypress(
+									function(event) {
+										if (event.which
+												&& (event.which <= 47 || event.which >= 58)
+												&& event.which != 8) {
+											event.preventDefault();
+											alert("숫자만 입력가능합니다.")
+										}
+									});
+					$('.myPage_phone2')
+							.keypress(
+									function(event) {
+										if (event.which
+												&& (event.which <= 47 || event.which >= 58)
+												&& event.which != 8) {
+											event.preventDefault();
+											alert("숫자만 입력가능합니다.")
+										}
+									});
+					$('#myPage_post1')
+							.keypress(
+									function(event) {
+										if (event.which
+												&& (event.which <= 47 || event.which >= 58)
+												&& event.which != 8) {
+											event.preventDefault();
+											alert("숫자만 입력가능합니다.")
+										}
+									});
+
+					// 문의등록 페이지 이동
+					$('.inquiry_add').on('click', function() {
+						$(location).attr('href', 'InquiryAdd?menu=Inquiry');
+					});
+
+					$('.index_list').on('click', function() {
+						$(location).attr('href', 'MyPage?menu=MyPage');
+					});
 					$('.budgetV').on("click", function() {
 						$('#budgeInput').val($(this).attr("id"));
 						$('#budgeFrm').submit();
@@ -837,7 +1143,5 @@ $(document)
 						$('.tbg').css("display", "inline");
 						$('.tbgB').css("display", "inline");
 					});
-					
-				
 
 				});

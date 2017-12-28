@@ -34,6 +34,7 @@ public class TrainController {
 
 	@Autowired
 	TrainService trainService;
+
 	TrainRegistrationDTO trdto;
 	@Autowired
 	TrainDAO traindao;

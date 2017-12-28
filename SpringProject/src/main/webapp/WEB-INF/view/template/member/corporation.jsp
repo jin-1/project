@@ -19,13 +19,9 @@
 <script type="text/javascript" src="./scripts/memberscript.js" charset="utf-8"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <style>
-.mid {
-	margin: auto;
-}
 
-.container {
-	
-}
+
+
 
 .c_table {
 	width: 100%;

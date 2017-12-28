@@ -23,86 +23,98 @@
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
 <script type="text/javascript" src="./scripts/memberscript.js"
 	charset="utf-8"></script>
+<script type="text/javascript" src="./scripts/noticescripts.js"
+	charset="utf-8"></script>
 <style>
 #container {
-	width: 80%;
-	margin: auto;
-	margin-top: 100px;
+	width: 100%;
+	padding-left: 10%;
+	padding-top: 3%;
+}
+
+#container ul {
+	display: inline;
+}
+
+#container li {
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .mypage {
 	list-style: none;
-	width: 100%;
-	margin: 0;
-	padding: 0;
+	width: 255px;
+	height: 200px;
+	float: left;
+	margin-right: 10px;
+	background-color: #EAEAEA;
 }
 
 .mypage li {
-	display: inline-block;
-	width: 33%;
-	margin: auto;
-	margin-right: -5px;
-	height: 250px;
-	position: relative;
-	background-color: #f7f7f7;
-	border: #afacac 1px solid;
+	text-align: center;
+	padding-right: 16%;
+	padding-top: 3%;
 }
 
-.mypage p {
-	position: relative;
-	top: 30px;
-	width: 150px;
-	display: inline-block;
-	left: 170px;
-	margin: 0;
+.mypage span {
 	font-weight: bold;
-	text-align: left;
-	font-size: 25px;
 }
 
-.mypage li>ul {
-	width: 207px;
-	position: relative;
-	top: 50px;
-	left: 30px;
-	font-size: 15px;
+.train {
+	list-style: none;
+	width: 255px;
+	height: 200px;
+	float: left;
+	margin-right: 10px;
+	background-color: #EAEAEA;
 }
 
-.mypage li>ul>li {
-	height: 30px;
-	width: 100px;
-	border: none;
-	display: block;
-	border: none;
-	cursor: pointer;
+.train li {
+	text-align: center;
+	padding-right: 16%;
+	padding-top: 3%;
 }
 
-.mypage li>ul>li>a {
-	text-decoration: none;
-	color: black;
+.train span {
+	font-weight: bold;
 }
 
-.mypage li>ul>li>a:focus {
-	color: black;
+.rent {
+	list-style: none;
+	width: 255px;
+	height: 200px;
+	float: left;
+	margin-right: 10px;
+	background-color: #EAEAEA;
 }
 
-.mypage li>ul>li>a:visited {
-	color: black;
+.rent li {
+	text-align: center;
+	padding-right: 16%;
+	padding-top: 3%;
 }
 
-.mypage li>ul>li>a:hover {
-	color: #4a4a4a;
+.rent span {
+	font-weight: bold;
 }
 
-.mypage img {
-	width: 120px;
-	position: absolute;
-	top: 50px;
-	left: 30px;
+.corpor {
+	list-style: none;
+	width: 255px;
+	height: 200px;
+	float: left;
+	margin-right: 10px;
+	background-color: #EAEAEA;
 }
 
-#oneOnone {
-	padding-top: 80px;
+.corpor li {
+	text-align: center;
+	padding-right: 16%;
+	padding-top: 3%;
+}
+
+.corpor span {
+	font-weight: bold;
 }
 
 .paging {
@@ -136,12 +148,12 @@
 	position: relative;
 }
 
-.line td {
+.inquiry_admin td {
 	height: 50px;
 }
 
 .row {
-	padding-left: 66%;
+	padding-left: 1120px;
 	padding-bottom: 0.5%;
 }
 
@@ -161,34 +173,12 @@
 	</div>
 	<div id="mid">
 		<div id="container">
-			<h3>MYPAGE</h3>
-
-			<div id="mypage">
-				<ul class="mypage">
-					<li><p>내정보관리</p> <img src="img/mypage.png">
-						<ul>
-							<li><a href="myPageCon?menu=MyPage">내정보수정</a></li>
-							<li><a href="myPageCon?menu=MyPage">회원탈퇴</a></li>
-
-						</ul></li>
-					<li><p>구입내역관리</p> <img src="img/mypage.png">
-						<ul>
-							<li>기차예매내역</li>
-							<li>대여내역</li>
-						</ul></li>
-					<li style="top: -30px;"><p>예산</p> <img src="img/mypage.png">
-						<ul>
-							<li><a href="MyBudget?menu=MyBudget">예산 보기</a></li>
-						</ul></li>
-				</ul>
-			</div>
-
+			<h3>1:1문의</h3>
 			<div id="oneOnone">
-				<h3>1:1문의</h3>
 				<div class="row">
 					<input type="button" class="inquiry_add"
 						style="left-padding: 100px; width: 80pt; height: 20pt;"
-						value="문의등록" />
+						value="답변등록" />
 				</div>
 				<table class="noticeTable">
 					<colgroup>
@@ -217,20 +207,12 @@
 							String n = o1.format(to);
 					%>
 
-					<tr class="line" id="<%=list.get(i).getInquiryNum()%>">
+					<tr class="inquiry_admin" id="<%=list.get(i).getInquiryNum()%>">
 
 						<td><%=list.get(i).getInquiryNum()%></td>
 						<td><%=list.get(i).getInquiryTitle()%></td>
 						<td><%=n%></td>
-						<td>
-							<%
-								if (list.get(i).getInquiryReplyNum() == 1) {
-							%> 답변완료 <%
-								} else {
-							%> 답변대기<%
-								}
-							%>
-						</td>
+						<td>답변대기</td>
 
 					</tr>
 
@@ -241,32 +223,20 @@
 				</table>
 				<div class="paging">
 					<ul class="pagination">
-						<%
-							if (pDto.getFinalPageNo() > 1) {
-						%>
-						<li><a href="#"+>Prev</a></li>
-						<%
-							}
-						%>
+
 						<%
 							for (int i = 0; i < pDto.getSizeOfPage(); i++) {
 						%>
-						<li><a href="MyPage?menu=MyPage&page=<%=i + 1%>"><%=i + 1%></a></li>
+						<li><a href="mypageIndexAdmin?menu=MyPage&page=<%=i + 1%>"><%=i + 1%></a></li>
 
 						<%
 							}
 						%>
-						<%
-							if (pDto.getFinalPageNo() > 1) {
-						%>
-						<li><a href="#">Next</a></li>
-						<%
-							}
-						%>
+
 					</ul>
 				</div>
 			</div>
-		</div>
+		</div> 
 	</div>
 	<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>
 </body>

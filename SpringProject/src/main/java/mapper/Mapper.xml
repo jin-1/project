@@ -49,7 +49,27 @@
         <result column="ACOUNT_DATE" jdbcType="TIMESTAMP" property="acountDate" />
    </resultMap>
  
-
+<resultMap type="Model.InquiryDTO" id="baseResultMap5">
+		<id column="INQUIRY_NUM" jdbcType="BIGINT" property="inquiryNum" />
+		<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+		<result column="I_TITLE" jdbcType="VARCHAR" property="inquiryTitle" />
+		<result column="I_CONTENT" jdbcType="VARCHAR" property="inquiryContent" />
+		<result column="I_REPLY" jdbcType="VARCHAR" property="inquiryReply" />
+		<result column="I_DATE" jdbcType="TIMESTAMP" property="inquiryDate" />
+		<result column="I_REPLY_NUM" jdbcType="BIGINT" property="inquiryReplyNum" />
+		<result column="I_PEPLY_NUM" jdbcType="BIGINT" property="peplyNum" />
+		
+		
+	</resultMap>
+	
+		<resultMap type="Model.NoticeDTO" id="baseResultMap6">
+		<id column="NOTICE_NUM" jdbcType="BIGINT" property="noticeNum" />
+		<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+		<result column="N_TITLE" jdbcType="VARCHAR" property="noticeTitle" />
+		<result column="N_CONTENT" jdbcType="VARCHAR" property="noticeContent" />
+		<result column="N_DATE" jdbcType="TIMESTAMP" property="noticeDate" />
+		<result column="N_COUNT" jdbcType="BIGINT" property="noticeCount" />
+	</resultMap>
 	<select id="selectMemberLogin" resultMap="baseResultMap">
 		select
 		*
@@ -98,7 +118,132 @@
 	CORPORATION
 	where corp_id=#{corporId}
 	</select>
+	<!-- 일반회원 아이디찾기 -->
+	<select id="selectIdFind" resultMap="baseResultMap" parameterType="Model.MemberDTO" >
+	select MEMBER_ID,MEMBER_EMAIL,MEMBER_NAME
+	from member
+	where 
+	MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail}
+	</select>
+	<!-- 일반회원 비밀번호 찾기 -->
+	<select id="selectPwFind" resultMap="baseResultMap" parameterType="Model.MemberDTO" >
+	select MEMBER_ID,MEMBER_EMAIL,MEMBER_NAME,MEMBER_PW
+	from member
+	where 
+	MEMBER_NAME=#{memberName} and MEMBER_EMAIL=#{memberEmail} and MEMBER_ID=#{memberId}
+	</select>
 	
+	<!-- 기업회원 아이디 찾기 -->
+	<select id="selectCorporIdFind" resultMap="baseResultMap2" parameterType="Model.CorporDTO" >
+	select CORP_ID,CORP_EMAIL,CORP_NAME
+	from CORPORATION
+	where 
+	CORP_NAME=#{corporName} and CORP_EMAIL=#{corporEmail}
+	</select>
+	
+	<!-- 기업회원 비밀번호 찾기 -->
+	<select id="selectCorporPwFind" resultMap="baseResultMap2" parameterType="Model.MemberDTO" >
+	select CORP_ID,CORP_EMAIL,CORP_NAME,CORP_PW
+	from CORPORATION
+	where 
+	CORP_NAME=#{corporName} and CORP_EMAIL=#{corporEmail} and CORP_ID=#{corporId}
+	</select>
+	
+	<!-- 일반회원 내 정보 수정 -->
+	<update id="updateMypageRe" parameterType="Model.MemberDTO" >
+	update MEMBER set MEMBER_PW = #{memberPw},  MEMBER_PHONE = #{memberPhone}, MEMBER_ADDR= #{memberAddr},
+	MEMBER_EMAIL = #{memberEmail},  INTEREST = #{inteRest}
+	where MEMBER_ID = #{memberId}
+	</update>
+	
+	<!-- 1:1문의 등로 -->
+	<insert id="insertInquiry" parameterType="Model.InquiryDTO">
+		insert into INQUIRY(INQUIRY_NUM, MEMBER_ID, I_TITLE, I_CONTENT, I_DATE) 
+		values(inquiry_code.NEXTVAL,#{memberId},#{inquiryTitle},#{inquiryContent},#{inquiryDate})
+	</insert>
+	
+	<!-- 공지사항 등록 -->
+	<insert id="insertNotice" parameterType="Model.NoticeDTO">
+		insert into notice(notice_NUM, n_title, n_content, n_date, member_id) 
+		values(notice_code.NEXTVAL,#{noticeTitle},#{noticeContent},#{noticeDate},#{memberId})
+	</insert>
+	
+	<select id="selectInquiry" parameterType="String" resultMap="baseResultMap5">
+	select row_number()over(order by inquiry_num desc) as INQUIRY_NUM ,i_title, i_content , I_REPLY, I_DATE
+	from inquiry
+	where member_id=#{memberId}
+	</select>
+	
+	<select id="selectInquiryCon" parameterType="Integer" resultMap="baseResultMap5">
+	select INQUIRY_NUM,i_title, i_content , I_REPLY, I_DATE,I_REPLY_NUM
+	from inquiry
+	where INQUIRY_NUM = #{num}
+	</select>
+	
+	<!-- 공지사항 상세페이지 -->
+	<select id="selectNoticeCon" parameterType="Integer" resultMap="baseResultMap6">
+	select notice_NUM, n_title, n_content , n_DATE, n_count
+	from notice
+	where notice_num = #{num}
+	</select>
+	
+	<!-- 공지사항 조회수 -->
+	<update id="updateNoticeCount" parameterType="Integer">
+	update notice set n_count = nvl(n_count,0)+1 
+	where notice_num= #{num}
+	
+	</update>
+	
+	<!-- 답변업데이트 -->
+	<update id="updateRiply" parameterType="Model.InquiryDTO">
+	update inquiry set I_REPLY = #{inquiryReply}, I_REPLY_NUM = #{inquiryReplyNum}
+	where INQUIRY_NUM= #{peplyNum}
+	
+	</update>
+
+	<select id="selectpaging" parameterType="java.util.HashMap" resultMap="baseResultMap5">
+	SELECT * FROM (
+            SELECT row_number() over(order by INQUIRY_NUM desc) as rnum,INQUIRY_NUM, I_TITLE, I_CONTENT, I_REPLY, I_DATE, I_REPLY_NUM, member_id 
+            from INQUIRY
+            where member_Id=#{id}
+
+            )
+   WHERE <![CDATA[ rnum>= to_number(#{param1}) AND rnum <= to_number(#{param2}) ]]>
+	
+	</select>
+	
+	<select id="getNumberOfRecords" parameterType="String" resultType="Integer">
+		select count(*) from INQUIRY where  member_Id=#{id}
+	</select>
+	
+	
+	<select id="selectpaging2" parameterType="java.util.HashMap" resultMap="baseResultMap6">
+		SELECT * FROM (
+            SELECT row_number() over(order by NOTICE_NUM desc) as rnum, NOTICE_NUM, N_TITLE, N_CONTENT, N_DATE, member_id, n_count 
+            from NOTICE
+     
+            )
+  			 WHERE <![CDATA[ rnum>= to_number(#{param1}) AND rnum <= to_number(#{param2}) ]]>
+	
+	</select>
+	
+	<select id="getNumberOfRecords2" parameterType="String" resultType="Integer">
+		select count(*) from NOTICE
+	</select>
+	
+		<select id="selectpaging3" parameterType="java.util.HashMap" resultMap="baseResultMap5">
+	SELECT * FROM (
+            SELECT row_number() over(order by INQUIRY_NUM desc) as rnum,INQUIRY_NUM, I_TITLE, I_CONTENT, I_REPLY, I_DATE,I_REPLY_NUM, member_id 
+            from INQUIRY
+
+            )
+   WHERE <![CDATA[ rnum>= to_number(#{param1}) AND rnum <= to_number(#{param2}) ]]>
+	
+	</select>
+	
+	<select id="getNumberOfRecords3" parameterType="String" resultType="Integer">
+		select count(*) from INQUIRY 
+	</select>
 	<insert id="insertAccount" parameterType="Model.AccountDTO">
 		insert into ACCOUNT_BOOK(BUDGET_CODE,MEMBER_ID,TRAVEL_NAME,TRAVEL_START_DATE,TRAVEL_END_DATE,TRAVEL_ARE,EXPENSE,GROSS_PROFIT)
 		values('B'||account_s.NEXTVAL,#{memberId},#{travelName},#{travelStartDate},#{travelEndDate},#{travelAre},#{expense},#{grossProfit}) 
