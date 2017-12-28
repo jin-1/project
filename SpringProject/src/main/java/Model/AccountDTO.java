@@ -9,7 +9,15 @@ public class AccountDTO {
 	private String travelAre;
 	private String expense;
 	private String grossProfit;
+	private AccountDetailDTO accountDetailDTO;
 	
+	
+	public AccountDetailDTO getAccountDetailDTO() {
+		return accountDetailDTO;
+	}
+	public void setAccountDetailDTO(AccountDetailDTO accountDetailDTO) {
+		this.accountDetailDTO = accountDetailDTO;
+	}
 	public String getBudgetCode() {
 		return budgetCode;
 	}

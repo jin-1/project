@@ -17,7 +17,7 @@
       <result column="AUTHORITY" jdbcType="BIGINT" property="authority" />
    </resultMap>
    
-      <resultMap type="Model.CorporDTO" id="baseResultMap2">
+   <resultMap type="Model.CorporDTO" id="baseResultMap2">
       <id column="CORP_ID" jdbcType="VARCHAR" property="corporId" />
       <result column="CORP_PW" jdbcType="VARCHAR" property="corporPw" />
       <result column="CORP_NAME" jdbcType="VARCHAR" property="corporName" />
@@ -26,17 +26,25 @@
       <result column="CORP_EMAIL" jdbcType="VARCHAR" property="corporEmail" />
    </resultMap>
    
+   <resultMap type="Model.AccountDTO" id="baseResultMap3">
+      <id column="BUDGET_CODE" jdbcType="VARCHAR" property="budgetCode" />
+      <result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+      <result column="TRAVEL_NAME" jdbcType="VARCHAR" property="travelName" />
+      <result column="TRAVEL_START_DATE" jdbcType="TIMESTAMP" property="travelStartDate" />
+      <result column="TRAVEL_END_DATE" jdbcType="TIMESTAMP" property="travelEndDate" />
+      <result column="TRAVEL_ARE" jdbcType="VARCHAR" property="travelAre" />
+       <result column="EXPENSE" jdbcType="BIGINT" property="expense" />
+        <result column="GROSS_PROFIT" jdbcType="BIGINT" property="grossProfit" />
+   </resultMap>
    
 
 	<select id="selectMemberLogin" resultMap="baseResultMap">
-		Select
+		select
 		MEMBER_ID,
 		MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_ADDR,
-		MEMBER_EMAIL,GENDER,BIRTH_DATE,INTEREST,
-		AUTHORITY
+		MEMBER_EMAIL,GENDER,BIRTH_DATE,INTEREST, AUTHORITY
 		FROM
-		MEMBER where
-		MEMBER_ID = #{memberId}
+		MEMBER where MEMBER_ID = #{memberId}
 	</select>
 	
 		<select id="selectCorPorLogin" resultMap="baseResultMap2">
@@ -85,6 +93,17 @@
 		insert into ACCOUNT_BOOK(BUDGET_CODE,MEMBER_ID,TRAVEL_NAME,TRAVEL_START_DATE,TRAVEL_END_DATE,TRAVEL_ARE,EXPENSE,GROSS_PROFIT)
 		values('B'||account_s.NEXTVAL,#{memberId},#{travelName},#{travelStartDate},#{travelEndDate},#{travelAre},#{expense},#{grossProfit}) 
 	</insert>
+		<insert id="insertAccountDetail" parameterType="Model.AccountDetailDTO">
+		insert into ACCOUNT_DETAIL_BOOK(ACCOUNT_DETAIL_CODE,BUDGET_CODE,MEMBER_ID,ACOUNT_ITEM_NAME,ACOUNT_CLASSIFIICATION,ACOUNT_CONTENTS,ACOUNT_PRICE,ACOUNT_DATE)
+		values('B'||accountD_s.NEXTVAL,#{budgetCode},#{memberId},#{acountItemName},#{acountClassifiication},#{acountContents},#{acountPrice},#{acountDate}) 
+	</insert>
+	<select id="selectAccount" parameterType="String" resultMap="baseResultMap3">
+		select * from ACCOUNT_BOOK where MEMBER_ID = #{memberId}
+	</select>
+	
+		<select id="selectAccountOne" parameterType="String" resultMap="baseResultMap3">
+		select * from ACCOUNT_BOOK where BUDGET_CODE = #{budgetCode}
+	</select>
 </mapper>
 
 

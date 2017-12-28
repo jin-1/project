@@ -33,7 +33,6 @@ public class TrainController {
 	@Autowired
 	TrainService trainService;
 	TrainRegistrationDTO trdto;
-	@Autowired
 	TrainDAO traindao;
 
 	@RequestMapping(value = "/TrainInfoKTX", method = RequestMethod.GET)

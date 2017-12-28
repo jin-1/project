@@ -26,7 +26,7 @@ public class TourService {
 	private TourDAO tourDAO;
 	@Autowired
 	private CommentDTO CommentDTO;
-	@Autowired
+	
 	private MemberDTO memberDto;
 	@Autowired
 	private CorporDTO corpDTO;
@@ -78,8 +78,8 @@ public class TourService {
 		originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
 		storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension;
 		
-		System.out.println("¾÷·Îµå ÇÑ ÆÄÀÏ ¸í = " + originalFile);
-		System.out.println("¹Ù²ï ÆÄÀÏ ¸í = " + storedFileName);
+		System.out.println("ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ = " + originalFile);
+		System.out.println("ï¿½Ù²ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ = " + storedFileName);
 	}
 
 }
