@@ -5,8 +5,12 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="Model.MemberDTO" alias="MemberDTO" />
-		<typeAlias type="Model.TourDTO" alias="TourDTO"/>
-		<typeAlias type="Model.CommentDTO" alias="CommentDTO"/>
+		<typeAlias type="Model.TourDTO" alias="TourDTO" />
+		<typeAlias type="Model.CommentDTO" alias="CommentDTO" />
+		<typeAlias type="Model.ProductDTO" alias="pDTO" />
+		<typeAlias type="Model.CartDTO" alias="cDTO" />
+		<typeAlias type="Model.RentRegDTO" alias="rrDTO" />
+		<typeAlias type="Model.PurchaseDTO" alias="purchaseDTO" />
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -22,6 +26,7 @@
 	<mappers>
 		<mapper resource="mapper/Mapper.xml" />
 		<mapper resource="mapper/TrainMapper.xml" />
+		<mapper resource="mapper/ProductMapper.xml"/>
 		<mapper resource="mapper/TourMapper.xml" />
 	</mappers>
 </configuration>
