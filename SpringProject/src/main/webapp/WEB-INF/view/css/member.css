@@ -88,10 +88,12 @@
 }
 
 #budgetDcon table {
-	width: 100%;
-	margin: 0 auto;
+	width: 45%;
+	position: absolute;
 	min-height: 300px;
 	border-spacing: 0;
+	top: 250px;
+	right: 5%;
 }
 
 #budgetDcon th {
@@ -100,7 +102,7 @@
 }
 
 #budgetDcon td {
-	height: 35px;
+	height: 20px;
 	text-align: center;
 }
 
@@ -129,6 +131,7 @@
 	text-align: center;
 	padding-top: 5px;
 }
+
 .budgetABt1 {
 	width: 70px;
 	height: 25px;
@@ -138,13 +141,11 @@
 	color: white;
 	text-align: center;
 	padding-top: 5px;
-	
 }
 
 .budgetCBt1 {
 	width: 70px;
 	height: 25px;
-	
 	display: inline-block;
 	border-radius: 15px;
 	background-color: #db4e31;
@@ -152,6 +153,7 @@
 	text-align: center;
 	padding-top: 5px;
 }
+
 #budgetUse {
 	width: 300px;
 	height: 25px;
@@ -205,6 +207,7 @@
 	border-radius: 5px;
 	border: #a5a5a5 1px solid;
 }
+
 .tbgB input[type=date] {
 	height: 20px;
 	width: 160px;

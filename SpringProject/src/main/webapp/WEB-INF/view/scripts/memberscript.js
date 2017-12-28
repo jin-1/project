@@ -838,8 +838,6 @@ $(document)
 						$('.tbgB').css("display", "inline");
 					});
 					
-					$('#budgetaddBt').on("click",function(){
-						$('#budgetDDFrm').submit();
-					});
+				
 
 				});

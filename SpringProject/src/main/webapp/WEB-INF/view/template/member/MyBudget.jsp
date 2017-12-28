@@ -34,7 +34,7 @@
 				<span>예산</span>
 				<hr>
 			</div>
-			<form action="budgetD?menu=MyBudget" method="POST" id="budgeFrm">
+			<form action="budgetD?menu=MyBudget" method="GET" id="budgeFrm">
 				<input type="hidden" name="budgeCode" id="budgeInput">
 			</form>
 			<div class="budgetView">

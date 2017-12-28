@@ -336,10 +336,10 @@ public class MemberController {
 		System.out.println(actdto.getBudgetCode());
 		actdto.setMemberId(memberDto.getMemberId());
 		memberDao.insertAccountDetail(actdto);
-		return "template/member/MyBudgetView";
+		return "redirect:budgetD?menu=Budget&budgeCode="+actdto.getBudgetCode();
 	}
 	
-	@RequestMapping(value = "/budgetD", method = RequestMethod.POST)
+	@RequestMapping(value = "/budgetD", method = RequestMethod.GET)
 	public String budgetD(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
 		String budgeCode = req.getParameter("budgeCode");
