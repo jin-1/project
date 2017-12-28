@@ -27,6 +27,31 @@
 				아직 등록한 사업이 없습니다.
 			</c:if>
 			
+			<c:if test="${ not empty result }">					
+				<c:forEach var="my" items="${result}" varStatus="status">
+					<div class="allResult">
+						<div class="nameNimg">
+							<h2>
+								<a href="TourInfo?localCode=${tour.localCode}" name="localCode" class="aTag">
+									<label class="label">${tour.localName}</label>
+								</a>
+							</h2>
+							
+							<img alt="여행지 이미지" width=150 height=150 src="/SpringProject/img/tour/${my.localImage}"><br>
+						</div>
+						<div class="ect">
+							<p class="cate">[${tour.localCategory}]</p><br>
+							☎ ${tour.localPhone}<br>
+							<c:set var="str1" value="${tour.localAddr}" />
+						    <c:set var="splitStr" value="${fn:split(str1, '/') }" />
+						    ${splitStr[1]}, <br>${splitStr[2]}
+							<hr>
+							${tour.localContent}
+						</div>
+					</div>
+				</c:forEach>
+			</c:if>
+			
 			<table cellpadding=0 cellspacing=0 border=1>						
 				<c:if test="${ not empty result }">					
 					<c:forEach var="my" items="${result}" varStatus="status">

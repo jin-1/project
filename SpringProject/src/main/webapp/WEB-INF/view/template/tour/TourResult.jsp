@@ -3,11 +3,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <% 
 	request.setCharacterEncoding("utf-8"); 
 	String menu = "../top.jsp?menu=TOUR result";
 	String img = "url(img/tour.jpg)";
-	String login = (String)request.getAttribute("login");
+	String login = (String)request.getAttribute("corpLogin");
+	String memLogin = (String)request.getAttribute("memLogin");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -46,14 +48,14 @@
 				case '광주': sidoArray = this.gwangju; break;
 				case '대전': sidoArray = this.daejeon; break;
 				case '울산': sidoArray = this.ulsan; break;
-				case '경기도': sidoArray = this.gyeonggi; break;
-				case '강원도': sidoArray = this.gangwon; break;
-				case '충청남도': sidoArray = this.chungnam; break;
-				case '충청북도': sidoArray = this.chungbuk; break;
-				case '전라남도': sidoArray = this.jeonnam; break;
-				case '전라북도': sidoArray = this.jeonbuk; break;
-				case '경상남도': sidoArray = this.gyeongnam; break;
-				case '경상북도': sidoArray = this.gyeongbuk; break;
+				case '경기': sidoArray = this.gyeonggi; break;
+				case '강원': sidoArray = this.gangwon; break;
+				case '충남': sidoArray = this.chungnam; break;
+				case '충북': sidoArray = this.chungbuk; break;
+				case '전남': sidoArray = this.jeonnam; break;
+				case '전북': sidoArray = this.jeonbuk; break;
+				case '경남': sidoArray = this.gyeongnam; break;
+				case '경북': sidoArray = this.gyeongbuk; break;
 				case '세종': sidoArray = this.sejong; break;
 			}
 			return sidoArray;
@@ -78,16 +80,7 @@
 		$('select[name=SearchArea2]').bind('change', function(){
 			$("#frmNavi input[name='SearchArea2']").val($(this).val());
 		});
-	});
-	$(document).ready(function(){
-		var addr = $('.hiddenAddr').val();
-		console.log(addr);
-		var nanu = addr.split('/');
-		console.log(nanu[1]);
-		document.getElementById('va').val = nanu[1];
-		nanu[1]= document.getElementById('va').val;
-	});
-	
+	});	
 </script>
 <style>
 #mid {
@@ -155,8 +148,8 @@
 	position:relative;
 }
 .allResult{
-	width: 600px;
-	height: 313px;
+	width: 650px;
+	height: 318px;
 	border: 1px solid #EAEAEA;
 	padding: 5px;
 	margin: 15px;
@@ -173,8 +166,8 @@
 	padding-right: 20px;
 	padding-left: 20px;
 	diplay: inline-block;
-	height: 275px;
-	width: 250px;
+	height: 317px;
+	width: 300px;
 	float: right;
 }
 a[class]{
@@ -188,6 +181,11 @@ a:hover{
 .cate{
 	text-align: right;
 	font-weight: bold;
+}
+.localImg{
+	width: 200px;
+	height: 200px;
+	border: 3px solid white;
 }
 </style>
 <body>
@@ -213,14 +211,14 @@ a:hover{
 					<option value="대전">대전</option>
 					<option value="울산">울산</option>
 					<option value="세종">세종</option>
-					<option value="경기도">경기도</option>
-					<option value="강원도">강원도</option>
-					<option value="충청남도">충청남도</option>
-					<option value="충청북도">충청북도</option>
-					<option value="전라남도">전라남도</option>
-					<option value="전라북도">전라북도</option>
-					<option value="경상남도">경상남도</option>
-					<option value="경상북도">경상북도</option>
+					<option value="경기">경기</option>
+					<option value="강원">강원</option>
+					<option value="충남">충남</option>
+					<option value="충북">충북</option>
+					<option value="전남">전남</option>
+					<option value="전북">전북</option>
+					<option value="경남">경남</option>
+					<option value="경북">경북</option>
 				</select>
 				<select title="시/군/구 선택" class="sigungu" name="SearchArea2">
 					<option value="">시/군/구</option>
@@ -264,29 +262,41 @@ a:hover{
 				<script type="text/javascript">
 					$(document).ready(function(){
 						$('.addMyBusi').on("click", function(){
-							if(<%=login%> == null){
+							if(<%=login%> == null && <%=memLogin%> == null){
 								alert("기업 로그인 후 사업을 등록해주세요.\n기업의 사업등록은 '마이페이지>사업등록'에서도 가능합니다.");
 								location.replace("LoginForm");
+							} else if(<%=login%> == null && <%=memLogin%> != null){
+								alert("일반 회원은 사업등록을 하실 수 없습니다.\n기업 로그인 후 이용해주세요.");
 							} else{
 								location.replace("TourAdd");
 							}
 						});
+						
 						$('.viewMyBusi').on("click", function(){
-							if(<%=login%> == null){
-								alert("사업 보기는 로그인 후 이용 가능합니다.");
+							if(<%=login%> == null && <%=memLogin%> == null){
+								alert("사업 보기는 기업 로그인 후 이용 가능합니다.");
 								location.replace("LoginForm");
+							} else if(<%=login%> == null && <%=memLogin%> != null){
+								alert("일반 회원은 사업보기를 하실 수 없습니다.\n기업 로그인 후 이용해주세요.");
 							} else{
 								location.replace("MyTour");
 							}
 						});
+						
 						$('.viewAll').on("click", function(){
 							location.replace("ViewAll");
+							<%-- if(<%=login%>=="q"){
+								location.replace("ViewAll");
+							} else{
+								alert("관리자 이용 권한입니다.");
+							} --%>
+
 						});
 					});
 				</script>
 				
 				<c:if test="${ empty result }">
-					검색 결과가 없습니다.
+					<br>검색 결과가 없습니다.
 				</c:if>
 				
 				<c:if test="${ not empty result }">					
@@ -299,49 +309,20 @@ a:hover{
 									</a>
 								</h2>
 								
-								<img alt="여행지 이미지" width=200 height=200 src="/SpringProject/img/tour/${tour.localImage}"><br>
+								<img alt="여행지 이미지" class="localImg" src="/SpringProject/img/tour/${tour.localImage}"><br>
 							</div>
 							<div class="ect">
 								<p class="cate">[${tour.localCategory}]</p><br>
 								☎ ${tour.localPhone}<br>
-								<input type="hidden" class="hiddenAddr" value="${tour.localAddr}">
-								<label id="va"></label><br>
+								<c:set var="str1" value="${tour.localAddr}" />
+							    <c:set var="splitStr" value="${fn:split(str1, '/') }" />
+							    ${splitStr[1]}, <br>${splitStr[2]}
 								<hr>
 								${tour.localContent}
 							</div>
 						</div>
 					</c:forEach>
 				</c:if>
-				
-				<%-- <table cellpadding=0 cellspacing=0 border=1>						
-					<c:if test="${ not empty result }">					
-						<c:forEach var="tour" items="${result}" varStatus="status">
-							<tr>
-								<td rowspan=4>
-									<img alt="여행지 이미지" width=150 height=150 src="/SpringProject/img/tour/${tour.localImage}">
-								</td>
-								<td>[${tour.localCategory}]</td>
-								<td>
-									<a href="TourInfo?localCode=${tour.localCode}" name="localCode">
-										${tour.localName}
-									</a>
-								</td>
-							</tr>
-							
-							<tr>
-								<td colspan=2>${tour.localPhone}</td>	
-							</tr>
-							
-							<tr>
-								<td colspan=2>${tour.localAddr}</td>
-							</tr>
-							
-							<tr>
-								<td colspan=2>${tour.localContent}</td>
-							</tr>
-						</c:forEach>
-					</c:if>
-				</table> --%>
 			</center>
 
 		</form:form>
