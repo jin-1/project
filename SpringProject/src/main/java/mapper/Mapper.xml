@@ -17,7 +17,7 @@
 		<result column="AUTHORITY" jdbcType="BIGINT" property="authority" />
 	</resultMap>
 
-	<resultMap type="Model.CorporDTO" id="baseResultMap2">
+	<resultMap type="Model.CoperDTO" id="baseResultMap2">
 		<id column="CORP_ID" jdbcType="VARCHAR" property="corporId" />
 		<result column="CORP_PW" jdbcType="VARCHAR" property="corporPw" />
 		<result column="CORP_NAME" jdbcType="VARCHAR" property="corporName" />
@@ -70,7 +70,7 @@
 		#{memberEmail},#{gender},#{birthDate},#{inteRest},#{authority})
 	</insert>
 
-	<insert id="insertCorPor" parameterType="Model.CorporDTO">
+	<insert id="insertCorPor" parameterType="Model.CoperDTO">
 		insert into
 		CORPORATION(CORP_ID,CORP_PW,CORP_NAME,CORP_EMAIL,CORP_PHONE,CORP_ADDR)
 		values(#{corporId},#{corporPw},#{corporName},#{corporEmail},#{corporPhone},#{corporAddr})

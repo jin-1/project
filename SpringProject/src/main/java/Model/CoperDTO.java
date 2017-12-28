@@ -1,6 +1,6 @@
 package Model;
 
-public class CorporDTO {
+public class CoperDTO {
 	private String corporId;
 	private String corporPw;
 	private String corporName;

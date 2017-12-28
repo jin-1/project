@@ -7,6 +7,15 @@ public class EventDTO {
 	private int eventQuant;
 	private String memberId;
 	private String expriyDate;
+	private String eventDate;
+	
+	
+	public String getEventDate() {
+		return eventDate;
+	}
+	public void setEventDate(String eventDate) {
+		this.eventDate = eventDate;
+	}
 	public String getElectedCode() {
 		return electedCode;
 	}

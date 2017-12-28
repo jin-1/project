@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import Model.CorporDTO;
+import Model.CoperDTO;
 import Model.MemberDAO;
 import Model.MemberDTO;
 import service.MemberService;
@@ -51,7 +51,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/CorLoginForm", method = RequestMethod.POST)
-	public String CorPorFormLogin(HttpSession session, @ModelAttribute("corlogin") CorporDTO corporDto) {
+	public String CorPorFormLogin(HttpSession session, @ModelAttribute("corlogin") CoperDTO corporDto) {
 		
 		int result=memberService.CorLogin(corporDto, session);
 		System.out.println(result);
@@ -109,7 +109,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/CorpoRation", method = RequestMethod.POST)
-	public String Corpor(@ModelAttribute("corregister") CorporDTO dto) {
+	public String Corpor(@ModelAttribute("corregister") CoperDTO dto) {
 		int result = memberService.setCorRegister(dto);
 		
 		if(result>0) {
@@ -164,6 +164,14 @@ public class MemberController {
 		}
 		return hashmap;
 	}	
+
+	@RequestMapping(value = "/MemberDelete", method = RequestMethod.POST)
+	public String MemberDelete(HttpServletRequest req) {
+		String userId =req.getParameter("userId");
+		
+		memberDao.deleteMember(userId);
+		return "redirect:MemberAll";
+	}
 	@RequestMapping(value = "/MemberAll", method = RequestMethod.GET)
 	public String MemerAll(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
@@ -173,13 +181,6 @@ public class MemberController {
 		model.addAttribute("list", list);
 		
 		return "template/member/memberManager";
-	}
-	@RequestMapping(value = "/MemberDelete", method = RequestMethod.POST)
-	public String MemberDelete(HttpServletRequest req) {
-		String userId =req.getParameter("userId");
-		
-		memberDao.deleteMember(userId);
-		return "redirect:MemberAll";
 	}
 
 

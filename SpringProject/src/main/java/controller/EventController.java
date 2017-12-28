@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import Model.EventDTO;
 import Model.EventDAO;
+import Model.EventDTO;
 import service.MemberService;
 
 @Controller
@@ -55,11 +57,21 @@ public class EventController {
 		HttpSession session = req.getSession();
 		String menu = req.getParameter("menu");
 		List<EventDTO> list = eventDao.Coupon(session);
-		System.out.println(list.get(0).getElectedCode());
 		model.addAttribute("menu", menu);
 		model.addAttribute("list", list);
 		
 		return "template/Event/coupon";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/couponInsert", method = RequestMethod.POST)
+	public HashMap<String, String> searchStation(HttpSession session) {
+
+		eventDao.CouponIn(session);
+		
+		HashMap<String, String> s = new HashMap<String, String>();
+		s.put("1", "쿠폰이 등록되었습니다.");
+		return s;
 	}
 
 

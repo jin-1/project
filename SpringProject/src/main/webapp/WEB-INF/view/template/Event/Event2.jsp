@@ -71,6 +71,7 @@ form {
 </style>
 <script>
 var win=0;
+var count=0;
 function getRandom(num){
 	var my_num = Math.floor(Math.random()*num);
 	return my_num;
@@ -152,19 +153,31 @@ function PopRPS(){
 			var position = $("#Victory").offset();
 			//$('html,body').animate({scrollTop: position.top}, 2000);
 			alert("축하 합니다. 승리하셨네요!!");
+			form.selectU.value  = "";
+			
+			$.ajax({
+				url : "couponInsert",
+				dataType : "json",
+				type : "post",
+				success : function(data) {
+
+					alert("저장되었습니다");
+
+				},
+				error : function(request, status, error) {
+					console.log("code:" + request.status + "\n" + "error:"
+							+ error);
+				}
+
+			});
 		}else{
 			
 			form.selectU.value == "";			
 			document.getElementById("Victory").style.display = "none";
-		}
-		form.selectU.value  = "";
-		var goUrl;
-		goUrl = "./coupon.jsp?Status="+Uresult;
-		window.open(goUrl, "rps", "menubar=no, status=yes, scrollbars=yes, resizable=no,width=320,height=310");			
+		}		
 	}				
 
 function UserClick(ID){
-	var count=0;
 	for(var i = 1;i<=4;i++){
 		if(i==ID){
 			document.getElementById('user'+ID).style.display = '';

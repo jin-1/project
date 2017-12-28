@@ -10,10 +10,11 @@
 
 	<mvc:view-controller path="/" view-name="/index" />
 	<mvc:view-controller path="/main" view-name="/index" />
-
+	<bean class="controller.CoperController" />
 	<bean class="controller.TrainController" />
 	<bean class="controller.TourController" />
 	<bean class="controller.MemberController" />
 	<bean class="controller.BudgetController" />
 	<bean class="controller.EventController" />
+
 </beans>

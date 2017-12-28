@@ -205,8 +205,8 @@ mid2 {
 					<tr id="list">
 						<td><%=list.get(i).getElectedCode() %></td>
 						<td><%=list.get(i).getEvnetCode() %></td>
-						<td><%=list.get(i).getExpriyDate()%></td>
 						<td><%=list.get(i).getEventName()%></td>
+						<td><%=list.get(i).getExpriyDate()%></td>
 						<td><%=list.get(i).getMemberId()%></td>
 						
 					</tr>

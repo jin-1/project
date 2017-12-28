@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<%
-			CorporDTO corporDTO;
+			CoperDTO coperDTO;
 			MemberDTO memberDTO;
 
 			if (session.getAttribute("login") != null) {

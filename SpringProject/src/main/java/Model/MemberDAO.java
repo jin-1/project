@@ -1,6 +1,8 @@
 package Model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -26,13 +28,13 @@ public class MemberDAO extends AbstractRepository {
 		}
 	}
 
-	public CorporDTO CorLogin(CorporDTO corporDto) {
+	public CoperDTO CorLogin(CoperDTO corporDto) {
 
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace + ".selectCorPorLogin";
 
 		try {
-			CorporDTO corporDTO = sqlSession.selectOne(statement, corporDto);
+			CoperDTO corporDTO = sqlSession.selectOne(statement, corporDto);
 
 			return corporDTO;
 		} catch (Exception e) {
@@ -93,7 +95,7 @@ public class MemberDAO extends AbstractRepository {
 	}
 
 	// 기업회원 회원가입
-	public int CorRegister(CorporDTO corpordto) {
+	public int CorRegister(CoperDTO corpordto) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace + ".insertCorPor";
 		int result = 0;
@@ -110,7 +112,7 @@ public class MemberDAO extends AbstractRepository {
 
 		return result;
 	}
-
+	//관리지 리스트
 	public List<MemberDTO> MemberAll() {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace + ".selectMemberAll";
@@ -125,7 +127,7 @@ public class MemberDAO extends AbstractRepository {
 		}
 
 	}
-
+	//회원삭제
 	public int deleteMember(String userId) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace + ".deleteMember";
@@ -145,6 +147,17 @@ public class MemberDAO extends AbstractRepository {
 		}
 		return result;
 	}
+	public List<CoperDTO> listAll(int start, int end, String searchOption, String keyword) throws Exception {
+	    // 검색옵션, 키워드 맵에 저장
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    map.put("searchOption", searchOption);
+	    map.put("keyword", keyword);
+	    // BETWEEN #{start}, #{end}에 입력될 값을 맵에 
+	    map.put("start", start);
+	    map.put("end", end);
+	    return SqlSession.selectList("board.listAll", map);
+	}
+
 
 
 	

@@ -4,7 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import Model.CorporDTO;
+import Model.CoperDTO;
 import Model.MemberDAO;
 import Model.MemberDTO;
 
@@ -13,7 +13,7 @@ public class MemberService {
 	@Autowired
 	MemberDAO memberDao;
 	MemberDTO memberDto;
-	CorporDTO corporDto;
+	CoperDTO corporDto;
 	public int Login(MemberDTO memberDto, HttpSession session) {
 		
 		int result=0;
@@ -33,7 +33,7 @@ public class MemberService {
 		return result;
 	} 
 	
-	public int CorLogin(CorporDTO corporDto, HttpSession session) {
+	public int CorLogin(CoperDTO corporDto, HttpSession session) {
 		
 		int result=0;
 		this.corporDto = memberDao.CorLogin(corporDto);
@@ -62,7 +62,7 @@ public class MemberService {
 		
 	}
 	
-	public int setCorRegister(CorporDTO dto) {
+	public int setCorRegister(CoperDTO dto) {
 		return memberDao.CorRegister(dto);
 		
 	}

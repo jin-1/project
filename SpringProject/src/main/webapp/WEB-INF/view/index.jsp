@@ -48,7 +48,7 @@
 			</div>
 		</div>
 		<%
-			CorporDTO corporDTO;
+			CoperDTO coperDTO;
 			MemberDTO memberDTO;
 
 			if (session.getAttribute("login") != null) {
@@ -79,7 +79,7 @@
 		<%
 			}
 			} else if (session.getAttribute("corlogin") != null) {
-				corporDTO = (CorporDTO) session.getAttribute("corlogin");
+				coperDTO = (CoperDTO) session.getAttribute("corlogin");
 		%>
 		<div id="menuLogin">
 			<ul style="font-size: 8px;">
