@@ -728,6 +728,7 @@ $(document).ready(function() {
 					$('.mem_sea1').click(function(){
 
 						var pwEmail3 = $('.pwEmail3').val($('.pwEmail1').val()+"@"+$('.pwEmail2').val());
+
 						alert('5초뒤 메일이 보내집니다');
 						
 						$.ajax({

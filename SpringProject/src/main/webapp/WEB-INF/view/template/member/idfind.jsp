@@ -5,7 +5,6 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
-
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -18,8 +17,18 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
-<script type="text/javascript" src="./scripts/memberscript.js" charset="utf-8"></script>
+<script type="text/javascript" src="./scripts/memberscript.js"
+	charset="utf-8"></script>
 <script type="text/javascript">
+
+	
+<%if (request.getParameter("result") != null) {
+				String memberId = request.getParameter("result");%>
+	alert("찾으신 아이디는 :" +
+<%=memberId%>
+	+ " 입니다.");
+<%}%>
+	
 </script>
 <style type="text/css">
 .container {
@@ -224,8 +233,10 @@
 			</div>
 			<div class="t_ipFind">
 				<table class="t_ip">
+
 				
 					<form:form id="frm1">
+
 						<tr>
 							<td rowspan="2" class="m_id">일반회원 아이디 찾기</td>
 							<td>성&nbsp;&nbsp; 명&nbsp;&nbsp;&nbsp;<input type="text"
@@ -233,6 +244,7 @@
 							<td rowspan="2"><button type="button" class="mem_sea">검색</button></td>
 						</tr>
 						<tr>
+
 							<td>이 메 일 <input type="text" class="email1" 
 								size="15" /> @ <input type="text" class="email2" 
 								size="10" /><input type="hidden" class="email3"
@@ -240,13 +252,18 @@
 							</td>	
 						</tr>
 					</form:form>
+
 					<form:form id="frm2">
+
 					<tr class="cor_idFind">
 						<td rowspan="2" class="c_id">기업회원 아이디 찾기</td>
+
 						<td>대표자명 &nbsp;<input type="text" maxlength="10"size="28" name="corporName" class="corName" /></td>
+
 						<td rowspan="2"><button type="button" class="cor_sea">검 색</button></td>
 					</tr>
 					<tr>
+
 						<td>이 메 일 <input type="text" class="c_email1" 
 								size="15" /> @ <input type="text" class="c_email2" 
 								size="10" /><input type="hidden" class="c_email3"

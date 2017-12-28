@@ -238,15 +238,12 @@ public class MemberController {
 				emailDto.setSubject(name + "님이 찾으신 아이디 입니다.");
 				emailDto.setReceiver(mail);
 				con = memberService.SendEmail(emailDto);
-
-				if (con == 2) {
-					hashmap.put("sc" + con, "메일이 성공적으로 보내졌습니다");
-				} else {
-					hashmap.put("sc" + con, "메일을 다시 확인해 주세요.");
-				}
-			} 
+				return hashmap;
+				
+			}
+			return hashmap;
 		}
-		return hashmap;
+		
 	}
 	
 	//기업회원 비밀번호
