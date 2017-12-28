@@ -156,6 +156,11 @@
 	where MEMBER_ID = #{memberId}
 	</update>
 	
+	<!-- 일반회원 회원 탈퇴 -->
+	<delete id="deleteMember" parameterType="Model.MemberDTO">
+	delete from member where member_id= #{memberId}
+	</delete>
+	
 	<!-- 1:1문의 등로 -->
 	<insert id="insertInquiry" parameterType="Model.InquiryDTO">
 		insert into INQUIRY(INQUIRY_NUM, MEMBER_ID, I_TITLE, I_CONTENT, I_DATE) 

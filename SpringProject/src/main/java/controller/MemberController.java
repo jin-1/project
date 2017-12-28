@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -353,6 +352,28 @@ public class MemberController {
 		model.addAttribute("menu", menu);
 
 		return "template/member/myPageCon";
+	}
+	
+	// 일반회원 회원 탈퇴
+	@RequestMapping(value = "/myPageCon2", method = RequestMethod.GET)
+	public String myPageCon2(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		model.addAttribute("menu", menu);
+
+		return "template/member/myPageCon2";
+	}
+	
+	// 일반회원 회원 탈퇴
+	@RequestMapping(value = "/myPageCon2", method = RequestMethod.POST)
+	public String myPageCon2(HttpSession session, @ModelAttribute("mem_del") MemberDTO dto) {
+		System.out.println(dto.getMemberId());
+		int result = memberDao.memberDel(dto);
+		if (result > 0) {
+			session.invalidate();
+			return "index";
+		} else {
+			return "template/member/myPageCon2";
+		}
 	}
 
 	// 일반회원 내정보수정 페이지

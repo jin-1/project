@@ -190,6 +190,27 @@ public class MemberDAO extends AbstractRepository {
 		}
 		return result;
 	}
+	
+	// 일반회원 회원탈퇴
+	public int memberDel(MemberDTO memberDto) {
+
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".deleteMember";
+		int result = 0;
+		try {
+			result = sqlSession.delete(statement, memberDto);
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return result;
+	}
 
 	// 1:1문의 등록
 	public int inquiryAdd(InquiryDTO dto) {

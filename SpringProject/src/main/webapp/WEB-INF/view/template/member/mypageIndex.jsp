@@ -141,7 +141,7 @@
 }
 
 .row {
-	padding-left: 66%;
+	padding-left: 1121px;
 	padding-bottom: 0.5%;
 }
 
@@ -168,7 +168,7 @@
 					<li><p>내정보관리</p> <img src="img/mypage.png">
 						<ul>
 							<li><a href="myPageCon?menu=MyPage">내정보수정</a></li>
-							<li><a href="myPageCon?menu=MyPage">회원탈퇴</a></li>
+							<li><a href="myPageCon2?menu=MyPage">회원탈퇴</a></li>
 
 						</ul></li>
 					<li><p>구입내역관리</p> <img src="img/mypage.png">
@@ -251,7 +251,7 @@
 						<%
 							for (int i = 0; i < pDto.getSizeOfPage(); i++) {
 						%>
-						<li><a href="MyPage?menu=MyPage&page=<%=i + 1%>"><%=i + 1%></a></li>
+						<li><a href="MyPage?menu=MyPage&img=mypageimg2&page=<%=i + 1%>"><%=i + 1%></a></li>
 
 						<%
 							}

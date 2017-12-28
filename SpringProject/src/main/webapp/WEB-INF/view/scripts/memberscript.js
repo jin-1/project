@@ -667,6 +667,8 @@ $(document)
 					$('.p_btn').click(function() {
 						location.replace('myPage.jsp');
 					});
+					
+
 
 					$('.mc_id').attr('readonly', 'true').attr('disabled',
 							'false');
@@ -1143,5 +1145,6 @@ $(document)
 						$('.tbg').css("display", "inline");
 						$('.tbgB').css("display", "inline");
 					});
+					
 
 				});

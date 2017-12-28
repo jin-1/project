@@ -135,7 +135,7 @@ th, td {
 						<%
 							for (int i = 0; i < pDto.getSizeOfPage(); i++) {
 						%>
-						<li><a href="NoticeIndex?menu=NOTICE&page=<%=i + 1%>"><%=i + 1%></a></li>
+						<li><a href="NoticeIndex?menu=NOTICE&img=notice&page=<%=i + 1%>"><%=i + 1%></a></li>
 
 						<%
 							}

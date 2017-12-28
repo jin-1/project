@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -94,7 +95,7 @@ public class MemberService {
         try {
             msg.setSubject(email.getSubject());
             msg.setText(email.getContent());
-            msg.setRecipients(MimeMessage.RecipientType.TO , InternetAddress.parse(email.getReceiver()));
+            msg.setRecipients(RecipientType.TO , InternetAddress.parse(email.getReceiver()));
             System.out.println("메일이 성공적으로 보내졌습니다.");
             result=2;
         }catch(MessagingException e) {

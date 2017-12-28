@@ -1,11 +1,8 @@
 package controller;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -19,13 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import Model.CustomerTicketDTO;
-import Model.MemberDAO;
-import Model.MemberDTO;
 import Model.TrainDAO;
 import Model.TrainDTO;
-import Model.TrainPurchaseDTO;
 import Model.TrainRegistrationDTO;
-import Model.TrainStatinDTO;
 import service.MemberService;
 import service.TrainService;
 
