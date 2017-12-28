@@ -14,6 +14,7 @@ import service.AbstractRepository;
 
 public class TrainDAO extends AbstractRepository {
 	private final String namespace = "mapper.TrainMapper";
+
 	@Autowired
 	TrainStatinDTO trainsdto;
 
@@ -82,6 +83,8 @@ public class TrainDAO extends AbstractRepository {
 
 		}
 	}
+	
+	
 
 	public void insertPurchase(TrainPurchaseDTO tpdto) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();

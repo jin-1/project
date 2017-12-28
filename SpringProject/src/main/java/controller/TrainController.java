@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import Model.CustomerTicketDTO;
+import Model.MemberDAO;
 import Model.MemberDTO;
 import Model.TrainDAO;
 import Model.TrainDTO;
 import Model.TrainPurchaseDTO;
 import Model.TrainRegistrationDTO;
 import Model.TrainStatinDTO;
+import service.MemberService;
 import service.TrainService;
 
 @Controller
@@ -33,7 +35,10 @@ public class TrainController {
 	@Autowired
 	TrainService trainService;
 	TrainRegistrationDTO trdto;
+	@Autowired
 	TrainDAO traindao;
+	@Autowired
+	MemberService memberService;
 
 	@RequestMapping(value = "/TrainInfoKTX", method = RequestMethod.GET)
 	public String traininfo(HttpServletRequest req, Model model) {
@@ -118,7 +123,7 @@ public class TrainController {
 	
 	@RequestMapping(value = "/trainTicketing", method = RequestMethod.POST)
 	public String trainPaymentPost(HttpSession session, Model model , @ModelAttribute("trainPayment") TrainRegistrationDTO trainRegistrationDTO) {
-			
+			memberService.updateTPoint(session,trainRegistrationDTO);
 			traindao.insertTicketing(trainRegistrationDTO);
 			trainRegistrationDTO.setTrainRegCode("A"+trainRegistrationDTO.getTrainRegCode());
 			trdto = trainRegistrationDTO;

@@ -15,6 +15,7 @@
       <result column="BIRTH_DATE" jdbcType="TIMESTAMP" property="birthDate" />
       <result column="INTEREST" jdbcType="VARCHAR" property="inteRest" />
       <result column="AUTHORITY" jdbcType="BIGINT" property="authority" />
+      <result column="POINT" jdbcType="BIGINT" property="point" />
    </resultMap>
    
    <resultMap type="Model.CorporDTO" id="baseResultMap2">
@@ -34,15 +35,24 @@
       <result column="TRAVEL_END_DATE" jdbcType="TIMESTAMP" property="travelEndDate" />
       <result column="TRAVEL_ARE" jdbcType="VARCHAR" property="travelAre" />
        <result column="EXPENSE" jdbcType="BIGINT" property="expense" />
-        <result column="GROSS_PROFIT" jdbcType="BIGINT" property="grossProfit" />
+       <result column="GROSS_PROFIT" jdbcType="BIGINT" property="grossProfit" />
+       <collection property="accountDetailDTO" resultMap="baseResultMap4"></collection>
    </resultMap>
-   
+   <resultMap type="Model.AccountDetailDTO" id="baseResultMap4">
+      <id column="ACCOUNT_DETAIL_CODE" jdbcType="VARCHAR" property="accountDetailCode" />
+      <result column="BUDGET_CODE" jdbcType="VARCHAR" property="budgetCode" />
+      <result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+      <result column="ACOUNT_ITEM_NAME" jdbcType="VARCHAR" property="acountItemName" />
+      <result column="ACOUNT_CLASSIFIICATION" jdbcType="VARCHAR" property="acountClassifiication" />
+      <result column="ACOUNT_CONTENTS" jdbcType="VARCHAR" property="acountContents" />
+       <result column="ACOUNT_PRICE" jdbcType="BIGINT" property="acountPrice" />
+        <result column="ACOUNT_DATE" jdbcType="TIMESTAMP" property="acountDate" />
+   </resultMap>
+ 
 
 	<select id="selectMemberLogin" resultMap="baseResultMap">
 		select
-		MEMBER_ID,
-		MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_ADDR,
-		MEMBER_EMAIL,GENDER,BIRTH_DATE,INTEREST, AUTHORITY
+		*
 		FROM
 		MEMBER where MEMBER_ID = #{memberId}
 	</select>
@@ -100,10 +110,12 @@
 	<select id="selectAccount" parameterType="String" resultMap="baseResultMap3">
 		select * from ACCOUNT_BOOK where MEMBER_ID = #{memberId}
 	</select>
-	
-		<select id="selectAccountOne" parameterType="String" resultMap="baseResultMap3">
-		select * from ACCOUNT_BOOK where BUDGET_CODE = #{budgetCode}
+		<select id="selectAccounts" parameterType="String" resultMap="baseResultMap4">
+		select * from ACCOUNT_DETAIL_BOOK where BUDGET_CODE = #{budgetCode}
 	</select>
+	<update id="updatePoint" parameterType="java.util.Map">
+		update member set point = point+#{point} where member_id = #{memberId}
+	</update>
 </mapper>
 
 

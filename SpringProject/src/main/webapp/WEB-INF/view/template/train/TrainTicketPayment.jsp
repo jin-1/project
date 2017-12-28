@@ -12,6 +12,7 @@
 	String[] seat = request.getParameterValues("seat");
 	MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 	DecimalFormat dc = new DecimalFormat("###,###,###,###");
+	int price=0;
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -116,14 +117,17 @@
 							<td><%=data[10]%></td>
 							<td><%=(Integer.parseInt(s[num])+1)+"호차 "+Integer.parseInt(s[num1])%></td>
 							<td><%=person.get(i)%></td>
-							<td><%if(person.get(i).equals("성인")){
+							<td><%
+							
+							if(person.get(i).equals("성인")){
 								out.print(dc.format(Integer.parseInt(data[9])));
-
+								price+=Integer.parseInt(data[9]);
 							} else if(person.get(i).equals("노인")){
 								out.print(dc.format((int)(Integer.parseInt(data[9])*0.7)));
-								
+								price+=Integer.parseInt(data[9])*0.7;
 							} else{
 								out.print(dc.format((int)(Integer.parseInt(data[9])*0.5)));
+								price+=Integer.parseInt(data[9])*0.5;
 							}
 							%></td>	
 							<td><%if(person.get(i).equals("성인")){
@@ -243,6 +247,7 @@
 					  	<input type="hidden" name="trainDate" value="<%=data[4]%>">
 					  	<input type="hidden" name="trainPassengers" value="<%=trainPassengers%>">
 					  	<input type="hidden" name="trainName" value="<%=data[10]%>">
+					  	<input type="hidden" name="price" value="<%=price%>">
 					</form:form>
 				  	<div style="width: 250px; position: relative; margin: auto;">
 					  	

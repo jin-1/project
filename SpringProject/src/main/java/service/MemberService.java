@@ -1,5 +1,8 @@
 package service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -103,6 +106,18 @@ public class MemberService {
             result=0;
         }
 		return result;
+    }
+    
+    public void updateTPoint(HttpSession session,TrainRegistrationDTO trainRegistrationDTO) {
+    	Map<String,Object> pointMap = new HashMap<String,Object>(); 
+    	MemberDTO memberdto = (MemberDTO)session.getAttribute("login");
+    	System.out.println(trainRegistrationDTO.getPrice());
+    	int price =(int)(Integer.parseInt(trainRegistrationDTO.getPrice())*0.0005);
+    	int point = price;
+    	
+    	pointMap.put("memberId", memberdto.getMemberId());
+    	pointMap.put("point", point);
+    	memberDao.updatePoint(pointMap);
     }
 
 }

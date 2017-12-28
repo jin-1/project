@@ -336,7 +336,7 @@ public class MemberController {
 		System.out.println(actdto.getBudgetCode());
 		actdto.setMemberId(memberDto.getMemberId());
 		memberDao.insertAccountDetail(actdto);
-		return "redirect:budgetD";
+		return "template/member/MyBudgetView";
 	}
 	
 	@RequestMapping(value = "/budgetD", method = RequestMethod.POST)
@@ -344,10 +344,10 @@ public class MemberController {
 		String menu = req.getParameter("menu");
 		String budgeCode = req.getParameter("budgeCode");
 		HttpSession session = req.getSession();
-		AccountDTO acDto= memberDao.selectAccountOne(budgeCode);
-		System.out.println(acDto.getBudgetCode());
+		List<AccountDTO> acDto= memberDao.selectAccounts(budgeCode);
 		model.addAttribute("menu", menu);
 		model.addAttribute("acDto", acDto);
+		model.addAttribute("budgeCode", budgeCode);
 		return "template/member/MyBudgetView";
 	}
 }

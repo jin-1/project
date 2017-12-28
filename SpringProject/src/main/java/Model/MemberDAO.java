@@ -205,12 +205,12 @@ public class MemberDAO extends AbstractRepository {
 	
 	}
 
-	public AccountDTO selectAccountOne(String budgeCode){
+	public List<AccountDTO> selectAccounts(String budgeCode){
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
-		String statement = namespace + ".selectAccountOne";
+		String statement = namespace + ".selectAccounts";
 		
 		try {
-			AccountDTO d = sqlSession.selectOne(statement, budgeCode);
+			List<AccountDTO> d = sqlSession.selectList(statement, budgeCode);
 			return d;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -234,6 +234,23 @@ public class MemberDAO extends AbstractRepository {
 			e.printStackTrace();
 		}
 	
+	}
+	
+	public void updatePoint(Map<String,Object> pointMap) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".updatePoint";
+		
+		int result = 0;
+		try {
+			result = sqlSession.update(statement, pointMap);
+			if(result>0) {
+				sqlSession.commit();
+			}else {
+				sqlSession.rollback();
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
