@@ -195,16 +195,15 @@
 			<div id="menu">
 				<ul>
 					<li><a href="adminIndex">회원/기업</a></li>
-					<li><a href="#">기차</a></li>
-					<li><a href="#">대여</a></li>
-					<li><a href="#">여행지</a></li>
+					<li><a href="adminTrain">기차</a></li>
+					<li><a href="adminRent">대여</a></li>
+					<li><a href="adminTour">여행지</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 
-	<div id="mid1"
-		style="display: inline-block; width: 85%; min-height: 700px; margin-left: 280px;">
+	<div id="mid1" style="display: inline-block; width: 85%; height: 700px; margin-left: 280px; overflow-y: auto;">
 		<div id="container">
 			<h2>공지사항등록</h2>
 			<br>
@@ -248,7 +247,7 @@
 		</div>
 	</div>
 	<div id="left"
-		style="width: 12%; min-height: 100%; top: 100px; position: absolute; background-color: #595959;">
+		style="width: 12%; min-height: 900px; height: 115%; top: 100px; position: absolute; background-color: #595959;">
 
 		<ul>
 			<li style="margin-bottom: 30px; margin-top: 30px;"><a href="#">회원

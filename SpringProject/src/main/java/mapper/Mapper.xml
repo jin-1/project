@@ -31,8 +31,7 @@
 		<id column="BUDGET_CODE" jdbcType="VARCHAR" property="budgetCode" />
 		<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
 		<result column="TRAVEL_NAME" jdbcType="VARCHAR" property="travelName" />
-		<result column="TRAVEL_START_DATE" jdbcType="TIMESTAMP"
-			property="travelStartDate" />
+		<result column="TRAVEL_START_DATE" jdbcType="TIMESTAMP"	property="travelStartDate" />
 		<result column="TRAVEL_END_DATE" jdbcType="TIMESTAMP" property="travelEndDate" />
 		<result column="TRAVEL_ARE" jdbcType="VARCHAR" property="travelAre" />
 		<result column="EXPENSE" jdbcType="BIGINT" property="expense" />
@@ -86,6 +85,7 @@
 		MEMBER where
 		MEMBER_ID = #{userId}
 	</select>
+
 	<select id="selectCorPorLogin" resultMap="baseResultMap2">
 		Select
 		CORP_ID,

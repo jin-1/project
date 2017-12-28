@@ -7,7 +7,11 @@
 <%@ page import="java.text.*"%>
 <%
 	request.setCharacterEncoding("UTF-8");
-	List<TrainDTO> train = (List<TrainDTO>) request.getAttribute("train");
+	List<TrainStationTimeDTO> time = null;
+	String trainCode= request.getParameter("trainCode");
+	if (request.getAttribute("time") != null) {
+		time = (List<TrainStationTimeDTO>) request.getAttribute("time");
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -87,79 +91,80 @@
 }
 </style>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('#trainAddA').on("click", function() {
-			$('.tbg').css("display", "inline");
-			$('.tbgw').css("display", "inline");
-			$('.addTrain').css("display", "inline");
-		});
-		$('.tbg').on("click", function() {
-			$('.tbg').css("display", "none");
-			$('.tbgw').css("display", "none");
-			$('.addTrain').css("display", "none");
-			$('.trainD').css("display", "none");
-		});
-		$('.trTrain').on("click",function(){
-			
-			
-			$(location).attr('href',"adminTrainD?trainCode="+$(this).attr('id'));
-			
-		});
-	});
+	$(document).ready(
+			function() {
+				$('#trainAddA').on("click", function() {
+					$('.tbg').css("display", "inline");
+					$('.tbgw').css("display", "inline");
+					$('.addTrain').css("display", "inline");
+				});
+				$('.tbg').on("click", function() {
+					$('.tbg').css("display", "none");
+					$('.tbgw').css("display", "none");
+					$('.addTrain').css("display", "none");
+					$('.trainD').css("display", "none");
+				});
+				$('.trTrain').on("click", function() {
+					$(location).attr('href', "")
+
+				});
+
+				$.ajax({
+					url : "startTrain",
+					dataType : "json",
+					type : "post",
+					data : $('#inputStrat').serializeArray(),
+					success : function(data) {
+
+						var trainLength = Object.keys(data).length;
+
+						$.each(data,
+								function(key, value) {
+									$('.trainList ul').append(
+											'<li>' + value + '</li>');
+
+								});
+
+					},
+					error : function(request, status, error) {
+						console.log("code:" + request.status + "\n" + "error:"
+								+ error);
+					}
+
+				});
+			});
 </script>
 </head>
 <body>
 	<div class="tbg"></div>
 	<div class="tbgw">
-		<div class="addTrain" style="display:none;">
-		<h3 style="text-align: center;">기차추가</h3>
-		<form:form modelAttribute="trainAdd">
+		<h3 style="text-align: center;">시간 추가</h3>
+
+		<form:form modelAttribute="timeAdd">
+		<input type="hidden" name="trainCode" value="<%=trainCode%>">
 			<table>
 				<tr>
-					<td>기차코드</td>
-					<td><input type="text" name="trainCode"></td>
+					<td>지역</td>
+					<td><label class="inputtext control--text"> <span
+							class="inputtext__indicator" id="stStation">출발지</span> <img
+							id="startTrain" class="pinmark"
+							src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
+							<input type="text" id="inputStrat" name="startTrain"> <span
+							class="trainList" id="trainList1" style="display: none;">
+								<ul>
+								</ul>
+						</span>
+					</label></td>
 				</tr>
 				<tr>
-					<td>기차이름</td>
-					<td><input type="text" name="trainName"></td>
-				</tr>
-				<tr>
-					<td>출발역</td>
-					<td><input type="text" name="departingStation"></td>
-				</tr>
-				<tr>
-					<td>도착역</td>
-					<td><input type="text" name="arrivalStation"></td>
-				</tr>
-				<tr>
-					<td>출발날짜</td>
-					<td><input type="checkbox" name="temp" value="일">일 <input
-						type="checkbox" name="temp" value="월">월 <input
-						type="checkbox" name="temp" value="화">화 <input
-						type="checkbox" name="temp" value="수">수 <input
-						type="checkbox" name="temp" value="목">목 <input
-						type="checkbox" name="temp" value="금">금 <input
-						type="checkbox" name="temp" value="토">토</td>
-				</tr>
-				<tr>
-					<td>출발시간</td>
-					<td><input type="text" name="startTime"></td>
-				</tr>
-				<tr>
-					<td>도착시간</td>
-					<td><input type="text" name="endTime"></td>
-				</tr>
-				<tr>
-					<td>가격</td>
-					<td><input type="number" name="trainPrice"></td>
+					<td>시간</td>
+					<td><input type="text" name="time"></td>
 				</tr>
 			</table>
 			<button style="position: relative; left: 50%;">저장</button>
 		</form:form>
-		</div>
-		<div class="trainD" style="display:none;">
-		
-		</div>
+
+
 	</div>
 	<div id="top" style="height: 100px;">
 		<div id="menubgc"></div>
@@ -185,29 +190,31 @@
 		<table>
 			<thead>
 				<tr>
-					<th>열차코드</th>
-					<th>열차</th>
-					<th>출발역</th>
-					<th>도착역</th>
-					<th>출발시간</th>
-					<th>도착시간</th>
-					<th>가격</th>
+
+					<th>시간</th>
+					<th>역이름</th>
+
 				</tr>
 			</thead>
 			<tbody>
 				<%
-					for (int i = 0; i < train.size(); i++) {
+					if (time != null) {
+						for (int i = 0; i < time.size(); i++) {
 				%>
-				<tr class="trTrain" id="<%=train.get(i).getTrainCode()%>">
-					<td><%=train.get(i).getTrainCode()%></td>
-					<td><%=train.get(i).getTrainName()%></td>
-					<td><%=train.get(i).getDepartingStation()%></td>
-					<td><%=train.get(i).getArrivalStation()%></td>
-					<td><%=train.get(i).getStartTime()%></td>
-					<td><%=train.get(i).getEndTime()%></td>
-					<td><%=train.get(i).getTrainPrice()%></td>
+				<tr class="trTrain" id="<%=time.get(i).getTrainCode()%>">
+					<td><%=time.get(i).getTime()%></td>
+					<td><%=time.get(i).getTrainStatinDTO().getStationName()%></td>
+
 				</tr>
 
+				<%
+					}
+					} else {
+				%>
+				<tr>
+					<td colspan="2">값이 없습니다</td>
+
+				</tr>
 				<%
 					}
 				%>
