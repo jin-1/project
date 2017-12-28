@@ -197,7 +197,7 @@
 	</div>
 	
 	<div id="mid">
-		<h2>내 사업 등록</h2>
+		<h2>관리자 사업 등록</h2>
 		<hr>
 		
 		<form:form enctype="multipart/form-data" class="form" method="post" modelAttribute="localAdd" autocomplete="off">
