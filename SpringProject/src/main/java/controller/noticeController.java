@@ -44,7 +44,7 @@ public class noticeController {
 		model.addAttribute("page", page);
 		model.addAttribute("page1", pDto);	
 		
-		return "template/notice/noticeAdmin";
+		return "template/admin/noticeAdmin";
 	}
 	
 	//noticeIndex 페이지 이동
@@ -74,7 +74,7 @@ public class noticeController {
 		String menu = req.getParameter("menu");
 		model.addAttribute("menu", menu);
 		
-		return "template/notice/noticeAdd";
+		return "template/admin/noticeAdd";
 	}
 	
 	//공지사항 등록
@@ -87,7 +87,7 @@ public class noticeController {
 		if (result > 0) {
 			return "redirect:noticeAdmin";
 			} else {
-				return "template/notice/noticeAdd";
+				return "template/admin/noticeAdd";
 			}
 	}
 	
