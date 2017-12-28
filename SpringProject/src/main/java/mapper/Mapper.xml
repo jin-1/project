@@ -226,9 +226,24 @@
 	
 	</select>
 	
+	<select id="getNumberOfRecords4" parameterType="String" resultType="Integer">
+		select count(*) from INQUIRY 
+	</select>
+	
+			<select id="selectpaging3" parameterType="java.util.HashMap" resultMap="baseResultMap3">
+	SELECT * FROM (
+            SELECT row_number() over(order by INQUIRY_NUM desc) as rnum,INQUIRY_NUM, I_TITLE, I_CONTENT, I_REPLY, I_DATE,I_REPLY_NUM, member_id 
+            from INQUIRY
+
+            )
+   WHERE <![CDATA[ rnum>= to_number(#{param1}) AND rnum <= to_number(#{param2}) ]]>
+	
+	</select>
+	
 	<select id="getNumberOfRecords3" parameterType="String" resultType="Integer">
 		select count(*) from INQUIRY 
 	</select>
+	
 	
 	
 </mapper>

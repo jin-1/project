@@ -500,44 +500,15 @@ public class MemberController {
 		return "template/corporation/corpageIndex";
 	}
 	
-/*	//1:1문의등록 페이지이동 (기업)
-		@RequestMapping(value = "/InquiryAdd", method = RequestMethod.GET)
-		public String InquiryAdd(HttpServletRequest req, Model model) {
-			String menu = req.getParameter("menu");
-			model.addAttribute("menu", menu);
+	
+	// 일반회원 내정보수정 페이지 
+	@RequestMapping(value = "/corMyPage", method = RequestMethod.GET)
+	public String corMyPage(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		model.addAttribute("menu", menu);
 
-			return "template/member/inquiryAdd";
-		}
-		
-		//1:1문의등록 (기업)
-		@RequestMapping(value = "/InquiryAdd", method = RequestMethod.POST)
-		public String inquiryAdd(@ModelAttribute("inquiry") InquiryDTO dto) {
-			String inDate = new java.text.SimpleDateFormat("yyyy/MM/dd").format(new java.util.Date());
-			dto.setInquiryDate(inDate);
-			dto.setInquiryNum(1);
-			
-			System.out.println(dto.getInquiryNum());
-			
-			int result = memberDao.inquiryAdd(dto);
-			if (result > 0) {
-				return "redirect:MyPage";
-				} else {
-					return "template/member/inquiryAdd";
-				}
-		}
-		
-		//1:1문의상세 페이지이동 (기업) 
-		@RequestMapping(value = "/InquiryCon", method = RequestMethod.GET)
-		public String InquiryCon(HttpServletRequest req, Model model) {
-			String menu = req.getParameter("menu");
-			int num = Integer.parseInt(req.getParameter("num"));
-			InquiryDTO inquiryDto = memberDao.inquiryCon(num);
-			model.addAttribute("menu", menu);
-			
-			model.addAttribute("inquiryDto", inquiryDto);
-			
-			return "template/member/InquiryCon";
-		}*/
+		return "template/member/corMyPage";
+	}
 	
 	// 기업회원 사업등록 페이지 
 	@RequestMapping(value = "/coporationAdd", method = RequestMethod.GET)

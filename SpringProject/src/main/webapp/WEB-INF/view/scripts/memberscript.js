@@ -821,6 +821,11 @@ $(document).ready(function() {
 						$(location).attr('href','coporationAdd?menu=MyPage');
 					});
 					
+					//기업 내정보 수정
+					$('.cor_mypage').on("click",function(){
+						$(location).attr('href','corMyPage?menu=MyPage');
+					});
+					
 					
 					$('.MyPage_id').attr('readonly', 'true');
 					$('.myPage_name').attr('readonly', 'true');

@@ -400,7 +400,8 @@ public class MemberDAO extends AbstractRepository {
 	
 	public int getNumberOfRecords3(HttpSession session) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
-		String statement = namespace + ".getNumberOfRecords3";
+		String statement = namespace + "."
+				+ "+6";
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
 		String id = memberDTO.getMemberId();
 		try {
@@ -434,41 +435,4 @@ public class MemberDAO extends AbstractRepository {
 		return result;
 	}
 	
-	//기업 1:1문의
-	public List<InquiryDTO> writeGetCount4(int offset, int noOfRecords, HttpSession session){
-		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
-		String statement = namespace + ".selectpaging3";
-		CorporDTO CorporDTO = (CorporDTO)session.getAttribute("corlogin");
-		
-		System.out.println(CorporDTO.getCorporId()+"기업아이디");
-		Map<String, String> param = new HashMap<String, String>();
-		param.put("param1", String.valueOf(offset));
-		param.put("param2", String.valueOf(noOfRecords));
-		param.put("id", CorporDTO.getCorporId());
-
-		try {
-			List<InquiryDTO> list = sqlSession.selectList(statement, param);
-			return list;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-	}
-	
-	public int getNumberOfRecords4(HttpSession session) {
-		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
-		String statement = namespace + ".getNumberOfRecords3";
-		CorporDTO corporDTO = (CorporDTO)session.getAttribute("corlogin");
-		String id = corporDTO.getCorporId();
-		try {
-			int num = sqlSession.selectOne(statement, id);
-			return num;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
-	}
 }
