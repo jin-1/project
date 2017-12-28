@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -26,11 +25,10 @@ public class TourService {
 	private TourDAO tourDAO;
 	@Autowired
 	private CommentDTO CommentDTO;
-	
+	@Autowired
 	private MemberDTO memberDto;
 	@Autowired
 	private CorporDTO corpDTO;
-	private ServletContext application;
 	
 	public void insertComment(HashMap<String, Object> param, HttpSession session, Model model) {
 		memberDto = (MemberDTO) session.getAttribute("login");
@@ -54,32 +52,53 @@ public class TourService {
 	}
 	
 	public int setTour(TourDTO dto, HttpSession session, HttpServletRequest request) throws IOException {
-	
-		printInfo(dto.getLocalImage(), request);                            
-		corpDTO = (CorporDTO) session.getAttribute("corlogin");
+		System.out.println(request.getParameter("realPath"));
+		printInfo(dto.getLocalImageSave(), request, session, dto);       
+		
+		memberDto = (MemberDTO) session.getAttribute("login");
 
-		String corpId = corpDTO.getCorporId();
-		dto.setCorpId(corpId);
+		String memId = memberDto.getMemberId();
+		dto.setCorpId(memId);
 		
 		return tourDAO.addTour(dto);
 	}
 	
-	private void printInfo(MultipartFile localImage, HttpServletRequest request) throws IllegalStateException, IOException{
+	public int resetTour(TourDTO dto, HttpSession session, HttpServletRequest request) throws IOException {
+		printInfo(dto.getLocalImageSave(), request, session, dto); 
+
+		dto.setLocalCode(Integer.parseInt(request.getParameter("localCode")));
+		return tourDAO.modifyTour(dto);
+	}
+	
+	public int viewOne(TourDTO dto, HttpServletRequest request) {
+		int code = Integer.parseInt(request.getParameter("localCode"));
+		dto.setLocalCode(code);
+		
+		return tourDAO.viewOne(dto);
+	}
+	
+	private void printInfo(MultipartFile report, HttpServletRequest request, HttpSession session, TourDTO dto) throws IllegalStateException, IOException{
 		String filePath = request.getParameter("realPath") + "WEB-INF\\view\\img\\tour\\";
 		System.out.println(filePath);
+		corpDTO = (CorporDTO) session.getAttribute("corlogin");
+		String corpId = corpDTO.getCorporId();
 		
 		File file = new File(filePath);
 		String originalFile = null;
-		String originalFileName = null;
 		String originalFileExtension = null;
 		String storedFileName = null;
 		
-		originalFile = localImage.getOriginalFilename();
+		originalFile = report.getOriginalFilename();
 		originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
-		storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension;
+		storedFileName = corpId+"_"+UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension;
 		
-		System.out.println("���ε� �� ���� �� = " + originalFile);
-		System.out.println("�ٲ� ���� �� = " + storedFileName);
+		System.out.println("¿ø·¡ ±×´ë·ÎÀÇ ÆÄÀÏ ÀÌ¸§ = " + originalFile);
+		System.out.println("³»°¡ º¯°æÇÑ ÆÄÀÏ ÀÌ¸§ = " + storedFileName);
+		
+		file = new File(filePath + storedFileName);
+		report.transferTo(file);
+		
+		dto.setLocalImage(storedFileName);
 	}
 
 }
