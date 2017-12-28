@@ -16,5 +16,6 @@
 	<bean class="controller.MemberController" />
 	<bean class="controller.noticeController" />
 	<bean class="controller.RentController" />
+	<bean class="controller.EventController" />
 	
 </beans>

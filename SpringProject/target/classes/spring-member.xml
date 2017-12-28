@@ -18,8 +18,11 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 	<bean id="corporDTO" class="Model.CorporDTO" />
 	<bean id="PagingDTO" class="Model.PagingDTO" />
 	
+	<bean id="eventDao" class="Model.EventDAO" />
+	
+	<bean id="TrainDTO1" class="Model.TrainDTO" />
 	<bean id="TrainDAO" class="Model.TrainDAO" />
-	<bean id="TrainDTO" class="Model.TrainStatinDTO" />
+	<bean id="TrainStatinDTO" class="Model.TrainStatinDTO" />
 	<bean id="TrainService" class="service.TrainService" />
 	<bean id="TrainPurchaseDTO" class="Model.TrainPurchaseDTO"/>
 
