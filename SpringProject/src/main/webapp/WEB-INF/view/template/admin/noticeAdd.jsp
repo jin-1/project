@@ -9,8 +9,6 @@
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
 	MemberDTO memberdto = (MemberDTO) session.getAttribute("login");
 	String memId = memberdto.getMemberId();
-	
-	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -90,16 +88,15 @@
 	background-color: #eff3f8;
 	border: 1px solid #d6e0ed;
 	display: inline-block;
-	padding: .5em .75em; /* label의 패딩값과 일치 */ 
-	font-size: inherit; 
-	font-family:inherit; 
-	line-height: normal; 
-	vertical-align: middle; 
-	-webkit-appearance: none; 
-	  /* 네이티브 외형 감추기 */
-  	-moz-appearance: none; 
-     appearance: none;
-
+	padding: .5em .75em; /* label의 패딩값과 일치 */
+	font-size: inherit;
+	font-family: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	-webkit-appearance: none;
+	/* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
 }
 
 .filebox input[type="file"] {
@@ -155,6 +152,7 @@
 	width: 100% \9;
 	height: auto;
 }
+
 .add {
 	width: 150px;
 	height: 35px;
@@ -165,8 +163,9 @@
 	text-align: center;
 	vertical-align: middle;
 	display: inline-block;
-	cursor:pointer;
+	cursor: pointer;
 }
+
 .cancel {
 	width: 150px;
 	height: 35px;
@@ -178,59 +177,88 @@
 	color: #FFFFFF;
 	display: inline-block;
 }
-.bottom{
-    padding-top: 80px;
-    padding-left: 420px;
+
+.bottom {
+	padding-top: 80px;
+	padding-left: 420px;
 }
-
-
 </style>
 </head>
 <body>
-	<div id="top">
-		<jsp:include page="<%=menu%>" flush="false" />
+	<div id="top" style="height: 100px;">
+		<div id="menubgc"></div>
+		<div id="menuBg"></div>
+		<div id="header">
+			<div id="logo">
+				<a href="/SpringProject/main"><img src="img/3-2.png" /></a>
+			</div>
+			<div id="menu">
+				<ul>
+					<li><a href="adminIndex">회원/기업</a></li>
+					<li><a href="#">기차</a></li>
+					<li><a href="#">대여</a></li>
+					<li><a href="#">여행지</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
-	<div id="mid">
+
+	<div id="mid1"
+		style="display: inline-block; width: 85%; min-height: 700px; margin-left: 280px;">
 		<div id="container">
 			<h2>공지사항등록</h2>
 			<br>
-			<p><span style="color: red">*</span> 표시는 필수사항이므로 반드시 입력해주시기 바랍니다.
+			<p>
+				<span style="color: red">*</span> 표시는 필수사항이므로 반드시 입력해주시기 바랍니다.
 			<hr>
 			<form:form modelAttribute="notice" id="notice_frm">
-			<table class="m_table">
-				<colgroup>
-					<col span="1" width="20%" style="background: #f9fafc" />
-					<col width="70%" />
-				</colgroup>
-				<tr>
-					
-					<td class="con_label"><span style="color: red">*</span> 공지제목
-					<input type="hidden" value="<%=memId%>" name="memberId" />
-					</td>
-					<td class="con_input"><input class="notice_title" type="text"size="100px" name="noticeTitle" />
-				</tr>
-				<tr>
-					<td class="tent_label"><span style="color: red">*</span> 공지내용</td>
-					<td class="tent_input"><textarea class="notice_content" name="noticeContent" ></textarea>
-				</tr>
-				<tr>
-					<td class="file_label">첨부파일</td>
-					<td class="file_input">
+				<table class="m_table">
+					<colgroup>
+						<col span="1" width="20%" style="background: #f9fafc" />
+						<col width="70%" />
+					</colgroup>
+					<tr>
 
-						<div class="filebox preview-image">
-							<input class="file" disabled="disabled" /> 
-							
-							<label for="ex_filename">업로드</label> 
-							<input type="file" id="ex_filename" class="upload-hidden" />
-						</div>
-				</tr>
-			</table>
+						<td class="con_label"><span style="color: red">*</span> 공지제목
+							<input type="hidden" value="<%=memId%>" name="memberId" /></td>
+						<td class="con_input"><input class="notice_title" type="text"
+							size="100px" name="noticeTitle" />
+					</tr>
+					<tr>
+						<td class="tent_label"><span style="color: red">*</span> 공지내용</td>
+						<td class="tent_input"><textarea class="notice_content"
+								name="noticeContent"></textarea>
+					</tr>
+					<tr>
+						<td class="file_label">첨부파일</td>
+						<td class="file_input">
+
+							<div class="filebox preview-image">
+								<input class="file" disabled="disabled" /> <label
+									for="ex_filename">업로드</label> <input type="file"
+									id="ex_filename" class="upload-hidden" />
+							</div>
+					</tr>
+				</table>
 			</form:form>
 			<div class="bottom">
 				<p class="add">등 록</p>
 				<p class="cancel">취 소</p>
 			</div>
 		</div>
+	</div>
+	<div id="left"
+		style="width: 12%; min-height: 100%; top: 100px; position: absolute; background-color: #595959;">
+
+		<ul>
+			<li style="margin-bottom: 30px; margin-top: 30px;"><a href="#">회원
+					정보보기</a></li>
+			<li style="margin-bottom: 30px;"><a href="#">기업 정보보기</a></li>
+			<li style="margin-bottom: 30px;"><a href="noticeAdmin">공지사항
+					등록</a></li>
+			<li style="margin-bottom: 30px;"><a href="#">블랙리스트</a></li>
+
+		</ul>
 	</div>
 	<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>
 </body>

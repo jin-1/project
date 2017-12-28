@@ -48,6 +48,26 @@ public class MemberController {
 
 		return "template/member/LoginForm";
 	}
+	@RequestMapping(value = "/adminIndex", method = RequestMethod.GET)
+	public String adminIndex(HttpServletRequest req, Model model) {
+	
+		return "template/admin/adminIndex";
+	}
+	@RequestMapping(value = "/adminRent", method = RequestMethod.GET)
+	public String adminRent(HttpServletRequest req, Model model) {
+	
+		return "template/admin/adminRent";
+	}
+	@RequestMapping(value = "/adminTour", method = RequestMethod.GET)
+	public String adminTour(HttpServletRequest req, Model model) {
+	
+		return "template/admin/adminTour";
+	}
+	@RequestMapping(value = "/adminTrain", method = RequestMethod.GET)
+	public String adminTrain(HttpServletRequest req, Model model) {
+	
+		return "template/admin/adminTrain";
+	}
 
 	@RequestMapping(value = "/LoginForm", method = RequestMethod.POST)
 	public String MemberFormLogin(HttpSession session, @ModelAttribute("login") MemberDTO memberDto) {
@@ -58,6 +78,8 @@ public class MemberController {
 			return "index";
 		} else if (result == 1) {
 			return "template/member/LoginForm";
+		} else if (result == 3){
+			return "template/admin/adminIndex";
 		} else {
 			return "template/member/LoginForm";
 		}
