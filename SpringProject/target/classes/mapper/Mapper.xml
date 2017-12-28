@@ -33,6 +33,19 @@
 		<result column="I_CONTENT" jdbcType="VARCHAR" property="inquiryContent" />
 		<result column="I_REPLY" jdbcType="VARCHAR" property="inquiryReply" />
 		<result column="I_DATE" jdbcType="TIMESTAMP" property="inquiryDate" />
+		<result column="I_REPLY_NUM" jdbcType="BIGINT" property="inquiryReplyNum" />
+		<result column="I_PEPLY_NUM" jdbcType="BIGINT" property="peplyNum" />
+		
+		
+	</resultMap>
+	
+		<resultMap type="Model.NoticeDTO" id="baseResultMap4">
+		<id column="NOTICE_NUM" jdbcType="BIGINT" property="noticeNum" />
+		<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+		<result column="N_TITLE" jdbcType="VARCHAR" property="noticeTitle" />
+		<result column="N_CONTENT" jdbcType="VARCHAR" property="noticeContent" />
+		<result column="N_DATE" jdbcType="TIMESTAMP" property="noticeDate" />
+		<result column="N_COUNT" jdbcType="BIGINT" property="noticeCount" />
 	</resultMap>
 	
 	
@@ -133,6 +146,90 @@
 		insert into INQUIRY(INQUIRY_NUM, MEMBER_ID, I_TITLE, I_CONTENT, I_DATE) 
 		values(inquiry_code.NEXTVAL,#{memberId},#{inquiryTitle},#{inquiryContent},#{inquiryDate})
 	</insert>
+	
+	<!-- 공지사항 등록 -->
+	<insert id="insertNotice" parameterType="Model.NoticeDTO">
+		insert into notice(notice_NUM, n_title, n_content, n_date, member_id) 
+		values(notice_code.NEXTVAL,#{noticeTitle},#{noticeContent},#{noticeDate},#{memberId})
+	</insert>
+	
+	<select id="selectInquiry" parameterType="String" resultMap="baseResultMap3">
+	select row_number()over(order by inquiry_num desc) as INQUIRY_NUM ,i_title, i_content , I_REPLY, I_DATE
+	from inquiry
+	where member_id=#{memberId}
+	</select>
+	
+	<select id="selectInquiryCon" parameterType="Integer" resultMap="baseResultMap3">
+	select INQUIRY_NUM,i_title, i_content , I_REPLY, I_DATE,I_REPLY_NUM
+	from inquiry
+	where INQUIRY_NUM = #{num}
+	</select>
+	
+	<!-- 공지사항 상세페이지 -->
+	<select id="selectNoticeCon" parameterType="Integer" resultMap="baseResultMap4">
+	select notice_NUM, n_title, n_content , n_DATE, n_count
+	from notice
+	where notice_num = #{num}
+	</select>
+	
+	<!-- 공지사항 조회수 -->
+	<update id="updateNoticeCount" parameterType="Integer">
+	update notice set n_count = nvl(n_count,0)+1 
+	where notice_num= #{num}
+	
+	</update>
+	
+	<!-- 답변업데이트 -->
+	<update id="updateRiply" parameterType="Model.InquiryDTO">
+	update inquiry set I_REPLY = #{inquiryReply}, I_REPLY_NUM = #{inquiryReplyNum}
+	where INQUIRY_NUM= #{peplyNum}
+	
+	</update>
+
+	<select id="selectpaging" parameterType="java.util.HashMap" resultMap="baseResultMap3">
+	SELECT * FROM (
+            SELECT row_number() over(order by INQUIRY_NUM desc) as rnum,INQUIRY_NUM, I_TITLE, I_CONTENT, I_REPLY, I_DATE, I_REPLY_NUM, member_id 
+            from INQUIRY
+            where member_Id=#{id}
+
+            )
+   WHERE <![CDATA[ rnum>= to_number(#{param1}) AND rnum <= to_number(#{param2}) ]]>
+	
+	</select>
+	
+	<select id="getNumberOfRecords" parameterType="String" resultType="Integer">
+		select count(*) from INQUIRY where  member_Id=#{id}
+	</select>
+	
+	
+	<select id="selectpaging2" parameterType="java.util.HashMap" resultMap="baseResultMap4">
+		SELECT * FROM (
+            SELECT row_number() over(order by NOTICE_NUM desc) as rnum, NOTICE_NUM, N_TITLE, N_CONTENT, N_DATE, member_id, n_count 
+            from NOTICE
+     
+            )
+  			 WHERE <![CDATA[ rnum>= to_number(#{param1}) AND rnum <= to_number(#{param2}) ]]>
+	
+	</select>
+	
+	<select id="getNumberOfRecords2" parameterType="String" resultType="Integer">
+		select count(*) from NOTICE
+	</select>
+	
+		<select id="selectpaging3" parameterType="java.util.HashMap" resultMap="baseResultMap3">
+	SELECT * FROM (
+            SELECT row_number() over(order by INQUIRY_NUM desc) as rnum,INQUIRY_NUM, I_TITLE, I_CONTENT, I_REPLY, I_DATE,I_REPLY_NUM, member_id 
+            from INQUIRY
+
+            )
+   WHERE <![CDATA[ rnum>= to_number(#{param1}) AND rnum <= to_number(#{param2}) ]]>
+	
+	</select>
+	
+	<select id="getNumberOfRecords3" parameterType="String" resultType="Integer">
+		select count(*) from INQUIRY 
+	</select>
+	
 	
 </mapper>
 

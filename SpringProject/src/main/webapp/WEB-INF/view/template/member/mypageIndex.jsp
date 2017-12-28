@@ -2,10 +2,15 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page import="Model.*,java.util.*,java.text.*"%>
 <!DOCTYPE html>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
+	List<InquiryDTO> list = (List<InquiryDTO>) request.getAttribute("page");
+	PagingDTO pDto = (PagingDTO) request.getAttribute("page1");
+	SimpleDateFormat o = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat o1 = new SimpleDateFormat("yyyy-MM-dd");
 %>
 <html>
 <head>
@@ -18,13 +23,14 @@
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
 <script type="text/javascript" src="./scripts/memberscript.js"
 	charset="utf-8"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 <style>
-#container{
-	width:100%;
-	padding-left:10%;
-	padding-top:3%;
+#container {
+	width: 100%;
+	padding-left: 10%;
+	padding-top: 3%;
 }
+
 #container ul {
 	display: inline;
 }
@@ -150,15 +156,16 @@
 }
 
 .row {
-	padding-left: 66%;
-	padding-bottom:0.5%;
+	padding-left: 1120px;
+	padding-bottom: 0.5%;
 }
-.noticeTable{
-		text-align: center;
-		width:1230px; 
-		
+
+.noticeTable {
+	text-align: center;
+	width: 1230px;
 }
-.noticeTable td{
+
+.noticeTable td {
 	
 }
 </style>
@@ -173,7 +180,8 @@
 
 			<div id="mypage">
 				<ul class="mypage">
-					<li><img src="./img/mypageicon.jpg" style="width: 200px; height: 150px;" /></a></li>
+					<li><img src="./img/mypageicon.jpg"
+						style="width: 200px; height: 150px;" /></a></li>
 					<li class="mypageText"><span>내 정보 수정</span></li>
 				</ul>
 			</div>
@@ -201,15 +209,17 @@
 			<div id="oneOnone">
 				<h3>1:1문의</h3>
 				<div class="row">
-					<input type="button" class="inquiry_add" style="left-padding: 100px; width: 80pt; height: 20pt;" value="문의등록" /> 
+					<input type="button" class="inquiry_add"
+						style="left-padding: 100px; width: 80pt; height: 20pt;"
+						value="문의등록" />
 				</div>
 				<table class="noticeTable">
-				<colgroup>
-				<col width="10%" />
-				<col width="80%" />
-				<col width="20%" />
-				<col width="20%" />
-				</colgroup>
+					<colgroup>
+						<col width="10%" />
+						<col width="80%" />
+						<col width="20%" />
+						<col width="20%" />
+					</colgroup>
 					<thead>
 						<tr>
 							<th height="50"
@@ -222,41 +232,55 @@
 								style="background-color: #eeeeee; text-align: center;">답변여부</th>
 						</tr>
 					</thead>
-					<tr class="line">
-						<td >1</td>
-						<td >이거 대여 되나요?</td>
-						<td >2017-10-19</td>
-						<td >답변대기</td>
+
+					<%
+						for (int i = 0; i < list.size(); i++) {
+
+							Date to = o.parse(list.get(i).getInquiryDate());
+							String n = o1.format(to);
+					%>
+
+					<tr class="line" id="<%=list.get(i).getInquiryNum()%>">
+
+						<td><%=list.get(i).getInquiryNum()%></td>
+						<td><%=list.get(i).getInquiryTitle()%></td>
+						<td><%=n%></td>
+						<td> <%if(list.get(i).getInquiryReplyNum()==1){ %>
+						답변완료
+								<%}else{ %> 답변대기<%} %>
+						</td>
+
 					</tr>
-					<tr class="line">
-						<td >2</td>
-						<td >이거 대여 되나요?</td>
-						<td >2017-10-19</td>
-						<td >답변대기</td>
-					</tr>
-					<tr class="line">
-						<td >3</td>
-						<td >이거 대여 되나요?</td>
-						<td >2017-10-19</td>
-						<td >답변완료</td>
-					</tr>
-					<tr class="line">
-						<td >4</td>
-						<td >이거 대여 되나요?</td>
-						<td >2017-10-19</td>
-						<td >답변완료</td>
-					</tr>
+
+					<%
+						}
+					%>
 
 				</table>
 				<div class="paging">
 					<ul class="pagination">
-						<li><a href="#">Prev</a></li>
-						<li><a href="#"> 1</a></li>
-						<li><a href="#"> 2</a></li>
-						<li><a href="#"> 3</a></li>
-						<li><a href="#"> 4</a></li>
-						<li><a href="#"> 5</a></li>
+						<%
+							if (pDto.getFinalPageNo() > 1) {
+						%>
+						<li><a href="#"+>Prev</a></li>
+						<%
+							}
+						%>
+						<%
+							for (int i = 0; i < pDto.getSizeOfPage(); i++) {
+						%>
+						<li><a href="MyPage?menu=MyPage&page=<%=i + 1%>"><%=i + 1%></a></li>
+
+						<%
+							}
+						%>
+						<%
+							if (pDto.getFinalPageNo() > 1) {
+						%>
 						<li><a href="#">Next</a></li>
+						<%
+							}
+						%>
 					</ul>
 				</div>
 			</div>

@@ -21,7 +21,6 @@
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
 <script type="text/javascript" src="./scripts/memberscript.js"
 	charset="utf-8"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -66,6 +65,8 @@ $(document).ready(function() {
     font-weight: bold;
     background-color: #91A7D0;
     padding: 12px;
+    cursor:pointer;
+    
 }
 .in_pw{
 	height:26px;

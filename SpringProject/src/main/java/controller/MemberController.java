@@ -1,6 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -297,10 +299,26 @@ public class MemberController {
 
 	// 마이페이지 인덱스 페이지이동
 	@RequestMapping(value = "/MyPage", method = RequestMethod.GET)
-	public String MypageIndex(HttpServletRequest req, Model model) {
+	public String MypageIndex(HttpServletRequest req, Model model) throws Exception {
+		
 		String menu = req.getParameter("menu");
+		
 		model.addAttribute("menu", menu);
-
+		
+		HttpSession session = req.getSession();
+		memberDto = (MemberDTO)session.getAttribute("login");
+		
+		//게시판 목록 보여주기
+	
+		
+		ArrayList<InquiryDTO> page = new ArrayList<InquiryDTO>();
+		page = (ArrayList<InquiryDTO>) memberService.writeList(req);
+		
+		
+//		pagingDto.setNumberOfRecords();
+		PagingDTO pDto = memberService.makePage(req);
+		model.addAttribute("page", page);
+		model.addAttribute("page1", pDto);
 		return "template/member/mypageIndex";
 	}
 
@@ -364,7 +382,7 @@ public class MemberController {
 		System.out.println(dto.getMemberPhone());
 		System.out.println(dto.getMemberName());
 		if (result > 0) {
-			return "template/member/mypageIndex";
+			return "index";
 		} else {
 			return "template/member/membership";
 		}
@@ -390,10 +408,146 @@ public class MemberController {
 		
 		int result = memberDao.inquiryAdd(dto);
 		if (result > 0) {
-			return "template/member/mypageIndex";
+			return "redirect:MyPage";
 			} else {
 				return "template/member/inquiryAdd";
 			}
 	}
 	
+	//1:1문의상세 페이지이동
+	@RequestMapping(value = "/InquiryCon", method = RequestMethod.GET)
+	public String InquiryCon(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		int num = Integer.parseInt(req.getParameter("num"));
+		InquiryDTO inquiryDto = memberDao.inquiryCon(num);
+		model.addAttribute("menu", menu);
+		
+		model.addAttribute("inquiryDto", inquiryDto);
+		
+		return "template/member/InquiryCon";
+	}
+	
+	//관리자 mypage이동
+	@RequestMapping(value = "/mypageIndexAdmin", method = RequestMethod.GET)
+	public String mypageIndexAdmin(HttpServletRequest req, Model model) throws Exception {
+		
+		String menu = req.getParameter("menu");
+		
+		model.addAttribute("menu", menu);
+		
+		HttpSession session = req.getSession();
+		memberDto = (MemberDTO)session.getAttribute("login");
+		
+		//게시판 목록 보여주기
+		
+		ArrayList<InquiryDTO> page = new ArrayList<InquiryDTO>();
+		page = (ArrayList<InquiryDTO>) memberService.writeList3(req);
+		
+//		pagingDto.setNumberOfRecords();
+		PagingDTO pDto = memberService.makePage3(req);
+		model.addAttribute("page", page);
+		model.addAttribute("page1", pDto);
+		return "template/member/mypageIndexAdmin";
+	}
+	
+	//1:1문의상세 페이지이동 관리자
+	@RequestMapping(value = "/InquiryConAdmin", method = RequestMethod.GET)
+	public String InquiryConAdmin(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		int num = Integer.parseInt(req.getParameter("num"));
+		
+		InquiryDTO inquiryDto = memberDao.inquiryCon(num);
+		model.addAttribute("menu", menu);
+		
+		model.addAttribute("inquiryDto", inquiryDto);
+		
+		return "template/member/InquiryConAdmin";
+	}
+	
+	//1:1문의 답변등록
+	@RequestMapping(value = "/InquiryConAdmin", method = RequestMethod.POST)
+	public String InquiryRipply(@ModelAttribute("ripply_frm") InquiryDTO dto) {
+		dto.setInquiryReplyNum(1);
+		System.out.println(dto.getInquiryNum());
+		
+		int result = memberDao.ripplyadd(dto);
+		if (result > 0) {
+			return "redirect:mypageIndexAdmin";
+			} else {
+				return "template/member/InquiryConAdmin";
+			}
+	}
+	// 마이페이지 인덱스 페이지이동(기업)
+	@RequestMapping(value = "/corpageIndex", method = RequestMethod.GET)
+	public String corpageIndex(HttpServletRequest req, Model model) throws Exception {
+		
+		String menu = req.getParameter("menu");
+		
+		model.addAttribute("menu", menu);
+		
+		HttpSession session = req.getSession();
+		corporDto = (CorporDTO)session.getAttribute("corlogin");
+		System.out.println(corporDto.getCorporId()+"아이디");
+		
+		//게시판 목록 보여주기
+	
+		
+		ArrayList<InquiryDTO> page = new ArrayList<InquiryDTO>();
+		page = (ArrayList<InquiryDTO>) memberService.writeList4(req);
+		
+		
+//		pagingDto.setNumberOfRecords();
+		PagingDTO pDto = memberService.makePage4(req);
+		model.addAttribute("page", page);
+		model.addAttribute("page1", pDto);
+		return "template/corporation/corpageIndex";
+	}
+	
+/*	//1:1문의등록 페이지이동 (기업)
+		@RequestMapping(value = "/InquiryAdd", method = RequestMethod.GET)
+		public String InquiryAdd(HttpServletRequest req, Model model) {
+			String menu = req.getParameter("menu");
+			model.addAttribute("menu", menu);
+
+			return "template/member/inquiryAdd";
+		}
+		
+		//1:1문의등록 (기업)
+		@RequestMapping(value = "/InquiryAdd", method = RequestMethod.POST)
+		public String inquiryAdd(@ModelAttribute("inquiry") InquiryDTO dto) {
+			String inDate = new java.text.SimpleDateFormat("yyyy/MM/dd").format(new java.util.Date());
+			dto.setInquiryDate(inDate);
+			dto.setInquiryNum(1);
+			
+			System.out.println(dto.getInquiryNum());
+			
+			int result = memberDao.inquiryAdd(dto);
+			if (result > 0) {
+				return "redirect:MyPage";
+				} else {
+					return "template/member/inquiryAdd";
+				}
+		}
+		
+		//1:1문의상세 페이지이동 (기업) 
+		@RequestMapping(value = "/InquiryCon", method = RequestMethod.GET)
+		public String InquiryCon(HttpServletRequest req, Model model) {
+			String menu = req.getParameter("menu");
+			int num = Integer.parseInt(req.getParameter("num"));
+			InquiryDTO inquiryDto = memberDao.inquiryCon(num);
+			model.addAttribute("menu", menu);
+			
+			model.addAttribute("inquiryDto", inquiryDto);
+			
+			return "template/member/InquiryCon";
+		}*/
+	
+	// 기업회원 사업등록 페이지 
+	@RequestMapping(value = "/coporationAdd", method = RequestMethod.GET)
+	public String coporationAdd(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		model.addAttribute("menu", menu);
+
+		return "template/corporation/coporationAdd";
+	}
 }

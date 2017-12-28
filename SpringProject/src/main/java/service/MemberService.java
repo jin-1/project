@@ -1,8 +1,11 @@
 package service;
 
+import java.util.List;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,8 @@ public class MemberService {
 	EmailDTO emailDto;
 	@Autowired
 	JavaMailSender mailSender;
+	@Autowired
+	PagingDTO pagingDto;
     
 	public int Login(MemberDTO memberDto, HttpSession session) {
 		
@@ -100,6 +105,130 @@ public class MemberService {
             result=0;
         }
 		return result;
+    }
+    
+    //1:1문의 페이징
+    public List<InquiryDTO> writeList(HttpServletRequest req)throws Exception{
+    	int currentPageNo = 1;
+		int maxPost = 4;
+		HttpSession session = req.getSession();
+		if(req.getParameter("page")!=null) {
+			currentPageNo = Integer.parseInt(req.getParameter("page"));
+		} 
+		
+		
+		pagingDto.setCurrentPageNo(currentPageNo);
+		pagingDto.setMaxPost(maxPost);
+		int offset = ((pagingDto.getCurrentPageNo() -1) * pagingDto.getMaxPost())+1;
+
+    	return memberDao.writeGetCount(offset, offset+3,session);
+    }
+ 
+    
+    public PagingDTO makePage(HttpServletRequest req)throws Exception{
+    	HttpSession session = req.getSession();
+ 
+    	int result = memberDao.getNumberOfRecords(session);
+
+    	pagingDto.setNumberOfRecords(result);
+    	
+    	
+    	pagingDto.makePaging();
+
+		return pagingDto;
+
+    }
+    
+    //공지사항 페이징
+    public List<NoticeDTO> writeList2(HttpServletRequest req)throws Exception{
+    	int currentPageNo = 1;
+		int maxPost = 4;
+		HttpSession session = req.getSession();
+		if(req.getParameter("page")!=null) {
+			currentPageNo = Integer.parseInt(req.getParameter("page"));
+		} 
+		
+		
+		pagingDto.setCurrentPageNo(currentPageNo);
+		pagingDto.setMaxPost(maxPost);
+		int offset = ((pagingDto.getCurrentPageNo() -1) * pagingDto.getMaxPost())+1;
+
+    	return memberDao.writeGetCount2(offset, offset+3,session);
+    }
+ 
+    
+    public PagingDTO makePage2(HttpServletRequest req)throws Exception{
+    	HttpSession session = req.getSession();
+ 
+    	int result = memberDao.getNumberOfRecords2(session);
+
+    	pagingDto.setNumberOfRecords(result);
+    	pagingDto.makePaging();
+		return pagingDto;
+
+    }
+    
+    public List<InquiryDTO> writeList3(HttpServletRequest req)throws Exception{
+    	int currentPageNo = 1;
+		int maxPost = 4;
+		HttpSession session = req.getSession();
+		if(req.getParameter("page")!=null) {
+			currentPageNo = Integer.parseInt(req.getParameter("page"));
+		} 
+		
+		
+		pagingDto.setCurrentPageNo(currentPageNo);
+		pagingDto.setMaxPost(maxPost);
+		int offset = ((pagingDto.getCurrentPageNo() -1) * pagingDto.getMaxPost())+1;
+
+    	return memberDao.writeGetCount3(offset, offset+3,session);
+    }
+ 
+    
+    public PagingDTO makePage3(HttpServletRequest req)throws Exception{
+    	HttpSession session = req.getSession();
+ 
+    	int result = memberDao.getNumberOfRecords3(session);
+
+    	pagingDto.setNumberOfRecords(result);
+    	
+    	
+    	pagingDto.makePaging();
+
+		return pagingDto;
+
+    }
+    
+    //기업 1:1문의
+    public List<InquiryDTO> writeList4(HttpServletRequest req)throws Exception{
+    	int currentPageNo = 1;
+		int maxPost = 4;
+		HttpSession session = req.getSession();
+		if(req.getParameter("page")!=null) {
+			currentPageNo = Integer.parseInt(req.getParameter("page"));
+		} 
+		
+		
+		pagingDto.setCurrentPageNo(currentPageNo);
+		pagingDto.setMaxPost(maxPost);
+		int offset = ((pagingDto.getCurrentPageNo() -1) * pagingDto.getMaxPost())+1;
+
+    	return memberDao.writeGetCount4(offset, offset+3,session);
+    }
+ 
+    
+    public PagingDTO makePage4(HttpServletRequest req)throws Exception{
+    	HttpSession session = req.getSession();
+ 
+    	int result = memberDao.getNumberOfRecords4(session);
+
+    	pagingDto.setNumberOfRecords(result);
+    	
+    	
+    	pagingDto.makePaging();
+
+		return pagingDto;
+
     }
 
 }

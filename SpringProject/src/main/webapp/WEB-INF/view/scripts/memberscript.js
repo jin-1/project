@@ -686,7 +686,14 @@ $(document).ready(function() {
 					$( ".noticeTable tr" ).on( "mouseleave", function() {
 						 $( this ).css( "background-color", "white" );
 						  }); 
-
+					
+					
+					$(".line").on("click",function(){
+						var num = $(this).attr("id");
+						$(location).attr('href','InquiryCon?menu=Inquiry&num='+num);
+					});
+					
+					
 					//일반회원 id 찾기
 					$('.mem_sea').click(function(){
 				
@@ -807,6 +814,12 @@ $(document).ready(function() {
 					$('.mypage').on("click",function(){
 						$(location).attr('href','myPageCon?menu=MyPage');
 					});
+					
+					//기업 사업지등록
+					$('.corpor').on("click",function(){
+						$(location).attr('href','coporationAdd?menu=MyPage');
+					});
+					
 					
 					$('.MyPage_id').attr('readonly', 'true');
 					$('.myPage_name').attr('readonly', 'true');
@@ -1010,5 +1023,9 @@ $(document).ready(function() {
 	//문의등록 페이지 이동
 	$('.inquiry_add').on('click',function(){
 		$(location).attr('href','InquiryAdd?menu=Inquiry');
+	});
+	
+	$('.index_list').on('click',function(){
+		$(location).attr('href','MyPage?menu=MyPage');
 	});
 });

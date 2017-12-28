@@ -2,6 +2,8 @@ package Model;
 
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -217,5 +219,256 @@ public class MemberDAO extends AbstractRepository {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	//공지사항 등록
+	public int noticeAdd(NoticeDTO dto) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".insertNotice";
+		int result = 0;
+		try {
+			result = sqlSession.insert(statement, dto);
+			if(result>0) {
+				sqlSession.commit();
+			}else {
+				sqlSession.rollback();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public List<InquiryDTO> inquirySel(String memberId) {
+
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectInquiry";
+
+		try {
+			List<InquiryDTO> list = sqlSession.selectList(statement, memberId);
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//1:1문의 상세페이지 보기
+	public InquiryDTO inquiryCon(int num) {
+
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectInquiryCon";
+
+		try {
+			InquiryDTO inquiry = sqlSession.selectOne(statement, num);
+			return inquiry;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//공지사항 상세페이지 보기
+	public NoticeDTO noticeCon(int num) {
+
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectNoticeCon";
+
+		try {
+			NoticeDTO notice = sqlSession.selectOne(statement, num);
+			return notice;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	//공지사항 조회수
+	public void noticeCount(int num){
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".updateNoticeCount";
+		try {
+			int notice = sqlSession.update(statement, num);
+			if(notice>0) {
+				sqlSession.commit();
+			}else {
+				sqlSession.rollback();
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+		}
+	}
+	
+
+
+	
+	//1:1문의 페이징
+	public List<InquiryDTO> writeGetCount(int offset, int noOfRecords, HttpSession session){
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectpaging";
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("param1", String.valueOf(offset));
+		param.put("param2", String.valueOf(noOfRecords));
+		param.put("id", memberDTO.getMemberId());
+
+		try {
+			List<InquiryDTO> list = sqlSession.selectList(statement, param);
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
+	public int getNumberOfRecords(HttpSession session) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".getNumberOfRecords";
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
+		String id = memberDTO.getMemberId();
+		try {
+			int num = sqlSession.selectOne(statement, id);
+			return num;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	
+	//공지사항 페이징
+	public List<NoticeDTO> writeGetCount2(int offset, int noOfRecords, HttpSession session){
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectpaging2";
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("param1", String.valueOf(offset));
+		param.put("param2", String.valueOf(noOfRecords));
+		param.put("id", memberDTO.getMemberId());
+
+		try {
+			List<NoticeDTO> list = sqlSession.selectList(statement, param);
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public int getNumberOfRecords2(HttpSession session) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".getNumberOfRecords2";
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
+		String id = memberDTO.getMemberId();
+		try {
+			int num = sqlSession.selectOne(statement, id);
+			return num;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	public List<InquiryDTO> writeGetCount3(int offset, int noOfRecords, HttpSession session){
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectpaging3";
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("param1", String.valueOf(offset));
+		param.put("param2", String.valueOf(noOfRecords));
+		param.put("id", memberDTO.getMemberId());
+
+		try {
+			List<InquiryDTO> list = sqlSession.selectList(statement, param);
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
+	public int getNumberOfRecords3(HttpSession session) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".getNumberOfRecords3";
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("login");
+		String id = memberDTO.getMemberId();
+		try {
+			int num = sqlSession.selectOne(statement, id);
+			return num;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	//1:1문의 답변등록
+	public int ripplyadd(InquiryDTO dto) {
+
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".updateRiply";
+		int result = 0;
+		try {
+			result = sqlSession.update(statement, dto);
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return result;
+	}
+	
+	//기업 1:1문의
+	public List<InquiryDTO> writeGetCount4(int offset, int noOfRecords, HttpSession session){
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectpaging3";
+		CorporDTO CorporDTO = (CorporDTO)session.getAttribute("corlogin");
+		
+		System.out.println(CorporDTO.getCorporId()+"기업아이디");
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("param1", String.valueOf(offset));
+		param.put("param2", String.valueOf(noOfRecords));
+		param.put("id", CorporDTO.getCorporId());
+
+		try {
+			List<InquiryDTO> list = sqlSession.selectList(statement, param);
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
+	public int getNumberOfRecords4(HttpSession session) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".getNumberOfRecords3";
+		CorporDTO corporDTO = (CorporDTO)session.getAttribute("corlogin");
+		String id = corporDTO.getCorporId();
+		try {
+			int num = sqlSession.selectOne(statement, id);
+			return num;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 }

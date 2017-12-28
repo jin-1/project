@@ -89,7 +89,8 @@
 	color: #FFFFFF;
 	text-align: center;
 	vertical-align: middle;
-	display: inline-block
+	display: inline-block;
+	cursor:pointer;
 }
 
 .myPage_cancel {

@@ -15,7 +15,7 @@
 	<div id="menu">
 		<ul>
 			<li id="ABOUT"><a href="#">ABOUT</a></li>
-			<li id="NOTICE"><a href="indexMenu.jsp?menu=NOTICE">NOTICE</a></li>
+			<li id="NOTICE"><a href="NoticeIndex?menu=NOTICE">NOTICE</a></li>
 			<li id="TOUR"><a href="TourMain?menu=TOUR&img=tour">TOUR</a></li>
 			<li id="RENT"><a href="indexMenu.jsp?menu=RENT">RENT</a></li>
 			<li id="TRAIN"><a href="TrainInfoKTX?menu=TRAIN&img=trainbg">TRAIN</a></li>
@@ -51,6 +51,15 @@
 			<li><a href="Logout">LOGOUT</a></li>
 		</ul>
 	</div>
+	<%}else if(memberDTO.getAuthority() == 1) { %>
+				<div id="menuLogin">
+			<ul style="font-size: 8px;">
+				<li><a href="mypageIndexAdmin?menu=MyPage">MYPAGE</a></li>
+				<li>|</li>
+				<li><a href="Logout">LOGOUT</a></li>
+			</ul>
+		</div>
+	
 	<%
 		} else {
 	%>
@@ -68,7 +77,7 @@
 	%>
 	<div id="menuLogin">
 		<ul style="font-size: 8px;">
-			<li><a href="MyPage?menu=MyPage">MYPAGE</a></li>
+			<li><a href="corpageIndex?menu=MyPage">MYPAGE</a></li>
 			<li>|</li>
 			<li><a href="Logout">LOGOUT</a></li>
 		</ul>
@@ -94,7 +103,7 @@
 	<div id="menuSub">
 		<ul>
 			<li id="ABOUTSub"><a href="#">ABOUT</a></li>
-			<li id="NOTICESub"><a href="indexMenu.jsp?menu=NOTICE">NOTICE</a></li>
+			<li id="NOTICESub"><a href="NoticeIndex?menu=NOTICE">NOTICE</a></li>
 			<li id="TOURSub"><a href="indexMenu.jsp?menu=TOUR">TOUR</a></li>
 			<li id="RENTSub"><a href="indexMenu.jsp?menu=RENT">RENT</a></li>
 			<li id="TRAINSub"><a
