@@ -154,6 +154,42 @@
 		});
 	});
 </script>
+<style>
+.mid {
+	margin: auto;
+}
+.addTable{
+	width: 60%;
+	border-top: 1px solid #D5D5D5;
+	border-collapse: collapse;
+}
+.addTable td{
+	padding: 15px;
+	border-bottom: 1px solid #D5D5D5;
+}
+.addTable tr {
+	height: auto;
+	border-bottom: 1px solid #D5D5D5;
+}
+.addTable p {
+	font-size: 12px;
+	color: #FF8224;
+}
+.addrIn input {
+	margin: 5px;
+}
+#addToBusi{
+	height: 39px;
+	width: 80px;
+	cursor: pointer;
+	border: 1px solid #444;
+	border-radius: 5px 5px 5px 5px ;
+	background: #0E3A53; 	
+	color: white;
+	position: relative;
+	left: 50%;
+}
+</style>
 <body>
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
@@ -161,76 +197,110 @@
 	</div>
 	
 	<div id="mid">
-		내 사업 등록
+		<h2>내 사업 등록</h2>
 		<hr>
 		
 		<form:form enctype="multipart/form-data" class="form" method="post" modelAttribute="localAdd" autocomplete="off">
 			<input type="hidden" name="realPath" value="<%= application.getRealPath("/") %>">
-			사업 명 <input type="text" class="localName" name="localName"><br>
 			
-			사업자등록번호 <input type="text" maxlength=3 class="localNum1">
-			-<input type="text" maxlength=2 class="localNum2">
-			-<input type="text" maxlength=5 class="localNum3"><br>
-			<input type="hidden" class="localNumAll" name="registrationNum">
-			
-			전화번호 
-			<select class="corpPhone" class="localNum">
-				<option value="02">02</option>
-				<option value="031">031</option>
-				<option value="032">032</option>
-				<option value="033">033</option>
-				<option value="041">041</option>
-				<option value="042">042</option>
-				<option value="043">043</option>
-				<option value="044">044</option>
-				<option value="051">051</option>
-				<option value="052">052</option>
-				<option value="053">053</option>
-				<option value="054">054</option>
-				<option value="055">055</option>
-				<option value="061">061</option>
-				<option value="062">062</option>
-				<option value="063">063</option>
-				<option value="064">064</option>
-				<option value="010">010</option>
-				<option value="011">011</option>
-				<option value="016">016</option>
-				<option value="017">017</option>
-				<option value="018">018</option>
-				<option value="019">019</option>
-				<option value="013">013</option>
-				<option value="070">070</option>
-			</select>
-			-<input type="text" maxlength=4 class="localPhone1">
-			-<input type="text" maxlength=4 class="localPhone2"><br>
-			<input type="hidden" class="localPhoneAll" name="localPhone">
-			
-			주소 <input type="text" id="postcode" placeholder="우편번호" readOnly>
-			<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-			<input type="text" id="address" placeholder="주소" size=80 readOnly>
-			<input type="text" id="address2" placeholder="상세주소"><br>
-			<input type="hidden" id="addressAll" name="localAddr">
-			
-			카테고리
-			<select title="대분류선택" name="bigCategory">
-				<option value="">--대분류--</option>
-				<option value="맛집">맛집</option>
-				<option value="숙박">숙박</option>
-				<option value="관광지">관광지</option>
-			</select>
-			<select title="소분류선택" name="localCategory" class="smallCategory">
-				<option value="">--소분류--</option>
-			</select><br>
-			
-			내용 <textarea rows="8" cols="50" class="localContent" name="localContent"></textarea><br>
-			
-			사진첨부 <input type="file" class="localImage1" name="localImageSave"/>
-			<!-- <input type="file" class="localImage2"><br>
-			<input type="hidden" class="localImageAll" name="localImage"/> -->
-			
+			<table class="addTable">
+				<colgroup>
+					<col span="1" width="20%" style="background: #EAEAEA" />
+					<col width="70%" />
+				</colgroup>
+				<tr>
+					<td>사업 명</td>
+					<td>
+						<input type="text" class="localName" name="localName">
+					</td>
+				</tr>
+				<tr>
+					<td>사업자등록번호</td>
+					<td>
+						<input type="text" maxlength=3 class="localNum1">
+						-<input type="text" maxlength=2 class="localNum2">
+						-<input type="text" maxlength=5 class="localNum3">
+						<input type="hidden" class="localNumAll" name="registrationNum">
+					</td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td>
+						<select class="corpPhone" class="localNum">
+							<option value="02">02</option>
+							<option value="031">031</option>
+							<option value="032">032</option>
+							<option value="033">033</option>
+							<option value="041">041</option>
+							<option value="042">042</option>
+							<option value="043">043</option>
+							<option value="044">044</option>
+							<option value="051">051</option>
+							<option value="052">052</option>
+							<option value="053">053</option>
+							<option value="054">054</option>
+							<option value="055">055</option>
+							<option value="061">061</option>
+							<option value="062">062</option>
+							<option value="063">063</option>
+							<option value="064">064</option>
+							<option value="010">010</option>
+							<option value="011">011</option>
+							<option value="016">016</option>
+							<option value="017">017</option>
+							<option value="018">018</option>
+							<option value="019">019</option>
+							<option value="013">013</option>
+							<option value="070">070</option>
+						</select>
+						-<input type="text" maxlength=4 class="localPhone1">
+						-<input type="text" maxlength=4 class="localPhone2">
+						<input type="hidden" class="localPhoneAll" name="localPhone">
+					</td>
+				</tr>
+				<tr>
+					<td>주소</td>
+					<td class="addrIn">
+						<input type="text" id="postcode" placeholder="우편번호" readOnly>
+						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+						<input type="text" id="address" placeholder="주소" size=80 readOnly>
+						<input type="text" id="address2" placeholder="상세주소">
+						<p>등록하실 사업지의 주소를 적어주세요.</p>
+						<input type="hidden" id="addressAll" name="localAddr">
+					</td>
+				</tr>
+				<tr>
+					<td>카테고리</td>
+					<td>
+						<select title="대분류선택" name="bigCategory">
+							<option value="">--대분류--</option>
+							<option value="맛집">맛집</option>
+							<option value="숙박">숙박</option>
+							<option value="관광지">관광지</option>
+						</select>
+						<select title="소분류선택" name="localCategory" class="smallCategory">
+							<option value="">--소분류--</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>내용</td>
+					<td>
+						<textarea rows="8" cols="50" class="localContent" name="localContent"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>사진첨부</td>
+					<td>
+						<input type="file" class="localImage1" name="localImageSave"/>
+					</td>
+				</tr>
+			</table>
+			<br>
 			<input type="button" id="addToBusi" value="등록"><br>
 		</form:form>
 	</div>
+	<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>
 </body>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script>

@@ -71,10 +71,20 @@ public class TourController {
 		String menu = req.getParameter("menu");
 		
 		corpDTO = (CorporDTO) session.getAttribute("corlogin");
-		if(corpDTO == null) {
-			model.addAttribute("login", null);
+		memberDto = (MemberDTO) session.getAttribute("login");
+		if(corpDTO == null && memberDto == null) {
+			model.addAttribute("corpLogin", null);
+			model.addAttribute("memLogin", null);
+		} else if(corpDTO != null) {
+			model.addAttribute("memLogin", null);
+			if(memberDto != null && memberDto.getMemberId().equals("q")) {
+				model.addAttribute("corpLogin", "q");
+			} else {
+				model.addAttribute("corpLogin", "1");	
+			}
 		} else {
-			model.addAttribute("login", "1");
+			model.addAttribute("memLogin", "1");
+			model.addAttribute("corpLogin", null);
 		}
 		model.addAttribute("menu", menu);
 		model.addAttribute("result", result);
@@ -89,10 +99,14 @@ public class TourController {
 		commentDTO.setLocalCode(code);
 		
 		memberDto = (MemberDTO) session.getAttribute("login");
-		if(memberDto == null) {
-			model.addAttribute("login", null);
+		corpDTO = (CorporDTO) session.getAttribute("corlogin");
+		if(corpDTO == null && memberDto == null) {
+			model.addAttribute("memLogin", null);
+		} else if(memberDto != null) {
+			model.addAttribute("memLogin", "1");
 		} else {
-			model.addAttribute("login", "1");
+			model.addAttribute("memLogin", null);
+			model.addAttribute("corpLogin", "1");
 		}
 		
 		model.addAttribute("result", result);
