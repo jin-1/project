@@ -1,6 +1,4 @@
 package Model;
-/*회원 setter, getter 클래스 -윤성호*/
-import java.util.Date;
 
 public class MemberDTO {
 	private String memberId; 

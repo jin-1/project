@@ -28,7 +28,7 @@ $(document).ready(function() {
 		
 		 
 		 if("<%=memberPw%>" ==$('.in_pw').val()){
-			 $(location).attr('href','myPage?menu=MyPage');
+			 $(location).attr('href','myPage?menu=MyPage&userId=<%=memberdto.getMemberId()%>');
 		 }else if("<%=memberPw%>" !=$('.in_pw').val()){
 			 alert("입련된 비밀번호가 다릅니다.");
 		 }else if($('.in_pw').val()==null){

@@ -31,7 +31,7 @@ th, td {
 .container {
 	position: absolute;
 	top: 250px;
-	left: 50%;
+	left: 55%;
 	transform: translate(-50%, -50%)
 }
 
@@ -82,17 +82,32 @@ th, td {
 
 </head>
 <body>
-	<div id="top">
-		<jsp:include page="<%=menu%>" flush="false" />
+	<div id="top" style="height: 100px;">
+		<div id="menubgc"></div>
+		<div id="menuBg"></div>
+		<div id="header">
+			<div id="logo">
+				<a href="/SpringProject/main"><img src="img/3-2.png" /></a>
+			</div>
+			<div id="menu">
+				<ul>
+					<li><a href="adminIndex">회원/기업</a></li>
+					<li><a href="adminTrain">기차</a></li>
+					<li><a href="adminRent">대여</a></li>
+					<li><a href="adminTour">여행지</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
-	<div id="mid">
+
+	<div id="mid1" style="display: inline-block; width: 85%; height: 700px; margin-left: 280px; overflow-y: auto;">
 		<div class="container">
 		<div class="row">
 			<input type="button" class="notice_add" style="width: 80pt; height: 20pt;" value="공지등록" />
 			<input type="button" class="notice_del" style="width: 80pt; height: 20pt;" value="공지삭제" />
 			<input type="button" class="notice_modi" style="width: 80pt; height: 20pt;" value="공지수정" />
 		</div>
-			<table class="noticeTable" style="text-align: center;" width="1500">
+			<table class="noticeTable" style="text-align: center;  width: 100%;" >
 					<colgroup>
 						<col width="10%" />
 						<col width="80%" />
@@ -155,6 +170,17 @@ th, td {
 				</ul>
 			</div>
 		</div>
+	</div>
+	<div id="left"
+		style="width: 12%; min-height: 900px; height: 115%; top: 100px; position: absolute; background-color: #595959;">
+
+		<ul>
+			<li style="margin-bottom: 30px; margin-top: 30px;"><a href="#">회원 정보보기</a></li>
+			<li style="margin-bottom: 30px;"><a href="#">기업 정보보기</a></li>
+			<li style="margin-bottom: 30px;"><a href="noticeAdmin">공지사항 등록</a></li>
+			<li style="margin-bottom: 30px;"><a href="#">블랙리스트</a></li>
+
+		</ul>
 	</div>
 		<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>
 </body>

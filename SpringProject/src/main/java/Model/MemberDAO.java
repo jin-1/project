@@ -31,6 +31,21 @@ public class MemberDAO extends AbstractRepository {
 			return null;
 		}
 	}
+	public MemberDTO selectOneMember(String userId) {
+		
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectOneMember";
+
+		try {
+
+			MemberDTO memberDTO = sqlSession.selectOne(statement, userId);
+
+			return memberDTO;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public CorporDTO CorLogin(CorporDTO corporDto) {
 
@@ -191,6 +206,27 @@ public class MemberDAO extends AbstractRepository {
 		return result;
 	}
 
+	// 일반회원 회원탈퇴
+	public int memberDel(MemberDTO memberDto) {
+
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".deleteMember";
+		int result = 0;
+		try {
+			result = sqlSession.delete(statement, memberDto);
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return result;
+	}
+
 	// 1:1문의 등록
 	public int inquiryAdd(InquiryDTO dto) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
@@ -311,21 +347,22 @@ public class MemberDAO extends AbstractRepository {
 		}
 
 	}
-	//기업회원 비밀번호 찾기
-		public CorporDTO corPwFind(CorporDTO cor){
-			SqlSession sqlSession = this.getSqlSessionFactory().openSession();
-			String statement = namespace + ".selectCorporPwFind";
-			CorporDTO corpor=null;
-			
-			try {
-				corpor = sqlSession.selectOne(statement, cor);
-				return corpor;
-			}catch(Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-			
+
+	// 기업회원 비밀번호 찾기
+	public CorporDTO corPwFind(CorporDTO cor) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectCorporPwFind";
+		CorporDTO corpor = null;
+
+		try {
+			corpor = sqlSession.selectOne(statement, cor);
+			return corpor;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
+
+	}
 
 	public int getNumberOfRecords(HttpSession session) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
@@ -554,6 +591,96 @@ public class MemberDAO extends AbstractRepository {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<MemberDTO> MemberAll() {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectMemberAll";
+
+		try {
+			List<MemberDTO> memberDTO = sqlSession.selectList(statement);
+
+			return memberDTO;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	public List<CorporDTO> CoperAll() {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectCoperAll";
+
+		try {
+			List<CorporDTO> coperDTO = sqlSession.selectList(statement);
+
+			return coperDTO;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	// 회원삭제
+	public int deleteMember(String userId) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".deleteMember1";
+		int result = 0;
+		try {
+			result = sqlSession.delete(statement, userId);
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+
+		} catch (Exception e) {
+			sqlSession.rollback();
+			e.printStackTrace();
+
+		}
+		return result;
+	}
+
+	// 포인트
+	public MemberDTO selectPoint(String memberId) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectPoint";
+		System.out.println(memberId + "아이디");
+		MemberDTO result = null;
+		try {
+			result = sqlSession.selectOne(statement, memberId);
+			System.out.println(result.getPoint());
+		} catch (Exception e) {
+			sqlSession.rollback();
+			e.printStackTrace();
+
+		}
+		return result;
+	}
+
+	// 포인트 차감
+	public void delepoint(HttpSession Session) {
+		MemberDTO memberdto = (MemberDTO) Session.getAttribute("login");
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".deletePoint";
+		String memberId = memberdto.getMemberId();
+		int result = 0;
+		try {
+			result = sqlSession.insert(statement, memberId);
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
 	}
 
 }

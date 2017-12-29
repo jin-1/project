@@ -1,22 +1,15 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import Model.*;
 import service.MemberService;
 
@@ -44,7 +37,7 @@ public class noticeController {
 		model.addAttribute("page", page);
 		model.addAttribute("page1", pDto);	
 		
-		return "template/notice/noticeAdmin";
+		return "template/admin/noticeAdmin";
 	}
 	
 	//noticeIndex 페이지 이동
@@ -74,7 +67,7 @@ public class noticeController {
 		String menu = req.getParameter("menu");
 		model.addAttribute("menu", menu);
 		
-		return "template/notice/noticeAdd";
+		return "template/admin/noticeAdd";
 	}
 	
 	//공지사항 등록
@@ -87,7 +80,7 @@ public class noticeController {
 		if (result > 0) {
 			return "redirect:noticeAdmin";
 			} else {
-				return "template/notice/noticeAdd";
+				return "template/admin/noticeAdd";
 			}
 	}
 	

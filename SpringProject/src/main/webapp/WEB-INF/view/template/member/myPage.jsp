@@ -7,7 +7,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
-	MemberDTO memberdto = (MemberDTO) session.getAttribute("login");
+	MemberDTO memberdto = (MemberDTO)request.getAttribute("memberdto");
 	
 	String memberId = memberdto.getMemberId();
 	String memberPw = memberdto.getMemberPw();

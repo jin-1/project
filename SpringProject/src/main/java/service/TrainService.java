@@ -37,7 +37,7 @@ public class TrainService {
 		List<TrainStatinDTO> station = traindao.searchStation(stationName);
 		this.stationName = new HashMap<String, String>();
 		for (TrainStatinDTO st : station) {
-			this.stationName.put("train" + (++i), (String) st.getStationName());
+			this.stationName.put("train" + (++i), st.getStationName());
 		}
 
 		return this.stationName;

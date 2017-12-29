@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class MainInterCeptor extends HandlerInterceptorAdapter {
+	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("trainTicket") !=null) {

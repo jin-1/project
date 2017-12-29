@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,6 +49,7 @@ public class MemberController {
 		return "template/member/LoginForm";
 	}
 
+
 	@RequestMapping(value = "/LoginForm", method = RequestMethod.POST)
 	public String MemberFormLogin(HttpSession session, @ModelAttribute("login") MemberDTO memberDto) {
 
@@ -59,6 +59,8 @@ public class MemberController {
 			return "index";
 		} else if (result == 1) {
 			return "template/member/LoginForm";
+		} else if (result == 3){
+			return "template/admin/adminIndex";
 		} else {
 			return "template/member/LoginForm";
 		}
@@ -314,6 +316,7 @@ public class MemberController {
 		model.addAttribute("page1", pDto);
 		return "template/member/mypageIndex";
 	}
+	
 
 	// 일반회원 아이디 중복검사
 	@ResponseBody
@@ -354,26 +357,45 @@ public class MemberController {
 
 		return "template/member/myPageCon";
 	}
-
-	// 일반회원 내정보수정 페이지
-	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
-	public String myPage(HttpServletRequest req, Model model) {
+	
+	// 일반회원 회원 탈퇴
+	@RequestMapping(value = "/myPageCon2", method = RequestMethod.GET)
+	public String myPageCon2(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
 		model.addAttribute("menu", menu);
 
-		return "template/member/myPage";
+		return "template/member/myPageCon2";
+	}
+	
+	// 일반회원 회원 탈퇴
+	@RequestMapping(value = "/myPageCon2", method = RequestMethod.POST)
+	public String myPageCon2(HttpSession session, @ModelAttribute("mem_del") MemberDTO dto) {
+		System.out.println(dto.getMemberId());
+		int result = memberDao.memberDel(dto);
+		if (result > 0) {
+			session.invalidate();
+			return "index";
+		} else {
+			return "template/member/myPageCon2";
+		}
 	}
 
+
+	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
+	public String myPage1(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		String userId = req.getParameter("userId");
+		MemberDTO memberdto = memberDao.selectOneMember(userId);
+		model.addAttribute("menu", menu);
+		model.addAttribute("memberdto", memberdto);
+
+		return "template/member/myPage";
+	}
 	// 일반회원 내정보수정
 	@RequestMapping(value = "/myPage", method = RequestMethod.POST)
 	public String myPageRe(@ModelAttribute("myPageRevise") MemberDTO dto) {
 		int result = memberDao.myPageRe(dto);
-		System.out.println(dto.getMemberId());
-		System.out.println(dto.getMemberAddr());
-		System.out.println(dto.getMemberPw());
-		System.out.println(dto.getInteRest());
-		System.out.println(dto.getMemberPhone());
-		System.out.println(dto.getMemberName());
+
 		if (result > 0) {
 			return "index";
 		} else {
@@ -563,5 +585,47 @@ public class MemberController {
 		model.addAttribute("acDto", acDto);
 		model.addAttribute("budgeCode", budgeCode);
 		return "template/member/MyBudgetView";
+	}
+	//포인트 차감
+	@ResponseBody
+	@RequestMapping(value = "/pointdown", method = RequestMethod.POST)
+	public HashMap<String, String> pointdown(HttpSession session) {
+
+		memberDao.delepoint(session);
+		
+		HashMap<String, String> s = new HashMap<String, String>();
+		s.put("1", "포인트가 차감되었습니다..");
+		return s;
+	}
+	
+	@RequestMapping(value = "/MemberDelete", method = RequestMethod.POST)
+	public String MemberDelete(HttpServletRequest req) {
+		String userId =req.getParameter("userId");
+		
+		memberDao.deleteMember(userId);
+		return "redirect:MemberAll";
+	}
+	@RequestMapping(value = "/MemberAll", method = RequestMethod.GET)
+	public String MemerAll(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		List<MemberDTO> list = memberDao.MemberAll();
+		
+		model.addAttribute("menu", menu);
+		model.addAttribute("list", list);
+		
+		return "template/admin/memberManager";
+	}
+	
+	@RequestMapping(value="/CoperAll", method=RequestMethod.GET)
+	public String CoperAll(HttpServletRequest req, Model model) {
+	
+		String menu = req.getParameter("menu");
+		List<CorporDTO> list = memberDao.CoperAll();
+
+		
+		model.addAttribute("menu", menu);
+		model.addAttribute("list", list);
+		
+		return "template/admin/CoperManager";
 	}
 }

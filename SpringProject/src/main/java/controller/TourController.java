@@ -31,10 +31,10 @@ public class TourController {
 	@Autowired
 	private TourService tourService;
 	@Autowired
-	CommentDTO commentDTO;
+	private CommentDTO commentDTO;
 	@Autowired
 	private CorporDTO corpDTO;
-	
+	@Autowired
 	private MemberDTO memberDto;
 	
 	@RequestMapping(value="/TourMain", method = RequestMethod.GET)
@@ -47,11 +47,11 @@ public class TourController {
 	
 	@RequestMapping(value="/TourResult", method = RequestMethod.GET)
 	public String tourResult(HttpServletRequest req, Model model, TourDTO dto, HttpSession session) {
-		String one = req.getParameter("SearchArea1"); //ï¿½Ãµï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
-		String two = req.getParameter("SearchArea2"); //ï¿½Ã±ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
-		String[] cateArr = req.getParameterValues("category"); //Ä«ï¿½×°ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
+		String one = req.getParameter("SearchArea1"); 
+		String two = req.getParameter("SearchArea2"); 
+		String[] cateArr = req.getParameterValues("category");
 		
-		String cateName[] = {"ï¿½Ñ½ï¿½", "ï¿½ß½ï¿½", "ï¿½Ï½ï¿½", "ï¿½Ð½ï¿½", "È£ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½Ô½ï¿½Æ®ï¿½Ï¿ì½º", "ï¿½Ú¿ï¿½", "ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", "ï¿½Ú¹ï¿½ï¿½ï¿½"};
+		String cateName[] = {"ÇÑ½Ä", "Áß½Ä", "ÀÏ½Ä", "ºÐ½Ä", "È£ÅÚ", "¸ðÅÚ", "ÂòÁú¹æ", "°Ô½ºÆ®ÇÏ¿ì½º", "ÀÚ¿¬", "·¹Àú", "¿ª»ç", "¹Ú¹°°ü"};
 		String cate = "";
 		if(cateArr != null) {
 			for(String s : cateArr) {
@@ -71,10 +71,20 @@ public class TourController {
 		String menu = req.getParameter("menu");
 		
 		corpDTO = (CorporDTO) session.getAttribute("corlogin");
-		if(corpDTO == null) {
-			model.addAttribute("login", null);
+		memberDto = (MemberDTO) session.getAttribute("login");
+		if(corpDTO == null && memberDto == null) {
+			model.addAttribute("corpLogin", null);
+			model.addAttribute("memLogin", null);
+		} else if(corpDTO != null) {
+			model.addAttribute("memLogin", null);
+			if(memberDto != null && memberDto.getMemberId().equals("q")) {
+				model.addAttribute("corpLogin", "q");
+			} else {
+				model.addAttribute("corpLogin", "1");	
+			}
 		} else {
-			model.addAttribute("login", "1");
+			model.addAttribute("memLogin", "1");
+			model.addAttribute("corpLogin", null);
 		}
 		model.addAttribute("menu", menu);
 		model.addAttribute("result", result);
@@ -89,10 +99,14 @@ public class TourController {
 		commentDTO.setLocalCode(code);
 		
 		memberDto = (MemberDTO) session.getAttribute("login");
-		if(memberDto == null) {
-			model.addAttribute("login", null);
+		corpDTO = (CorporDTO) session.getAttribute("corlogin");
+		if(corpDTO == null && memberDto == null) {
+			model.addAttribute("memLogin", null);
+		} else if(memberDto != null) {
+			model.addAttribute("memLogin", "1");
 		} else {
-			model.addAttribute("login", "1");
+			model.addAttribute("memLogin", null);
+			model.addAttribute("corpLogin", "1");
 		}
 		
 		model.addAttribute("result", result);
@@ -111,8 +125,6 @@ public class TourController {
 		for(CommentDTO cdto : comment) {
 			commentMap.put(num++, cdto);
 		}
-		
-		
 		return commentMap;
 	}
 	
@@ -141,7 +153,82 @@ public class TourController {
 	}
 	
 	@RequestMapping(value="/MyTour", method= {RequestMethod.POST, RequestMethod.GET})
-	public String myTour(HttpServletRequest req, Model model) {
+	public String myTour(TourDTO dto, Model model, HttpSession session) {
+		corpDTO = (CorporDTO) session.getAttribute("corlogin");
+		String corpId = corpDTO.getCorporId();
+		dto.setCorpId(corpId);
+		
+		List<TourDTO> result = tourDAO.myTour(corpId);
+		
+		model.addAttribute("result", result);
 		return "template/tour/MyTour";
+	}
+	
+	@RequestMapping(value="/ModifyMyTour", method= RequestMethod.GET)
+	public String modifyMyTourForm(TourDTO dto, Model model, HttpSession session, HttpServletRequest request) {
+		int code = Integer.parseInt(request.getParameter("localCode"));
+		dto.setLocalCode(code);
+		
+		TourDTO result = tourDAO.tourInfo(dto);
+		/*TourDTO result = tourDAO.modifyMyTour(corpId);*/
+		
+		model.addAttribute("result", result);
+		return "template/tour/ModifyMyTour";
+	}
+	
+	@RequestMapping(value="/ModifyMyTour", method= RequestMethod.POST)
+	public String modifyMyTour(@ModelAttribute("localAdd") TourDTO dto, HttpSession session, HttpServletRequest request) throws IOException{
+		int result = tourService.resetTour(dto, session, request);
+		if(result > 0) {
+			return "redirect:MyTour";
+		} else {
+			return "template/tour/ModifyMyTour";
+		}
+	}
+	
+	@RequestMapping(value="/ViewAll", method= RequestMethod.GET)
+	public String viewAllForm(TourDTO dto, Model model) {
+		List<TourDTO> result = tourDAO.viewAll(dto);
+		
+		model.addAttribute("result", result);
+		return "template/tour/ViewAll";
+	}
+	
+
+	@ResponseBody
+	@RequestMapping(value = "/DeleteView", method = RequestMethod.POST)
+	public HashMap<String, String> searchStation(@RequestParam HashMap<String, Object> param) {
+		System.out.println(param);
+		int localCode = Integer.parseInt(String.valueOf(param.get("localCode")));
+		int result = tourDAO.deleteTour(localCode);
+		HashMap<String, String> delCode = new HashMap<String, String>();
+		delCode.put("1", "»èÁ¦µÇ¾ú½À´Ï´Ù");
+
+		return delCode;
+	}
+	
+	@RequestMapping(value="/ViewOne", method= RequestMethod.GET)
+	public String viewOneForm(TourDTO dto, Model model, HttpServletRequest request) {
+		int code = Integer.parseInt(request.getParameter("localCode"));
+		dto.setLocalCode(code);
+		
+		TourDTO result = tourDAO.tourInfo(dto);
+		model.addAttribute("result", result);
+		return "template/tour/ViewOne";
+	}
+	
+	@RequestMapping(value="/ViewOne", method= RequestMethod.POST)
+	public String viewOne(@ModelAttribute("viewOne")TourDTO dto, Model model, HttpServletRequest request) {
+		int result = tourService.viewOne(dto, request);
+		if(result > 0) {
+			return "redirect:ViewAll";
+		} else {
+			return "template/tour/ViewOne";
+		}
+	}
+	
+	@RequestMapping(value="/ViewAdd", method=RequestMethod.GET)
+	public String viewAddForm(Model model) {
+		return "template/tour/ViewAdd";
 	}
 }

@@ -27,6 +27,7 @@
 		<mapper resource="mapper/Mapper.xml" />
 		<mapper resource="mapper/TrainMapper.xml" />
 		<mapper resource="mapper/ProductMapper.xml"/>
+		<mapper resource="mapper/EventMapper.xml" />
 		<mapper resource="mapper/TourMapper.xml" />
 	</mappers>
 </configuration>

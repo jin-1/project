@@ -28,9 +28,7 @@
    postion:relative;
    margin-left: 20%;
 }
-div {
-   display: block;
-} 
+
 #nav-critical {
    padding-top: 90px;
    display: table;
@@ -281,7 +279,6 @@ div {
    font-weight: bold;
    margin-right: 30px;
    margin-left:60px;
-   
 }
 
 #payment {
@@ -347,8 +344,6 @@ text-align: center;
    color: white;
    text-align: center;
    padding-top: 13px;
-   margin: auto;
-   margin-top: 40px;
    display: inline-block;
    background-color: #0180a3;
    cursor: pointer;
@@ -378,6 +373,40 @@ text-align: center;
 #payMethod{
    font-size:18px;
    font-weight: bold;
+}
+.tbg {
+	position: fixed;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
+	background-color: #0000008a;
+	display: none;
+}
+
+.tbgw {
+	width: 60%;
+	height: 620px;
+	position: fixed;
+	background: white;
+	z-index: 11;
+	top: 10%;
+	left: 20%;
+	display: none;
+	border-radius: 15px;
+}
+
+.tbgt {
+	width: 200px;
+	padding: 20px;
+	height: 200px;
+	position: absolute;
+	background: white;
+	z-index: 11;
+	text-align: center;
+	right: 5%;
+	display: none;
+	border-radius: 15px;
+	box-shadow: #00000085 1px 6px 10px;
 }
 </style>
 <script type="text/javascript">
@@ -488,9 +517,244 @@ $(document).ready(
          $('.edbg').css('display', 'none');
          $('.datebg').css('display', 'none');
          $('.datebg_1').css('display', 'inline');
-      });      
-)
+      });   
+      
+      $("#inputStrat:text").keyup(
+				function(e) {
+					var code = e.which;
+					$("#trainList1").css("display", "block");
+					var k = $(this).val();
 
+					$("#trainList1 li").hide();
+					$("#trainList1 li:contains('" + k + "')").css(
+							"display", "block");
+					if (code == 13) {
+						$("#trainList1").css("display", "none");
+						$("#stStation")
+								.html($('#inputStrat').val());
+						$('#inputStrat').blur();
+					}
+				});
+
+		$("#trainList1 ul").on("click", "li", function() {
+
+			$("#stStation").html($(this).text());
+			$("#inputStrat").val($(this).text());
+			$("#trainList1").css("display", "none");
+
+		});
+		var a;
+		var b;
+
+		$('#trainList1').on('mouseenter', function() {
+			a = true;
+		});
+		$('#trainList1').on('mouseleave', function() {
+			a = false;
+		});
+
+		$('#inputStrat').on('focusout', function() {
+			if (!a) {
+				$("#trainList1").css("display", "none");
+				$("#stStation").html($('#inputStrat').val());
+			}
+
+		});
+
+		$("#inputEnd:text").keyup(
+				function(e) {
+					var code = e.which;
+					$("#trainList2").css("display", "block");
+					var k = $(this).val();
+
+					$("#trainList2 li").hide();
+					$("#trainList2 li:contains('" + k + "')").css(
+							"display", "block");
+					if (code == 13) {
+						$("#trainList2").css("display", "none");
+						$("#edStation").html($('#inputEnd').val());
+						$('#inputEnd').blur();
+					}
+				});
+
+		$("#trainList2 ul").on("click", "li", function() {
+
+			$("#edStation").html($(this).text());
+			$("#inputEnd").val($(this).text());
+			$("#trainList2").css("display", "none");
+
+		});
+		$('#trainList2').on('mouseenter', function() {
+			b = true;
+		});
+		$('#trainList2').on('mouseleave', function() {
+			b = false;
+		});
+		$('#inputEnd').on('focusout', function() {
+			if (!b) {
+				$("#trainList2").css("display", "none");
+				$("#edStation").html($('#inputEnd').val());
+			}
+
+		});
+
+		$('.stbg_1 ul').on(
+				"click",
+				"li",
+				function() {
+					var c = $(this).text();
+					if (c == "전체") {
+						$("#trainList3 li").show();
+
+					} else if (c == "가") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('가')").css(
+								"display", "inline-block");
+					} else if (c == "나") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('나')").css(
+								"display", "inline-block");
+					} else if (c == "다") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('다')").css(
+								"display", "inline-block");
+					} else if (c == "라") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('라')").css(
+								"display", "inline-block");
+					} else if (c == "마") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('마')").css(
+								"display", "inline-block");
+					} else if (c == "바") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('바')").css(
+								"display", "inline-block");
+					} else if (c == "사") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('사')").css(
+								"display", "inline-block");
+					} else if (c == "아") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('아')").css(
+								"display", "inline-block");
+					} else if (c == "자") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('자')").css(
+								"display", "inline-block");
+					} else if (c == "차") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('차')").css(
+								"display", "inline-block");
+					} else if (c == "카") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('카')").css(
+								"display", "inline-block");
+					} else if (c == "타") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('타')").css(
+								"display", "inline-block");
+					} else if (c == "파") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('파')").css(
+								"display", "inline-block");
+					} else if (c == "하") {
+						$("#trainList3 li").hide();
+						$("#trainList3 li:contains('하')").css(
+								"display", "inline-block");
+					}
+				});
+		$('.stbg_1 ul').on(
+				"click",
+				"li",
+				function() {
+					var c = $(this).text();
+					if (c == "전체") {
+						$("#trainList4 li").show();
+
+					} else if (c == "가") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('가')").css(
+								"display", "inline-block");
+					} else if (c == "나") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('나')").css(
+								"display", "inline-block");
+					} else if (c == "다") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('다')").css(
+								"display", "inline-block");
+					} else if (c == "라") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('라')").css(
+								"display", "inline-block");
+					} else if (c == "마") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('마')").css(
+								"display", "inline-block");
+					} else if (c == "바") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('바')").css(
+								"display", "inline-block");
+					} else if (c == "사") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('사')").css(
+								"display", "inline-block");
+					} else if (c == "아") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('아')").css(
+								"display", "inline-block");
+					} else if (c == "자") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('자')").css(
+								"display", "inline-block");
+					} else if (c == "차") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('차')").css(
+								"display", "inline-block");
+					} else if (c == "카") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('카')").css(
+								"display", "inline-block");
+					} else if (c == "타") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('타')").css(
+								"display", "inline-block");
+					} else if (c == "파") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('파')").css(
+								"display", "inline-block");
+					} else if (c == "하") {
+						$("#trainList4 li").hide();
+						$("#trainList4 li:contains('하')").css(
+								"display", "inline-block");
+					}
+				});
+
+		$('#trainList1 li').mouseenter(function() {
+			$(this).css("background-color", "#EEF1F6");
+		});
+		$('#trainList1 li').mouseleave(function() {
+			$(this).css("background-color", "#ffffff");
+		});
+		
+		$('#trainList3 ul').on("click", "li", function() {
+			var c = $(this).text();
+			$('#inputStrat').val(c);
+			$('#stStation').text(c);
+			$('.tbg').css("display", "none");
+			$('.tbgw').css("display", "none");
+
+		});
+
+		$('#trainList4 ul').on("click", "li", function() {
+			var c = $(this).text();
+			$('#inputEnd').val(c);
+			$('#edStation').text(c);
+			$('.tbg').css("display", "none");
+			$('.tbgw').css("display", "none");
+		});
+);
 </script>
 <script type="text/javascript">
    function placeOrder(){
@@ -682,25 +946,10 @@ $(document).ready(
                }
             %>
                
-                  
-
-
-
-               
-
-            
-         
-      
          <div>
               <p id="payMethod">결제 방법</p>
               <div class="paymentTypeon" style="border-top-left-radius: 15px;">
                  신용카드
-              </div>
-              <div class="paymentTypeoff">
-                 계좌이체
-              </div>
-              <div class="paymentTypeoff" style="border-top-right-radius: 15px;">
-                 무통장 입금
               </div>
               <div class="contextPayment">
                  <table id="contextPaymentTable">

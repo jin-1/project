@@ -9,6 +9,7 @@
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
 	MemberDTO memberdto = (MemberDTO) session.getAttribute("login");
 	String memberPw = memberdto.getMemberPw();
+	String memberId = memberdto.getMemberId();
 %>
 <html>
 <head>
@@ -24,18 +25,16 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-	 $(".p_btn").click(function(){
-		
-		 
-		 if("<%=memberPw%>" ==$('.in_pw').val()){
-			 $(location).attr('href','myPage?menu=MyPage');
+	 $(".del_btn").click(function(){
+		 if("<%=memberPw%>" == $('.in_pw').val()){
+			 $('#del_frm').submit();
 		 }else if("<%=memberPw%>" !=$('.in_pw').val()){
 			 alert("입련된 비밀번호가 다릅니다.");
 		 }else if($('.in_pw').val()==null){
 			 alert("비밀번호를 입력해주세요");
 		 }
-		 
 	 });
+	 
 });
 </script>
 <style type="text/css">
@@ -59,7 +58,7 @@ $(document).ready(function() {
 	width: 100%;
 	padding : 40px;   
 }
-.p_btn{
+.del_btn{
 	display: inline;
     color: #fff;
     font-weight: bold;
@@ -82,21 +81,24 @@ $(document).ready(function() {
 	</div>
 	<div id="mid">
 		<div class="contain">
-			<h2>개인정보변경</h2>
+			<h2>회원탈퇴</h2>
 			<hr />
+			<form:form modelAttribute="mem_del" id="del_frm">
 			<p class="p_tag">고객님의 개인정보 보호를 위해 본인확인을 진행합니다. </p>
 			<p class="p_tag2">비밀번호를 입력해주세요. </p>
+			<input type="hidden" name="memberId" value="<%=memberId %>" />
 			<div class="pwc_table">
 				<table class="pwc_t">
 					<tr>
 					<td>
 					비밀번호 &nbsp;
 					<input type="password" class="in_pw" size="40"/>&nbsp; 
-					<p class="p_btn">확인</p>
+					<p class="del_btn">확인</p>
 					</td>
 					</tr>
 				</table>
 			</div>
+			</form:form>
 		</div>
 	</div>
 	<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>
