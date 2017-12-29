@@ -92,23 +92,22 @@ th, td {
 			<div id="menu">
 				<ul>
 					<li><a href="adminIndex">회원/기업</a></li>
-					<li><a href="#">기차</a></li>
-					<li><a href="#">대여</a></li>
-					<li><a href="#">여행지</a></li>
+					<li><a href="adminTrain">기차</a></li>
+					<li><a href="adminRent">대여</a></li>
+					<li><a href="adminTour">여행지</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 
-	<div id="mid1"
-		style="display: inline-block; width: 85%; min-height: 700px; margin-left: 280px;">
+	<div id="mid1" style="display: inline-block; width: 85%; height: 700px; margin-left: 280px; overflow-y: auto;">
 		<div class="container">
 		<div class="row">
 			<input type="button" class="notice_add" style="width: 80pt; height: 20pt;" value="공지등록" />
 			<input type="button" class="notice_del" style="width: 80pt; height: 20pt;" value="공지삭제" />
 			<input type="button" class="notice_modi" style="width: 80pt; height: 20pt;" value="공지수정" />
 		</div>
-			<table class="noticeTable" style="text-align: center;" width="1500">
+			<table class="noticeTable" style="text-align: center;  width: 100%;" >
 					<colgroup>
 						<col width="10%" />
 						<col width="80%" />
@@ -173,7 +172,7 @@ th, td {
 		</div>
 	</div>
 	<div id="left"
-		style="width: 12%; min-height: 100%; height: 115%; top: 100px; position: absolute; background-color: #595959;">
+		style="width: 12%; min-height: 900px; height: 115%; top: 100px; position: absolute; background-color: #595959;">
 
 		<ul>
 			<li style="margin-bottom: 30px; margin-top: 30px;"><a href="#">회원 정보보기</a></li>

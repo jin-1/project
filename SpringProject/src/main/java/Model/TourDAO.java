@@ -59,4 +59,58 @@ public class TourDAO extends AbstractRepository{
 		}
 		return result;
 	}
+	
+	public List<TourDTO> myTour(String corpId){
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".myTour";
+		return sqlSession.selectList(statement, corpId);
+	}
+	
+	public int modifyTour(TourDTO dto) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".tourModify";
+		int result = 0;
+		result = sqlSession.update(statement, dto);
+		System.out.println("tourDAO session Result = " + result);
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+		
+		return result;
+	}
+	
+	public List<TourDTO> viewAll(TourDTO dto){
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".viewAll";
+		return sqlSession.selectList(statement, dto);
+	}
+	
+	public int viewOne(TourDTO dto) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".viewOne";
+		int result = 0;
+		result = sqlSession.update(statement, dto);
+		System.out.println("tourDAO session Result = " + result);
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+		return result;
+	}
+	
+	public int deleteTour(int localCode) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".deleteTour";
+		int result = 0;
+		result = sqlSession.delete(statement, localCode);
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+		return result;
+	}
 }

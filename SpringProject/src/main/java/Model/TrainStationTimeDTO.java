@@ -5,6 +5,14 @@ public class TrainStationTimeDTO {
 	private String stationCode;
 	private int trainCode;
 	private String time;
+	private TrainStatinDTO trainStatinDTO;
+	
+	public TrainStatinDTO getTrainStatinDTO() {
+		return trainStatinDTO;
+	}
+	public void setTrainStatinDTO(TrainStatinDTO trainStatinDTO) {
+		this.trainStatinDTO = trainStatinDTO;
+	}
 	public String getStationTimeCode() {
 		return stationTimeCode;
 	}
