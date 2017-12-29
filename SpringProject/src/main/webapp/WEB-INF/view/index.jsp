@@ -109,9 +109,10 @@
 	</div>
 	<div id="contents" class="box">
 		<div id="typography">
-			<p>ASDSFASFAasdasdSF</p>
-			<p>ASFASFASF</p>
-			<p>ASFASF</p>
+			<p>세상의 가치를</p>
+			<p>바라보는 눈으로</p>
+			<p>따듯한 세상을 만드는 경험</p>
+		
 		</div>
 	</div>
 </body>
