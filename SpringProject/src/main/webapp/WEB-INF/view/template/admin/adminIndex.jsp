@@ -48,7 +48,8 @@
 			<li style="margin-bottom: 30px; margin-top: 30px;"><a href="MemberAll">회원 정보보기</a></li>
 			<li style="margin-bottom: 30px;"><a href="CoperAll">기업 정보보기</a></li>
 			<li style="margin-bottom: 30px;"><a href="noticeAdmin">공지사항 등록</a></li>
-			<li style="margin-bottom: 30px;"><a href="mypageIndexAdmin">1:1문의 답변</a></li>
+			<li style="margin-bottom: 30px;"><a href="inquiryAdmin">1:1문의 답변(일반)</a></li>
+			<li style="margin-bottom: 30px;"><a href="corInquiryAdmin">1:1문의 답변(기업)</a></li>
 
 		</ul>
 	</div>

@@ -443,7 +443,7 @@ public class MemberController {
 	}
 
 	// 관리자 mypage이동
-	@RequestMapping(value = "/mypageIndexAdmin", method = RequestMethod.GET)
+	@RequestMapping(value = "/inquiryAdmin", method = RequestMethod.GET)
 	public String mypageIndexAdmin(HttpServletRequest req, Model model) throws Exception {
 
 		String menu = req.getParameter("menu");
@@ -462,7 +462,30 @@ public class MemberController {
 		PagingDTO pDto = memberService.makePage3(req);
 		model.addAttribute("page", page);
 		model.addAttribute("page1", pDto);
-		return "template/member/mypageIndexAdmin";
+		return "template/admin/inquiryAdmin";
+	}
+	
+	// 관리자 mypage이동
+	@RequestMapping(value = "/corInquiryAdmin", method = RequestMethod.GET)
+	public String corInquiryAdmin(HttpServletRequest req, Model model) throws Exception {
+
+		String menu = req.getParameter("menu");
+
+		model.addAttribute("menu", menu);
+
+		HttpSession session = req.getSession();
+		memberDto = (MemberDTO) session.getAttribute("login");
+
+		// 게시판 목록 보여주기
+
+		ArrayList<InquiryDTO> page = new ArrayList<InquiryDTO>();
+		page = (ArrayList<InquiryDTO>) memberService.writeList5(req);
+
+		// pagingDto.setNumberOfRecords();
+		PagingDTO pDto = memberService.makePage5(req);
+		model.addAttribute("page", page);
+		model.addAttribute("page1", pDto);
+		return "template/admin/corInquiryAdmin";
 	}
 
 	// 1:1문의상세 페이지이동 관리자
@@ -476,10 +499,10 @@ public class MemberController {
 
 		model.addAttribute("inquiryDto", inquiryDto);
 
-		return "template/member/InquiryConAdmin";
+		return "template/admin/InquiryConAdmin";
 	}
 
-	// 1:1문의 답변등록
+	// 1:1문의 답변등록 관리자
 	@RequestMapping(value = "/InquiryConAdmin", method = RequestMethod.POST)
 	public String InquiryRipply(@ModelAttribute("ripply_frm") InquiryDTO dto) {
 		dto.setInquiryReplyNum(1);
@@ -487,11 +510,41 @@ public class MemberController {
 
 		int result = memberDao.ripplyadd(dto);
 		if (result > 0) {
-			return "redirect:mypageIndexAdmin";
+			return "redirect:inquiryAdmin";
 		} else {
-			return "template/member/InquiryConAdmin";
+			return "template/admin/InquiryConAdmin";
 		}
 	}
+	
+	// 기업1:1문의상세 페이지이동 관리자
+	@RequestMapping(value = "/corInquiryConAdmin", method = RequestMethod.GET)
+	public String corInquiryConAdmin(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		int num = Integer.parseInt(req.getParameter("num"));
+
+		InquiryDTO inquiryDto = memberDao.corInquiryConAdmin(num);
+		model.addAttribute("menu", menu);
+
+		model.addAttribute("inquiryDto", inquiryDto);
+
+		return "template/admin/corInquiryConAdmin";
+	}
+	
+	// 기업1:1문의 답변등록 관리자
+	@RequestMapping(value = "/corInquiryConAdmin", method = RequestMethod.POST)
+	public String corInquiryConAdmin(@ModelAttribute("ripplye_conten1") InquiryDTO dto) {
+		dto.setInquiryReplyNum(1);
+		System.out.println(dto.getInquiryNum());
+
+		int result = memberDao.corRipplyadd(dto);
+		if (result > 0) {
+			return "redirect:corInquiryAdmin";
+		} else {
+			return "template/admin/corInquiryConAdmin";
+		}
+	}
+	
+
 
 	// 마이페이지 인덱스 페이지이동(기업)
 	@RequestMapping(value = "/corIndex", method = RequestMethod.GET)

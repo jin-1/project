@@ -68,6 +68,11 @@ $(document).ready(function() {
 		$(location).attr('href','InquiryConAdmin?menu=Inquiry&num='+num);
 	});
 	
+	$(".cor_inquiry_admin").on("click",function(){
+		var num = $(this).attr("id");
+		$(location).attr('href','corInquiryConAdmin?menu=Inquiry&num='+num);
+	});
+	
 	$(".no_line").on("click",function(){
 		var num = $(this).attr("id");
 		$(location).attr('href','noticeCon?menu=Notice&num='+num);
@@ -114,6 +119,20 @@ $(document).ready(function() {
 		}
 	});
 	
+	$('.ripple_add1').on('click',function(){
+		var check = true;
+		if($('.ripple1').val()==""| $('.ripple1').val()==null){
+			alert("문의제목을 입력해주세요.");
+			$('.ripple1').focus();
+			check=false;
+		}else if(check==true){
+			$('#ripply_frm1').submit();
+			
+		}
+	});
+	
+	
+
 	$('.notice_list').on('click',function(){
 		$(location).attr('href','noticeAdmin?menu=Notice');
 	});

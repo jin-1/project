@@ -21,90 +21,100 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
-<script type="text/javascript" src="./scripts/corporscript.js"
+<script type="text/javascript" src="./scripts/memberscript.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="./scripts/cornoticescripts.js"
-charset="utf-8"></script>
+	charset="utf-8"></script>
 <style>
 #container {
-	width: 80%;
-	margin: auto;
-	margin-top: 100px;
+	width: 100%;
+	padding-left: 10%;
+	padding-top: 3%;
+}
+
+#container ul {
+	display: inline;
+}
+
+#container li {
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .mypage {
 	list-style: none;
-	width: 100%;
-	margin: 0;
-	padding: 0;
+	width: 255px;
+	height: 200px;
+	float: left;
+	margin-right: 10px;
+	background-color: #EAEAEA;
 }
 
 .mypage li {
-	display: inline-block;
-	width: 33%;
-	margin: auto;
-	margin-right: -5px;
-	height: 250px;
-	position: relative;
-	background-color: #f7f7f7;
-	border: #afacac 1px solid;
+	text-align: center;
+	padding-right: 16%;
+	padding-top: 3%;
 }
 
-.mypage p {
-	position: relative;
-	top: 30px;
-	width: 150px;
-	display: inline-block;
-	left: 170px;
-	margin: 0;
+.mypage span {
 	font-weight: bold;
-	text-align: left;
-	font-size: 25px;
 }
 
-.mypage li>ul {
-	width: 207px;
-	position: relative;
-	top: 50px;
-	left: 30px;
-	font-size: 15px;
+.train {
+	list-style: none;
+	width: 255px;
+	height: 200px;
+	float: left;
+	margin-right: 10px;
+	background-color: #EAEAEA;
 }
 
-.mypage li>ul>li {
-	height: 30px;
-	width: 100px;
-	border: none;
-	display: block;
-	border: none;
-	cursor: pointer;
+.train li {
+	text-align: center;
+	padding-right: 16%;
+	padding-top: 3%;
 }
 
-.mypage li>ul>li>a {
-	text-decoration: none;
-	color: black;
+.train span {
+	font-weight: bold;
 }
 
-.mypage li>ul>li>a:focus {
-	color: black;
+.rent {
+	list-style: none;
+	width: 255px;
+	height: 200px;
+	float: left;
+	margin-right: 10px;
+	background-color: #EAEAEA;
 }
 
-.mypage li>ul>li>a:visited {
-	color: black;
+.rent li {
+	text-align: center;
+	padding-right: 16%;
+	padding-top: 3%;
 }
 
-.mypage li>ul>li>a:hover {
-	color: #4a4a4a;
+.rent span {
+	font-weight: bold;
 }
 
-.mypage img {
-	width: 120px;
-	position: absolute;
-	top: 50px;
-	left: 30px;
+.corpor {
+	list-style: none;
+	width: 255px;
+	height: 200px;
+	float: left;
+	margin-right: 10px;
+	background-color: #EAEAEA;
 }
 
-#oneOnone {
-	padding-top: 80px;
+.corpor li {
+	text-align: center;
+	padding-right: 16%;
+	padding-top: 3%;
+}
+
+.corpor span {
+	font-weight: bold;
 }
 
 .paging {
@@ -138,12 +148,12 @@ charset="utf-8"></script>
 	position: relative;
 }
 
-.line td {
+.cor_inquiry_admin td {
 	height: 50px;
 }
 
 .row {
-	padding-left: 1121px;
+	padding-left: 1120px;
 	padding-bottom: 0.5%;
 }
 
@@ -155,40 +165,33 @@ charset="utf-8"></script>
 .noticeTable td {
 	
 }
-.add{
-top: -30px;
-}
 </style>
 </head>
 <body>
-	<div id="top">
-		<jsp:include page="<%=menu%>" flush="false" />
-	</div>
-	<div id="mid">
-		<div id="container">
-			<h3>MYPAGE</h3>
-
-			<div id="mypage">
-				<ul class="mypage">
-					<li><p>내정보관리</p> <img src="img/mypage.png">
-						<ul>
-							<li><a href="corPageCon?menu=MyPage">내정보수정</a></li>
-							<li><a href="corPageCon2?menu=MyPage">회원탈퇴</a></li>
-
-						</ul></li>
-					<li class="add"><p>사업지등록</p> <img src="img/mypage.png">
-						<ul>
-							<li><a href="TourAdd?menu=MyPage">내 사업지 등록</a></li>
-						</ul></li>
+	<div id="top" style="height: 100px;">
+		<div id="menubgc"></div>
+		<div id="menuBg"></div>
+		<div id="header">
+			<div id="logo">
+				<a href="/SpringProject/main"><img src="img/3-2.png" /></a>
+			</div>
+			<div id="menu">
+				<ul>
+					<li><a href="adminIndex">회원/기업</a></li>
+					<li><a href="adminTrain">기차</a></li>
+					<li><a href="adminRent">대여</a></li>
+					<li><a href="adminTour">여행지</a></li>
+					
 				</ul>
 			</div>
+		</div>
+	</div>
 
+	<div id="mid1" style="display: inline-block; width: 85%; height: 700px; margin-left: 280px; overflow-y: auto;">
+		<div id="container">
+			<h3>1:1문의</h3>
 			<div id="oneOnone">
-				<h3>1:1문의</h3>
 				<div class="row">
-					<input type="button" class="inquiry_add"
-						style="left-padding: 100px; width: 80pt; height: 20pt;"
-						value="문의등록" />
 				</div>
 				<table class="noticeTable">
 					<colgroup>
@@ -217,20 +220,12 @@ top: -30px;
 							String n = o1.format(to);
 					%>
 
-					<tr class="line" id="<%=list.get(i).getInquiryNum()%>">
+					<tr class="cor_inquiry_admin" id="<%=list.get(i).getInquiryNum()%>">
 
 						<td><%=list.get(i).getInquiryNum()%></td>
 						<td><%=list.get(i).getInquiryTitle()%></td>
 						<td><%=n%></td>
-						<td>
-							<%
-								if (list.get(i).getInquiryReplyNum() == 1) {
-							%> 답변완료 <%
-								} else {
-							%> 답변대기<%
-								}
-							%>
-						</td>
+						<td>답변대기</td>
 
 					</tr>
 
@@ -241,32 +236,32 @@ top: -30px;
 				</table>
 				<div class="paging">
 					<ul class="pagination">
-						<%
-							if (pDto.getFinalPageNo() > 1) {
-						%>
-						<li><a href="#"+>Prev</a></li>
-						<%
-							}
-						%>
+
 						<%
 							for (int i = 0; i < pDto.getSizeOfPage(); i++) {
 						%>
-						<li><a href="corIndex?menu=MyPage&img=mypageimg2&page=<%=i + 1%>"><%=i + 1%></a></li>
+						<li><a href="corInquiryAdmin?menu=MyPage&page=<%=i + 1%>"><%=i + 1%></a></li>
 
 						<%
 							}
 						%>
-						<%
-							if (pDto.getFinalPageNo() > 1) {
-						%>
-						<li><a href="#">Next</a></li>
-						<%
-							}
-						%>
+
 					</ul>
 				</div>
-			</div> 
-		</div>
+			</div>
+		</div> 
+	</div>
+	<div id="left"
+		style="width: 12%; min-height: 900px; height: 105%; top: 100px; position: absolute; background-color: #595959;">
+
+		<ul>
+			<li style="margin-bottom: 30px; margin-top: 30px;"><a href="MemberAll">회원 정보보기</a></li>
+			<li style="margin-bottom: 30px;"><a href="CoperAll">기업 정보보기</a></li>
+			<li style="margin-bottom: 30px;"><a href="noticeAdmin">공지사항 등록</a></li>
+			<li style="margin-bottom: 30px;"><a href="inquiryAdmin">1:1문의 답변(일반)</a></li>
+			<li style="margin-bottom: 30px;"><a href="corInquiryAdmin">1:1문의 답변(기업)</a></li>
+
+		</ul>
 	</div>
 	<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>
 </body>

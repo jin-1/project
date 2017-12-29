@@ -14,6 +14,7 @@ public class MainInterCeptor extends HandlerInterceptorAdapter {
 			session.removeAttribute("trainTicket");
 		}
 		
+		
 		return true;
 	}
 }

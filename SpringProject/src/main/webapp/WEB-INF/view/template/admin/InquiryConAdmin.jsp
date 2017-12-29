@@ -3,12 +3,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page import="Model.*"%>
-
 <%
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
-	MemberDTO memberdto = (MemberDTO) session.getAttribute("login");
-	String memId = memberdto.getMemberId();
+	InquiryDTO inquiryDto = (InquiryDTO)request.getAttribute("inquiryDto");
+	int num = Integer.parseInt(request.getParameter("num"));
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -31,7 +30,7 @@
 	width: 1200px;
 }
 
-.notice_title {
+.content {
 	width: 733px;
 	height: 25px;
 	background-color: #eff3f8;
@@ -65,7 +64,14 @@
 	padding: 5px 20px;
 }
 
-.notice_content {
+.tent {
+	resize: none;
+	width: 730px;
+	height: 450px;
+	background-color: #eff3f8;
+	border: 1px solid #d6e0ed;
+}
+.ripple {
 	resize: none;
 	width: 730px;
 	height: 450px;
@@ -88,15 +94,16 @@
 	background-color: #eff3f8;
 	border: 1px solid #d6e0ed;
 	display: inline-block;
-	padding: .5em .75em; /* label의 패딩값과 일치 */
-	font-size: inherit;
-	font-family: inherit;
-	line-height: normal;
-	vertical-align: middle;
-	-webkit-appearance: none;
-	/* 네이티브 외형 감추기 */
-	-moz-appearance: none;
-	appearance: none;
+	padding: .5em .75em; /* label의 패딩값과 일치 */ 
+	font-size: inherit; 
+	font-family:inherit; 
+	line-height: normal; 
+	vertical-align: middle; 
+	-webkit-appearance: none; 
+	  /* 네이티브 외형 감추기 */
+  	-moz-appearance: none; 
+     appearance: none;
+
 }
 
 .filebox input[type="file"] {
@@ -152,36 +159,39 @@
 	width: 100% \9;
 	height: auto;
 }
-
-.add {
-	width: 150px;
-	height: 35px;
-	background-color: #337ab7;
-	padding-top: 12px;
-	font-weight: bold;
-	color: #FFFFFF;
-	text-align: center;
-	vertical-align: middle;
-	display: inline-block;
-	cursor: pointer;
+.index_list {
+    width: 150px;
+    height: 35px;
+    background-color: #337ab7;
+    padding-top: 13px;
+    margin: auto;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    cursor: pointer;
+}
+.ripple_add {
+    width: 150px;
+    height: 35px;
+    background-color: #337ab7;
+    padding-top: 13px;
+    margin: auto;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    cursor: pointer;
+}
+.bottom{
+    padding-top: 80px;
+    width: 100%;
+    text-align: center;
 }
 
-.cancel {
-	width: 150px;
-	height: 35px;
-	background-color: #686868;
-	padding-top: 12px;
-	font-weight: bold;
-	text-align: center;
-	vertical-align: middle;
-	color: #FFFFFF;
-	display: inline-block;
-}
 
-.bottom {
-	padding-top: 80px;
-	padding-left: 420px;
-}
 </style>
 </head>
 <body>
@@ -203,60 +213,52 @@
 		</div>
 	</div>
 
-	<div id="mid1" style="display: inline-block; width: 85%; height: 700px; margin-left: 280px; overflow-y: auto;">
+	<div id="mid">
 		<div id="container">
-			<h2>공지사항등록</h2>
+			<h2>1:1문의등록</h2>
 			<br>
-			<p>
-				<span style="color: red">*</span> 표시는 필수사항이므로 반드시 입력해주시기 바랍니다.
 			<hr>
-			<form:form modelAttribute="notice" id="notice_frm">
-				<table class="m_table">
-					<colgroup>
-						<col span="1" width="20%" style="background: #f9fafc" />
-						<col width="70%" />
-					</colgroup>
-					<tr>
-
-						<td class="con_label"><span style="color: red">*</span> 공지제목
-							<input type="hidden" value="<%=memId%>" name="memberId" /></td>
-						<td class="con_input"><input class="notice_title" type="text"
-							size="100px" name="noticeTitle" />
-					</tr>
-					<tr>
-						<td class="tent_label"><span style="color: red">*</span> 공지내용</td>
-						<td class="tent_input"><textarea class="notice_content"
-								name="noticeContent"></textarea>
-					</tr>
-					<tr>
-						<td class="file_label">첨부파일</td>
-						<td class="file_input">
-
-							<div class="filebox preview-image">
-								<input class="file" disabled="disabled" /> <label
-									for="ex_filename">업로드</label> <input type="file"
-									id="ex_filename" class="upload-hidden" />
-							</div>
-					</tr>
-				</table>
+			<form:form modelAttribute="ripplye_conten" id="ripply_frm">
+			<table class="m_table">
+				<colgroup>
+					<col span="1" width="20%" style="background: #f9fafc" />
+					<col width="70%" />
+				</colgroup>
+				<tr>
+					
+					<td class="con_label"><span style="color: red">*</span> 문의제목
+					
+					</td>
+					<td class="con_input"><input class="content" type="text"size="100px" name="inquiryTitle" value="<%=inquiryDto.getInquiryTitle()%>" disabled="disabled"/>
+				</tr>
+				<tr>
+					<td class="tent_label"><span style="color: red">*</span> 문의내용</td>
+					<td class="tent_input"><textarea class="tent" name="inquiryContent" disabled="disabled"><%=inquiryDto.getInquiryContent()%>
+					</textarea>
+					
+				</tr>
+				<tr>
+					<td class="file_label">답변내용</td>
+					<td class="file_input">
+					<textarea class="ripple" name="inquiryReply"></textarea>
+					<input type="hidden" value="<%=num %>" name="peplyNum" />
+					</td>
+				</tr>
+			</table>
 			</form:form>
 			<div class="bottom">
-				<p class="add">등 록</p>
-				<p class="cancel">취 소</p>
+				<p class="ripple_add">답변 등록</p>
+				<p class="index_list">목 록</p>
 			</div>
 		</div>
 	</div>
-	<div id="left"
-		style="width: 12%; min-height: 900px; height: 105%; top: 100px; position: absolute; background-color: #595959;">
-
-		<ul>
+			<ul>
 			<li style="margin-bottom: 30px; margin-top: 30px;"><a href="MemberAll">회원 정보보기</a></li>
 			<li style="margin-bottom: 30px;"><a href="CoperAll">기업 정보보기</a></li>
 			<li style="margin-bottom: 30px;"><a href="noticeAdmin">공지사항 등록</a></li>
 			<li style="margin-bottom: 30px;"><a href="inquiryAdmin">1:1문의 답변(일반)</a></li>
 			<li style="margin-bottom: 30px;"><a href="corInquiryAdmin">1:1문의 답변(기업)</a></li>
 		</ul>
-	</div>
 	<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>
 </body>
 </html>
