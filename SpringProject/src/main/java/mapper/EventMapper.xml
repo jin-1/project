@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- CommentMapper.xml -->
+<mapper namespace="mapper.EventMapper">
+<resultMap type="Model.EventDTO" id="baseResultMap2">
+		<id column="ELECTED_CODE" jdbcType="VARCHAR" property="electedCode" />
+		<result column="EVENT_CODE" jdbcType="VARCHAR" property="evnetCode" />
+		<result column="EXPIRY_DATE" jdbcType="DATE" property="expriyDate" />
+		<result column="EVENT_NAME" jdbcType="VARCHAR" property="eventName" />
+		<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+		<result column="EVENT_DATE" jdbcType="DATE" property="eventDate" />
+		<result column="EVENT_CATEGORY" jdbcType="VARCHAR" property="eventCategory" />
+	
+	</resultMap>
+	<select id="selectCoupon" parameterType="String" resultMap="baseResultMap2">
+		Select
+		*
+		FROM EVENT_ELECTED ee join event e on ee.EVENT_CODE = e.EVENT_CODE where MEMBER_ID = #{memberId}
+	</select>
+	<insert id="insertCoupon" parameterType="Model.EventDTO">
+		insert into	EVENT_ELECTED(ELECTED_CODE,EVENT_CODE,EXPIRY_DATE, EVENT_NAME,  MEMBER_ID,EVENT_DATE) 
+		values('a'||event_s.nextval,1,ADD_MONTHS(SYSDATE, +12),'가위바위보 이벤트',#{memberId},SYSDATE)
+		
+	</insert>
+	
+
+</mapper>

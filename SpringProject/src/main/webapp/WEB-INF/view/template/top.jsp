@@ -19,7 +19,7 @@
 			<li id="TOUR"><a href="TourMain?menu=TOUR&img=tour">TOUR</a></li>
 			<li id="RENT"><a href="SearchProduct?menu=RENT&img=rent">RENT</a></li>
 			<li id="TRAIN"><a href="TrainInfoKTX?menu=TRAIN&img=trainbg">TRAIN</a></li>
-			<li id="EVENT"><a href="indexMenu.jsp?menu=EVENT">EVENT</a></li>
+			<li id="EVENT"><a href="EventMain?menu=EVENT">EVENT</a></li>
 		</ul>
 
 		<div>
@@ -98,7 +98,7 @@
 		<ul>
 			<li id="ABOUTSub"><a href="#">ABOUT</a></li>
 			<li id="NOTICESub"><a href="indexMenu.jsp?menu=NOTICE">NOTICE</a></li>
-			<li id="TOURSub"><a href="indexMenu.jsp?menu=TOUR">TOUR</a></li>
+			<li id="TOURSub"><a href="TourMain?menu=TOUR&img=tour">TOUR</a></li>
 			<li id="RENTSub"><a href="indexMenu.jsp?menu=RENT">RENT</a></li>
 			<li id="TRAINSub"><a
 				href="TrainInfoKTX.jsp?menu=TRAIN&img=trainbg">TRAIN</a></li>

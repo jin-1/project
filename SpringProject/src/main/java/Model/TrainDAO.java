@@ -33,7 +33,43 @@ public class TrainDAO extends AbstractRepository {
 			return null;
 		}
 	}
+	
+	public List<TrainDTO> selectTrainAll(){
+		
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectTrainAll";
+		List<TrainDTO> train = new ArrayList<TrainDTO>();
+		try {
+			
+			train = sqlSession.selectList(statement);
 
+			return train;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+	}
+	public List<TrainStationTimeDTO> selectTrainTimeAll(String t){
+		
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".selectTrainTimeAll";
+		String trainCode = t;
+		List<TrainStationTimeDTO> time = new ArrayList<TrainStationTimeDTO>();
+		try {
+			
+			time = sqlSession.selectList(statement,trainCode);
+
+			return time;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+	}
+	
 	public List<TrainDTO> customerTicket(Map<String, Object> listTrain) {
 
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
@@ -182,6 +218,47 @@ public class TrainDAO extends AbstractRepository {
 			seatMap.put("seat", seat[0]);
 			seatMap.put("code", seat[1]);
 			int result = sqlSession.update(statement, seatMap);
+			if(result>0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+	}
+	
+	
+	public void insertTrain(TrainDTO trainDTO) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".insertTrain";
+		try {
+			
+			int result = sqlSession.insert(statement, trainDTO);
+			if(result>0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+	}
+	public void insertTime(TrainStationTimeDTO trainStationTimeDTO, String d) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".insertTime";
+		Map<String,String> map =  new HashMap<String,String>();
+		map.put("trainCode", String.valueOf(trainStationTimeDTO.getTrainCode()));
+		map.put("time", trainStationTimeDTO.getTime());
+		map.put("start", d);
+		System.out.println(map);
+		try {
+			
+			int result = sqlSession.insert(statement, map);
 			if(result>0) {
 				sqlSession.commit();
 			} else {
