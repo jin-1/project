@@ -67,7 +67,16 @@
 			</ul>
 		</div>
 		<%
-			} else {
+			} else if (memberDTO.getAuthority() == 1) {
+				%>
+				<div id="menuLogin">
+					<ul style="font-size: 8px;">
+
+						<li><a href="Logout">LOGOUT</a></li>
+					</ul>
+				</div>
+				<%
+					} else {
 		%>
 		<div id="menuLogin">
 			<ul style="font-size: 8px;">

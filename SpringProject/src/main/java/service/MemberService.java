@@ -66,6 +66,7 @@ public class MemberService {
 			if (this.corporDto.getCorporPw().equals(corporDto.getCorporPw())) {
 				session.setAttribute("corlogin", this.corporDto);
 				result = 2;
+			
 			} else {
 				result = 1;
 			}
@@ -241,5 +242,35 @@ public class MemberService {
 		return pagingDto;
 
 	}
+	
+	public List<InquiryDTO> writeList5(HttpServletRequest req) throws Exception {
+		int currentPageNo = 1;
+		int maxPost = 4;
+		HttpSession session = req.getSession();
+		if (req.getParameter("page") != null) {
+			currentPageNo = Integer.parseInt(req.getParameter("page"));
+		}
+
+		pagingDto.setCurrentPageNo(currentPageNo);
+		pagingDto.setMaxPost(maxPost);
+		int offset = ((pagingDto.getCurrentPageNo() - 1) * pagingDto.getMaxPost()) + 1;
+
+		return memberDao.writeGetCount5(offset, offset + 3, session);
+	}
+
+	public PagingDTO makePage5(HttpServletRequest req) throws Exception {
+		HttpSession session = req.getSession();
+
+		int result = memberDao.getNumberOfRecords5(session);
+
+		pagingDto.setNumberOfRecords(result);
+
+		pagingDto.makePaging();
+
+		return pagingDto;
+
+	}
+	
+
 
 }

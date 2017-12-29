@@ -104,8 +104,7 @@ th, td {
 		<div class="container">
 		<div class="row">
 			<input type="button" class="notice_add" style="width: 80pt; height: 20pt;" value="공지등록" />
-			<input type="button" class="notice_del" style="width: 80pt; height: 20pt;" value="공지삭제" />
-			<input type="button" class="notice_modi" style="width: 80pt; height: 20pt;" value="공지수정" />
+
 		</div>
 			<table class="noticeTable" style="text-align: center;  width: 100%;" >
 					<colgroup>
@@ -178,7 +177,8 @@ th, td {
 			<li style="margin-bottom: 30px; margin-top: 30px;"><a href="MemberAll">회원 정보보기</a></li>
 			<li style="margin-bottom: 30px;"><a href="CoperAll">기업 정보보기</a></li>
 			<li style="margin-bottom: 30px;"><a href="noticeAdmin">공지사항 등록</a></li>
-
+			<li style="margin-bottom: 30px;"><a href="inquiryAdmin">1:1문의 답변(일반)</a></li>
+			<li style="margin-bottom: 30px;"><a href="corInquiryAdmin">1:1문의 답변(기업)</a></li>	
 		</ul>
 	</div>
 		<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>

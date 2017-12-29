@@ -53,6 +53,7 @@
 	<resultMap type="Model.InquiryDTO" id="baseResultMap5">
 		<id column="INQUIRY_NUM" jdbcType="BIGINT" property="inquiryNum" />
 		<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
+		<result column="Corp_ID" jdbcType="VARCHAR" property="corporId" />
 		<result column="I_TITLE" jdbcType="VARCHAR" property="inquiryTitle" />
 		<result column="I_CONTENT" jdbcType="VARCHAR" property="inquiryContent" />
 		<result column="I_REPLY" jdbcType="VARCHAR" property="inquiryReply" />
@@ -239,6 +240,11 @@
 	from CORP_INQUIRY
 	where INQUIRY_NUM = #{num}
 	</select>
+		<select id="corSelectInquiryConAdmin" parameterType="Integer" resultMap="baseResultMap5">
+	select INQUIRY_NUM,i_title, i_content , I_REPLY, I_DATE,I_REPLY_NUM
+	from CORP_INQUIRY
+	where INQUIRY_NUM = #{num}
+	</select>
 	
 	<!-- 공지사항 상세페이지 -->
 	<select id="selectNoticeCon" parameterType="Integer" resultMap="baseResultMap6">
@@ -258,6 +264,15 @@
 	<!-- 답변업데이트 -->
 	<update id="updateRiply" parameterType="Model.InquiryDTO">
 		update inquiry set
+		I_REPLY = #{inquiryReply}, I_REPLY_NUM =
+		#{inquiryReplyNum}
+		where
+		INQUIRY_NUM= #{peplyNum}
+
+	</update>
+	<!-- 기업답변 -->
+	<update id="updateRiplycor" parameterType="Model.InquiryDTO">
+		update CORP_INQUIRY set
 		I_REPLY = #{inquiryReply}, I_REPLY_NUM =
 		#{inquiryReplyNum}
 		where
@@ -324,6 +339,25 @@
 		select count(*) from INQUIRY
 	</select>
 	
+		<select id="selectpaging5" parameterType="java.util.HashMap"
+		resultMap="baseResultMap5">
+		SELECT * FROM (
+		SELECT row_number() over(order by INQUIRY_NUM desc) as
+		rnum,INQUIRY_NUM,
+		I_TITLE, I_CONTENT, I_REPLY, I_DATE,I_REPLY_NUM,
+		CORP_ID
+		from CORP_INQUIRY
+
+		)
+		WHERE <![CDATA[ rnum>= to_number(#{param1}) AND rnum <= to_number(#{param2}) ]]>
+
+	</select>
+
+	<select id="getNumberOfRecords5" parameterType="String"
+		resultType="Integer">
+		select count(*) from INQUIRY
+	</select>
+	
 	
 	<select id="selectpaging4" parameterType="java.util.HashMap" resultMap="baseResultMap5">
 	SELECT * FROM (
@@ -337,6 +371,8 @@
 	<select id="getNumberOfRecords4" parameterType="String" resultType="Integer">
 		select count(*) from CORP_INQUIRY 
 	</select>
+	
+
 	
 	
 	

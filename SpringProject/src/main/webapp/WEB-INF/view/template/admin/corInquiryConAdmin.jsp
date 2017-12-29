@@ -22,8 +22,9 @@
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
 <script type="text/javascript" src="./scripts/memberscript.js"
 	charset="utf-8"></script>
-<script type="text/javascript" src="./scripts/noticescripts.js"
+<script type="text/javascript" src="./scripts/cornoticescripts.js"
 	charset="utf-8"></script>
+
 <style type="text/css">
 #container {
 	padding-left: 220px;
@@ -71,7 +72,7 @@
 	background-color: #eff3f8;
 	border: 1px solid #d6e0ed;
 }
-.ripple {
+.ripple1 {
 	resize: none;
 	width: 730px;
 	height: 450px;
@@ -172,7 +173,7 @@
     display: inline-block;
     cursor: pointer;
 }
-.ripple_add {
+.ripple_add1 {
     width: 150px;
     height: 35px;
     background-color: #337ab7;
@@ -195,15 +196,30 @@
 </style>
 </head>
 <body>
-	<div id="top">
-		<jsp:include page="<%=menu%>" flush="false" />
+	<div id="top" style="height: 100px;">
+		<div id="menubgc"></div>
+		<div id="menuBg"></div>
+		<div id="header">
+			<div id="logo">
+				<a href="/SpringProject/main"><img src="img/3-2.png" /></a>
+			</div>
+			<div id="menu">
+				<ul>
+					<li><a href="adminIndex">회원/기업</a></li>
+					<li><a href="adminTrain">기차</a></li>
+					<li><a href="adminRent">대여</a></li>
+					<li><a href="adminTour">여행지</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
+
 	<div id="mid">
 		<div id="container">
 			<h2>1:1문의등록</h2>
 			<br>
 			<hr>
-			<form:form modelAttribute="ripplye_conten" id="ripply_frm">
+			<form:form modelAttribute="ripplye_conten1" id="ripply_frm1">
 			<table class="m_table">
 				<colgroup>
 					<col span="1" width="20%" style="background: #f9fafc" />
@@ -225,18 +241,25 @@
 				<tr>
 					<td class="file_label">답변내용</td>
 					<td class="file_input">
-					<textarea class="ripple" name="inquiryReply"></textarea>
+					<textarea class="ripple1" name="inquiryReply"></textarea>
 					<input type="hidden" value="<%=num %>" name="peplyNum" />
 					</td>
 				</tr>
 			</table>
 			</form:form>
 			<div class="bottom">
-				<p class="ripple_add">답변 등록</p>
+				<p class="ripple_add1">답변 등록</p>
 				<p class="index_list">목 록</p>
 			</div>
 		</div>
 	</div>
+			<ul>
+			<li style="margin-bottom: 30px; margin-top: 30px;"><a href="MemberAll">회원 정보보기</a></li>
+			<li style="margin-bottom: 30px;"><a href="CoperAll">기업 정보보기</a></li>
+			<li style="margin-bottom: 30px;"><a href="noticeAdmin">공지사항 등록</a></li>
+			<li style="margin-bottom: 30px;"><a href="inquiryAdmin">1:1문의 답변(일반)</a></li>
+			<li style="margin-bottom: 30px;"><a href="corInquiryAdmin">1:1문의 답변(기업)</a></li>
+		</ul>
 	<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>
 </body>
 </html>

@@ -23,7 +23,7 @@
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
 <script type="text/javascript" src="./scripts/memberscript.js"
 	charset="utf-8"></script>
-<script type="text/javascript" src="./scripts/noticescripts.js"
+<script type="text/javascript" src="./scripts/cornoticescripts.js"
 	charset="utf-8"></script>
 <style>
 #container {
@@ -148,7 +148,7 @@
 	position: relative;
 }
 
-.inquiry_admin td {
+.cor_inquiry_admin td {
 	height: 50px;
 }
 
@@ -168,17 +168,30 @@
 </style>
 </head>
 <body>
-	<div id="top">
-		<jsp:include page="<%=menu%>" flush="false" />
+	<div id="top" style="height: 100px;">
+		<div id="menubgc"></div>
+		<div id="menuBg"></div>
+		<div id="header">
+			<div id="logo">
+				<a href="/SpringProject/main"><img src="img/3-2.png" /></a>
+			</div>
+			<div id="menu">
+				<ul>
+					<li><a href="adminIndex">회원/기업</a></li>
+					<li><a href="adminTrain">기차</a></li>
+					<li><a href="adminRent">대여</a></li>
+					<li><a href="adminTour">여행지</a></li>
+					
+				</ul>
+			</div>
+		</div>
 	</div>
-	<div id="mid">
+
+	<div id="mid1" style="display: inline-block; width: 85%; height: 700px; margin-left: 280px; overflow-y: auto;">
 		<div id="container">
 			<h3>1:1문의</h3>
 			<div id="oneOnone">
 				<div class="row">
-					<input type="button" class="inquiry_add"
-						style="left-padding: 100px; width: 80pt; height: 20pt;"
-						value="답변등록" />
 				</div>
 				<table class="noticeTable">
 					<colgroup>
@@ -207,12 +220,18 @@
 							String n = o1.format(to);
 					%>
 
-					<tr class="inquiry_admin" id="<%=list.get(i).getInquiryNum()%>">
+					<tr class="cor_inquiry_admin" id="<%=list.get(i).getInquiryNum()%>">
 
 						<td><%=list.get(i).getInquiryNum()%></td>
 						<td><%=list.get(i).getInquiryTitle()%></td>
 						<td><%=n%></td>
-						<td>답변대기</td>
+						<td>							<%
+								if (list.get(i).getInquiryReplyNum() == 1) {
+							%> 답변완료 <%
+								} else {
+							%> 답변대기<%
+								}
+							%></td>
 
 					</tr>
 
@@ -227,7 +246,7 @@
 						<%
 							for (int i = 0; i < pDto.getSizeOfPage(); i++) {
 						%>
-						<li><a href="mypageIndexAdmin?menu=MyPage&page=<%=i + 1%>"><%=i + 1%></a></li>
+						<li><a href="corInquiryAdmin?menu=MyPage&page=<%=i + 1%>"><%=i + 1%></a></li>
 
 						<%
 							}
@@ -237,6 +256,18 @@
 				</div>
 			</div>
 		</div> 
+	</div>
+	<div id="left"
+		style="width: 12%; min-height: 900px; height: 105%; top: 100px; position: absolute; background-color: #595959;">
+
+		<ul>
+			<li style="margin-bottom: 30px; margin-top: 30px;"><a href="MemberAll">회원 정보보기</a></li>
+			<li style="margin-bottom: 30px;"><a href="CoperAll">기업 정보보기</a></li>
+			<li style="margin-bottom: 30px;"><a href="noticeAdmin">공지사항 등록</a></li>
+			<li style="margin-bottom: 30px;"><a href="inquiryAdmin">1:1문의 답변(일반)</a></li>
+			<li style="margin-bottom: 30px;"><a href="corInquiryAdmin">1:1문의 답변(기업)</a></li>
+
+		</ul>
 	</div>
 	<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>
 </body>
