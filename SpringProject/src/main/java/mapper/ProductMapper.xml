@@ -155,12 +155,13 @@
 		<where> member_id = #{memberId} </where>
 	</update>
 	
-<!-- 	<resultMap type="eventDTO" id="eventApply">
+ 	<resultMap type="Model.EventDTO" id="eventApply">
 		<id column="elected_code" jdbcType="VARCHAR" property="electedCode" />
-		<result column="event_code" jdbcType="VARCHAR" property="eventCode"/>
-		<result column="expiry_date" jdbcType="TIMESTAMP" property="expiryDate"/>
-		<result column="event_name" jdbcType="VARCHAR" property="eventName"/>
-		<result column="event_quant" jdbcType="BIGINT" property="eventQuant"/>
+		<result column="event_code" jdbcType="VARCHAR" property="evnetCode"/>
+		<result column="expiry_date" jdbcType="TIMESTAMP" property="expriyDate"/>
+		<result column="event_name" jdbcType="VARCHAR" property="eventName"/>		
+		<result column="event_Date" jdbcType="TIMESTAMP" property="eventDate"/>	
+		<result column="event_category"	 jdbcType="VARCHAR" property="eventCategory"/>	
 		<result column="member_id" jdbcType="VARCHAR" property="memberId"/>
 	</resultMap>
 	<select id="couponOpen" parameterType="string" resultMap="eventApply">
@@ -169,5 +170,12 @@
 		<where>
 			member_id = #{memberId} AND trunc(expiry_date) >= trunc(sysdate)
 		</where>
-	</select> -->
+	</select>
+	<delete id="couponDelete" parameterType="Model.EventDTO">
+		DELECT *
+		FROM event_elected
+		<where>
+			elected_code = #{electedCode}
+		</where>
+	</delete> 
 </mapper>

@@ -26,10 +26,8 @@ $(document).ready(function() {
       var currentRow = $(this).closest('tr');
       var prdName = currentRow.find('td:eq(1)').text();
       var prdPrice = Number(currentRow.find('td:eq(2)').text());
-      
       var prdQty = Number(currentRow.find('td:eq(3)').text()) + 1;
       var subtotal = Number(document.getElementById("getTotal").innerText)+prdPrice;
-         alert(prdPrice);
       $.ajax({
          url : "CartQtyUp",
          dataType : "json",
@@ -44,15 +42,13 @@ $(document).ready(function() {
          }
       });
     });
-
-  
+   
    $('.arrowLeft').on('click',function(){
       var currentRow = $(this).closest('tr');
       var prdName = currentRow.find('td:eq(1)').text();
       var prdPrice = Number(currentRow.find('td:eq(2)').text());   
       var prdQty = Number(currentRow.find('td:eq(3)').text()) - 1;
       var subtotal = Number(document.getElementById("getTotal").innerText)- prdPrice;
-
       if(prdQty !=0){
          $.ajax({
             url : "CartQtyDown",
@@ -100,14 +96,11 @@ $(document).ready(function() {
                   })
                });
                document.getElementById("getTotal").innerText = subtotal;
-               
             }
          });
-      
       } else {
          alert("삭제할 상품을 선택하세요.");
       }
-      
    });
 
    function placeOrder(){

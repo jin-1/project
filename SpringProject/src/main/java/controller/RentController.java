@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import Biz.CartBiz;
 import Model.CartDTO;
+import Model.EventDTO;
 //import Model.EventDTO;
 import Model.MemberDTO;
 import Model.ProductDAO;
@@ -365,15 +366,31 @@ public class RentController {
 		return "template/rent/PaymentComplete";
 	}
 	
-//	@RequestMapping(value="/CouponOpen", method= RequestMethod.GET)
-//	public String couponOpen (HttpServletRequest req, HttpSession session, EventDTO eventDTO) {
-//		System.out.println("controller111");
-//	/*	memberDto = (MemberDTO) session.getAttribute("login");
-//		List<EventDTO> eventApply = pDAO.couponOpen(memberDto.getMemberId());
-//		req.setAttribute("eventApply", eventApply);*/
-//		
-//		return "template/rent/CouponOpen";
-//	}
+	@RequestMapping(value="/CouponOpen", method= RequestMethod.GET)
+	public String couponOpen (HttpServletRequest req, HttpSession session, EventDTO eventDTO) {
+		System.out.println("controller111");
+		memberDto = (MemberDTO) session.getAttribute("login");
+		System.out.println(memberDto.getMemberId());
+		List<EventDTO> eventApply = pDAO.couponOpen(memberDto.getMemberId());
+		
+		
+		req.setAttribute("eventApply", eventApply);
+		
+		return "template/rent/CouponOpen";
+	}
+
+	@RequestMapping(value="/CouponDelete", method= RequestMethod.GET)
+	public String couponDelete (HttpServletRequest req, HttpSession session, EventDTO eventDTO) {
+		System.out.println("controller12");
+		
+		List<EventDTO> eventApply = pDAO.couponDelete(eventDTO);
+		
+		
+		req.setAttribute("eventApply", eventApply);
+		
+		return null;
+	}
+	
 	
 	@RequestMapping(value="/AdminUpdateOrder", method= RequestMethod.GET)
 	public String adminUpdateOrder (HttpServletRequest req, RentRegDTO rrDTO, PurchaseDTO purchaseDTO) {

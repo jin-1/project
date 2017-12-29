@@ -20,6 +20,10 @@
 <link href="./css/styles.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="./scripts/script.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/calendar-style.css" />
+<link rel="stylesheet" type="text/css" href="./css/pignose.calendar.min.css" />
+<script type="text/javascript"
+	src="./scripts/pignose.calendar.full.min.js"></script>
 <jsp:include page="../config.jsp" flush="false" />
 <style>
 #mid {
@@ -241,6 +245,16 @@
    height: 25px;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.inputtext__indicator {
+		position: absolute;
+		top: 10px;
+		font-size: 15px;
+		font-weight: bold;
+		left: 5px;
+		color: #333537d6;
+	}
+}
 .inputtext__indicator {
    position: absolute;
    top: 10px;
@@ -337,39 +351,7 @@ text-align: center;
 #contextPaymentTable tr {
    height: 50px;
 }
-#paymentBt {
-   width: 100px;
-   height: 35px;
-   border-radius: 10px;
-   color: white;
-   text-align: center;
-   padding-top: 13px;
-   display: inline-block;
-   background-color: #0180a3;
-   cursor: pointer;
-}
 
-#paymentCBt {
-   width: 100px;
-   height: 35px;
-   border-radius: 10px;
-   text-align: center;
-   border: #0180a3 1.5px solid;
-   padding-top: 11px;
-   margin: auto;
-   margin-top: 40px;
-   display: inline-block;
-}
-.paymentTypeoff {
-   width: 150px;
-   height: 30px;
-   position: relative;
-   text-align: center;
-   padding-top: 10px;
-   border: #0180a3 1.5px solid;
-   display: inline-block;
-   margin-right: -5.5px;
-}
 #payMethod{
    font-size:18px;
    font-weight: bold;
@@ -395,18 +377,195 @@ text-align: center;
 	border-radius: 15px;
 }
 
-.tbgt {
-	width: 200px;
-	padding: 20px;
-	height: 200px;
+.control {
+	font-size: 18px;
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	margin-left: 30px;
+	padding-left: 30px;
+}
+
+.control input {
 	position: absolute;
-	background: white;
-	z-index: 11;
-	text-align: center;
-	right: 5%;
+	z-index: -1;
+	opacity: 0;
+}
+
+.control__indicator {
+	position: absolute;
+	top: 2px;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	background: #e6e6e6;
+}
+
+.control--radio .control__indicator {
+	border-radius: 50%;
+}
+
+/* Hover and focus states */
+.control:hover input ~ .control__indicator, .control input:focus ~
+	.control__indicator {
+	background: #ccc;
+}
+
+/* Checked state */
+.control input:checked ~ .control__indicator {
+	background: #2aa1c0;
+}
+
+/* Hover state whilst checked */
+.control:hover input:not ([disabled] ):checked ~ .control__indicator,
+	.control input:checked:focus ~ .control__indicator {
+	background: #0e647d;
+}
+
+/* Disabled state */
+.control input:disabled ~ .control__indicator {
+	pointer-events: none;
+	opacity: .6;
+	background: #e6e6e6;
+}
+
+/* Check mark */
+.control__indicator:after {
+	position: absolute;
 	display: none;
+	content: '';
+}
+
+/* Show check mark */
+.control input:checked ~ .control__indicator:after {
+	display: block;
+}
+#trainList1 {
+	min-height: 50px;
+	max-height: 150px;
+	width: 252px;
+	top: 40px;
+	position: absolute;
+	background-color: white;
+	z-index: 9;
+	box-shadow: 0px 3px 8px #888888;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+#trainList2 {
+	min-height: 50px;
+	max-height: 150px;
+	width: 252px;
+	top: 40px;
+	position: absolute;
+	background-color: white;
+	z-index: 9;
+	box-shadow: 0px 3px 8px #888888;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.trainList ul {
+	margin: 0;
+	padding: 10px;
+}
+
+.trainList li {
+	height: 30px;
+	cursor: pointer;
+}
+
+.stbg {
+	width: 98%;
+	position: absolute;
+	height: 98%;
+	padding: 10px;
+	display: none;
+}
+
+.edbg {
+	width: 98%;
+	position: absolute;
+	height: 98%;
+	padding: 10px;
+	display: none;
+}
+
+.datebg {
+	width: 98%;
+	position: absolute;
+	height: 98%;
+	padding: 10px;
+	display: none;
+}
+
+.stbg_1 {
+	position: relative;
+	width: 100%;
+	height: 50px;
+	background-color: #eeeef5cc;
 	border-radius: 15px;
-	box-shadow: #00000085 1px 6px 10px;
+}
+
+.stbg_1 ul {
+	list-style: none;
+	margin: 0;
+	padding-top: 10px;
+}
+
+.stbg_1 li {
+	display: inline;
+	font-size: 15px;
+	margin: 0px 16px;
+	font-family: 'NanumSquareR' !important;
+	cursor: pointer;
+}
+
+#trainList3 {
+	width: 100%;
+	height: 430px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+#trainList3 ul {
+	list-style: none;
+	margin: 0;
+	padding-top: 10px;
+}
+
+#trainList3 li {
+	display: inline-block;
+	font-size: 15px;
+	min-width: 200px;
+	margin: 5px 15px;
+	font-family: 'NanumSquareR' !important;
+	height: 35px;
+	cursor: pointer;
+}
+
+#trainList4 {
+	width: 100%;
+	height: 430px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+#trainList4 ul {
+	list-style: none;
+	margin: 0;
+	padding-top: 10px;
+}
+
+#trainList4 li {
+	display: inline-block;
+	font-size: 15px;
+	min-width: 200px;
+	margin: 5px 15px;
+	font-family: 'NanumSquareR' !important;
+	height: 35px;
+	cursor: pointer;
 }
 </style>
 <script type="text/javascript">
@@ -477,15 +636,17 @@ $(function() {
 });
 
 
-$(document).ready(
-      $('.tbg').click(function() {
-         $('.tbg').css('display', 'none');
-         $('.tbgw').css('display', 'none');
-         $('.stbg').css('display', 'none');
-         $('.edbg').css('display', 'none');
-         $('.datebg').css('display', 'none');
-         $('.datebg_1').css('display', 'none');
-      });
+$(document)
+.ready(
+		function() {
+			$('.tbg').click(function() {
+				$('.tbg').css('display', 'none');
+				$('.tbgw').css('display', 'none');
+				$('.stbg').css('display', 'none');
+				$('.edbg').css('display', 'none');
+				$('.datebg').css('display', 'none');
+				$('.datebg_1').css('display', 'none');
+			});
       $('#startTrain').click(function() {
          $('.tbg').css('display', 'inline');
          $('.tbgw').css('display', 'inline');
@@ -518,8 +679,13 @@ $(document).ready(
          $('.datebg').css('display', 'none');
          $('.datebg_1').css('display', 'inline');
       });   
-      
-      $("#inputStrat:text").keyup(
+      $('#trainList1 li').mouseenter(function() {
+			$(this).css("background-color", "#EEF1F6");
+		});
+		$('#trainList1 li').mouseleave(function() {
+			$(this).css("background-color", "#ffffff");
+		});
+		$("#inputStrat:text").keyup(
 				function(e) {
 					var code = e.which;
 					$("#trainList1").css("display", "block");
@@ -537,11 +703,9 @@ $(document).ready(
 				});
 
 		$("#trainList1 ul").on("click", "li", function() {
-
 			$("#stStation").html($(this).text());
 			$("#inputStrat").val($(this).text());
 			$("#trainList1").css("display", "none");
-
 		});
 		var a;
 		var b;
@@ -731,13 +895,6 @@ $(document).ready(
 					}
 				});
 
-		$('#trainList1 li').mouseenter(function() {
-			$(this).css("background-color", "#EEF1F6");
-		});
-		$('#trainList1 li').mouseleave(function() {
-			$(this).css("background-color", "#ffffff");
-		});
-		
 		$('#trainList3 ul').on("click", "li", function() {
 			var c = $(this).text();
 			$('#inputStrat').val(c);
@@ -754,7 +911,29 @@ $(document).ready(
 			$('.tbg').css("display", "none");
 			$('.tbgw').css("display", "none");
 		});
-);
+		});
+		
+$.ajax({
+	url : "startTrain",
+	dataType : "json",
+	type : "post",
+	data : $('#inputStrat').serializeArray(),
+	success : function(data) {
+
+		var trainLength = Object.keys(data).length;
+
+		$.each(data, function(key, value) {
+			$('.trainList ul').append('<li>' + value + '</li>');
+
+		});
+
+	},
+	error : function(request, status, error) {
+		console.log("code:" + request.status + "\n" + "error:"
+				+ error);
+	}
+
+});
 </script>
 <script type="text/javascript">
    function placeOrder(){
@@ -835,7 +1014,6 @@ $(document).ready(
             <H2>날짜를 정해주세요</H2>
          </div>
          <div class="calendar_1"></div>
-
       </div>
       
    </div>

@@ -110,11 +110,21 @@ public class ProductDAO extends AbstractRepository {
 		return sqlSession.selectList(statement, rrDTO);
 	}
 	
-//	public List<EventDTO> couponOpen(String memberId) {
-//		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
-//		String statement = namespace+".couponOpen";
-//		return sqlSession.selectList(statement, memberId);
-//	}
+	public List<EventDTO> couponOpen(String memberId) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace+".couponOpen";
+		return sqlSession.selectList(statement, memberId);
+	}
+	
+	public List<EventDTO> couponDelete(EventDTO eventDTO) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace+".couponDelete";
+		return sqlSession.selectList(statement, eventDTO);
+	}
+	
+	
+	
+	
 	public List<PurchaseDTO> RefundOrderList(PurchaseDTO purchaseDTO) {
 	      SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 	      String statement = namespace+".RefundOrderList";
