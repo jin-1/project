@@ -55,10 +55,10 @@ public class TourService {
 		System.out.println(request.getParameter("realPath"));
 		printInfo(dto.getLocalImageSave(), request, session, dto);       
 		
-		memberDto = (MemberDTO) session.getAttribute("login");
+		corpDTO = (CorporDTO)session.getAttribute("corlogin");
+		String id = corpDTO.getCorporId();
 
-		String memId = memberDto.getMemberId();
-		dto.setCorpId(memId);
+		dto.setCorpId(id);
 		
 		return tourDAO.addTour(dto);
 	}
