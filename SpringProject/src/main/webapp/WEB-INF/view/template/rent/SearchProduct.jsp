@@ -293,6 +293,7 @@ select option {
 
 			</div>
 	 	</div>
+	 	<div style="display:none;">
 	 	<form action="ViewOrderList" id="frm1">
 	 		<button onclick="javascript:goOrder();">내역서보기</button>
 	 	</form>
@@ -305,7 +306,7 @@ select option {
 	 	<form action="AdminUpdateOrder" id="frm4">
 	 		<button onclick="javascript:goOrderList();">관리자 내역서 보기</button>
 	 	</form>
-	 	
+	 	</div>
 	</div>
 	<div id="bot">
 		<jsp:include page="../bot.jsp" flush="false" />

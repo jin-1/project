@@ -24,5 +24,10 @@
 		
 	</insert>
 	
+	<delete id="deleteCoupon" parameterType="String">
+	 delete from EVENT_ELECTED where
+		ELECTED_CODE= #{electedCode}
+	</delete>
+	
 
 </mapper>

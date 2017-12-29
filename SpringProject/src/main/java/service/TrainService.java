@@ -146,7 +146,7 @@ public class TrainService {
 		String d[] = (String[]) session.getAttribute("trainTicket");
 
 		tpdto.setTrainRegCode(trdto.getTrainRegCode());
-		tpdto.setInvoice(Integer.parseInt(d[11]));
+		tpdto.setInvoice(Integer.parseInt(trdto.getPrice()));
 		tpdto.setMemberId(trdto.getMemberId());
 		tpdto.setTrainCode(trdto.getTrainCode());
 		tpdto.setTrainPubDate(trdto.getTrainDate());

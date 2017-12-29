@@ -23,9 +23,17 @@
 <jsp:include page="../config.jsp" flush="false" />
 <script type="text/javascript" src="./scripts/trainScript.js"></script>
 <link href="./css/train.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+.cons {
+	height: 30px;
+	cursor: pointer;
+}
+</style>
 <script type="text/javascript">
+
 	$(document).ready(
 			function() {
+
 				$('#coupon').on(
 						"click",
 						function() {
@@ -37,12 +45,17 @@
 								type : "post",
 								success : function(data) {
 									console.log(data);
-								var	i=0;
+									var i = 0;
 									$('#couponL').empty();
-									 $.each(data, function(key, value) {
-									 $('#couponL').append('<tr><td>'+value.eventName+'</td><td>'+value.eventCategory+'</td></tr>');
+									$.each(data, function(key, value) {
+										$('#couponL').append(
+												'<tr><td>'
+														+ value.eventName
+														+ '</td><td>'
+														+ value.eventCategory
+														+ '<td><button  onclick="dd(this)" id ="'+value.electedCode+'">선택</button></td></td></tr>');
 
-									 }); 
+									});
 
 								},
 								error : function(request, status, error) {
@@ -52,13 +65,38 @@
 
 							});
 						});
-				$('#couponUse').on("click",function(){
-					$('.bt') 
-				});
 			});
+	
+	function dd(test){
+		$('.tbg').css("display", "none");
+		$('.tbgC').css("display", "none");
+		var electedCode = document.getElementById(test.getAttribute('id')).getAttribute('id');
+		
+		$.ajax({
+			url : "coupondele",
+			dataType : "json",
+			type : "post",
+			data : {"electedCode":electedCode},
+			success : function(data) {
+				var price =$('#priceH').val()-$('#priceH').val()*0.1;
+				var discount = $('#priceH').val()*0.1;
+				$('#priceQ').text(price);
+				$('#disQ').text(discount);
+				$('#priceH').val(price);
+				alert("적용되었습니다.");
+			
+			},
+			error : function(request, status, error) {
+				console.log("code:" + request.status + "\n"
+						+ "error:" + error);
+			}
+
+		});
+	}
 </script>
 </head>
 <body>
+
 	<div class="tbg"></div>
 	<div class="tbgC" style="padding: 10px;">
 		<div style="width: 100%; height: 80%; overflow-y: auto;">
@@ -70,17 +108,17 @@
 					</tr>
 				</thead>
 				<tbody id="couponL">
-				
+
 					<tr>
-						<td><input type="checkbox" name="select" value="ok"></td>
-						<td ></td>
-						
+						<td></td>
+						<td></td>
+
 					</tr>
 				</tbody>
 			</table>
-			
+
 		</div>
-		<button id="couponUse">사용하기</button>
+
 	</div>
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
@@ -227,8 +265,8 @@
 							</tr>
 						</thead>
 						<tr>
-							<td><%=dc.format(price)%></td>
-							<td>0</td>
+							<td id="priceQ"><%=dc.format(price)%></td>
+							<td id="disQ">0</td>
 							<td><button id="coupon"
 									style="background: #0180a3; border: beige 1px solid; color: white">쿠폰함</button></td>
 						</tr>
@@ -326,7 +364,7 @@
 						<input type="hidden" name="trainPassengers"
 							value="<%=trainPassengers%>">
 						<input type="hidden" name="trainName" value="<%=data[10]%>">
-						<input type="hidden" name="price" value="<%=price%>">
+						<input type="hidden" id="priceH" name="price" value="<%=price%>">
 					</form:form>
 					<div style="width: 250px; position: relative; margin: auto;">
 

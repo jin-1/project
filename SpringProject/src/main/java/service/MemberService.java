@@ -66,7 +66,7 @@ public class MemberService {
 			if (this.corporDto.getCorporPw().equals(corporDto.getCorporPw())) {
 				session.setAttribute("corlogin", this.corporDto);
 				result = 2;
-				System.out.println("dddd");
+			
 			} else {
 				result = 1;
 			}

@@ -56,6 +56,27 @@ public class EventDAO extends AbstractRepository {
 		}
 
 	}
+	
+	public void deleteCoupon(String code) {
+		
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".deleteCoupon";
+		String electedCode = code;
+		int result = 0;
+		try {
+			result = sqlSession.delete(statement, electedCode);
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
 
 	public HashMap<String, EventDTO> CouponList(HttpSession session) {
 

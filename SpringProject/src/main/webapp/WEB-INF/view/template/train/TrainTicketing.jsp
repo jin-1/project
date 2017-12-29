@@ -9,6 +9,7 @@
 	request.setCharacterEncoding("UTF-8");
 	String menu = "../top.jsp?menu=" + request.getParameter("menu");
 	String[] data = (String[]) session.getAttribute("trainTicket");
+	TrainRegistrationDTO trd = (TrainRegistrationDTO) request.getAttribute("trDTO");
 	MemberDTO memberDTO = (MemberDTO) session.getAttribute("login");
 	DecimalFormat dc = new DecimalFormat("###,###,###,###");
 	SimpleDateFormat o = new SimpleDateFormat("yyyy-MM-dd");
@@ -62,7 +63,7 @@
 						style="width: 10%;  background-color: #f3f3f3; height: 53px; padding-left: 12px;">
 						결제금액
 					</td>
-					<td style="width: 90%;padding-left: 12px;"><%=data[9]%></td>
+					<td style="width: 90%;padding-left: 12px;"><%=trd.getPrice()%></td>
 				</tr>
 				<tr>
 					<td colspan="2" style="width: 30%;">

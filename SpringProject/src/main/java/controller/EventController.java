@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import Model.EventDAO;
@@ -60,6 +61,16 @@ public class EventController {
 		model.addAttribute("list", list);
 		
 		return "template/Event/coupon";
+	}
+	@ResponseBody
+	@RequestMapping(value = "/coupondele", method = RequestMethod.POST)
+	public HashMap<String, String> coupondele(@RequestParam HashMap<String, Object> param) {
+		System.out.println(param);
+		eventDao.deleteCoupon(String.valueOf(param.get("electedCode")));
+		HashMap<String, String> coupondele = new HashMap<String, String>();
+		coupondele.put("del", "삭제");
+		
+		return coupondele;
 	}
 	
 	@ResponseBody
