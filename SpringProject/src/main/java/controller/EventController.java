@@ -62,6 +62,16 @@ public class EventController {
 		return "template/Event/coupon";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/couponList", method = RequestMethod.POST)
+	public HashMap<String, EventDTO> couponList(HttpSession session) {
+
+
+		HashMap<String, EventDTO> couponList = eventDao.CouponList(session);
+		
+		return couponList;
+	}
+	
 	//쿠폰등록
 	@ResponseBody
 	@RequestMapping(value = "/couponInsert", method = RequestMethod.POST)

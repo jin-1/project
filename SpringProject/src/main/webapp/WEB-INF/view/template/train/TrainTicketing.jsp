@@ -67,8 +67,8 @@
 				<tr>
 					<td colspan="2" style="width: 30%;">
 						<ul>
-							<li>ddd</li>
-							<li>dd</li>
+							<li>결제 완료 되었습니다.</li>
+							<li>결제 된 후 하루 전에는 예매 변경이 불가능합니다.</li>
 						</ul>
 
 					</td>

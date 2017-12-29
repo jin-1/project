@@ -8,7 +8,6 @@
 		<result column="EVENT_CODE" jdbcType="VARCHAR" property="evnetCode" />
 		<result column="EXPIRY_DATE" jdbcType="DATE" property="expriyDate" />
 		<result column="EVENT_NAME" jdbcType="VARCHAR" property="eventName" />
-		<result column="EVENT_QUANT" jdbcType="BIGINT" property="eventQuant" />
 		<result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
 		<result column="EVENT_DATE" jdbcType="DATE" property="eventDate" />
 		<result column="EVENT_CATEGORY" jdbcType="VARCHAR" property="eventCategory" />

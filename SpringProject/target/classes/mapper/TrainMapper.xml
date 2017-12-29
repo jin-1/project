@@ -67,13 +67,10 @@
 	<select id="selectCustomerTrain" resultMap="coustomListMap"
 		parameterType="java.util.HashMap">
 
-		select t.train_CODE,INSTR(t.SERVICE_DATE,#{dateTrain})
-		SERVICE_DATE,t.TRAIN_NAME,substr(xmlagg(xmlelement(a,',' ||
-		st.time)order by st.time ).extract('//text()'),2) time,
-		substr(xmlagg(xmlelement(a,',' ||ts.STATION_NAME) order by st.time
-		).extract('//text()'),2) STATION_NAME from train t
-		inner join
-		station_time st on t.TRAIN_CODE = st.TRAIN_CODE inner join
+		select t.train_CODE,INSTR(t.SERVICE_DATE,#{dateTrain}) SERVICE_DATE,t.TRAIN_NAME,
+		substr(xmlagg(xmlelement(a,',' ||st.time) order by st.time ).extract('//text()'),2) time,
+		substr(xmlagg(xmlelement(a,',' ||ts.STATION_NAME) order by st.time).extract('//text()'),2) STATION_NAME from train t
+		inner join station_time st on t.TRAIN_CODE = st.TRAIN_CODE inner join
 		train_station ts on st.STATION_CODE = ts.STATION_CODE
 		where
 		<choose>

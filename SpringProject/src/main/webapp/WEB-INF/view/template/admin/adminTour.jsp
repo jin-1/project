@@ -42,7 +42,7 @@
 	</div>
 	<!-- /mid -->
 	<div id="left"
-		style="width: 12%; min-height: 900px; height: 115%; top: 100px; position: absolute; background-color: #595959;">
+		style="width: 12%; min-height: 900px; height: 105%; top: 100px; position: absolute; background-color: #595959;">
 		<ul>
 			<li style="margin-bottom: 30px; margin-top: 30px;"><a href="#">회원
 					정보보기</a></li>

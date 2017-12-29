@@ -65,39 +65,7 @@
 										<img alt="" src="img/map1.PNG">
 									</div>
 								</td>
-								<td style="width: 50%; padding-top: 20px; vertical-align: top;"
-									colspan="2">
-									<table id="trainInfoMenuTableR" cellspacing="0">
-										<thead>
-											<tr>
-												<th style="width: 10%;">번호</th>
-												<th style="width: 20%;">역명</th>
-												<th style="width: 70%;">주소</th>
-											</tr>
-										</thead>
-										<tbody
-											style="display: table-row-group; vertical-align: middle;">
-											<tr>
-												<td>dd</td>
-												<td>dd</td>
-												<td>dd</td>
-											</tr>
-											<tr>
-												<td>dd</td>
-												<td>dd</td>
-												<td>dd</td>
-											</tr>
-										</tbody>
-									</table>
-									<div class="paging">
-										<ul class="pagination">
-											<li><a href="#">Prev</a></li>
-											<li><a href="#"> 1</a></li>
-											<li><a href="#"> 2</a></li>
-											<li><a href="#">Next</a></li>
-										</ul>
-									</div>
-								</td>
+							
 							</tr>
 							<tr id="hn">
 								<td style="width: 50%; padding-top: 20px;" colspan="2">
@@ -105,39 +73,7 @@
 										<img alt="" src="img/map2.PNG">
 									</div>
 								</td>
-								<td style="width: 50%; padding-top: 20px; vertical-align: top;"
-									colspan="2">
-									<table id="trainInfoMenuTableR" cellspacing="0">
-										<thead>
-											<tr>
-												<th style="width: 10%;">번호</th>
-												<th style="width: 20%;">역명</th>
-												<th style="width: 70%;">주소</th>
-											</tr>
-										</thead>
-										<tbody
-											style="display: table-row-group; vertical-align: middle;">
-											<tr>
-												<td>dd</td>
-												<td>dd</td>
-												<td>dd</td>
-											</tr>
-											<tr>
-												<td>dd</td>
-												<td>dd</td>
-												<td>dd</td>
-											</tr>
-										</tbody>
-									</table>
-									<div class="paging">
-										<ul class="pagination">
-											<li><a href="#">Prev</a></li>
-											<li><a href="#"> 1</a></li>
-											<li><a href="#"> 2</a></li>
-											<li><a href="#">Next</a></li>
-										</ul>
-									</div>
-								</td>
+								
 							</tr>
 							<tr id="gj">
 								<td style="width: 50%; padding-top: 20px;" colspan="2">
@@ -145,39 +81,7 @@
 										<img alt="" src="img/map3.PNG">
 									</div>
 								</td>
-								<td style="width: 50%; padding-top: 20px; vertical-align: top;"
-									colspan="2">
-									<table id="trainInfoMenuTableR" cellspacing="0">
-										<thead>
-											<tr>
-												<th style="width: 10%;">번호</th>
-												<th style="width: 20%;">역명</th>
-												<th style="width: 70%;">주소</th>
-											</tr>
-										</thead>
-										<tbody
-											style="display: table-row-group; vertical-align: middle;">
-											<tr>
-												<td>dd</td>
-												<td>dd</td>
-												<td>dd</td>
-											</tr>
-											<tr>
-												<td>dd</td>
-												<td>dd</td>
-												<td>dd</td>
-											</tr>
-										</tbody>
-									</table>
-									<div class="paging">
-										<ul class="pagination">
-											<li><a href="#">Prev</a></li>
-											<li><a href="#"> 1</a></li>
-											<li><a href="#"> 2</a></li>
-											<li><a href="#">Next</a></li>
-										</ul>
-									</div>
-								</td>
+							
 							</tr>
 							<tr id="jr">
 								<td style="width: 50%; padding-top: 20px;" colspan="2">
@@ -185,39 +89,7 @@
 										<img alt="" src="img/map4.PNG">
 									</div>
 								</td>
-								<td style="width: 50%; padding-top: 20px; vertical-align: top;"
-									colspan="2">
-									<table id="trainInfoMenuTableR" cellspacing="0">
-										<thead>
-											<tr>
-												<th style="width: 10%;">번호</th>
-												<th style="width: 20%;">역명</th>
-												<th style="width: 70%;">주소</th>
-											</tr>
-										</thead>
-										<tbody
-											style="display: table-row-group; vertical-align: middle;">
-											<tr>
-												<td>dd</td>
-												<td>dd</td>
-												<td>dd</td>
-											</tr>
-											<tr>
-												<td>dd</td>
-												<td>dd</td>
-												<td>dd</td>
-											</tr>
-										</tbody>
-									</table>
-									<div class="paging">
-										<ul class="pagination">
-											<li><a href="#">Prev</a></li>
-											<li><a href="#"> 1</a></li>
-											<li><a href="#"> 2</a></li>
-											<li><a href="#">Next</a></li>
-										</ul>
-									</div>
-								</td>
+								
 							</tr>
 						</table>
 					</div>
