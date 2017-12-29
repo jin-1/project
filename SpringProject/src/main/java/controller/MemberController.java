@@ -411,12 +411,6 @@ public class MemberController {
 	@RequestMapping(value = "/myPage", method = RequestMethod.POST)
 	public String myPageRe(@ModelAttribute("myPageRevise") MemberDTO dto) {
 		int result = memberDao.myPageRe(dto);
-		System.out.println(dto.getMemberId());
-		System.out.println(dto.getMemberAddr());
-		System.out.println(dto.getMemberPw());
-		System.out.println(dto.getInteRest());
-		System.out.println(dto.getMemberPhone());
-		System.out.println(dto.getMemberName());
 		if (result > 0) {
 			return "index";
 		} else {
@@ -515,7 +509,7 @@ public class MemberController {
 	}
 
 	// 마이페이지 인덱스 페이지이동(기업)
-	@RequestMapping(value = "/corpageIndex", method = RequestMethod.GET)
+	@RequestMapping(value = "/corIndex", method = RequestMethod.GET)
 	public String corpageIndex(HttpServletRequest req, Model model) throws Exception {
 
 		String menu = req.getParameter("menu");
@@ -535,26 +529,90 @@ public class MemberController {
 		PagingDTO pDto = memberService.makePage4(req);
 		model.addAttribute("page", page);
 		model.addAttribute("page1", pDto);
-		return "template/corporation/corpageIndex";
+		return "template/corpor/corIndex";
 	}
+	
+	
+	@RequestMapping(value = "/corPageCon", method = RequestMethod.GET)
+	public String corPageCon(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		model.addAttribute("menu", menu);
 
-	// 일반회원 내정보수정 페이지
+		return "template/corpor/corPageCon";
+	}
+	
+
+	// 기업회원 내정보수정 페이지
 	@RequestMapping(value = "/corMyPage", method = RequestMethod.GET)
 	public String corMyPage(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
 		model.addAttribute("menu", menu);
 
-		return "template/member/corMyPage";
+		return "template/corpor/corMyPage";
+		
+		
+	}
+	
+	// 기업회원 내정보수정
+	@RequestMapping(value = "/corMyPage", method = RequestMethod.POST)
+	public String corPageCon(@ModelAttribute("corporPage") CorporDTO dto) {
+		int result = memberDao.corPageRe(dto);
+		if (result > 0) {
+			return "index";
+		} else {
+			return "template/corpor/corMyPage";
+		}
 	}
 
 	// 기업회원 사업등록 페이지
-	@RequestMapping(value = "/coporationAdd", method = RequestMethod.GET)
+	@RequestMapping(value = "/TourAdd1", method = RequestMethod.GET)
 	public String coporationAdd(HttpServletRequest req, Model model) {
 		String menu = req.getParameter("menu");
 		model.addAttribute("menu", menu);
 
-		return "template/corporation/coporationAdd";
+		return "template/tour/TourAdd";
 	}
+	
+	// 기업 1:1문의등록 페이지이동
+	@RequestMapping(value = "/corinquiryAdd", method = RequestMethod.GET)
+	public String corinquiryAdd(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		model.addAttribute("menu", menu);
+
+		return "template/corpor/corinquiryAdd";
+	}
+
+	// 기업 1:1문의등록
+	@RequestMapping(value = "/corinquiryAdd", method = RequestMethod.POST)
+	public String corinquiryAdd(@ModelAttribute("corInquiry") InquiryDTO dto) {
+		String inDate = new java.text.SimpleDateFormat("yy/MM/dd").format(new java.util.Date());
+		dto.setInquiryDate(inDate);
+
+		System.out.println(dto.getInquiryDate());
+
+		int result = memberDao.corInquiryAdd(dto);
+		if (result > 0) {
+			return "redirect:corIndex";
+		} else {
+			return "template/corpor/corinquiryAdd";
+		}
+	}
+	
+	// 기업 1:1문의상세 페이지이동
+	@RequestMapping(value = "/corInquiryCon", method = RequestMethod.GET)
+	public String corInquiryCon(HttpServletRequest req, Model model) {
+		String menu = req.getParameter("menu");
+		int num = Integer.parseInt(req.getParameter("num"));
+		InquiryDTO inquiryDto = memberDao.corInquiryCon(num);
+		model.addAttribute("menu", menu);
+
+		model.addAttribute("inquiryDto", inquiryDto);
+
+		return "template/corpor/corInquiryCon";
+	}
+	
+
+
 
 	@RequestMapping(value = "/MyBudget", method = RequestMethod.GET)
 	public String MyBudget(HttpServletRequest req, Model model) {

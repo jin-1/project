@@ -150,10 +150,17 @@
 	</select>
 	
 	<!-- 일반회원 내 정보 수정 -->
-	<update id="updateMypageRe" parameterType="Model.MemberDTO" >
+	<update id="updateMypageRe" parameterType="Model.CorporDTO" >
 	update MEMBER set MEMBER_PW = #{memberPw},  MEMBER_PHONE = #{memberPhone}, MEMBER_ADDR= #{memberAddr},
 	MEMBER_EMAIL = #{memberEmail},  INTEREST = #{inteRest}
 	where MEMBER_ID = #{memberId}
+	</update>
+	
+	<!-- 기업회원 내 정보 수정 -->
+	<update id="updatecorMypageRe" parameterType="Model.CorporDTO" >
+	update CORPORATION set CORP_PW = #{corporPw},  CORP_PHONE = #{corporPhone}, CORP_ADDR= #{corporAddr},
+	CORP_EMAIL = #{corporEmail}, CORP_NAME=#{corporName}
+	where CORP_ID = #{corporId}
 	</update>
 	
 	<!-- 일반회원 회원 탈퇴 -->
@@ -165,6 +172,12 @@
 	<insert id="insertInquiry" parameterType="Model.InquiryDTO">
 		insert into INQUIRY(INQUIRY_NUM, MEMBER_ID, I_TITLE, I_CONTENT, I_DATE) 
 		values(inquiry_code.NEXTVAL,#{memberId},#{inquiryTitle},#{inquiryContent},#{inquiryDate})
+	</insert>
+	
+		<!-- 기업 1:1문의 등록 -->
+	<insert id="corInsertInquiry" parameterType="Model.InquiryDTO">
+		insert into CORP_INQUIRY(INQUIRY_NUM, CORP_ID, I_TITLE, I_CONTENT, I_DATE) 
+		values(corInquiry_code.NEXTVAL,#{corporId},#{inquiryTitle},#{inquiryContent},#{inquiryDate})
 	</insert>
 	
 	<!-- 공지사항 등록 -->
@@ -182,6 +195,12 @@
 	<select id="selectInquiryCon" parameterType="Integer" resultMap="baseResultMap5">
 	select INQUIRY_NUM,i_title, i_content , I_REPLY, I_DATE,I_REPLY_NUM
 	from inquiry
+	where INQUIRY_NUM = #{num}
+	</select>
+	
+	<select id="corSelectInquiryCon" parameterType="Integer" resultMap="baseResultMap5">
+	select INQUIRY_NUM,i_title, i_content , I_REPLY, I_DATE,I_REPLY_NUM
+	from CORP_INQUIRY
 	where INQUIRY_NUM = #{num}
 	</select>
 	
@@ -249,6 +268,25 @@
 	<select id="getNumberOfRecords3" parameterType="String" resultType="Integer">
 		select count(*) from INQUIRY 
 	</select>
+	
+	
+	<select id="selectpaging4" parameterType="java.util.HashMap" resultMap="baseResultMap5">
+	SELECT * FROM (
+            SELECT row_number() over(order by INQUIRY_NUM desc) as rnum,INQUIRY_NUM, I_TITLE, I_CONTENT, I_REPLY, I_DATE,I_REPLY_NUM, CORP_ID 
+            from CORP_INQUIRY
+            )
+   WHERE <![CDATA[ rnum>= to_number(#{param1}) AND rnum <= to_number(#{param2}) ]]>
+	
+	</select>
+	
+	<select id="getNumberOfRecords4" parameterType="String" resultType="Integer">
+		select count(*) from CORP_INQUIRY 
+	</select>
+	
+	
+	
+	
+	
 	<insert id="insertAccount" parameterType="Model.AccountDTO">
 		insert into ACCOUNT_BOOK(BUDGET_CODE,MEMBER_ID,TRAVEL_NAME,TRAVEL_START_DATE,TRAVEL_END_DATE,TRAVEL_ARE,EXPENSE,GROSS_PROFIT)
 		values('B'||account_s.NEXTVAL,#{memberId},#{travelName},#{travelStartDate},#{travelEndDate},#{travelAre},#{expense},#{grossProfit}) 
