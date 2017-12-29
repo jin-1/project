@@ -281,8 +281,7 @@ select option {
 						<button id="button1" class="searchButton" name="prdBtn1" value="food">FOOD</button>
 						<button id="button2" class="searchButton" name="prdBtn1" value="body">BODY CARE</button>
 						<button id="button3" class="searchButton" name="prdBtn1" value="outdoor">OUTDOOR & MORE</button>
-						<button id="button4" class="searchButton" name="prdBtn1" value="electronics">ELECTRONICS</button>
-						
+						<button id="button4" class="searchButton" name="prdBtn1" value="electronics">ELECTRONICS</button>	
 					</div> 
 					
 				</form>
