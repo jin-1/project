@@ -117,6 +117,7 @@ public class TrainController {
 	
 	@RequestMapping(value = "/trainTicketing", method = RequestMethod.POST)
 	public String trainPaymentPost(HttpSession session, Model model , @ModelAttribute("trainPayment") TrainRegistrationDTO trainRegistrationDTO) {
+			System.out.println(trainRegistrationDTO.getPrice());
 			memberService.updateTPoint(session,trainRegistrationDTO);
 			traindao.insertTicketing(trainRegistrationDTO);
 			trainRegistrationDTO.setTrainRegCode("A"+trainRegistrationDTO.getTrainRegCode());
