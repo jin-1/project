@@ -1,18 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ page import="Model.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<% 
-	request.setCharacterEncoding("utf-8"); 
-	String menu = "../top.jsp?menu=TOUR Add";
-	String img = "url(img/tour.jpg)";
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="Model.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.*"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	int num = 0;
 %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>TRENVIAJES</title>
 <jsp:include page="../config.jsp" flush="false" />
+<link href="./css/train.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="./scripts/trainScript.js"></script>
+
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -191,12 +197,26 @@
 }
 </style>
 <body>
-	<div id="top">
-		<jsp:include page="<%=menu%>" flush="false" />
-		<div id="menuBg" style="background-image:<%=img%>;"></div>
+
+	<div id="top" style="height: 100px;">
+		<div id="menubgc"></div>
+		<div id="menuBg"></div>
+		<div id="header">
+			<div id="logo">
+				<a href="/SpringProject/main"><img src="img/3-2.png" /></a>
+			</div>
+			<div id="menu">
+				<ul>
+					<li><a href="adminIndex">회원/기업</a></li>
+					<li><a href="adminTrain">기차</a></li>
+					<li><a href="adminRent">대여</a></li>
+					<li><a href="adminTour">여행지</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
-	
-	<div id="mid">
+
+	<div id="mid1" style="display: inline-block; width: 85%; height: 700px; margin-left: 280px; overflow-y: auto;">
 		<h2>관리자 사업 등록</h2>
 		<hr>
 		
@@ -300,44 +320,55 @@
 			<input type="button" id="addToBusi" value="등록"><br>
 		</form:form>
 	</div>
-	<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>
+	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+	<script>
+		function execDaumPostcode(){
+			new daum.Postcode({
+				oncomplete:function(data){
+					var fullAddr = '';
+					var extraAddr = '';
+					
+					if(data.userSelectedType == 'R'){// 사용자가 도로명 주소를 선택했을 경우
+						fullAddr = data.roadAddress;
+					}else { // 사용자가 지번 주소를 선택했을 경우(J)
+		                fullAddr = data.jibunAddress;
+		            }
+					
+					// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+		            if(data.userSelectedType === 'R'){
+		                //법정동명이 있을 경우 추가한다.
+		                if(data.bname !== ''){
+		                    extraAddr += data.bname;
+		                }
+		                // 건물명이 있을 경우 추가한다.
+		                if(data.buildingName !== ''){
+		                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		                }
+		                // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+		                fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+		            }
+	
+		            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+		            document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
+		            document.getElementById('address').value = fullAddr;
+	
+		            // 커서를 상세주소 필드로 이동한다.
+		            document.getElementById('address2').focus();
+				}			
+			}).open();
+		}
+	</script>
+	<!-- /mid -->
+	<div id="left"
+		style="width: 12%; min-height: 900px; height: 105%; top: 100px; position: absolute; background-color: #595959;">
+		<ul>
+			<li style="margin-bottom: 30px; margin-top: 30px;"><a href="adminTour">사업 요청 상태 보기</a></li>
+			<li><a href="ViewAdd">사업 등록 하기</a></li>
+
+		</ul>
+	</div>
+	<div id="bot">
+		<jsp:include page="../bot.jsp" flush="false" />
+	</div>
 </body>
-<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
-<script>
-	function execDaumPostcode(){
-		new daum.Postcode({
-			oncomplete:function(data){
-				var fullAddr = '';
-				var extraAddr = '';
-				
-				if(data.userSelectedType == 'R'){// 사용자가 도로명 주소를 선택했을 경우
-					fullAddr = data.roadAddress;
-				}else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                fullAddr = data.jibunAddress;
-	            }
-				
-				// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-	            if(data.userSelectedType === 'R'){
-	                //법정동명이 있을 경우 추가한다.
-	                if(data.bname !== ''){
-	                    extraAddr += data.bname;
-	                }
-	                // 건물명이 있을 경우 추가한다.
-	                if(data.buildingName !== ''){
-	                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	                }
-	                // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-	                fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-	            }
-
-	            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	            document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
-	            document.getElementById('address').value = fullAddr;
-
-	            // 커서를 상세주소 필드로 이동한다.
-	            document.getElementById('address2').focus();
-			}			
-		}).open();
-	}
-</script>
 </html>

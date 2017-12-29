@@ -186,16 +186,16 @@ public class TourController {
 		}
 	}
 	
-	@RequestMapping(value="/ViewAll", method= RequestMethod.GET)
+	/*@RequestMapping(value="/ViewAll", method= RequestMethod.GET)
 	public String viewAllForm(TourDTO dto, Model model) {
 		List<TourDTO> result = tourDAO.viewAll(dto);
 		
 		model.addAttribute("result", result);
 		return "template/tour/ViewAll";
 	}
-	
+	*/
 
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping(value = "/DeleteView", method = RequestMethod.POST)
 	public HashMap<String, String> searchStation(@RequestParam HashMap<String, Object> param) {
 		System.out.println(param);
@@ -205,9 +205,9 @@ public class TourController {
 		delCode.put("1", "삭제되었습니다");
 
 		return delCode;
-	}
+	}*/
 	
-	@RequestMapping(value="/ViewOne", method= RequestMethod.GET)
+	/*@RequestMapping(value="/ViewOne", method= RequestMethod.GET)
 	public String viewOneForm(TourDTO dto, Model model, HttpServletRequest request) {
 		int code = Integer.parseInt(request.getParameter("localCode"));
 		dto.setLocalCode(code);
@@ -225,10 +225,5 @@ public class TourController {
 		} else {
 			return "template/tour/ViewOne";
 		}
-	}
-	
-	@RequestMapping(value="/ViewAdd", method=RequestMethod.GET)
-	public String viewAddForm(Model model) {
-		return "template/tour/ViewAdd";
-	}
+	}*/
 }
