@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="Model.*, java.util.*" %>
 <%
    request.setCharacterEncoding("UTF-8");
@@ -32,7 +33,7 @@
    postion:relative;
    margin-left: 20%;
 }
-
+#
 #nav-critical {
    padding-top: 90px;
    display: table;
@@ -567,6 +568,18 @@ text-align: center;
 	height: 35px;
 	cursor: pointer;
 }
+#isa{
+	border:solid 1px gray; 
+	height: 25px;
+	line-height: 40px;
+}
+#i1{
+	position: relative;
+	display: inline-block;
+	border:solid 1px gray; 
+	height: 25px;
+	line-height: 40px;
+}
 </style>
 <script type="text/javascript">
 $(function() {
@@ -936,10 +949,24 @@ $.ajax({
 });
 </script>
 <script type="text/javascript">
+$(document).ready(function(){
+	$('select[name=SearchArea1]').bind('change', function(){
+		$("#frmNavi input[name='SearchArea1']").val($(this).val());
+		var areaf = new areaFunc;
+		areaf.gugunChange($(this).val(), $('select[name=SearchArea2]'));
+	});
+	$('select[name=SearchArea2]').bind('change', function(){
+		$("#frmNavi input[name='SearchArea2']").val($(this).val());
+	});
+});
+
+
    function placeOrder(){
+	   var pdate = document.getElementById("m2").value +"-"+document.getElementById("m3").value +"-"+document.getElementById("m4").value;
+/* 		 alert( $("#prdType2").val(pdate) ); */
        document.getElementById('frm').submit(); 
    }
-   
+ 
 </script>
 </head>
 <body>
@@ -1059,7 +1086,7 @@ $.ajax({
                </span>
                <p id="applyEventArea">
                   <span id="eventLabel">할인 적용가</span>
-                  <span id="getDiscount">aa</span>
+                  <span id="getDiscount"></span>
                </p>
                <span id="equalSymbolField">
                   <span id="equalSymbol">=</span>
@@ -1084,12 +1111,15 @@ $.ajax({
                   </label> 
                   
                   <label id="pickupDLabel">픽업 날짜</label>
-                  <label class="inputtext control--text"> 
+                  <input type="text" id="isa" name="dateT">
+                
+                  </div>
+   <!--                <label class="inputtext control--text"> 
                      <span id="stDate" class="inputtext__indicator">출발일</span> 
                      <img class="pinmark" id="dateTrain" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
                      <input type="text" id="inputDate" name="dateTrain_2">
                   </label>
-                  
+                   -->
                </div>
    
             <%
@@ -1112,11 +1142,17 @@ $.ajax({
                      </span>
                   </label> 
                   <label id="returnDLabel">반납 날짜</label>
-                  <label class="inputtext control--text"> 
+                  
+                   <div>
+                   
+                   <input type="text" id="i1" name="dateT1">
+                     
+                  </div>
+                <!--   <label class="inputtext control--text"> 
                      <span id="stDate_1" class="inputtext__indicator">출발일</span> 
                      <img class="pinmark" id="dateTrain_1" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
                      <input type="text" id="inputDate_1" name="dateTrain_1">
-                  </label>
+                  </label> -->
                   
                </div>
                
@@ -1210,7 +1246,10 @@ $.ajax({
          </div>
          </div>
         <div id="payment">
-           <input type="hidden" name="fixedTotal1" value="<%= totalMoney %>">
+           			<input type="hidden" name="fixedTotal1" value="<%= totalMoney %>">
+           			
+           			<input type="hidden" name="fixedTotal2" id="fixedTotal2" >
+           			<input type="hidden" name="fixedTotal3" >
                         <button id="btnPayment" onclick="javascript:placeOrder()">결제완료</button>
                         <button id="goBack" onclick="window.history.go(-1); return false;">뒤로</button>
                      

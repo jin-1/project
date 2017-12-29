@@ -490,7 +490,7 @@ i {
                </span>
                <p id="applyEventArea">
                   <span id="eventLabel">할인 적용가</span>
-                  <span id="getDiscount">aa</span>
+                  <span id="getDiscount"></span>
                </p>
                <span id="equalSymbolField">
                   <span id="equalSymbol">=</span>

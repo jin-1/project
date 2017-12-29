@@ -303,8 +303,9 @@ public class RentController {
 	}
 	
 	@RequestMapping(value="/Payment", method= RequestMethod.POST)
-	public String placeOrder (HttpServletRequest req) {
+	public String placeOrder (HttpServletRequest req, RentRegDTO rrDTO) {
 		ArrayList<CartDTO> cartList = cartBiz.getCart(req);
+		
 		int totalMoney = 0;
 		for( int i=0; i<cartList.size(); i++) {
 			int money = cartList.get(i).getPrice()*cartList.get(i).getQty();
@@ -319,10 +320,16 @@ public class RentController {
 	@RequestMapping(value="/PaymentComplete", method= RequestMethod.POST)
 	public String paymentComplete (HttpServletRequest req, HttpSession session, RentRegDTO rrDTO, Model model, PurchaseDTO purchaseDTO) {
 		memberDto = (MemberDTO) session.getAttribute("login");
-		String pickupDate = req.getParameter("dateTrain_2");
+		/*String pickupDate = req.getParameter("dateTrain_2");*/
 		String pickupStation = req.getParameter("startTrain");
 		String returnStation = req.getParameter("endTrain");
-		String returnDate = req.getParameter("dateTrain_1");
+		/*String returnDate = req.getParameter("dateTrain_1");*/
+		
+		String dates = req.getParameter("dateT");
+		String rDates = req.getParameter("dateT1"); /*+"-"+req.getParameter("m6")+"-"+req.getParameter("m7");*/
+	
+		System.out.println("ㅁ "+dates);
+		System.out.println(rDates);
 		
 		String cardNum = req.getParameter("cardO")+req.getParameter("cardS")+req.getParameter("cardT")+req.getParameter("cardF");
 		
@@ -345,14 +352,14 @@ public class RentController {
 			rrDTO.setPrdName(cartList.get(i).getPrdName());
 			rrDTO.setPickupQty(cartList.get(i).getQty());
 			rrDTO.setPickupStation(pickupStation);
-			rrDTO.setPickupDate(pickupDate);
+			rrDTO.setPickupDate(dates);
 			rrDTO.setMemberId(memberDto.getMemberId());
 			
 			if(cartList.get(i).getPrdCode().startsWith("A")) {
 				rrDTO.setVerifyReturn("일회용");
 			} else {
 				returnStation = req.getParameter("endTrain");
-				rrDTO.setReturnDate(returnDate);
+				rrDTO.setReturnDate(rDates);
 				rrDTO.setReturnStation(returnStation);
 				rrDTO.setVerifyReturn("미반납");
 			}

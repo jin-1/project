@@ -6,7 +6,7 @@
 	request.setCharacterEncoding("UTF-8");
 /* 	String menu = "../top.jsp?menu="+request.getParameter("menu"); */
 	String menu = "../top.jsp?menu=Orders";
-	String target = "./template/menu/" + request.getParameter("target") + ".jsp";
+	String img = "url(img/rent.jpg)";
 	
 	List<PurchaseDTO> view = (List<PurchaseDTO>)request.getAttribute("view");
 %>
@@ -37,6 +37,7 @@ table{
 <body>
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
+		<div id="menuBg" style="background-image:<%=img%>;"></div>
 	</div>
 	<div id="mid">
 		<center>

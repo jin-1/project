@@ -47,7 +47,7 @@ function sendevent(){
 			%>
 			<tr align="center">
 				<td><%= view.get(i).getElectedCode() %></td>
-				<td><%= view.get(i).getEventCategory() %></td>
+				<td>모든 상품의 10%</td>
 				<td><%= view.get(i).getExpriyDate() %></td>
 				<td><input type="checkbox" name="geteventCode" id="geteventCode" value="<%=view.get(i).getElectedCode() %>" /></td> 
 			</tr>
