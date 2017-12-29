@@ -122,11 +122,11 @@
 		FROM rent_purchase
 		ORDER BY trans_code DESC
 	</select> 
-<!-- 	<update id="adminAdjust" parameterType="purchaseDTO">
-		UPDATE rent_purchase
-		<set>refund_status=#{refundStatus}</set>
-		<where>trans_code=#{transCode}</where>
-	</update> -->
+    <update id="refundOrderList" parameterType="purchaseDTO">
+      UPDATE rent_purchase
+      <set>refund_status=#{refundStatus}</set>
+      <where>trans_code=#{transCode}</where>
+   </update> 
 	<insert id="placePayment" parameterType="purchaseDTO">
 		INSERT INTO rent_purchase (trans_code, payment, card_num, trans_date, refund_status, member_id)
 		VALUES (purchase_code_s.NEXTVAL, #{payment}, #{cardNum}, trunc(sysdate), null, #{memberId})

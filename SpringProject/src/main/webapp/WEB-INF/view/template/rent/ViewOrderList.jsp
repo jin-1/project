@@ -4,7 +4,8 @@
 <%@ page import="service.*, Model.*, java.util.*"  %>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String menu = "../top.jsp?menu="+request.getParameter("menu");
+/* 	String menu = "../top.jsp?menu="+request.getParameter("menu"); */
+	String menu = "../top.jsp?menu=Orders";
 	String target = "./template/menu/" + request.getParameter("target") + ".jsp";
 	
 	List<PurchaseDTO> view = (List<PurchaseDTO>)request.getAttribute("view");
@@ -21,9 +22,17 @@
 <jsp:include page="../config.jsp" flush="false"/>
 <script type="text/javascript">
 function AlertIt() {
+	 document.getElementById('frm4').submit();
 
-
-</script> 
+</script>
+<style>
+table{
+   margin-top: 50px;
+}
+table{
+   text-align:center;
+}
+</style> 
 </head>
 <body>
 	<div id="top">
@@ -31,13 +40,14 @@ function AlertIt() {
 	</div>
 	<div id="mid">
 		<center>
+			<form id="frm4" action="ViewOrderList" method="post">
 			<table border="1" width="900px">
 				<colgroup>
-					<col width="30%">
+					<col width="20%">
 					<col width="25%">
 					<col width="25%">
-					<col width="10%">
-					<col width="10%">
+					<col width="15%">
+					<col width="15%">
 				</colgroup>
 				<thead>
 					<tr>
@@ -71,6 +81,7 @@ function AlertIt() {
 			%>
 				</tbody>
 			</table>
+		</form>
 		</center>
 	</div>
 	<div id="bot">

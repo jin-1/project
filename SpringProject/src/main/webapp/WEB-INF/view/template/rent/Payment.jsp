@@ -1,16 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="Model.*, java.util.*" %>
 <%
-	request.setCharacterEncoding("UTF-8");
-	String menu = "../top.jsp?menu=RENT";
-	String img = "url(img/rent.jpg)";
+   request.setCharacterEncoding("UTF-8");
+   String menu = "../top.jsp?menu=RENT";
+   String img = "url(img/rent.jpg)";
 %>
 <%
-	ArrayList<CartDTO> cartList = (ArrayList<CartDTO>)session.getAttribute("cartList");
-	int totalMoney = (Integer)request.getAttribute("totalMoney");
+   ArrayList<CartDTO> cartList = (ArrayList<CartDTO>)session.getAttribute("cartList");
+   int totalMoney = (Integer)request.getAttribute("totalMoney");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -23,558 +23,676 @@
 <jsp:include page="../config.jsp" flush="false" />
 <style>
 #mid {
-	width:60%;
-	height: auto;
-	postion:relative;
-	margin-left: 20%;
+   width:60%;
+   height: auto;
+   postion:relative;
+   margin-left: 20%;
 }
 div {
-	display: block;
+   display: block;
 } 
 #nav-critical {
-	padding-top: 90px;
-	display: table;
-	margin: 0 auto;
+   padding-top: 90px;
+   display: table;
+   margin: 0 auto;
 }
 #process{
-	height: 100px;
-	width:900px;
-	border-radius:5px;
-	position: relative;
-	border-bottom: 4px solid #444;
+   height: 100px;
+   width:900px;
+   border-radius:5px;
+   position: relative;
+   border-bottom: 4px solid #444;
 }
 #current_page {
-	float:left;
-	width:200px;
-	font-size: 35px;
+   float:left;
+   width:200px;
+   font-size: 35px;
 }
 #step_list{
-	float: right;
-	padding-right: 10px; 
+   float: right;
+   padding-right: 10px; 
 }
 #step_list li {
-	display:list-item;
-	list-style: none;
-	float:left;
-	width: 160px;
-	padding-left:10px;
-	text-align: center;
-	height: 100px;
-	font-size: 18px;
+   display:list-item;
+   list-style: none;
+   float:left;
+   width: 160px;
+   padding-left:10px;
+   text-align: center;
+   height: 100px;
+   font-size: 18px;
 }
 #circle {
-	position:relative;
-	float:left;
-	background-color: #C3DDD6;
-	margin:3px auto;
-	width: 40px;
-	height: 40px;
-	border-radius: 20px;
+   position:relative;
+   float:left;
+   background-color: #C3DDD6;
+   margin:3px auto;
+   width: 40px;
+   height: 40px;
+   border-radius: 20px;
 }
 #current_circle {
-	float:left;
-	position:relative;
-	background-color: #5BA1B0;
-	margin:3px auto;
-	width: 40px;
-	height: 40px;
-	border-radius: 20px;
+   float:left;
+   position:relative;
+   background-color: #5BA1B0;
+   margin:3px auto;
+   width: 40px;
+   height: 40px;
+   border-radius: 20px;
 }
 #circle_level {
-	position: absolute;
-	top:50%;
-	left:50%;
-	transform: translate(-50%, -50%);
-	color: #fff;	
+   position: absolute;
+   top:50%;
+   left:50%;
+   transform: translate(-50%, -50%);
+   color: #fff;   
 }
 #step_list span {
-	width:95px;
-	height: 32px;
-	display: inline-block;
-	vertical-align:top;
+   width:95px;
+   height: 32px;
+   display: inline-block;
+   vertical-align:top;
 }
 
 #calcTotalField {
-	margin-top: 120px;
-	position: relative;
-	border-top: 2px solid #92ced9;
-	border-bottom: 2px solid #92ced9;
-	background: #f9fdfe;
-	color: #666;
-	border-collapse: collapse;
-	height: 120px;
-	width: 900px;
+   margin-top: 50px;
+   position: relative;
+   border-top: 2px solid #92ced9;
+   border-bottom: 2px solid #92ced9;
+   background: #f9fdfe;
+   color: #666;
+   border-collapse: collapse;
+   height: 120px;
+   width: 900px;
 }
 
 #calcPriceArea {
-	width: 180px;
-	padding-left: 40px;
-	display: inline;
-	float: left;
-	text-align: left;
+   width: 180px;
+   padding-left: 60px;
+   display: inline;
+   float: left;
+   text-align: left;
 }
 
 #priceLabel, #eventLabel, #fixedPriceLabel  {
-	display: block;
-	height: 30px;
-	margin-top: 38px;
+   display: block;
+   height: 30px;
+   margin-top: 15px;
+   font-size: 20px;
+   line-height: -48px;
 }
 
 #calcPrice{
-	display: block;
-	color: black;
-	line-height: 17px;
-	margin-bottom: 38px;
-	font-size: .8em;
-	vertical-align: top;
+   display: block;
+   color: black;
+   line-height: 17px;
+   margin-bottom: 38px;
+   font-size: .8em;
+   vertical-align: top;
 }
 
-em #getTotal {		
-	font-size: 18px;
-	vertical-align: top;
-	font-weight: bold;
+#getTotal {      
+   font-size: 18px;
+   vertical-align: top;
+   font-weight: bold;
 }
 
 #subSymbolField, #equalSymbolField{
-	display: inline;
-	float: left;
-	width: 50px;
-	text-align: left;
+   display: inline;
+   float: left;
+   width: 50px;
+   text-align: left;
 }
 
 #minusSymbol, #equalSymbol  {
-	width: 25px;
-	height: 4px;
-	margin-top: 56px;
-	vertical-align: top;
-	font-size: 40px;
-	display:inline-block;
+   width: 25px;
+   height: 4px;
+   margin-top: 30px;
+   vertical-align: top;
+   font-size: 40px;
+   display:inline-block;
 }
 
 #applyEventArea {
-	display: inline;
-	float: left;
-	width: 180px;
-	text-align: left;
+   display: inline;
+   float: left;
+   width: 180px;
+   text-align: left;
 }
 
 
 #getDiscount {
-	display: block;
-	color: #00aac4;
-	line-height: 17px;
-	margin-bottom: 38px;
-	font-size: .8em;
-	vertical-align: top;
-	font-size: 18px;
-	font-weight: bold;
+   display: block;
+   color: #00aac4;
+   line-height: 17px;
+   margin-bottom: 38px;
+   font-size: .8em;
+   vertical-align: top;
+   font-size: 18px;
+   font-weight: bold;
 }
 
 #fixedPriceArea {
-	width: 180px;
-	padding-right: 40px;
-	display: inline;
-	float: right;
-	text-align: left;
+   width: 180px;
+   padding-right: 40px;
+   margin-left: 30px;
+   display: inline;
+   float: right;
+   text-align: left;
 }
 
 #fixedPrice {
-	display: block;
-	color: #f14f4f;
-	line-height: 17px;
-	margin-bottom: 38px;
-	font-size: .8em;
-	vertical-align: top;
+   display: block;
+   color: #f14f4f;
+   line-height: 17px;
+   margin-bottom: 38px;
+   font-size: .8em;
+   vertical-align: top;
 }
 
-em #fixedTotal {
-	font-size: 36px;
-	vertical-align: top;
-	font-weight: bold;
+#fixedTotal {
+   font-size: 32px;
+   vertical-align: top;
+   font-weight: bold;
+   padding-right:10px;
 }
-
 
 #trainList1 {
-	min-height: 50px;
-	max-height: 150px;
-	width: 252px;
-	top: 40px;
-	position: absolute;
-	background-color: white;
-	z-index: 9;
-	box-shadow: 0px 3px 8px #888888;
-	overflow-x: hidden;
-	overflow-y: auto;
+   min-height: 50px;
+   max-height: 150px;
+   width: 252px;
+   top: 40px;
+   position: absolute;
+   background-color: white;
+   z-index: 9;
+   box-shadow: 0px 3px 8px #888888;
+   overflow-x: hidden;
+   overflow-y: auto;
 }
 
 #trainList2 {
-	min-height: 50px;
-	max-height: 150px;
-	width: 252px;
-	top: 40px;
-	position: absolute;
-	background-color: white;
-	z-index: 9;
-	box-shadow: 0px 3px 8px #888888;
-	overflow-x: hidden;
-	overflow-y: auto;
+   min-height: 50px;
+   max-height: 150px;
+   width: 252px;
+   top: 40px;
+   position: absolute;
+   background-color: white;
+   z-index: 9;
+   box-shadow: 0px 3px 8px #888888;
+   overflow-x: hidden;
+   overflow-y: auto;
 }
 .inputtext {
-	position: relative;
-	display: inline-block;
-	cursor: pointer;
-	width: 250px;
-	height: 40px;
-	border: #b3b3b3 1px solid;
-	padding: 0;
-	margin: 0;
+   position: relative;
+   display: inline-block;
+   cursor: pointer;
+   width: 250px;
+   height: 40px;
+   border: #b3b3b3 1px solid;
+   padding: 0;
+   margin: 0;
 }
 
 .inputtext input {
-	position: absolute;
-	z-index: -1;
-	opacity: 0;
-	top: 5px;
-	left: 3px;
-	width: 210px;
-	height: 25px;
+   position: absolute;
+   z-index: -1;
+   opacity: 0;
+   top: 5px;
+   left: 3px;
+   width: 210px;
+   height: 25px;
 }
 
 .inputtext__indicator {
-	position: absolute;
-	top: 10px;
-	font-size: 15px;
-	font-weight: bold;
-	left: 5px;
-	color: #333537d6;
+   position: absolute;
+   top: 10px;
+   font-size: 15px;
+   font-weight: bold;
+   left: 5px;
+   color: #333537d6;
 }
 
 .inputtext input:focus {
-	z-index: 1;
-	opacity: 100;
+   z-index: 1;
+   opacity: 100;
 }
 .pinmark {
-	width: 20px;
-	height: 20px;
-	position: absolute;
-	right: 3px;
-	top: 10px;
+   width: 20px;
+   height: 20px;
+   position: absolute;
+   right: 3px;
+   top: 10px;
+}
+
+#pickup_field, #return_field{
+   position:relative;
+   display: table;
+   margin: 0 auto;
+   margin-top: 60px;
+   width: 900px;
+   height: 100px;
+}
+#return_field{
+   margin-top:20px;
+}
+#pickupLabel, #pickupDLabel, #returnDLabel, #returnSLabel{
+   position: block;
+   font-size: 14px;
+   font-weight: bold;
+   margin-right: 30px;
+   margin-left:60px;
+   
+}
+
+#payment {
+text-align: center;
+   
+   margin-top: 80px;
+   margin-bottom: 30px;
+}
+#btnPayment {
+   width: 167px;
+   height: 70px;
+   margin-left: 5px;
+   position:relative;
+   background: #91A7D0;
+   color: #fff;
+
+}
+#goBack {
+   width: 167px;
+   height: 70px;
+   margin-left: 5px;
+   position:relative;
+   background: #91A7D0;
+   color: #fff;
+}
+
+.paymentTypeon {
+   width: 150px;
+   height: 30px;
+   position: relative;
+   text-align: center;
+   padding-top: 10px;
+   border: #0180a3 1.5px solid;
+   display: inline-block;
+   margin-right: -5.5px;
+   background-color: #0180a3;
+   color: white;
+}
+
+.contextPayment {
+   width: 98%;
+   border: #0180a3 1px solid;
+   min-height: 250px;
+   position: relative;
+   padding: 10px;
+   border-top-right-radius: 15px;
+   border-bottom-left-radius: 15px;
+   border-bottom-right-radius: 15px;
+   top: -0.5px;
+}
+
+#contextPaymentTable {
+   width: 100%;
+}
+
+#contextPaymentTable tr {
+   height: 50px;
+}
+#paymentBt {
+   width: 100px;
+   height: 35px;
+   border-radius: 10px;
+   color: white;
+   text-align: center;
+   padding-top: 13px;
+   margin: auto;
+   margin-top: 40px;
+   display: inline-block;
+   background-color: #0180a3;
+   cursor: pointer;
+}
+
+#paymentCBt {
+   width: 100px;
+   height: 35px;
+   border-radius: 10px;
+   text-align: center;
+   border: #0180a3 1.5px solid;
+   padding-top: 11px;
+   margin: auto;
+   margin-top: 40px;
+   display: inline-block;
+}
+.paymentTypeoff {
+   width: 150px;
+   height: 30px;
+   position: relative;
+   text-align: center;
+   padding-top: 10px;
+   border: #0180a3 1.5px solid;
+   display: inline-block;
+   margin-right: -5.5px;
+}
+#payMethod{
+   font-size:18px;
+   font-weight: bold;
 }
 </style>
 <script type="text/javascript">
 $(function() {
-	function onClickHandler(date, obj) {
-		var calendar = obj.calendar;
-		var text = '';
+   function onClickHandler(date, obj) {
+      var calendar = obj.calendar;
+      var text = '';
 
-		if (date[0] !== null) {
-			var now = new Date();
-			var select = new Date(date[0]);
-			console.log(select);
-			if (now.getTime() < select.getTime()) {
-				text += date[0].format('YYYY-MM-DD');
-				$('#stDate').text(text);
-				$('#inputDate').val(text);
-				$('.tbg').css("display", "none");
-				$('.tbgw').css("display", "none");
-			} else {
-				alert("오늘보다 이전날을 고를 수 없습니다.");
-			}
-		}
-		if (date[0] !== null && date[1] !== null) {
-			text += ' ~ ';
-		} else if (date[0] === null && date[1] == null) {
-			text += 'nothing';
-		}
-		if (date[1] !== null) {
-			text += date[1].format('YYYY-MM-DD');
-		}
-	}
-	function onClickHandler_1(date, obj) {
-		var calendar = obj.calendar;
-		var text = '';
+      if (date[0] !== null) {
+         var now = new Date();
+         var select = new Date(date[0]);
+         console.log(select);
+         if (now.getTime() < select.getTime()) {
+            text += date[0].format('YYYY-MM-DD');
+            $('#stDate').text(text);
+            $('#inputDate').val(text);
+            $('.tbg').css("display", "none");
+            $('.tbgw').css("display", "none");
+         } else {
+            alert("오늘보다 이전날을 고를 수 없습니다.");
+         }
+      }
+      if (date[0] !== null && date[1] !== null) {
+         text += ' ~ ';
+      } else if (date[0] === null && date[1] == null) {
+         text += 'nothing';
+      }
+      if (date[1] !== null) {
+         text += date[1].format('YYYY-MM-DD');
+      }
+   }
+   function onClickHandler_1(date, obj) {
+      var calendar = obj.calendar;
+      var text = '';
 
-		if (date[0] !== null) {
-			var now = new Date();
-			var select = new Date(date[0]);
-			console.log(select);
-			if (now.getTime() < select.getTime()) {
-				text += date[0].format('YYYY-MM-DD');
-				$('#stDate_1').text(text);
-				$('#inputDate_1').val(text);
-				$('.tbg').css("display", "none");
-				$('.tbgw').css("display", "none");
-			} else {
-				alert("오늘보다 이전날을 고를 수 없습니다.");
-			}
-		}
+      if (date[0] !== null) {
+         var now = new Date();
+         var select = new Date(date[0]);
+         console.log(select);
+         if (now.getTime() < select.getTime()) {
+            text += date[0].format('YYYY-MM-DD');
+            $('#stDate_1').text(text);
+            $('#inputDate_1').val(text);
+            $('.tbg').css("display", "none");
+            $('.tbgw').css("display", "none");
+         } else {
+            alert("오늘보다 이전날을 고를 수 없습니다.");
+         }
+      }
 
-		if (date[0] !== null && date[1] !== null) {
-			text += ' ~ ';
-		} else if (date[0] === null && date[1] == null) {
-			text += 'nothing';
-		}
+      if (date[0] !== null && date[1] !== null) {
+         text += ' ~ ';
+      } else if (date[0] === null && date[1] == null) {
+         text += 'nothing';
+      }
 
-		if (date[1] !== null) {
-			text += date[1].format('YYYY-MM-DD');
-		}
-	}
-	// Default Calendar
-	$('.calendar').pignoseCalendar({
-		select : onClickHandler
-	});
-	$('.calendar_1').pignoseCalendar({
-		select : onClickHandler_1
-	});
+      if (date[1] !== null) {
+         text += date[1].format('YYYY-MM-DD');
+      }
+   }
+   // Default Calendar
+   $('.calendar').pignoseCalendar({
+      select : onClickHandler
+   });
+   $('.calendar_1').pignoseCalendar({
+      select : onClickHandler_1
+   });
 });
 
 
 $(document).ready(
-		$('.tbg').click(function() {
-			$('.tbg').css('display', 'none');
-			$('.tbgw').css('display', 'none');
-			$('.stbg').css('display', 'none');
-			$('.edbg').css('display', 'none');
-			$('.datebg').css('display', 'none');
-			$('.datebg_1').css('display', 'none');
-		});
-		$('#startTrain').click(function() {
-			$('.tbg').css('display', 'inline');
-			$('.tbgw').css('display', 'inline');
-			$('.stbg').css('display', 'inline');
-			$('.edbg').css('display', 'none');
-			$('.datebg').css('display', 'none');
-			$('.datebg_1').css('display', 'none');
-		});
-		$('#endTrain').click(function() {
-			$('.tbg').css('display', 'inline');
-			$('.tbgw').css('display', 'inline');
-			$('.stbg').css('display', 'none');
-			$('.edbg').css('display', 'inline');
-			$('.datebg').css('display', 'none');
-			$('.datebg_1').css('display', 'none');
-		});
-		$('#dateTrain').click(function() {
-			$('.tbg').css('display', 'inline');
-			$('.tbgw').css('display', 'inline');
-			$('.stbg').css('display', 'none');
-			$('.edbg').css('display', 'none');
-			$('.datebg').css('display', 'inline');
-			$('.datebg_1').css('display', 'none');
-		});
-		$('#dateTrain_1').click(function() {
-			$('.tbg').css('display', 'inline');
-			$('.tbgw').css('display', 'inline');
-			$('.stbg').css('display', 'none');
-			$('.edbg').css('display', 'none');
-			$('.datebg').css('display', 'none');
-			$('.datebg_1').css('display', 'inline');
-		});		
+      $('.tbg').click(function() {
+         $('.tbg').css('display', 'none');
+         $('.tbgw').css('display', 'none');
+         $('.stbg').css('display', 'none');
+         $('.edbg').css('display', 'none');
+         $('.datebg').css('display', 'none');
+         $('.datebg_1').css('display', 'none');
+      });
+      $('#startTrain').click(function() {
+         $('.tbg').css('display', 'inline');
+         $('.tbgw').css('display', 'inline');
+         $('.stbg').css('display', 'inline');
+         $('.edbg').css('display', 'none');
+         $('.datebg').css('display', 'none');
+         $('.datebg_1').css('display', 'none');
+      });
+      $('#endTrain').click(function() {
+         $('.tbg').css('display', 'inline');
+         $('.tbgw').css('display', 'inline');
+         $('.stbg').css('display', 'none');
+         $('.edbg').css('display', 'inline');
+         $('.datebg').css('display', 'none');
+         $('.datebg_1').css('display', 'none');
+      });
+      $('#dateTrain').click(function() {
+         $('.tbg').css('display', 'inline');
+         $('.tbgw').css('display', 'inline');
+         $('.stbg').css('display', 'none');
+         $('.edbg').css('display', 'none');
+         $('.datebg').css('display', 'inline');
+         $('.datebg_1').css('display', 'none');
+      });
+      $('#dateTrain_1').click(function() {
+         $('.tbg').css('display', 'inline');
+         $('.tbgw').css('display', 'inline');
+         $('.stbg').css('display', 'none');
+         $('.edbg').css('display', 'none');
+         $('.datebg').css('display', 'none');
+         $('.datebg_1').css('display', 'inline');
+      });      
 )
 
 </script>
 <script type="text/javascript">
-	function placeOrder(){
-	 	document.getElementById('frm').submit(); 
-	}
-	
+   function placeOrder(){
+       document.getElementById('frm').submit(); 
+   }
+   
 </script>
 </head>
 <body>
-	<div class="tbg"></div>
-	<div class="tbgw">
-		<div class="stbg">
-			<div style="text-align: center;">
-				<H2>도시를 지정해주세요</H2>
-			</div>
-			<div class="stbg_1">
-				<ul>
-					<li>전체</li>
-					<li>가</li>
-					<li>나</li>
-					<li>다</li>
-					<li>라</li>
-					<li>마</li>
-					<li>바</li>
-					<li>사</li>
-					<li>아</li>
-					<li>자</li>
-					<li>차</li>
-					<li>카</li>
-					<li>타</li>
-					<li>파</li>
-					<li>하</li>
-				</ul>
-			</div>
-			<div class="trainList" id="trainList3">
-				<ul>
-				</ul>
-			</div>
-		</div>
-		<div class="datebg">
-			<div style="text-align: center; margin-bottom: 35px;">
-				<H2>날짜를 정해주세요</H2>
-			</div>
-			<div class="calendar"></div>
+   <div class="tbg"></div>
+   <div class="tbgw">
+      <div class="stbg">
+         <div style="text-align: center;">
+            <H2>도시를 지정해주세요</H2>
+         </div>
+         <div class="stbg_1">
+            <ul>
+               <li>전체</li>
+               <li>가</li>
+               <li>나</li>
+               <li>다</li>
+               <li>라</li>
+               <li>마</li>
+               <li>바</li>
+               <li>사</li>
+               <li>아</li>
+               <li>자</li>
+               <li>차</li>
+               <li>카</li>
+               <li>타</li>
+               <li>파</li>
+               <li>하</li>
+            </ul>
+         </div>
+         <div class="trainList" id="trainList3">
+            <ul>
+            </ul>
+         </div>
+      </div>
+      <div class="datebg">
+         <div style="text-align: center; margin-bottom: 35px;">
+            <H2>날짜를 정해주세요</H2>
+         </div>
+         <div class="calendar"></div>
 
-		</div>
+      </div>
 
-		<div class="edbg">
-			<div style="text-align: center;">
-				<H2>도시를 지정해주세요</H2>
-			</div>
-			<div class="stbg_1">
-				<ul>
-					<li>전체</li>
-					<li>가</li>
-					<li>나</li>
-					<li>다</li>
-					<li>라</li>
-					<li>마</li>
-					<li>바</li>
-					<li>사</li>
-					<li>아</li>
-					<li>자</li>
-					<li>차</li>
-					<li>카</li>
-					<li>타</li>
-					<li>파</li>
-					<li>하</li>
-				</ul>
-			</div>
-			<div class="trainList" id="trainList4">
-				<ul>
-				</ul>
-			</div>
-		</div>
-				<div class="datebg_1">
-		<div style="text-align: center; margin-bottom: 35px;">
-				<H2>날짜를 정해주세요</H2>
-			</div>
-			<div class="calendar_1"></div>
+      <div class="edbg">
+         <div style="text-align: center;">
+            <H2>도시를 지정해주세요</H2>
+         </div>
+         <div class="stbg_1">
+            <ul>
+               <li>전체</li>
+               <li>가</li>
+               <li>나</li>
+               <li>다</li>
+               <li>라</li>
+               <li>마</li>
+               <li>바</li>
+               <li>사</li>
+               <li>아</li>
+               <li>자</li>
+               <li>차</li>
+               <li>카</li>
+               <li>타</li>
+               <li>파</li>
+               <li>하</li>
+            </ul>
+         </div>
+         <div class="trainList" id="trainList4">
+            <ul>
+            </ul>
+         </div>
+      </div>
+            <div class="datebg_1">
+      <div style="text-align: center; margin-bottom: 35px;">
+            <H2>날짜를 정해주세요</H2>
+         </div>
+         <div class="calendar_1"></div>
 
-		</div>
-		
-	</div>
-	
-	<div id="top">
-			<jsp:include page="<%=menu%>" flush="false" />
-			<div id="menuBg" style="background-image:<%=img%>;"></div>
-	</div>
-	<div id="mid">
-		<div class="container">
-			<div id="nav-critical">
-				<div id="process">
-					<span id="current_page">주문/결제</span>
-					<ul id="step_list">
-						<li>
-							<div id="circle">
-								<div id="circle_level">1</div>
-							</div>
-							<span>장바구니</span>
-						</li>
-						<li>
-							<div id="current_circle">
-								<div id="circle_level">2</div>
-							</div>
-							<span>주문/결제</span>
-						</li>
-						<li>
-							<div id="circle">
-								<div id="circle_level">3</div>
-							</div>
-							<span>결제완료</span>
-						</li>
-					</ul>
-				</div>
-				
-				<div id="calcTotalField">
-					<p id="calcPriceArea">
-						<span id="priceLabel">총 주문 금액</span>
-						<span id="calcPrice"><em id="getTotal"><%= totalMoney %></em>원</span>
-					</p>
-					<span id="subSymbolField">
-						<span id="minusSymbol">-</span>
-					</span>
-					<p id="applyEventArea">
-						<span id="eventLabel">할인 적용가</span>
-						<span id="getDiscount">aa</span>
-					</p>
-					<span id="equalSymbolField">
-						<span id="equalSymbol">=</span>
-					</span>
-					<p id="fixedPriceArea">
-						<span id="fixedPriceLabel">최종 결제 금액</span>
-						<span id="fixedPrice"><em id="fixedTotal"><%= totalMoney %></em>원</span>
-					</p>
-				</div>
+      </div>
+      
+   </div>
+   
+   <div id="top">
+         <jsp:include page="<%=menu%>" flush="false" />
+         <div id="menuBg" style="background-image:<%=img%>;"></div>
+   </div>
+   <div id="mid">
+      <div class="container">
+         <div id="nav-critical">
+            <div id="process">
+               <span id="current_page">주문/결제</span>
+               <ul id="step_list">
+                  <li>
+                     <div id="circle">
+                        <div id="circle_level">1</div>
+                     </div>
+                     <span>장바구니</span>
+                  </li>
+                  <li>
+                     <div id="current_circle">
+                        <div id="circle_level">2</div>
+                     </div>
+                     <span>주문/결제</span>
+                  </li>
+                  <li>
+                     <div id="circle">
+                        <div id="circle_level">3</div>
+                     </div>
+                     <span>결제완료</span>
+                  </li>
+               </ul>
+            </div>
+            
+            <div id="calcTotalField">
+               <p id="calcPriceArea">
+                  <span id="priceLabel">총 주문 금액</span>
+                  <span id="calcPrice"><em id="getTotal"><%= totalMoney %></em>원</span>
+               </p>
+               <span id="subSymbolField">
+                  <span id="minusSymbol">-</span>
+               </span>
+               <p id="applyEventArea">
+                  <span id="eventLabel">할인 적용가</span>
+                  <span id="getDiscount">aa</span>
+               </p>
+               <span id="equalSymbolField">
+                  <span id="equalSymbol">=</span>
+               </span>
+               <p id="fixedPriceArea">
+                  <span id="fixedPriceLabel">최종 결제 금액</span>
+                  <span id="fixedPrice"><em id="fixedTotal"><%= totalMoney %></em>원</span>
+               </p>
+            </div>
 <br/>
-				<form action="PaymentComplete" name="frm" method="post" id="frm">
-					<div id="pickup_field">
-						<label>픽업 역</label>
-						<label class="inputtext control--text"> 
-							<span class="inputtext__indicator" id="stStation">출발지</span> 
-							<img id="startTrain" class="pinmark" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
-							<input type="text" id="inputStrat" name="startTrain">
-							<span class="trainList" id="trainList1" style="display: none;">
-								<ul>
-								</ul>
-							</span>
-						</label> 
-						<br/>
-						<label>픽업 날짜</label>
-						<label class="inputtext control--text"> 
-							<span id="stDate" class="inputtext__indicator">출발일</span> 
-							<img class="pinmark" id="dateTrain" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
-							<input type="text" id="inputDate" name="dateTrain_2">
-						</label>
-						
-					</div>
-	
-				<%
-					int num=1;
-					String prdCode = "";
-					for(int i=0; i<cartList.size(); i++){
-						prdCode += cartList.get(i).getPrdCode();
-					}
-					if(prdCode.indexOf("B") != -1){
-				%>					
-					<div id="return_field">
-						<label>반납 역</label>
-						<label class="inputtext control--text"> 
-							<span class="inputtext__indicator" id="edStation">도착지</span> 
-							<input	type="text" id="inputEnd" name="endTrain"> 
-							<img id="endTrain" class="pinmark" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
-							<span class="trainList" id="trainList2" style="display: none;">
-								<ul>
-								</ul>
-							</span>
-						</label> 
-						<br/>
-						<label>반납 날짜</label>
-						<label class="inputtext control--text"> 
-							<span id="stDate_1" class="inputtext__indicator">출발일</span> 
-							<img class="pinmark" id="dateTrain_1" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
-							<input type="text" id="inputDate_1" name="dateTrain_1">
-						</label>
-						
-					</div>
-					
-				<%
-					}
-				%>
-					
-						
+            <form action="PaymentComplete" name="frm" method="post" id="frm">
+               <div id="pickup_field">
+                  <label id="pickupLabel">픽업 역</label>
+                  <label class="inputtext control--text"> 
+                     <span class="inputtext__indicator" id="stStation">출발지</span> 
+                     <img id="startTrain" class="pinmark" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
+                     <input type="text" id="inputStrat" name="startTrain">
+                     <span class="trainList" id="trainList1" style="display: none;">
+                        <ul>
+                        </ul>
+                     </span>
+                  </label> 
+                  
+                  <label id="pickupDLabel">픽업 날짜</label>
+                  <label class="inputtext control--text"> 
+                     <span id="stDate" class="inputtext__indicator">출발일</span> 
+                     <img class="pinmark" id="dateTrain" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
+                     <input type="text" id="inputDate" name="dateTrain_2">
+                  </label>
+                  
+               </div>
+   
+            <%
+               int num=1;
+               String prdCode = "";
+               for(int i=0; i<cartList.size(); i++){
+                  prdCode += cartList.get(i).getPrdCode();
+               }
+               if(prdCode.indexOf("B") != -1){
+            %>               
+               <div id="return_field">
+                  <label id="returnSLabel">반납 역</label>
+                  <label class="inputtext control--text"> 
+                     <span class="inputtext__indicator" id="edStation">도착지</span> 
+                     <input   type="text" id="inputEnd" name="endTrain"> 
+                     <img id="endTrain" class="pinmark" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png">
+                     <span class="trainList" id="trainList2" style="display: none;">
+                        <ul>
+                        </ul>
+                     </span>
+                  </label> 
+                  <label id="returnDLabel">반납 날짜</label>
+                  <label class="inputtext control--text"> 
+                     <span id="stDate_1" class="inputtext__indicator">출발일</span> 
+                     <img class="pinmark" id="dateTrain_1" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/calendar-icon.png">
+                     <input type="text" id="inputDate_1" name="dateTrain_1">
+                  </label>
+                  
+               </div>
+               
+            <%
+               }
+            %>
+               
+                  
 
 
 
-					
+               
 
-				
-			
-		
-			<div>
-              <p>결제 방법</p>
+            
+         
+      
+         <div>
+              <p id="payMethod">결제 방법</p>
               <div class="paymentTypeon" style="border-top-left-radius: 15px;">
                  신용카드
               </div>
@@ -662,23 +780,18 @@ $(document).ready(
                  </table>
               </div>
                           <div style="width: 250px; position: relative; margin: auto;">
-                    
-                 <div id="paymentBt">결제 하기</div>
-              <div id="paymentCBt">취소</div>
-              </div>
-              
          </div>
          </div>
         <div id="payment">
-        	<input type="hidden" name="fixedTotal1" value="<%= totalMoney %>">
-								<button id="btnPayment" onclick="javascript:placeOrder()">결제완료</button>
-								<button id="goBack" onclick="window.history.go(-1); return false;">뒤로</button>
-							
-						</div>
-					</form>
+           <input type="hidden" name="fixedTotal1" value="<%= totalMoney %>">
+                        <button id="btnPayment" onclick="javascript:placeOrder()">결제완료</button>
+                        <button id="goBack" onclick="window.history.go(-1); return false;">뒤로</button>
+                     
+                  </div>
+               </form>
          </div>
-	
-	</div>
+   
+   </div>
 
 </body>
 </html>

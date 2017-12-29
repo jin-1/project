@@ -67,21 +67,23 @@ public class RentController {
 		
 		return "template/rent/ViewOrderList";
 	}
-/*	@RequestMapping(value="/ViewOrderList", method = RequestMethod.POST)
-	public String viewOrderList1(HttpServletRequest req, HttpSession session, Model model, PurchaseDTO purchaseDTO) {
-		memberDto = (MemberDTO) session.getAttribute("login");
-		List<PurchaseDTO> view = pDAO.getOrderList(memberDto.getMemberId());
-		
-		for( int i=0; i<view.size(); i++) {
-			String refundstatus = view.get(i).getRefundStatus();
-			if(refundstatus == null || refundstatus.isEmpty()) {
-				view.get(i).setRefundStatus("-");
-			}
-		}
-		req.setAttribute("view", view);
-		
-		return "template/rent/ViewOrderList";
-	}*/
+	@RequestMapping(value="/ViewOrderList", method = RequestMethod.POST)
+	   public String viewOrderList1(HttpServletRequest req, HttpSession session, Model model, PurchaseDTO purchaseDTO) {
+	      memberDto = (MemberDTO) session.getAttribute("login");
+	      purchaseDTO.setMemberId(memberDto.getMemberId());
+	      purchaseDTO.setRefundStatus("요청중");
+	      List<PurchaseDTO> view = pDAO.RefundOrderList(purchaseDTO);
+	      
+	      for( int i=0; i<view.size(); i++) {
+	         String refundstatus = view.get(i).getRefundStatus();
+	         if(refundstatus == null || refundstatus.isEmpty()) {
+	            view.get(i).setRefundStatus("-");
+	         }
+	      }
+	      req.setAttribute("view", view);
+	      
+	      return "template/rent/ViewOrderList";
+	   }
 	
 	
 	@RequestMapping(value="/RentOrder", method = RequestMethod.GET)
