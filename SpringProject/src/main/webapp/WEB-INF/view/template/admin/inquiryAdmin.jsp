@@ -225,7 +225,13 @@
 						<td><%=list.get(i).getInquiryNum()%></td>
 						<td><%=list.get(i).getInquiryTitle()%></td>
 						<td><%=n%></td>
-						<td>답변대기</td>
+						<td>							<%
+								if (list.get(i).getInquiryReplyNum() == 1) {
+							%> 답변완료 <%
+								} else {
+							%> 답변대기<%
+								}
+							%></td>
 
 					</tr>
 
