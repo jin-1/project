@@ -86,7 +86,7 @@
 		%>
 		<div id="menuLogin">
 			<ul style="font-size: 8px;">
-				<li><a href="MyPage?menu=MyPage&img=mypageimg2">MYPAGE</a></li>
+				<li><a href="corIndex?menu=MyPage&img=mypageimg2">MYPAGE</a></li>
 				<li>|</li>
 				<li><a href="Logout">LOGOUT</a></li>
 			</ul>
@@ -109,9 +109,10 @@
 	</div>
 	<div id="contents" class="box">
 		<div id="typography">
-			<p>ASDSFASFAasdasdSF</p>
-			<p>ASFASFASF</p>
-			<p>ASFASF</p>
+			<p>세상의 가치를</p>
+			<p>바라보는 눈으로</p>
+			<p>따듯한 세상을 만드는 경험</p>
+		
 		</div>
 	</div>
 </body>

@@ -2,8 +2,8 @@
 <%@ page import="service.*, Model.*, java.util.*"  %>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String menu = "../top.jsp?menu="+request.getParameter("menu");
-	String target = "./template/menu/" + request.getParameter("target") + ".jsp";
+String menu = "../top.jsp?menu=Orders";
+String img = "url(img/rent.jpg)";
 	
 	List<RentRegDTO> orderList = (List<RentRegDTO>)request.getAttribute("orderList");
 	
@@ -35,6 +35,7 @@
 <body>
 	<div id="top">
 		<jsp:include page="<%=menu%>" flush="false" />
+		<div id="menuBg" style="background-image:<%=img%>;"></div>
 	</div>
 	<div id="mid">
 		<table class="orderTable" >

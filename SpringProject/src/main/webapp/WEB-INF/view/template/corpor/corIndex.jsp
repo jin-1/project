@@ -21,8 +21,10 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="./scripts/jquery.mousewheel.min.js"></script>
-<script type="text/javascript" src="./scripts/memberscript.js"
+<script type="text/javascript" src="./scripts/corporscript.js"
 	charset="utf-8"></script>
+<script type="text/javascript" src="./scripts/cornoticescripts.js"
+charset="utf-8"></script>
 <style>
 #container {
 	width: 80%;
@@ -153,6 +155,9 @@
 .noticeTable td {
 	
 }
+.add{
+top: -30px;
+}
 </style>
 </head>
 <body>
@@ -167,18 +172,13 @@
 				<ul class="mypage">
 					<li><p>내정보관리</p> <img src="img/mypage.png">
 						<ul>
-							<li><a href="myPageCon?menu=MyPage">내정보수정</a></li>
-							<li><a href="myPageCon2?menu=MyPage">회원탈퇴</a></li>
+							<li><a href="corPageCon?menu=MyPage">내정보수정</a></li>
+							<li><a href="corPageCon2?menu=MyPage">회원탈퇴</a></li>
 
 						</ul></li>
-					<li><p>구입내역관리</p> <img src="img/mypage.png">
+					<li class="add"><p>사업지등록</p> <img src="img/mypage.png">
 						<ul>
-							<li>기차예매내역</li>
-							<li><a href="ViewOrderList">대여내역</a></li>
-						</ul></li>
-					<li style="top: -30px;"><p>예산</p> <img src="img/mypage.png">
-						<ul>
-							<li><a href="MyBudget?menu=MyBudget">예산 보기</a></li>
+							<li><a href="TourAdd?menu=MyPage">내 사업지 등록</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -265,7 +265,7 @@
 						%>
 					</ul>
 				</div>
-			</div>
+			</div> 
 		</div>
 	</div>
 	<div id="bot"><jsp:include page="../bot.jsp" flush="false" /></div>

@@ -7,6 +7,7 @@ public class InquiryDTO {
 	private String inquiryDate;
 	private String inquiryReply;
 	private String memberId;
+	private String corporId;
 	private int inquiryReplyNum;
 	private int peplyNum;
 
@@ -58,6 +59,12 @@ public class InquiryDTO {
 	}
 	public void setInquiryReply(String inquiryReply) {
 		this.inquiryReply = inquiryReply;
+	}
+	public String getCorporId() {
+		return corporId;
+	}
+	public void setCorporId(String corporId) {
+		this.corporId = corporId;
 	}
 	
 	

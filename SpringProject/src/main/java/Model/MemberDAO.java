@@ -206,6 +206,27 @@ public class MemberDAO extends AbstractRepository {
 		return result;
 	}
 
+	// 기업회원 내정보 수정
+	public int corPageRe(CorporDTO memberDto) {
+
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".updatecorMypageRe";
+		int result = 0;
+		try {
+			result = sqlSession.update(statement, memberDto);
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return result;
+	}
+	
 	// 일반회원 회원탈퇴
 	public int memberDel(MemberDTO memberDto) {
 
@@ -244,7 +265,26 @@ public class MemberDAO extends AbstractRepository {
 		}
 		return result;
 	}
-
+	
+	// 기업 1:1문의 등록
+	public int corInquiryAdd(InquiryDTO dto) {
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".corInsertInquiry";
+		int result = 0;
+		try {
+			result = sqlSession.insert(statement, dto);
+			if (result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
 	// 공지사항 등록
 	public int noticeAdd(NoticeDTO dto) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
@@ -283,6 +323,22 @@ public class MemberDAO extends AbstractRepository {
 
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
 		String statement = namespace + ".selectInquiryCon";
+
+		try {
+			InquiryDTO inquiry = sqlSession.selectOne(statement, num);
+			return inquiry;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// 1:1문의 상세페이지 보기
+	public InquiryDTO corInquiryCon(int num) {
+
+		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
+		String statement = namespace + ".corSelectInquiryCon";
 
 		try {
 			InquiryDTO inquiry = sqlSession.selectOne(statement, num);
@@ -469,11 +525,13 @@ public class MemberDAO extends AbstractRepository {
 		}
 		return result;
 	}
+	
+	
 
 	// 기업 1:1문의
 	public List<InquiryDTO> writeGetCount4(int offset, int noOfRecords, HttpSession session) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
-		String statement = namespace + ".selectpaging3";
+		String statement = namespace + ".selectpaging4";
 		CorporDTO CorporDTO = (CorporDTO) session.getAttribute("corlogin");
 
 		System.out.println(CorporDTO.getCorporId() + "기업아이디");
@@ -492,10 +550,12 @@ public class MemberDAO extends AbstractRepository {
 		}
 
 	}
+	
+	
 
 	public int getNumberOfRecords4(HttpSession session) {
 		SqlSession sqlSession = this.getSqlSessionFactory().openSession();
-		String statement = namespace + ".getNumberOfRecords3";
+		String statement = namespace + ".getNumberOfRecords4";
 		CorporDTO corporDTO = (CorporDTO) session.getAttribute("corlogin");
 		String id = corporDTO.getCorporId();
 		try {

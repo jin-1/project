@@ -258,7 +258,6 @@ a:hover{
 				<p></p>
 				<label class="addMyBusi">내 사업 등록하기</label>&nbsp;&nbsp;&nbsp;
 				<label class="viewMyBusi">내 사업 보기</label>&nbsp;&nbsp;&nbsp;
-				<label class="viewAll">요청된 사업 보기</label>
 				<script type="text/javascript">
 					$(document).ready(function(){
 						$('.addMyBusi').on("click", function(){
@@ -281,16 +280,6 @@ a:hover{
 							} else{
 								location.replace("MyTour");
 							}
-						});
-						
-						$('.viewAll').on("click", function(){
-							location.replace("ViewAll");
-							<%-- if(<%=login%>=="q"){
-								location.replace("ViewAll");
-							} else{
-								alert("관리자 이용 권한입니다.");
-							} --%>
-
 						});
 					});
 				</script>
